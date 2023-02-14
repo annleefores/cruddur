@@ -1,5 +1,7 @@
 # Week 0 — Billing and Architecture
 
+## Getting Started
+
 I began by completing all of the prerequisite tasks that I did not already know/have.
 
 - Created a new AWS account with free tier benefits.
