@@ -1,6 +1,6 @@
 # Week 0 — Billing and Architecture
 
-# **Getting Started**
+## **Getting Started**
 
 I began by completing all of the prerequisite tasks that I did not already know/have.
 
@@ -13,7 +13,7 @@ I began by completing all of the prerequisite tasks that I did not already know/
 - Signed up for HoneyComb.io.
 - Signed up for Rollbar.
 
-# Project Scenario
+## Project Scenario
 
 - The first thing I learned from the live session was how to understand the project and how an organization approaches it.
 - The way this is communicated through user personas has really helped me understand how things are done in an organization.
