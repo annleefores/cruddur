@@ -132,12 +132,12 @@ Using shapes and arrows to create a conceptual design of the project.
 - When importing to Lucid the icon fill color might not show up so import the svg file inside [Figma](https://www.figma.com/) and then save it (This will fix any issue with the icon).
 - **To import icon**: Import Data -> Shapes -> Import Shapes -> Add to new library -> Choose SVG file
 <div>
-<p align='center'><img src="week0_media/import%20icon%20lucid.jpg" width="50%"></p>
+<p align='center'><img src="week0_media/import%20icon%20lucid.jpg" width="40%"></p>
 </div>
 
 - Use the icons to create logical diagram
 
-#### [Logical Design I created]((https://lucid.app/lucidchart/1c59d211-6a78-496e-bb86-1db0faf0f6a1/edit?viewport_loc=-1416%2C111%2C3751%2C1823%2Cyv5w6~Ut2Wm0&invitationId=inv_27a0a80d-9325-4670-b7ec-59ff707f157e))
+#### [Logical Design I created](https://lucid.app/lucidchart/1c59d211-6a78-496e-bb86-1db0faf0f6a1/edit?viewport_loc=-1416%2C111%2C3751%2C1823%2Cyv5w6~Ut2Wm0&invitationId=inv_27a0a80d-9325-4670-b7ec-59ff707f157e)
 
 <div>
 <p align='center'><img src="week0_media/Cruddur.png" width="70%"></p>
