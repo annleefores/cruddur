@@ -404,7 +404,11 @@ To view details related to AWS free tier [https://aws.amazon.com/free](https://a
 - Each services has different types of free options
 
 <div>
+<<<<<<< HEAD
 
+=======
+<<<<<<< HEAD
+>>>>>>> fa91bd511516c220e73d5c7dfb570bdd6e03405a
   <p align='center'><img src="media/week0/free-tier.png" alt="Diagram I created following the video" width="70%" alt="conceptual design"></p>
 </div>
 
@@ -434,5 +438,12 @@ Already covered [here](#budget)
 </div>
 
 **Credit Usage**
+<<<<<<< HEAD
   <p align='center'><img src="media/week0/free-tier.png" alt="Diagram I created following the video" width="60%" alt="conceptual design"></p>
 </div>
+=======
+=======
+  <p align='center'><img src="media/week0/free-tier.png" alt="Diagram I created following the video" width="60%" alt="conceptual design"></p>
+</div>
+>>>>>>> parent of 56341e2... aws budgets
+>>>>>>> fa91bd511516c220e73d5c7dfb570bdd6e03405a
