@@ -31,6 +31,7 @@ The first thing I learned from the live session was how to understand the projec
   - Decentralized Authentication
   - And more
 
+
 ## Architecting Cloud
 
 Before building out the project, clearly understand what the business wants, so discuss with technical and business team and make sure it meets all of the project's requirements..
@@ -106,6 +107,7 @@ _Other diagramming tools, guides and AWS assets can be found here [AWS Architect
   - **Enable Infinite Canvas**:  Right click on page area -> page settings -> toggle Infinite canvas
   - **Enable Line Jumps**:   Right click on page area -> page settings -> Line Settings -> Show Line Jumps
 
+
 ### Create Conceptual Design
 
 Create a conceptual design or napkin design for the project.
@@ -161,13 +163,13 @@ Cyber security goal in an organization is to identify and inform any technical r
 - Go to AWS Organizations console and start creating OU inside root. Make sure name and tag them when doing so.
 
 <div>
-  <p align='center'><img src="media/week0/ou-1.png" alt="Diagram I created following the video" width="50%" alt="conceptual design"></p>
+  <p align='center'><img src="media/week0/ou-1.png" alt="Diagram I created following the video" width="70%" alt="conceptual design"></p>
 </div>
 
 - You have the permission to rename, delete, move OU(s), nested OU(s).
 
 <div>
-  <p align='center'><img src="media/week0/ou-2.png" alt="Diagram I created following the video" width="50%" alt="conceptual design"></p>
+  <p align='center'><img src="media/week0/ou-2.png" alt="Diagram I created following the video" width="70%" alt="conceptual design"></p>
 </div>
 
 - In most organizations OU(s) are created and set as standby OU(s) so that it can be allotted faster.
@@ -177,7 +179,7 @@ Cyber security goal in an organization is to identify and inform any technical r
 >Auditing service from AWS
 
 <div>
-  <p align='center'><img src="media/week0/cloudtrail-1.png" alt="Diagram I created following the video" width="50%" alt="conceptual design"></p>
+  <p align='center'><img src="media/week0/cloudtrail-1.png" alt="Diagram I created following the video" width="70%" alt="conceptual design"></p>
 </div>
 
 - Records most of the API calls to your AWS account
@@ -194,6 +196,7 @@ Cyber security goal in an organization is to identify and inform any technical r
 
 <p align='center'><img src="media/week0/cloudtrail-2.png" alt="Diagram I created following the video" width="70%" alt="conceptual design"></p>
 
+
 ## IAM User
 
 User with lesser permission than root user. Its advised to create a IAM user and leave root user only for management related works
@@ -207,8 +210,10 @@ User with lesser permission than root user. Its advised to create a IAM user and
 - Set MFA and Access Keys (for accessing AWS through CLI)
 
 <div>
-  <p align='center'><img src="media/week0/iam-1.png" alt="Diagram I created following the video" width="50%" alt="conceptual design"></p>
+  <p align='center'><img src="media/week0/iam-1.png" alt="Diagram I created following the video" width="70%" alt="conceptual design"></p>
 </div>
+
+
 
 ## Roles & Policies
 
@@ -223,9 +228,8 @@ User with lesser permission than root user. Its advised to create a IAM user and
 - From IAM left pane select roles.
 - When creating a new role choose AWS Services and EC2 for now.
 - Select _AdministratorAccess_ policy (gives all admin access)
-
 <div>
-  <p align='center'><img src="media/week0/iam-roles.png" alt="Diagram I created following the video" width="50%" alt="conceptual design"></p>
+  <p align='center'><img src="media/week0/iam-roles.png" alt="Diagram I created following the video" width="70%" alt="conceptual design"></p>
 </div>
 
 **Attach Policy**
@@ -235,7 +239,7 @@ User with lesser permission than root user. Its advised to create a IAM user and
 - Another policy we can attach is AmazonEC2FullAccess (only EC2 access)
 
 <div>
-  <p align='center'><img src="media/week0/iam-policy.png" alt="Diagram I created following the video" width="50%" alt="conceptual design"></p>
+  <p align='center'><img src="media/week0/iam-policy.png" alt="Diagram I created following the video" width="70%" alt="conceptual design"></p>
 </div>
 
 ## Service control policies (SCPs)
@@ -245,7 +249,6 @@ User with lesser permission than root user. Its advised to create a IAM user and
 [SCP](https://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_policies_scps.html)
 
 There are AWS managed and customer managed SCP policies
-
 - SCPs can also be created
 
 **SCP walkthrough**
@@ -255,7 +258,7 @@ There are AWS managed and customer managed SCP policies
 - or through OU
 
 <div>
-  <p align='center'><img src="media/week0/scp-1.png" alt="Diagram I created following the video" width="60%" alt="conceptual design"></p>
+  <p align='center'><img src="media/week0/scp-1.png" alt="Diagram I created following the video" width="70%" alt="conceptual design"></p>
 </div>
 
 - Can create a new SCP policy and add this JSON file to prevent users from leaving OU
@@ -329,20 +332,21 @@ Free tier usage
 - Go back to _Billing Management Console_ page.
 
 <div>
-  <p align='center'><img src="media/week0/cloudwatch-alarm.png" alt="Diagram I created following the video" width="60%" alt="conceptual design"></p>
+  <p align='center'><img src="media/week0/cloudwatch-alarm.png" alt="Diagram I created following the video" width="70%" alt="conceptual design"></p>
 </div>
 
 ## Budget
 
 > Notifies when  
->
-> 1) your actual spend reaches 85%
-> 2) your actual spend reaches 100%
+> 1) your actual spend reaches 85% 
+> 2) your actual spend reaches 100% 
 > 3) if your forecasted spend is expected to reach 100%.
 
 > 2 budgets for free under free tier
 
 - Profile -> Billing Dashboard -> Budgets (left pane)
+
+
 
 - _Use a template (simplified)_
 - _Monthly cost budget_
@@ -351,7 +355,7 @@ Free tier usage
 - Add email for notification
 
 <div>
-  <p align='center'><img src="media/week0/budgets.png" alt="Diagram I created following the video" width="60%" alt="conceptual design"></p>
+  <p align='center'><img src="media/week0/budgets.png" alt="Diagram I created following the video" width="70%" alt="conceptual design"></p>
 </div>
 
 ## Cost allocation tags
@@ -360,7 +364,7 @@ Free tier usage
 - Tagging will help to calculate the cost of a system with different services that are all tagged by a common tag
 
 <div>
-  <p align='center'><img src="media/week0/cost-allocation-tags.png" alt="Diagram I created following the video" width="60%" alt="conceptual design"></p>
+  <p align='center'><img src="media/week0/cost-allocation-tags.png" alt="Diagram I created following the video" width="70%" alt="conceptual design"></p>
 </div>
 
 ## Cost Explorer
@@ -370,7 +374,7 @@ Free tier usage
 - View reports and other features
 
 <div>
-  <p align='center'><img src="media/week0/cost-exp.png" alt="Diagram I created following the video" width="60%" alt="conceptual design"></p>
+  <p align='center'><img src="media/week0/cost-exp.png" alt="Diagram I created following the video" width="70%" alt="conceptual design"></p>
 </div>
 
 ## AWS Credit
@@ -390,7 +394,7 @@ Certain credit is only applicable to few services
 - Pricing in real use case will vary based on usage
 
 <div>
-  <p align='center'><img src="media/week0/aws-calc.png" alt="Diagram I created following the video" width="60%" alt="conceptual design"></p>
+  <p align='center'><img src="media/week0/aws-calc.png" alt="Diagram I created following the video" width="70%" alt="conceptual design"></p>
 </div>
 
 ## AWS Free Tier
@@ -400,7 +404,8 @@ To view details related to AWS free tier [https://aws.amazon.com/free](https://a
 - Each services has different types of free options
 
 <div>
-  <p align='center'><img src="media/week0/free-tier.png" alt="Diagram I created following the video" width="60%" alt="conceptual design"></p>
+<<<<<<< HEAD
+  <p align='center'><img src="media/week0/free-tier.png" alt="Diagram I created following the video" width="70%" alt="conceptual design"></p>
 </div>
 
 <br>
@@ -425,7 +430,11 @@ Already covered [here](#budget)
 - Hit _Next, Next, Review_ and _Create_
 
 <div>
-  <p align='center'><img src="media/week0/usage-budget.png" alt="Diagram I created following the video" width="60%" alt="conceptual design"></p>
+  <p align='center'><img src="media/week0/usage-budget.png" alt="Diagram I created following the video" width="70%" alt="conceptual design"></p>
 </div>
 
 **Credit Usage**
+=======
+  <p align='center'><img src="media/week0/free-tier.png" alt="Diagram I created following the video" width="60%" alt="conceptual design"></p>
+</div>
+>>>>>>> parent of 56341e2... aws budgets
