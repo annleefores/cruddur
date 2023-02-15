@@ -5,6 +5,8 @@
 I began by completing all of the prerequisite tasks that I did not already know/have.
 
 - Created a new AWS account with free tier benefits.
+  - A neat trick I learned is that you can use same email to create different AWS account by using aliases.
+  - For example if your email is example@example.com, then you can use example+something@example.com
 - Did the free CCP course from Exampro to get familiar with AWS.
 - Created Gitpod account.
 - Created Momento Account.
