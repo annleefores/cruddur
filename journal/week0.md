@@ -114,6 +114,6 @@ Using shapes and arrows create a conceptual design the project.
 
 ![Alt text](week0_media/Cruddur%20-%20Conceptual%20Diagram.png)
 
-<p align='center'><img src='https://github.com/annleefores/aws-bootcamp-cruddur-2023/blob/main/journal/week0_media/Cruddur%20-%20Conceptual%20Diagram.png'></p>
+<p align='center'><img src='https://github.com/annleefores/aws-bootcamp-cruddur-2023/blob/main/journal/week0_media/Cruddur%20-%20Conceptual%20Diagram.png' width="48"></p>
 
 
