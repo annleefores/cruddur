@@ -31,6 +31,7 @@ The first thing I learned from the live session was how to understand the projec
   - Decentralized Authentication
   - And more
 
+
 ## Architecting Cloud
 
 Before building out the project, clearly understand what the business wants, so discuss with technical and business team and make sure it meets all of the project's requirements..
@@ -105,6 +106,7 @@ _Other diagramming tools, guides and AWS assets can be found here [AWS Architect
 - A page area to create diagrams
   - **Enable Infinite Canvas**:  Right click on page area -> page settings -> toggle Infinite canvas
   - **Enable Line Jumps**:   Right click on page area -> page settings -> Line Settings -> Show Line Jumps
+
 
 ### Create Conceptual Design
 
@@ -194,6 +196,7 @@ Cyber security goal in an organization is to identify and inform any technical r
 
 <p align='center'><img src="media/week0/cloudtrail-2.png" alt="Diagram I created following the video" width="70%" alt="conceptual design"></p>
 
+
 ## IAM User
 
 User with lesser permission than root user. Its advised to create a IAM user and leave root user only for management related works
@@ -210,6 +213,8 @@ User with lesser permission than root user. Its advised to create a IAM user and
   <p align='center'><img src="media/week0/iam-1.png" alt="Diagram I created following the video" width="70%" alt="conceptual design"></p>
 </div>
 
+
+
 ## Roles & Policies
 
 - Role is a type of IAM identity that can be authenticated and authorized to utilize an AWS resource
@@ -223,7 +228,6 @@ User with lesser permission than root user. Its advised to create a IAM user and
 - From IAM left pane select roles.
 - When creating a new role choose AWS Services and EC2 for now.
 - Select _AdministratorAccess_ policy (gives all admin access)
-
 <div>
   <p align='center'><img src="media/week0/iam-roles.png" alt="Diagram I created following the video" width="70%" alt="conceptual design"></p>
 </div>
@@ -245,7 +249,6 @@ User with lesser permission than root user. Its advised to create a IAM user and
 [SCP](https://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_policies_scps.html)
 
 There are AWS managed and customer managed SCP policies
-
 - SCPs can also be created
 
 **SCP walkthrough**
@@ -335,14 +338,15 @@ Free tier usage
 ## Budget
 
 > Notifies when  
->
-> 1) your actual spend reaches 85%
-> 2) your actual spend reaches 100%
+> 1) your actual spend reaches 85% 
+> 2) your actual spend reaches 100% 
 > 3) if your forecasted spend is expected to reach 100%.
 
 > 2 budgets for free under free tier
 
 - Profile -> Billing Dashboard -> Budgets (left pane)
+
+
 
 - _Use a template (simplified)_
 - _Monthly cost budget_
@@ -400,6 +404,7 @@ To view details related to AWS free tier [https://aws.amazon.com/free](https://a
 - Each services has different types of free options
 
 <div>
+<<<<<<< HEAD
   <p align='center'><img src="media/week0/free-tier.png" alt="Diagram I created following the video" width="70%" alt="conceptual design"></p>
 </div>
 
@@ -429,3 +434,7 @@ Already covered [here](#budget)
 </div>
 
 **Credit Usage**
+=======
+  <p align='center'><img src="media/week0/free-tier.png" alt="Diagram I created following the video" width="60%" alt="conceptual design"></p>
+</div>
+>>>>>>> parent of 56341e2... aws budgets
