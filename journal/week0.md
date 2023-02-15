@@ -110,7 +110,11 @@ Open a new document -> Import Data -> Shapes ->Select **AWS Architecture 2021** 
 
 ### Create Conceptual Design
 
-Using shapes and arrows create a conceptual design the project.  
+Using shapes and arrows to create a conceptual design the project.  
 
-<p align='center'><img src="week0_media/Cruddur%20-%20Conceptual%20Diagram.png" width="80%"></p>
-
+<div>
+<p align='center'><img src="week0_media/Cruddur%20-%20Conceptual%20Diagram.png" alt="Diagram I created following the video" width="80%"></p>
+<p align = "center" style="padding: 0; margin: 0;">
+Diagram I created following the video
+</p>
+</div>
