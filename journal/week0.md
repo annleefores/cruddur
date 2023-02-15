@@ -305,3 +305,73 @@ Free tier usage
 - Profile -> Billing Dashboard -> Free tier (left pane)
 
 ## CloudWatch Alarm
+
+> Notifies when cost threshold is breached
+
+- Profile -> Billing Dashboard -> Billing Preference (left pane)
+  - Tick all the preference that match your need
+  - Click on _Manage Billing Alerts_ link found at the end of the page
+
+> Manage Billing Alerts is the old method used to alert about spend newer one is budgets
+
+- This opens up CloudWatch in a new tab
+- Make sure to set region to N. Virginia. This is the only region where billing data is accessible.
+- Click _Create alarm_ & _Click Select Metric_
+- From that select _Billing → Total Estimated Charge_
+- Select _USD_ metric
+- Give a metric name
+- Set _Threshold_ value and click next
+- Select _Create new topic_ from _Notification_
+- Add your notification email and click _Create Topic_
+- Click _Next_ and set an _Alarm name_
+
+> 10 alarms are free under free tier
+
+- Review and create alarm
+- It will take couple of minutes to become active
+- Go back to _Billing Management Console_ page.
+
+<div>
+  <p align='center'><img src="media/week0/cloudwatch-alarm.png" alt="Diagram I created following the video" width="60%" alt="conceptual design"></p>
+</div>
+
+## Budget
+
+> Notifies when
+
+> 1) your actual spend reaches 85% 
+> 2) your actual spend reaches 100% 
+> 3) if your forecasted spend is expected to reach 100%.
+
+- Profile -> Billing Dashboard -> Budgets (left pane)
+
+> 2 budgets for free under free tier
+
+- _Use a template (simplified)_
+- _Monthly cost budget_
+- Set a _Budget Name_
+- _Enter your budgeted amount ($)_
+- Add email for notification
+
+<div>
+  <p align='center'><img src="media/week0/budgets.png" alt="Diagram I created following the video" width="60%" alt="conceptual design"></p>
+</div>
+
+## Cost allocation tags
+
+- Profile -> Billing Dashboard -> Cost allocation tags (left pane)
+- Tagging will help to calculate the cost of a system with different services that are all tagged by a common tag
+
+<div>
+  <p align='center'><img src="media/week0/cost-allocation-tags.png" alt="Diagram I created following the video" width="60%" alt="conceptual design"></p>
+</div>
+
+## Cost Explorer
+
+- Profile -> Billing Dashboard -> Cost Explorer (left pane)
+- You can see spend based on different filters like date, frequency, region, tag, services, etc.
+- View reports and other features
+
+<div>
+  <p align='center'><img src="media/week0/cost-exp.png" alt="Diagram I created following the video" width="60%" alt="conceptual design"></p>
+</div>
