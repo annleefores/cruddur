@@ -56,4 +56,27 @@ In this stage of the design use the services provided by CSP to create a bluepri
 
 Represents the actual thing thats built including the specification of each services, IP address, ARN, API gateway, etc.
 
+### Common Dictionary
 
+- Ask dump questions
+- Pretend that you are the end user interacting with this service.
+- Document everything !!!
+
+## Frameworks for building a project
+
+### TOGAF
+
+An architectural framework that provides methods and tools for assisting in the acceptance, production, use and maintenance of an enterprise architecture. Maps closely to AWS Well-Architected Tool.
+
+### AWS Well-Architected Tool
+
+An architectural framework provided by AWS to review your workloads againts current best practices.  
+
+6 pillars of AWS Well-Architected Tool:
+
+1. Operational Excellence
+2. Security
+3. Reliability
+4. Performance Efficiency
+5. Cost Optimization
+6. Sustainability
