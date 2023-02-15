@@ -110,7 +110,7 @@ _Other diagramming tools, guides and AWS assets can be found here [AWS Architect
 
 ### Create Conceptual Design
 
-Create a conceptual design or napkin design for the project.
+Create a conceptual design or napkin design of the project.
 
 ![curddur napkin design](media/week0/cruddur-napkin.png)
 
