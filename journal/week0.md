@@ -133,7 +133,9 @@ Create a conceptual design for the project with shapes and arrows.
 - When importing to Lucid, the icon fill color may not appear, so import the svg file inside [Figma](https://www.figma.com/) and then save it (This will fix any issue with the icon).
 - **To import icon**: Import Data -> Shapes -> Import Shapes -> Add to new library -> Choose SVG file
 
-![Import momento icon](media/week0/import-icon-lucid.png)
+<div>
+  <p align='center'><img src="media/week0/import-icon-lucid.png" alt="Diagram I created following the video" width="50%" alt="conceptual design"></p>
+</div>
 
 - Use the icons to create logical diagram
 
