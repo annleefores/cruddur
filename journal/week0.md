@@ -112,16 +112,16 @@ Open a new document -> Import Data -> Shapes ->Select **AWS Architecture 2021** 
 
 Create a conceptual design for the project with shapes and arrows.
 
-#### Diagram I created while learning
+**Diagram I created while learning**
 
 <div>
-  <p align='center'><img src="media/week0/cruddur-conceptual.png" alt="Diagram I created following the video" width="100%"></p>
+  <p align='center'><img src="media/week0/cruddur-conceptual.png" alt="Diagram I created following the video" width="100%" alt="conceptual design"></p>
 </div>
 
-#### Napkin Design
+**Napkin Design**
 
 <div>
-<p align='center'><img src="media/week0/cruddur-napkin.png" alt="napkin design" width="100%"></p>
+<p align='center'><img src="media/week0/cruddur-napkin.png" alt="napkin design" width="100%" alt="napkin design"></p>
 </div>
 
 
@@ -133,22 +133,19 @@ Create a conceptual design for the project with shapes and arrows.
 - When importing to Lucid, the icon fill color may not appear, so import the svg file inside [Figma](https://www.figma.com/) and then save it (This will fix any issue with the icon).
 - **To import icon**: Import Data -> Shapes -> Import Shapes -> Add to new library -> Choose SVG file
 
-<div>
-<p><img src="media/week0/import-icon-lucid.png" width="50%"></p>
-</div>
+![Import momento icon](media/week0/import-icon-lucid.png)
 
 - Use the icons to create logical diagram
 
-#### [Logical Design I created](https://lucid.app/lucidchart/1c59d211-6a78-496e-bb86-1db0faf0f6a1/edit?viewport_loc=-1416%2C111%2C3751%2C1823%2Cyv5w6~Ut2Wm0&invitationId=inv_27a0a80d-9325-4670-b7ec-59ff707f157e)
+**Logical Design I created**
 
 <div>
-<p align='center'><img src="media/week0/crudder-logical.png" width="100%"></p>
+<p align='center'><img src="media/week0/crudder-logical.png" width="100%" alt="Logic Design"></p>
 </div>
 
-<div>
+
 <a href="https://lucid.app/lucidchart/1c59d211-6a78-496e-bb86-1db0faf0f6a1/edit?viewport_loc=-1416%2C111%2C3751%2C1823%2Cyv5w6~Ut2Wm0&invitationId=inv_27a0a80d-9325-4670-b7ec-59ff707f157e">
 <p align='center'>
 Link to the design file in Lucid Chart
 </p>
 </a>
-</div>
