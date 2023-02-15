@@ -70,7 +70,7 @@ An architectural framework that provides methods and tools for assisting in the 
 
 ### AWS Well-Architected Tool
 
-An architectural framework provided by AWS to review your workloads againts current best practices.  
+An architectural framework provided by AWS to review your workloads against current best practices.  
 
 6 pillars of AWS Well-Architected Tool:
 
@@ -85,7 +85,7 @@ AWS provides a service to check whether your project matches the framework guide
 
 #### How to use AWS Well Architected Framework Service
 
-Using **AWS Well-Architecte Framework Service** add all the basic details related to the project and then answer the checklists. These checklist questions are based on AWS Well-Architecte Framework. In the end a report will be prepared based on these inputs.
+Using **AWS Well-Architecture Framework Service** add all the basic details related to the project and then answer the checklists. These checklist questions are based on AWS Well-Architected Framework. In the end a report will be prepared based on these inputs.
 
 ## Architectural Diagram
 
@@ -112,8 +112,5 @@ Open a new document -> Import Data -> Shapes ->Select **AWS Architecture 2021** 
 
 Using shapes and arrows create a conceptual design the project.  
 
-![Alt text](week0_media/Cruddur%20-%20Conceptual%20Diagram.png)
-
-<p align='center'><img src='https://github.com/annleefores/aws-bootcamp-cruddur-2023/blob/main/journal/week0_media/Cruddur%20-%20Conceptual%20Diagram.png' width="80%"></p>
-
+<p align='center'><img src="week0_media/Cruddur%20-%20Conceptual%20Diagram.png" width="80%"></p>
 
