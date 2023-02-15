@@ -241,3 +241,51 @@ User with lesser permission than root user. Its advised to create a IAM user and
 <div>
   <p align='center'><img src="media/week0/iam-policy.png" alt="Diagram I created following the video" width="50%" alt="conceptual design"></p>
 </div>
+
+## Service control policies (SCPs)
+
+> A type of organization policy that you can use to manage permissions in your organization
+
+[SCP](https://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_policies_scps.html)
+
+- There are AWS managed and customer managed SCP policies
+- SCPs can also be created
+
+**SCP walkthrough**
+
+- Search for SCP and go to features tab and select Service control policies (SCPs)
+- or go to IAM and then to SCP
+- or through OU
+
+<div>
+  <p align='center'><img src="media/week0/scp-1.png" alt="Diagram I created following the video" width="60%" alt="conceptual design"></p>
+</div>
+
+- We can create a new SCP policy and add this JSON file to prevent users from leaving OU
+
+```bash
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Effect": "Deny",
+            "Action": [
+                "organizations:LeaveOrganization"
+            ],
+            "Resource": "*"
+        }
+    ]
+}
+```
+
+- You can attach/detach this to an account
+
+## Top 5 Security Best Practices
+
+- Data Protection & Residency in accordance to Security Policy
+- Identity & Access Management with Least Privilege
+- Governance & Compliance of AWS Services being used
+  - Global vs Regional Services
+  - Compliant Services
+- Shared Responsibility of Threat Detection.
+- Incident Response Plans to include Cloud
