@@ -132,11 +132,9 @@ Create a conceptual design or napkin design for the project.
 
 ![Alt text](media/week0/crudder-logical.png)
 
-<a href="https://lucid.app/lucidchart/1c59d211-6a78-496e-bb86-1db0faf0f6a1/edit?viewport_loc=-1416%2C111%2C3751%2C1823%2Cyv5w6~Ut2Wm0&invitationId=inv_27a0a80d-9325-4670-b7ec-59ff707f157e">
-<p align='center'>
-Link to the design file in Lucid Chart
-</p>
-</a>
+### [Link to the design file in Lucid Chart](https://lucid.app/lucidchart/1c59d211-6a78-496e-bb86-1db0faf0f6a1/edit?viewport_loc=-1416%2C111%2C3751%2C1823%2Cyv5w6~Ut2Wm0&invitationId=inv_27a0a80d-9325-4670-b7ec-59ff707f157e")
+
+<br>
 
 ## Security Considerations
 
@@ -196,7 +194,8 @@ Cyber security goal in an organization is to identify and inform any technical r
 - Tick both API activity options.
 - When deleting the Trail make sure to delete s3 bucket and any unused _KMS customer managed keys_ as it can cost money
 
-![Create a trail](media/week0/cloudtrail-2.png)
+<p align='center'><img src="media/week0/cloudtrail-2.png" alt="Diagram I created following the video" width="70%" alt="conceptual design"></p>
+
 
 ## IAM User
 
@@ -237,4 +236,8 @@ User with lesser permission than root user. Its advised to create a IAM user and
 
 - From IAM left pane select policies
 - Select _SecurityAudit_ (read only policy) police and attach it to a role or a user group
-- 
+- Another policy we can attach is AmazonEC2FullAccess (only EC2 access)
+
+<div>
+  <p align='center'><img src="media/week0/iam-policy.png" alt="Diagram I created following the video" width="50%" alt="conceptual design"></p>
+</div>
