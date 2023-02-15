@@ -105,21 +105,13 @@ _Other diagramming tools, guides and AWS assets can be found here [AWS Architect
   - **Enable Infinite Canvas**:  Right click on page area -> page settings -> toggle Infinite canvas
   - **Enable Line Jumps**:   Right click on page area -> page settings -> Line Settings -> Show Line Jumps
 
+![lucid charts](media/week0/lucid-charts.png)
+
 ### Create Conceptual Design
 
-Create a conceptual design for the project with shapes and arrows.
+Create a conceptual design or napkin design for the project.
 
-
-<div>
-  <p align='center'><img src="media/week0/cruddur-conceptual.png" alt="Diagram I created following the video" width="100%" alt="conceptual design"></p>
-</div>
-
-**Napkin Design**
-
-<div>
-<p align='center'><img src="media/week0/cruddur-napkin.png" alt="napkin design" width="100%" alt="napkin design"></p>
-</div>
-
+![curddur napkin design](media/week0/cruddur-napkin.png)
 
 ### Create Logical Design
 
@@ -137,10 +129,7 @@ Create a conceptual design for the project with shapes and arrows.
 
 **Logical Design**
 
-<div>
-<p align='center'><img src="media/week0/crudder-logical.png" width="100%" alt="Logic Design"></p>
-</div>
-
+![Alt text](media/week0/crudder-logical.png)
 
 <a href="https://lucid.app/lucidchart/1c59d211-6a78-496e-bb86-1db0faf0f6a1/edit?viewport_loc=-1416%2C111%2C3751%2C1823%2Cyv5w6~Ut2Wm0&invitationId=inv_27a0a80d-9325-4670-b7ec-59ff707f157e">
 <p align='center'>
