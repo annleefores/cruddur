@@ -17,15 +17,23 @@ I began by completing all of the prerequisite tasks that I did not already know/
 
 ## Project Scenario
 
-- The first thing I learned from the live session was how to understand the project and how an organization approaches it.
-- The way this is communicated through user personas has really helped me understand how things are done in an organization.
-- **Cruddur** is an ephemeral first micro blogging platform ( a lot like twitter but the posts are ephemeral like snapchat posts)
-    - Backend uses Flask micro web framework (Python)
-    - Frontend uses React
-    - The project includes
-        - SQL and NoSQL Databases
-        - Realtime Modern APIs
-        - Multiple Container Services ( *Microservices)
-        - A CI/CD Pipeline
-        - Decentralized Authentication
-        - And more
+The first thing I learned from the live session was how to understand the project and how an organization approaches it.
+The way this is communicated through user personas has really helped me understand how things are done in an organization.
+
+**Cruddur** is an ephemeral first micro blogging platform ( a lot like twitter but the posts are ephemeral like snapchat posts)
+
+- Backend uses Flask micro web framework (Python)
+- Frontend uses React
+- The project includes
+  - SQL and NoSQL Databases
+  - Realtime Modern APIs
+  - Multiple Container Services ( *Microservices)
+  - A CI/CD Pipeline
+  - Decentralized Authentication
+  - And more
+
+## Architecting Cloud
+
+Before you begin building out, you need to clearly understand what the business wants, so discuss with technical and business team and make sure it satisfies all the facets of the project.
+
+It should address the risks, assumptions and constraints.
