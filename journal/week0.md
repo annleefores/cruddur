@@ -83,7 +83,7 @@ An architectural framework provided by AWS to review your workloads against curr
 
 AWS offers a service to determine whether your project complies with the framework guidelines.
 
-**How to use AWS Well Architected Framework Service**
+**How to use AWS Well Architected Framework Service ?**
 
 Using the **AWS Well-Architecture Framework Service** fill in all of the project's basic details before answering the checklists. These checklist questions are based on the AWS Well-Architected Framework. Based on these inputs, a report will be prepared in the end.
 
@@ -95,11 +95,9 @@ An online diagramming tool that's used in this bootcamp to create the diagrams. 
 
 _Other diagramming tools, guides and AWS assets can be found here [AWS Architecture Icons](https://aws.amazon.com/architecture/icons/)_
 
-**Adding AWS Icons**
+**Adding AWS Icons**: Open a new document -> Import Data -> Shapes ->Select *AWS Architecture 2021* (from Standard Libraries) -> Use Selected Shapes.
 
-Open a new document -> Import Data -> Shapes ->Select **AWS Architecture 2021** (from Standard Libraries) -> Use Selected Shapes.
-
-**Working with Lucid Charts**
+**Working with Lucid Charts**:
 
 - Shapes sections contain a complete list of icons; use search to quickly locate icons.
 - The toolbar contains all of the standard text and shape formatting tools.
@@ -117,7 +115,7 @@ Create a conceptual design for the project with shapes and arrows.
   <p align='center'><img src="media/week0/cruddur-conceptual.png" alt="Diagram I created following the video" width="100%" alt="conceptual design"></p>
 </div>
 
-**Napkin Design :**
+**Napkin Design**
 
 <div>
 <p align='center'><img src="media/week0/cruddur-napkin.png" alt="napkin design" width="100%" alt="napkin design"></p>
