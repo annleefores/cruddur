@@ -80,3 +80,12 @@ An architectural framework provided by AWS to review your workloads againts curr
 4. Performance Efficiency
 5. Cost Optimization
 6. Sustainability
+
+AWS provides a service to check whether your project matches the framework guidelines or not
+
+#### How to use AWS Well Architected Framework Service
+
+Using **AWS Well-Architecte Framework Service** add all the basic details related to the project and then answer the checklists. These checklist questions are based on AWS Well-Architecte Framework. In the end a report will be prepared based on these inputs.
+
+## Drawing Architectural Diagrams
+
