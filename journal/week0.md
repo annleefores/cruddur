@@ -248,7 +248,7 @@ User with lesser permission than root user. Its advised to create a IAM user and
 
 [SCP](https://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_policies_scps.html)
 
-- There are AWS managed and customer managed SCP policies
+There are AWS managed and customer managed SCP policies
 - SCPs can also be created
 
 **SCP walkthrough**
@@ -289,3 +289,19 @@ User with lesser permission than root user. Its advised to create a IAM user and
   - Compliant Services
 - Shared Responsibility of Threat Detection.
 - Incident Response Plans to include Cloud
+
+<br>
+
+## Pricing Basics and Free tier
+
+> Different services have different cost and cost of each service varies based on region
+
+View cost and services that are currently running
+
+- Profile -> Billing Dashboard -> Bills (left pane)
+
+Free tier usage
+
+- Profile -> Billing Dashboard -> Free tier (left pane)
+
+## CloudWatch Alarm
