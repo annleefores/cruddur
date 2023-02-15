@@ -142,3 +142,5 @@ Using shapes and arrows to create a conceptual design of the project.
 <div>
 <p align='center'><img src="week0_media/Cruddur.png" width="70%"></p>
 </div>
+
+[Link to the design file in Lucid Chart](https://lucid.app/lucidchart/1c59d211-6a78-496e-bb86-1db0faf0f6a1/edit?viewport_loc=-1416%2C111%2C3751%2C1823%2Cyv5w6~Ut2Wm0&invitationId=inv_27a0a80d-9325-4670-b7ec-59ff707f157e)
