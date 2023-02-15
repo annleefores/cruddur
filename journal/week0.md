@@ -83,9 +83,8 @@ An architectural framework provided by AWS to review your workloads against curr
 
 AWS offers a service to determine whether your project complies with the framework guidelines.
 
-**How to use AWS Well Architected Framework Service ?**
-
-Using the **AWS Well-Architecture Framework Service** fill in all of the project's basic details before answering the checklists. These checklist questions are based on the AWS Well-Architected Framework. Based on these inputs, a report will be prepared in the end.
+**How to use AWS Well Architected Framework Service ?**  
+Using the AWS Well-Architecture Framework Service fill in all of the project's basic details before answering the checklists. These checklist questions are based on the AWS Well-Architected Framework. Based on these inputs, a report will be prepared in the end.
 
 ## Architectural Diagram
 
@@ -95,7 +94,7 @@ An online diagramming tool that's used in this bootcamp to create the diagrams. 
 
 _Other diagramming tools, guides and AWS assets can be found here [AWS Architecture Icons](https://aws.amazon.com/architecture/icons/)_
 
-**Adding AWS Icons**: Open a new document -> Import Data -> Shapes ->Select *AWS Architecture 2021* (from Standard Libraries) -> Use Selected Shapes.
+**Adding AWS Icons**: Open a new document -> Import Data -> Shapes ->Select _AWS Architecture 2021_ (from Standard Libraries) -> Use Selected Shapes.
 
 **Working with Lucid Charts**:
 
