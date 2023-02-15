@@ -95,11 +95,11 @@ An online diagramming tool that's used in this bootcamp to create the diagrams. 
 
 _Other diagramming tools, guides and AWS assets can be found here [AWS Architecture Icons](https://aws.amazon.com/architecture/icons/)_
 
-#### Adding AWS Icons
+**Adding AWS Icons**
 
 Open a new document -> Import Data -> Shapes ->Select **AWS Architecture 2021** (from Standard Libraries) -> Use Selected Shapes.
 
-#### Working with Lucid Charts
+**Working with Lucid Charts**
 
 - Shapes sections has all the icons list, can use search to find icons easily.
 - Toolbar has all the usual text, shape formatting tools.
@@ -115,13 +115,17 @@ Using shapes and arrows to create a conceptual design of the project.
 #### Diagram I created while learning
 
 <div>
-<p align='center'><img src="week0_media/Cruddur%20-%20Conceptual%20Diagram.png" alt="Diagram I created following the video" width="70%"></p>
+<p align='center'><img src="week0_media/Cruddur%20-%20Conceptual%20Diagram.png" alt="Diagram I created following the video" width="60%"></p>
 </div>
 
 #### Napkin Design
 
 <div>
-<p align='center'><img src="week0_media/napkin-design.jpg" alt="napkin design" width="70%"></p>
+<p align='center'><img src="week0_media/napkin-design.jpg" alt="napkin design" width="60%"></p>
+</div>
+
+<div>
+<p align='center'><img src="week0_media/Cruddur-napkin.png" alt="napkin design" width="60%"></p>
 </div>
 
 ### Create Logical Design
