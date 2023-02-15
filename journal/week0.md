@@ -137,3 +137,104 @@ Create a conceptual design or napkin design for the project.
 Link to the design file in Lucid Chart
 </p>
 </a>
+
+## Security Considerations
+
+Cyber security goal in an organization is to identify and inform any technical risks.  
+
+- Protect data, applications and services associated with cloud.
+- Reduce impact of breach and human errors
+- Always stay up-to date of things happening in tech
+
+## Adding MFA
+
+- Root user is the most powerful user in an AWS account so its of the highest priority to secure this account
+- MFA provides second layer of protection
+- Use virtual or hardware MFA devices
+- To set MFA -> profile -> security credentials -> set MFA
+- Also add MFA to IAM user account.  
+
+## Organization Unit
+
+- Lets you manage everything centrally.
+- Lets you create multiple, segregated accounts within an AWS account.
+- There is no cost to AWS organisations
+
+**Create OU(s)**  
+
+- Go to AWS Organizations console and start creating OU inside root. Make sure name and tag them when doing so.
+
+<div>
+  <p align='center'><img src="media/week0/ou-1.png" alt="Diagram I created following the video" width="50%" alt="conceptual design"></p>
+</div>
+
+- You have the permission to rename, delete, move OU(s), nested OU(s).
+
+<div>
+  <p align='center'><img src="media/week0/ou-2.png" alt="Diagram I created following the video" width="50%" alt="conceptual design"></p>
+</div>
+
+- In most organizations OU(s) are created and set as standby OU(s) so that it can be allotted faster.
+
+## AWS Cloud Trail
+
+>Auditing service from AWS
+
+<div>
+  <p align='center'><img src="media/week0/cloudtrail-1.png" alt="Diagram I created following the video" width="50%" alt="conceptual design"></p>
+</div>
+
+- Records most of the API calls to your AWS account
+- Can be used to monitor data security, auditing, etc.
+
+**Create Cloud Trail**
+
+- From dashboard create a trail and enable it for all account in Organization.
+- Create a new S3 bucket for it.
+- Set a KMS alias and tag the resource.
+- Select _Management Events_.
+- Tick both API activity options.
+- When deleting the Trail make sure to delete s3 bucket and any unused _KMS customer managed keys_ as it can cost money
+
+![Create a trail](media/week0/cloudtrail-2.png)
+
+## IAM User
+
+User with lesser permission than root user. Its advised to create a IAM user and leave root user only for management related works
+
+> Principle of least privilege
+
+**Create IAM User**
+
+- From IAM add user
+- Add user to a group and tag
+- Set MFA and Access Keys (for accessing AWS through CLI)
+
+<div>
+  <p align='center'><img src="media/week0/iam-1.png" alt="Diagram I created following the video" width="50%" alt="conceptual design"></p>
+</div>
+
+
+
+## Roles & Policies
+
+- Role is a type of IAM identity that can be authenticated and authorized to utilize an AWS resource
+  - Role is specifically used to assign to an entity.  
+
+- Policy defines the permissions of the IAM identity.
+  - Policy apply to both a role and users/group
+
+**Create Role**
+
+- From IAM left pane select roles.
+- When creating a new role choose AWS Services and EC2 for now.
+- Select _AdministratorAccess_ policy (gives all admin access)
+<div>
+  <p align='center'><img src="media/week0/iam-roles.png" alt="Diagram I created following the video" width="50%" alt="conceptual design"></p>
+</div>
+
+**Attach Policy**
+
+- From IAM left pane select policies
+- Select _SecurityAudit_ (read only policy) police and attach it to a role or a user group
+- 
