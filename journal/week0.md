@@ -98,6 +98,8 @@ _Other diagramming tools, guides and AWS assets can be found here [AWS Architect
 
 **Working with Lucid Charts**:
 
+![lucid charts](media/week0/lucid-charts.png)
+
 - Shapes sections contain a complete list of icons; use search to quickly locate icons.
 - The toolbar contains all of the standard text and shape formatting tools.
 - A document can contain multiple sheets.
@@ -105,7 +107,6 @@ _Other diagramming tools, guides and AWS assets can be found here [AWS Architect
   - **Enable Infinite Canvas**:  Right click on page area -> page settings -> toggle Infinite canvas
   - **Enable Line Jumps**:   Right click on page area -> page settings -> Line Settings -> Show Line Jumps
 
-![lucid charts](media/week0/lucid-charts.png)
 
 ### Create Conceptual Design
 
