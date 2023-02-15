@@ -110,7 +110,7 @@ Open a new document -> Import Data -> Shapes ->Select **AWS Architecture 2021** 
 
 ### Create Conceptual Design
 
-Using shapes and arrows to create a conceptual design the project.  
+Using shapes and arrows to create a conceptual design of the project.  
 
 #### Diagram I created while learning
 
@@ -122,4 +122,15 @@ Using shapes and arrows to create a conceptual design the project.
 
 <div>
 <p align='center'><img src="week0_media/napkin-design.jpg" alt="napkin design" width="70%"></p>
+</div>
+
+### Create Logical Design
+
+- Use AWS icons to create a logical design, make sure to keep the designs consistent.
+- For [**Momento**](https://www.gomomento.com/) icon go to the official website and copy the icon svg code by inspecting the website.
+- Using VScode save the code as `filename.svg`
+- When importing to Lucid the icon fill color might not show up so import the svg file inside [Figma](https://www.figma.com/) and then save it (This will fix any issue with the icon).
+- **To import icon**: Import Data -> Shapes -> Import Shapes -> Add to new library -> Choose SVG file
+<div>
+<p align='center'><img src="week0_media/import%20icon%20lucid.jpg" width="70%"></p>
 </div>
