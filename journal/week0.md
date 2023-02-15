@@ -406,3 +406,5 @@ To view details related to AWS free tier [https://aws.amazon.com/free](https://a
 <div>
   <p align='center'><img src="media/week0/free-tier.png" alt="Diagram I created following the video" width="60%" alt="conceptual design"></p>
 </div>
+
+<br>
