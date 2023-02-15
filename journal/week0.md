@@ -83,7 +83,7 @@ An architectural framework provided by AWS to review your workloads against curr
 
 AWS offers a service to determine whether your project complies with the framework guidelines.
 
-#### How to use AWS Well Architected Framework Service
+**How to use AWS Well Architected Framework Service**
 
 Using the **AWS Well-Architecture Framework Service** fill in all of the project's basic details before answering the checklists. These checklist questions are based on the AWS Well-Architected Framework. Based on these inputs, a report will be prepared in the end.
 
@@ -112,13 +112,12 @@ Open a new document -> Import Data -> Shapes ->Select **AWS Architecture 2021** 
 
 Create a conceptual design for the project with shapes and arrows.
 
-**Diagram I created while learning**
 
 <div>
   <p align='center'><img src="media/week0/cruddur-conceptual.png" alt="Diagram I created following the video" width="100%" alt="conceptual design"></p>
 </div>
 
-**Napkin Design**
+**Napkin Design :**
 
 <div>
 <p align='center'><img src="media/week0/cruddur-napkin.png" alt="napkin design" width="100%" alt="napkin design"></p>
@@ -139,7 +138,7 @@ Create a conceptual design for the project with shapes and arrows.
 
 - Use the icons to create logical diagram
 
-**Logical Design I created**
+**Logical Design**
 
 <div>
 <p align='center'><img src="media/week0/crudder-logical.png" width="100%" alt="Logic Design"></p>
