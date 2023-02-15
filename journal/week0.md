@@ -337,15 +337,16 @@ Free tier usage
 
 ## Budget
 
-> Notifies when
-
+> Notifies when  
 > 1) your actual spend reaches 85% 
 > 2) your actual spend reaches 100% 
 > 3) if your forecasted spend is expected to reach 100%.
 
+> 2 budgets for free under free tier
+
 - Profile -> Billing Dashboard -> Budgets (left pane)
 
-> 2 budgets for free under free tier
+
 
 - _Use a template (simplified)_
 - _Monthly cost budget_
@@ -374,4 +375,34 @@ Free tier usage
 
 <div>
   <p align='center'><img src="media/week0/cost-exp.png" alt="Diagram I created following the video" width="60%" alt="conceptual design"></p>
+</div>
+
+## AWS Credit
+
+To redeem credits, view credit balance
+
+- Profile -> Billing Dashboard -> Credits (left pane)
+
+Certain credit is only applicable to few services
+
+## AWS estimates calculator
+
+[https://calculator.aws/](https://calculator.aws/)
+
+- Calculate estimate cost for different services
+- AWS Calculator provides estimate based on 730 hrs per month
+- Pricing in real use case will vary based on usage
+
+<div>
+  <p align='center'><img src="media/week0/aws-calc.png" alt="Diagram I created following the video" width="60%" alt="conceptual design"></p>
+</div>
+
+## AWS Free Tier
+
+To view details related to AWS free tier [https://aws.amazon.com/free](https://aws.amazon.com/free)
+
+- Each services has different types of free options
+
+<div>
+  <p align='center'><img src="media/week0/free-tier.png" alt="Diagram I created following the video" width="60%" alt="conceptual design"></p>
 </div>
