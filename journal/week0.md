@@ -113,3 +113,7 @@ Open a new document -> Import Data -> Shapes ->Select **AWS Architecture 2021** 
 Using shapes and arrows create a conceptual design the project.  
 
 ![Alt text](week0_media/Cruddur%20-%20Conceptual%20Diagram.png)
+
+<p align='center'><img src='https://github.com/annleefores/aws-bootcamp-cruddur-2023/blob/main/journal/week0_media/Cruddur%20-%20Conceptual%20Diagram.png'></p>
+
+
