@@ -261,7 +261,7 @@ User with lesser permission than root user. Its advised to create a IAM user and
   <p align='center'><img src="media/week0/scp-1.png" alt="Diagram I created following the video" width="60%" alt="conceptual design"></p>
 </div>
 
-- We can create a new SCP policy and add this JSON file to prevent users from leaving OU
+- Can create a new SCP policy and add this JSON file to prevent users from leaving OU
 
 ```bash
 {
@@ -278,7 +278,7 @@ User with lesser permission than root user. Its advised to create a IAM user and
 }
 ```
 
-- You can attach/detach this to an account
+- SCP can be attached/detached to an account
 
 ## Top 5 Security Best Practices
 
