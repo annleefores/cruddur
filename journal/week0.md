@@ -87,5 +87,29 @@ AWS provides a service to check whether your project matches the framework guide
 
 Using **AWS Well-Architecte Framework Service** add all the basic details related to the project and then answer the checklists. These checklist questions are based on AWS Well-Architecte Framework. In the end a report will be prepared based on these inputs.
 
-## Drawing Architectural Diagrams
+## Architectural Diagram
 
+### [Lucid Chart](https://lucid.app/)
+
+An online diagramming tool that's used in this bootcamp to create the diagrams. Has a limited free tier option.
+
+_Other diagramming tools, guides and AWS assets can be found here [AWS Architecture Icons](https://aws.amazon.com/architecture/icons/)_
+
+#### Adding AWS Icons
+
+Open a new document -> Import Data -> Shapes ->Select **AWS Architecture 2021** (from Standard Libraries) -> Use Selected Shapes.
+
+#### Working with Lucid Charts
+
+- Shapes sections has all the icons list, can use search to find icons easily.
+- Toolbar has all the usual text, shape formatting tools.
+- Can add multiple sheets within a document
+- A page area to create diagrams
+  - **Enable Infinite Canvas**:  Right click on page area -> page settings -> toggle Infinite canvas
+  - **Enable Line Jumps**:   Right click on page area -> page settings -> Line Settings -> Show Line Jumps
+
+### Create Conceptual Design
+
+Using shapes and arrows create a conceptual design the project.  
+
+![Alt text](week0_media/Cruddur%20-%20Conceptual%20Diagram.png)
