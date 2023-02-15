@@ -5,8 +5,8 @@
 I began by completing all of the prerequisite tasks that I did not already know/have.
 
 - Created a new AWS account with free tier benefits.
-  - A neat trick I learned is that you can use same email to create different AWS account by using aliases.
-  - For example if your email is example@example.com, then you can use example+something@example.com
+  - A neat trick I learned is that by using aliases, you can use the same email address to create multiple AWS accounts.
+  - if your email is example@example.com, you can use example+something@example.com
 - Did the free CCP course from Exampro to get familiar with AWS.
 - Created Gitpod account.
 - Created Momento Account.
@@ -17,8 +17,7 @@ I began by completing all of the prerequisite tasks that I did not already know/
 
 ## Project Scenario
 
-The first thing I learned from the live session was how to understand the project and how an organization approaches it.
-The way this is communicated through user personas has really helped me understand how things are done in an organization.
+The first thing I learned from the live session was how to understand the project and how an organization approaches it. The manner in which this is communicated via user personas has greatly aided my understanding of how things are done in an organization.
 
 **Cruddur** is an ephemeral first micro blogging platform ( a lot like twitter but the posts are ephemeral like snapchat posts)
 
@@ -34,7 +33,7 @@ The way this is communicated through user personas has really helped me understa
 
 ## Architecting Cloud
 
-Before building out the project, clearly understand what the business wants, so discuss with technical and business team and make sure it satisfies all the facets of the project.
+Before building out the project, clearly understand what the business wants, so discuss with technical and business team and make sure it meets all of the project's requirements..
 
 It should address the risks, assumptions and constraints.
 
@@ -46,27 +45,27 @@ There are 3 stages to designing an architectural diagram.
 
 ### Conceptual Design
 
-This is a high level design where only the basic working of the project is depicted. Mostly used to convey the idea to business stakeholders or other non technical members. This type of designing is also called a **Napkin Design** because it can be drawn on a napkin when you get that spur-of-the-moment idea.
+This is a high-level design that only shows the project's basic operation. Typically used to communicate an idea to business stakeholders or other non-technical members. Because it can be done on a napkin on the spur of the moment, this type of design is also known as a **Napkin Design**.
 
 ### Logical Design
 
-In this stage of the design use the services provided by CSP to create a blueprint diagram of how each services are connected and used. Don't go into in depth details of each service just an icon and name indicating what it is. This type of design is also called a **Blueprint**.
+Use the services provided by CSP to create a blueprint diagram of how each service is connected and used. Don't go into specifics about each service; just an icon and a name to indicate what it is. This is also referred to as a **Blueprint**.
 
 ### Physical Design
 
-Represents the actual thing thats built including the specification of each services, IP address, ARN, API gateway, etc.
+Represents the actual thing that is built, including the specifications of each service, IP address, ARN, API gateway, and so on.
 
 ### Common Dictionary
 
 - Ask dump questions
-- Pretend that you are the end user interacting with this service.
+- Assume you are an end user interacting with this service.
 - Document everything !!!
 
 ## Frameworks for building a project
 
 ### TOGAF
 
-An architectural framework that provides methods and tools for assisting in the acceptance, production, use and maintenance of an enterprise architecture. Maps closely to AWS Well-Architected Tool.
+An architectural framework that provides methods and tools to help with the acceptance, production, use, and maintenance of enterprise architecture. Similar to the AWS Well-Architected Tool.
 
 ### AWS Well-Architected Tool
 
@@ -81,11 +80,11 @@ An architectural framework provided by AWS to review your workloads against curr
 5. Cost Optimization
 6. Sustainability
 
-AWS provides a service to check whether your project matches the framework guidelines or not
+AWS offers a service to determine whether your project complies with the framework guidelines.
 
 #### How to use AWS Well Architected Framework Service
 
-Using **AWS Well-Architecture Framework Service** add all the basic details related to the project and then answer the checklists. These checklist questions are based on AWS Well-Architected Framework. In the end a report will be prepared based on these inputs.
+Using the **AWS Well-Architecture Framework Service** fill in all of the project's basic details before answering the checklists. These checklist questions are based on the AWS Well-Architected Framework. Based on these inputs, a report will be prepared in the end.
 
 ## Architectural Diagram
 
@@ -101,16 +100,16 @@ Open a new document -> Import Data -> Shapes ->Select **AWS Architecture 2021** 
 
 **Working with Lucid Charts**
 
-- Shapes sections has all the icons list, can use search to find icons easily.
-- Toolbar has all the usual text, shape formatting tools.
-- Can add multiple sheets within a document
+- Shapes sections contain a complete list of icons; use search to quickly locate icons.
+- The toolbar contains all of the standard text and shape formatting tools.
+- A document can contain multiple sheets.
 - A page area to create diagrams
   - **Enable Infinite Canvas**:  Right click on page area -> page settings -> toggle Infinite canvas
   - **Enable Line Jumps**:   Right click on page area -> page settings -> Line Settings -> Show Line Jumps
 
 ### Create Conceptual Design
 
-Using shapes and arrows to create a conceptual design of the project.  
+Create a conceptual design for the project with shapes and arrows.
 
 #### Diagram I created while learning
 
@@ -127,10 +126,10 @@ Using shapes and arrows to create a conceptual design of the project.
 
 ### Create Logical Design
 
-- Use AWS icons to create a logical design, make sure to keep the designs consistent.
-- For [**Momento**](https://www.gomomento.com/) icon go to the official website and copy the icon svg code by inspecting the website.
-- Using VScode save the code as `filename.svg`
-- When importing to Lucid the icon fill color might not show up so import the svg file inside [Figma](https://www.figma.com/) and then save it (This will fix any issue with the icon).
+- Create a logical design using AWS icons, making sure to keep the designs consistent.
+- For [**Momento**](https://www.gomomento.com/) icon, go to the official website and inspect the website for the icon svg code.
+- Save the code as `filename.svg` using VScode
+- When importing to Lucid, the icon fill color may not appear, so import the svg file inside [Figma](https://www.figma.com/) and then save it (This will fix any issue with the icon).
 - **To import icon**: Import Data -> Shapes -> Import Shapes -> Add to new library -> Choose SVG file
 <div>
 <p align='center'><img src="media/week0/import%20icon%20lucid.jpg" width="40%"></p>
