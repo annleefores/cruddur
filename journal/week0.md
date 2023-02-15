@@ -115,10 +115,10 @@ Using shapes and arrows to create a conceptual design the project.
 Diagram I created while following along with the video:
 
 <div>
-<p align='center'><img src="week0_media/Cruddur%20-%20Conceptual%20Diagram.png" alt="Diagram I created following the video" width="80%"></p>
+<p align='center'><img src="week0_media/Cruddur%20-%20Conceptual%20Diagram.png" alt="Diagram I created following the video" width="70%"></p>
 </div>
 
 **Napkin Design:**
 <div>
-<p align='center'><img src="week0_media/napkin-design.jpg" alt="napkin design" width="80%"></p>
+<p align='center'><img src="week0_media/napkin-design.jpg" alt="napkin design" width="70%"></p>
 </div>
