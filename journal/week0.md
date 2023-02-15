@@ -112,9 +112,13 @@ Open a new document -> Import Data -> Shapes ->Select **AWS Architecture 2021** 
 
 Using shapes and arrows to create a conceptual design the project.  
 
+Diagram I created while following along with the video:
+
 <div>
 <p align='center'><img src="week0_media/Cruddur%20-%20Conceptual%20Diagram.png" alt="Diagram I created following the video" width="80%"></p>
-<p align = "center" style="padding: 0; margin: 0;">
-Diagram I created following the video
-</p>
+</div>
+
+**Napkin Design:**
+<div>
+<p align='center'><img src="week0_media/napkin-design.jpg" alt="napkin design" width="80%"></p>
 </div>
