@@ -34,7 +34,7 @@ The way this is communicated through user personas has really helped me understa
 
 ## Architecting Cloud
 
-Before you begin building out, you need to clearly understand what the business wants, so discuss with technical and business team and make sure it satisfies all the facets of the project.
+Before building out the project, clearly understand what the business wants, so discuss with technical and business team and make sure it satisfies all the facets of the project.
 
 It should address the risks, assumptions and constraints.
 
@@ -46,13 +46,14 @@ There are 3 stages to designing an architectural diagram.
 
 ### Conceptual Design
 
-This is a high level design where only the basic working of the project is depicted. Mostly used to convey the idea to business stakeholders or other non technical members. This type of designing is also called a **Napkin Design** because it can be draw on a napkin when you get that spur-of-the-moment idea that you need to convey.
+This is a high level design where only the basic working of the project is depicted. Mostly used to convey the idea to business stakeholders or other non technical members. This type of designing is also called a **Napkin Design** because it can be drawn on a napkin when you get that spur-of-the-moment idea.
 
 ### Logical Design
 
-In this stage of the design we use the services provided by our CSP to create a blueprint diagram of how each services are connected and used. We don't go into in depth details of each service just an icon and name indicating what this is
-This type of design is also called a **Blueprint**.
+In this stage of the design use the services provided by CSP to create a blueprint diagram of how each services are connected and used. Don't go into in depth details of each service just an icon and name indicating what it is. This type of design is also called a **Blueprint**.
 
 ### Physical Design
 
 Represents the actual thing thats built including the specification of each services, IP address, ARN, API gateway, etc.
+
+
