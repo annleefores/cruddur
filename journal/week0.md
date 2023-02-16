@@ -166,22 +166,18 @@ Cyber security goal in an organization is to identify and inform any technical r
 
 - Go to AWS Organizations console and start creating OU inside root. Make sure name and tag them when doing so.
 
-<div>
-  <p align='center'><img src="media/week0/ou-1.png" alt="Diagram I created following the video" width="50%" alt="conceptual design"></p>
-</div>
+![multiple OUs](media/week0/ou-2.png)
 
 - You have the permission to rename, delete, move OU(s), nested OU(s).
 - In most organizations OU(s) are created and set as standby OU(s) so that it can be allotted faster.
 
-![multiple OUs](media/week0/ou-2.png)
+
 
 ## AWS Cloud Trail
 
 >Auditing service from AWS
 
-<div>
-  <p align='center'><img src="media/week0/cloudtrail-1.png" alt="Diagram I created following the video" width="50%" alt="conceptual design"></p>
-</div>
+<p align='center'><img src="media/week0/cloudtrail-1.png" alt="Diagram I created following the video" width="50%" alt="conceptual design"></p>
 
 - Records most of the API calls to your AWS account
 - Can be used to monitor data security, auditing, etc.
