@@ -514,3 +514,35 @@ My take on a CI/CD pipeline for Cruddur.
 **Reference:**  
 [Integrating with github actions](https://aws.amazon.com/blogs/devops/integrating-with-github-actions-ci-cd-pipeline-to-deploy-a-web-app-to-amazon-ec2/)  
 [Automated software delivery using Docker Compose and Amazon ECS](https://aws.amazon.com/blogs/containers/automated-software-delivery-using-docker-compose-and-amazon-ecs/)
+
+### 3. Use EventBridge to hookup Health Dashboard to SNS
+
+- Create a SNS topic
+- Go to **AWS Health Dashboard**
+- Click on **Amazon EventBridge rule Configure**
+- Give a name and description
+- Keep the default values for **Event bus** and **Rule type**, and then choose **Next**.
+- Under **Event pattern**, for **Event source**, choose **AWS services**.
+- Under **Event pattern**, for **AWS service**, choose **Health**.
+- For **Event type,** choose **Specific Health events**
+- choose **Specific service(s)**
+- Fill up the rest as shown in the image
+
+![Alt text](media/week0/eventbridge-1.png)
+
+- Choose **Any resource** to create a rule that applies to all resources.
+- Choose **Next**
+- On the **Select target(s)** page, choose AWS service, select a target ⇒ SNS topic and topic ⇒ set to the topic you created earlier
+
+![Alt text](media/week0/eventbridge-2.png)
+
+- Choose **Next**.
+- Add tags
+- **Review and create**
+
+![Alt text](media/week0/eventbridge-3.png)
+
+EventBridge monitors for all EC2 events and notifies if there’s any issue
+
+**Reference:**  
+[Creating event bridge events rule for aws health](https://docs.aws.amazon.com/health/latest/ug/cloudwatch-events-health.html#creating-event-bridge-events-rule-for-aws-health)
