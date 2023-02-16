@@ -171,13 +171,13 @@ Cyber security goal in an organization is to identify and inform any technical r
 - You have the permission to rename, delete, move OU(s), nested OU(s).
 - In most organizations OU(s) are created and set as standby OU(s) so that it can be allotted faster.
 
-<p align='center'><img src="media/week0/ou-2.png" alt="Diagram I created following the video" width="70%" alt="multiple OUs"></p>
+<p><img src="media/week0/ou-2.png" alt="Diagram I created following the video" width="70%" alt="multiple OUs"></p>
 
 ## AWS Cloud Trail
 
 >Auditing service from AWS
 
-<p align='center'><img src="media/week0/cloudtrail-1.png" alt="Diagram I created following the video" width="50%" alt="conceptual design"></p>
+<p><img src="media/week0/cloudtrail-1.png" alt="Diagram I created following the video" width="50%" alt="cloudtrail"></p>
 
 - Records most of the API calls to your AWS account
 - Can be used to monitor data security, auditing, etc.
@@ -347,8 +347,6 @@ Certain credit is only applicable to few services
 To view details related to AWS free tier [https://aws.amazon.com/free](https://aws.amazon.com/free)
 
 - Each services has different types of free options
-
-![free tier](media/week0/free-tier.png)
 
 <br>
 
