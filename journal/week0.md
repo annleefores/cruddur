@@ -167,7 +167,7 @@ Cyber security goal in an organization is to identify and inform any technical r
 - Go to AWS Organizations console and start creating OU inside root. Make sure name and tag them when doing so.
 
 
-<p align='center'><img src="media/week0/ou-2.png" alt="Diagram I created following the video" width="100%" alt="multiple OUs"></p>
+<p align='center'><img src="media/week0/ou-2.png" alt="Diagram I created following the video" width="70%" alt="multiple OUs"></p>
 
 - You have the permission to rename, delete, move OU(s), nested OU(s).
 - In most organizations OU(s) are created and set as standby OU(s) so that it can be allotted faster.
