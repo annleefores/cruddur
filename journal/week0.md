@@ -56,13 +56,13 @@ Use the services provided by CSP to create a blueprint diagram of how each servi
 
 Represents the actual thing that is built, including the specifications of each service, IP address, ARN, API gateway, and so on.
 
-### Common Dictionary
+### Things to remember
 
 - Ask dump questions
 - Assume you are an end user interacting with this service.
 - Document everything !!!
 
-## Frameworks for building a project
+## Frameworks
 
 ### TOGAF
 
@@ -85,6 +85,8 @@ AWS offers a service to determine whether your project complies with the framewo
 
 **How to use AWS Well Architected Framework Service ?**  
 Using the AWS Well-Architecture Framework Service fill in all of the project's basic details before answering the checklists. These checklist questions are based on the AWS Well-Architected Framework. Based on these inputs, a report will be prepared in the end.
+
+![AWS Well Architected Tool](media/week0/aws-well.png)
 
 ## Architectural Diagram
 
@@ -130,9 +132,9 @@ Create a conceptual design or napkin design of the project.
 
 **Logical Design**
 
-![Alt text](media/week0/crudder-logical.png)
+![Logical Design](media/week0/crudder-logical.png)
 
-### [Link to the design file in Lucid Chart](https://lucid.app/lucidchart/1c59d211-6a78-496e-bb86-1db0faf0f6a1/edit?viewport_loc=-1416%2C111%2C3751%2C1823%2Cyv5w6~Ut2Wm0&invitationId=inv_27a0a80d-9325-4670-b7ec-59ff707f157e")
+### [Lucid Chart Design File Link ](https://lucid.app/lucidchart/1c59d211-6a78-496e-bb86-1db0faf0f6a1/edit?viewport_loc=-1416%2C111%2C3751%2C1823%2Cyv5w6~Ut2Wm0&invitationId=inv_27a0a80d-9325-4670-b7ec-59ff707f157e")
 
 <br>
 
@@ -150,7 +152,9 @@ Cyber security goal in an organization is to identify and inform any technical r
 - MFA provides second layer of protection
 - Use virtual or hardware MFA devices
 - To set MFA -> profile -> security credentials -> set MFA
-- Also add MFA to IAM user account.  
+- Also add MFA to IAM user account.  '
+
+![Alt text](media/week0/mfa.png)
 
 ## Organization Unit
 
@@ -168,9 +172,7 @@ Cyber security goal in an organization is to identify and inform any technical r
 
 - You have the permission to rename, delete, move OU(s), nested OU(s).
 
-<div>
-  <p align='center'><img src="media/week0/ou-2.png" alt="Diagram I created following the video" width="50%" alt="conceptual design"></p>
-</div>
+![Alt text](media/week0/ou-2.png)
 
 - In most organizations OU(s) are created and set as standby OU(s) so that it can be allotted faster.
 
@@ -187,15 +189,9 @@ Cyber security goal in an organization is to identify and inform any technical r
 
 **Create Cloud Trail**
 
-- From dashboard create a trail and enable it for all account in Organization.
-- Create a new S3 bucket for it.
-- Set a KMS alias and tag the resource.
-- Select _Management Events_.
-- Tick both API activity options.
-- When deleting the Trail make sure to delete s3 bucket and any unused _KMS customer managed keys_ as it can cost money
+I created a Trail following the tutorial and afterwards deleted it, Also deleted the KMS ( so that I don't incur cost for customer managed KMS) and deleted S3 bucket
 
-<p align='center'><img src="media/week0/cloudtrail-2.png" alt="Diagram I created following the video" width="70%" alt="conceptual design"></p>
-
+![Trail](media/week0/cloudtrail-2.png)
 
 ## IAM User
 
@@ -209,10 +205,7 @@ User with lesser permission than root user. Its advised to create a IAM user and
 - Add user to a group and tag
 - Set MFA and Access Keys (for accessing AWS through CLI)
 
-<div>
-  <p align='center'><img src="media/week0/iam-1.png" alt="Diagram I created following the video" width="50%" alt="conceptual design"></p>
-</div>
-
+![IAM user](media/week0/iam-1.png)
 
 
 ## Roles & Policies
@@ -228,19 +221,16 @@ User with lesser permission than root user. Its advised to create a IAM user and
 - From IAM left pane select roles.
 - When creating a new role choose AWS Services and EC2 for now.
 - Select _AdministratorAccess_ policy (gives all admin access)
-<div>
-  <p align='center'><img src="media/week0/iam-roles.png" alt="Diagram I created following the video" width="50%" alt="conceptual design"></p>
-</div>
+
+![IAM roles](media/week0/iam-roles.png)
 
 **Attach Policy**
 
 - From IAM left pane select policies
 - Select _SecurityAudit_ (read only policy) police and attach it to a role or a user group
-- Another policy we can attach is AmazonEC2FullAccess (only EC2 access)
+- Another policy that can be attached is AmazonEC2FullAccess (only EC2 access)
 
-<div>
-  <p align='center'><img src="media/week0/iam-policy.png" alt="Diagram I created following the video" width="50%" alt="conceptual design"></p>
-</div>
+![Attach Policy](media/week0/iam-policy.png)
 
 ## Service control policies (SCPs)
 
@@ -257,9 +247,7 @@ There are AWS managed and customer managed SCP policies
 - or go to IAM and then to SCP
 - or through OU
 
-<div>
-  <p align='center'><img src="media/week0/scp-1.png" alt="Diagram I created following the video" width="60%" alt="conceptual design"></p>
-</div>
+![SCP](media/week0/scp-1.png)
 
 - Can create a new SCP policy and add this JSON file to prevent users from leaving OU
 
@@ -306,66 +294,32 @@ Free tier usage
 
 ## CloudWatch Alarm
 
-> Notifies when cost threshold is breached
+Notifies when cost threshold is breached.  
 
-- Profile -> Billing Dashboard -> Billing Preference (left pane)
-  - Tick all the preference that match your need
-  - Click on _Manage Billing Alerts_ link found at the end of the page
+Manage Billing Alerts is the old method used to alert about spend newer one is budgets. 
 
-> Manage Billing Alerts is the old method used to alert about spend newer one is budgets
+10 alarms are free under free tier
 
-- This opens up CloudWatch in a new tab
-- Make sure to set region to N. Virginia. This is the only region where billing data is accessible.
-- Click _Create alarm_ & _Click Select Metric_
-- From that select _Billing → Total Estimated Charge_
-- Select _USD_ metric
-- Give a metric name
-- Set _Threshold_ value and click next
-- Select _Create new topic_ from _Notification_
-- Add your notification email and click _Create Topic_
-- Click _Next_ and set an _Alarm name_
-
-> 10 alarms are free under free tier
-
-- Review and create alarm
-- It will take couple of minutes to become active
-- Go back to _Billing Management Console_ page.
-
-<div>
-  <p align='center'><img src="media/week0/cloudwatch-alarm.png" alt="Diagram I created following the video" width="60%" alt="conceptual design"></p>
-</div>
+![cloudwatch alarm](media/week0/cloudwatch-alarm.png)
 
 ## Budget
 
-> Notifies when  
-> 1) your actual spend reaches 85% 
-> 2) your actual spend reaches 100% 
-> 3) if your forecasted spend is expected to reach 100%.
+Notifies when  
 
-> 2 budgets for free under free tier
+1) your actual spend reaches 85%
+2) your actual spend reaches 100%
+3) if your forecasted spend is expected to reach 100%.
 
-- Profile -> Billing Dashboard -> Budgets (left pane)
+2 budgets for free under free tier
 
-
-
-- _Use a template (simplified)_
-- _Monthly cost budget_
-- Set a _Budget Name_
-- _Enter your budgeted amount ($)_
-- Add email for notification
-
-<div>
-  <p align='center'><img src="media/week0/budgets.png" alt="Diagram I created following the video" width="60%" alt="conceptual design"></p>
-</div>
+![budgets](media/week0/budgets.png)
 
 ## Cost allocation tags
 
 - Profile -> Billing Dashboard -> Cost allocation tags (left pane)
 - Tagging will help to calculate the cost of a system with different services that are all tagged by a common tag
 
-<div>
-  <p align='center'><img src="media/week0/cost-allocation-tags.png" alt="Diagram I created following the video" width="60%" alt="conceptual design"></p>
-</div>
+![cost allocation tags](media/week0/cost-allocation-tags.png)
 
 ## Cost Explorer
 
@@ -373,9 +327,7 @@ Free tier usage
 - You can see spend based on different filters like date, frequency, region, tag, services, etc.
 - View reports and other features
 
-<div>
-  <p align='center'><img src="media/week0/cost-exp.png" alt="Diagram I created following the video" width="60%" alt="conceptual design"></p>
-</div>
+![cost explorer](media/week0/cost-exp.png)
 
 ## AWS Credit
 
@@ -393,9 +345,7 @@ Certain credit is only applicable to few services
 - AWS Calculator provides estimate based on 730 hrs per month
 - Pricing in real use case will vary based on usage
 
-<div>
-  <p align='center'><img src="media/week0/aws-calc.png" alt="Diagram I created following the video" width="60%" alt="conceptual design"></p>
-</div>
+![aws calculator](media/week0/aws-calc.png)
 
 ## AWS Free Tier
 
@@ -403,8 +353,5 @@ To view details related to AWS free tier [https://aws.amazon.com/free](https://a
 
 - Each services has different types of free options
 
-<div>
-  <p align='center'><img src="media/week0/free-tier.png" alt="Diagram I created following the video" width="60%" alt="conceptual design"></p>
-</div>
-
+![free tier](media/week0/free-tier.png)
 <br>
