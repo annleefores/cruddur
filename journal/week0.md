@@ -18,6 +18,7 @@
 
 - [Adding AWS_CLI_AUTO_PROMPT to .zshrc](#1-adding-aws_cli_auto_prompt-to-zshrc)
 - [CI/CD Pipeline](#2-cicd-pipeline)
+- [Use EventBridge to hookup Health Dashboard to SNS](#3-use-eventbridge-to-hookup-health-dashboard-to-sns)
 
 ---
 
