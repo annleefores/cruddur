@@ -160,7 +160,7 @@ Cyber security goal in an organization is to identify and inform any technical r
 - To set MFA -> profile -> security credentials -> set MFA
 - Also add MFA to IAM user account.  '
 
-![Alt text](media/week0/mfa.png)
+![MFA](media/week0/mfa.png)
 
 ## Organization Unit
 
@@ -326,7 +326,7 @@ Notifies when
 ## Cost Explorer
 
 - Profile -> Billing Dashboard -> Cost Explorer (left pane)
-- You can see spend based on different filters like date, frequency, region, tag, services, etc.
+- Can see spend based on different filters like date, frequency, region, tag, services, etc.
 - View reports and other features
 
 ![cost explorer](media/week0/cost-exp.png)
