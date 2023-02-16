@@ -550,14 +550,14 @@ My take on a CI/CD pipeline for Cruddur.
 
 **Using AWS CLI**
 
-- To create SNS topic run these commands 
+- To create SNS topic run this command.
 
  ```bash
  aws sns create-topic --name eventbridge-alert
  ```
 
-- Make sure to copy SNS topic ARN
-- To subscribe to SNS topic run this command replacing `arn` with SNS topic ARN also don't forget to add the email
+- Make sure to copy SNS topic ARN thats returned as response.
+- To subscribe to SNS topic run this command replacing `arn` with SNS topic ARN also don't forget to add the email.
 
 ```
 aws sns subscribe \
@@ -566,12 +566,12 @@ aws sns subscribe \
 --notification-endpoint <EMAIL>
 ```
 
-- Similar to the CLI steps used in billing alarm setup
-- Go to email client and confirm subscription
+- Similar to the CLI steps used in billing alarm setup. Go to email client and confirm subscription
+- This is how it looks in the SNS Console.
 
 ![Alt text](media/week0/ev-cli-1.png)
 
-- To create EventBridge Rule create `eventbridge-sns.json` file inside `aws/json/` folder and add this JSON content to it
+- To create EventBridge Rule create `eventbridge-sns.json` file inside `aws/json/` folder and add this JSON code.
 
 ```json
 {
@@ -596,7 +596,7 @@ aws events put-rule --name "eventbridge-sns-health" \
 
 ![Alt text](media/week0/ev-cli-2.png)
 
-- This is how it looks in the console
+- This is how it looks in the EventBridge console.
 
 ![Alt text](media/week0/ev-cli-3.png)
 
@@ -607,17 +607,15 @@ aws events put-targets --rule eventbridge-sns-health \
 --targets "Id"="1" "Arn"="arn:aws:sns:us-east-1:4531<REDACTED>:eventbridge-alert"
 ```
 
-I got the response (as shown below) at first I thought the command failed, but in the console everything looked good. So I deleted everything and ran the command again checking before connecting target and after connecting target via CLI. 
-
 ![Alt text](media/week0/ev-cli-4.png)
+
+I got the response (as shown above) at first I thought the command failed, but in the console everything looked good. So I deleted everything and ran the command again. Making sure to check before connecting target and after connecting target via CLI. 
 
 This is how it looks in the console when SNS topic is added
 
 ![Alt text](media/week0/ev-cli-5.png)
 
 Everything looks good so I guess its configured correctly and maybe that response status meant nothing failed.
-
-
 
 **Reference:**  
 [Creating event bridge events rule for aws health](https://docs.aws.amazon.com/health/latest/ug/cloudwatch-events-health.html#creating-event-bridge-events-rule-for-aws-health)  
