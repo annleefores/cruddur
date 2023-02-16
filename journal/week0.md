@@ -458,6 +458,13 @@ Following the tutorial steps I was able to Create SNS Topic and add a new AWS bi
 ![cloudwatch alarm cli](media/week0/cloudwatch-alarm-cli.png)
 
 ![cloudwatch alarm console](media/week0/cloudwatch-alarm-cli-2.png)
+
+## Homeworks
+
+**[Napkin Design](#create-conceptual-design)**
+
+**[Logical Design](#create-logical-design)**
+
 ## Homework Challenges
 
 ### 1. Adding AWS_CLI_AUTO_PROMPT to .zshrc
