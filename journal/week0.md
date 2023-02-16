@@ -1,6 +1,27 @@
 # Week 0 — Billing and Architecture
 
-## **Getting Started**
+## Required Homework
+
+- [Live Stream](#project-scenario)
+- [Spend Considerations](#spend-considerations)
+- [Security Considerations](#security-considerations)
+- [Napkin Design](#create-conceptual-design)
+- [Logical Design](#create-logical-design)
+- [Create Admin User](#iam-user)
+- [Use CloudShell](#cloudshell)
+- [Generate AWS Credentials](#create-access-keys)
+- [Installed AWS CLI](#install-aws-cli)
+- [Create a Billing Alarm](#create-billing-alarm-using-aws-cli)
+- [Create a Budget](#budget)
+
+## Homework Challenges
+
+- [Adding AWS_CLI_AUTO_PROMPT to .zshrc](#1-adding-aws_cli_auto_prompt-to-zshrc)
+- [CI/CD Pipeline](#2-cicd-pipeline)
+
+---
+
+## Getting Started
 
 I began by completing all of the prerequisite tasks that I did not already know/have.
 
@@ -14,6 +35,8 @@ I began by completing all of the prerequisite tasks that I did not already know/
 - Signed up for Lucid Charts.
 - Signed up for HoneyComb.io.
 - Signed up for Rollbar.
+
+---
 
 ## Project Scenario
 
@@ -140,7 +163,7 @@ I have added a serverless trending topic suggestion system which runs on frequen
 
 I have not added the Serverless Avatar Image Processing pipeline since it is not confirmed to be a part of the project as of now.
 
-<br>
+---
 
 ## Security Considerations
 
@@ -201,7 +224,6 @@ User with lesser permission than root user. Its advised to create a IAM user and
 - Set MFA and Access Keys (for accessing AWS through CLI)
 
 ![IAM user](media/week0/iam-1.png)
-
 
 ## Roles & Policies
 
@@ -273,9 +295,9 @@ There are AWS managed and customer managed SCP policies
 - Shared Responsibility of Threat Detection.
 - Incident Response Plans to include Cloud
 
-<br>
+---
 
-## Pricing Basics and Free tier
+## Spend Considerations
 
 > Different services have different cost and cost of each service varies based on region
 
@@ -348,7 +370,7 @@ To view details related to AWS free tier [https://aws.amazon.com/free](https://a
 
 - Each services has different types of free options
 
-<br>
+---
 
 ## AWS Budgets
 
@@ -370,7 +392,8 @@ Allows to send notification when credit usage crosses the threshold
 
 ## Create access keys
 
-Access key to send API calls to AWS from CLI, SDKs, or direct API calls
+Access key to send API calls to AWS from CLI, SDKs, or direct API calls. 
+Can be created from security credentials under profile
 
 ![access key](media/week0/access-key.png)
 
@@ -459,13 +482,10 @@ Following the tutorial steps I was able to Create SNS Topic and add a new AWS bi
 
 ![cloudwatch alarm console](media/week0/cloudwatch-alarm-cli-2.png)
 
-## Homework
-
-**[Napkin Design](#create-conceptual-design)**
-
-**[Logical Design](#create-logical-design)**
+---
 
 ## Homework Challenges
+
 
 ### 1. Adding AWS_CLI_AUTO_PROMPT to .zshrc
 
