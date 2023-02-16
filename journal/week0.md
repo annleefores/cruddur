@@ -116,6 +116,8 @@ Create a conceptual design or napkin design of the project.
 
 ![curddur napkin design](media/week0/cruddur-napkin.png)
 
+I made my own additions to the conceptual diagram by including systems to suggest follow users and a trending topic page.
+
 ### Create Logical Design
 
 - Create a logical design using AWS icons, making sure to keep the designs consistent.
@@ -135,6 +137,12 @@ Create a conceptual design or napkin design of the project.
 ![Logical Design](media/week0/crudder-logical.png)
 
 ### [Lucid Chart Design File Link ](https://lucid.app/lucidchart/1c59d211-6a78-496e-bb86-1db0faf0f6a1/edit?viewport_loc=-1416%2C111%2C3751%2C1823%2Cyv5w6~Ut2Wm0&invitationId=inv_27a0a80d-9325-4670-b7ec-59ff707f157e")
+
+In this logical diagram I have added a lambda based trending topic suggestion system which runs on frequent intervals, sorts trending topic by most used and then updates the trending page.  
+
+This is one of the feature I use the most on twitter, so why not have it here.
+
+I have not added the Serverless Avatar Image Processing pipeline since it is not confirmed to be a part of the project as of now.
 
 <br>
 
