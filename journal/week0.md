@@ -482,6 +482,8 @@ I added AWS_CLI_AUTO_PROMPT to ZSH shell and exported it to ~/.zshrc so that is 
 
 ![Alt text](media/week0/cicd.png)
 
+**[Link to lucid charts](https://lucid.app/lucidchart/fc60068a-37cb-46c7-a46f-49b174b434fa/edit?viewport_loc=-277%2C-352%2C2502%2C1216%2C0_0&invitationId=inv_aaafa779-b369-484b-9736-87d5d365967b)**
+
 My take on a CI/CD pipeline for Cruddur.
 
 - Developer pushes changes to github repo.
