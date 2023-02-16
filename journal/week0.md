@@ -615,7 +615,7 @@ This is how it looks in the  console when SNS topic is added
 
 ![Alt text](media/week0/ev-cli-5.png)
 
-Everything looks good so I guess its configured correctly and maybe that response status meant nothing failed.
+So I guess its configured correctly and maybe that response status meant nothing failed.
 
 **Reference:**  
 [Creating event bridge events rule for aws health](https://docs.aws.amazon.com/health/latest/ug/cloudwatch-events-health.html#creating-event-bridge-events-rule-for-aws-health)  
