@@ -609,7 +609,7 @@ aws events put-targets --rule eventbridge-sns-health \
 
 ![Alt text](media/week0/ev-cli-4.png)
 
-I got the response (as shown above) at first I thought the command failed, but in the console everything looked good. So I deleted everything and ran the command again. Making sure to check before connecting target and after connecting target. 
+I got the response (as shown above) at first I thought the command failed, but in the console everything looked good. So I deleted services and ran the command again. Making sure to check before connecting target and after connecting target. 
 
 This is how it looks in the console when SNS topic is added
 
