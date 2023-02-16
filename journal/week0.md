@@ -356,4 +356,113 @@ To view details related to AWS free tier [https://aws.amazon.com/free](https://a
 - Each services has different types of free options
 
 ![free tier](media/week0/free-tier.png)
+
 <br>
+
+## AWS Budgets
+
+**Cost Budget**
+
+Already Covered [here](#budget)
+
+**Usage Budget**
+
+Budget alert based on usage amount in hours
+
+![Alt text](media/week0/usage-budget.png)
+
+**Credit Spent Alert**
+
+Allows to send notification when credit usage crosses the threshold
+
+![Alt text](media/week0/credit-alert.png)
+
+## Create access keys
+
+Access key to send API calls to AWS from CLI, SDKs, or direct API calls
+
+![Alt text](media/week0/access-key.png)
+
+## CloudShell
+
+AWS builtin terminal/shell. Only available in selected regions. Can be accessed from main console by clicking shell icon.
+
+![Alt text](media/week0/cloudshell.png)
+
+**AWS CLI auto-prompt**
+
+If enabled, the auto-prompt enables you to use the ENTER key to complete a partially entered command.
+
+- To enable it run `aws --cli-auto-prompt` (only works for a single line)
+
+![Alt text](media/week0/auto-prompt.png)
+
+## Install AWS CLI
+
+- Open repo in gitpod
+- `cd..` to go back one file
+- run AWS CLI install in linux command
+
+```bash
+curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+unzip awscliv2.zip
+sudo ./aws/install
+```
+
+- Next step is to run `aws configure` and add the access details, region
+- But for gitpod, since the data outside workspace is not persistent it can't persist the AWS CLI installation or Access configure we need to do some additional configurations.
+
+- To make env persistent in gitpod run env variable commands like this   
+`gp env VARIABLE_NAME="VALUE"`
+  - AWS_ACCESS_KEY_ID="VALUE"
+  - AWS_SECRET_ACCESS_KEY="VALUE"
+  - AWS_DEFAULT_REGION="VALUE"
+
+- To auto install AWS CLI add this to `.gitpod.yml` file.
+
+```yaml
+tasks:
+  - name: aws-cli
+    env:
+      AWS_CLI_AUTO_PROMPT: on-partial
+    init: |
+      cd /workspace
+      curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+      unzip awscliv2.zip
+      sudo ./aws/install
+      cd $THEIA_WORKSPACE_ROOT
+```
+
+![Alt text](media/week0/gitpod-config.png)
+
+- Now every time gitpod workspace is booted up it will auto install AWS CLI and use the saved env variables
+
+![Alt text](media/week0/gitpod-variables.png)
+
+- When AWS command is run, it will output data specific to our account as shown below
+
+```
+gitpod /workspace/aws $ aws sts get-caller-identity
+{
+    "UserId": "AIDAW-Redacted",
+    "Account": "453-Redacted",
+    "Arn": "arn:aws:iam::453-Redacted:user/annlee"
+}
+```
+
+## Create AWS Budget using AWS CLI
+
+## Homework Challenges
+
+### 1. Adding AWS_CLI_AUTO_PROMPT to .zshrc
+
+I added AWS_CLI_AUTO_PROMPT to ZSH shell and exported it to ~/.zshrc so that is auto runs every time I load ZSH on my local machine
+
+- `nvim ~/.zshrc`
+- Add this line `export AWS_CLI_AUTO_PROMPT="on-partial"` to the end of the `.zshrc` file
+- run `source ~/.zshrc`
+
+**Reference**
+
+[AWS Docs - AWS_CLI_AUTO_PROMPT](https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-envvars.html#envvars-list-aws_cli_auto_prompt)
+
