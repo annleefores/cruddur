@@ -459,7 +459,7 @@ Following the tutorial steps I was able to Create SNS Topic and add a new AWS bi
 
 ![cloudwatch alarm console](media/week0/cloudwatch-alarm-cli-2.png)
 
-## Homeworks
+## Homework
 
 **[Napkin Design](#create-conceptual-design)**
 
@@ -479,3 +479,15 @@ I added AWS_CLI_AUTO_PROMPT to ZSH shell and exported it to ~/.zshrc so that is 
 
 [AWS Docs - AWS_CLI_AUTO_PROMPT](https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-envvars.html#envvars-list-aws_cli_auto_prompt)
 
+### 2. CI/CD Pipeline
+
+![Alt text](media/week0/cicd.png)
+
+My take on a CI/CD pipeline for Cruddur.
+
+- Developer pushes changes to github repo
+- Github actions test and builds application
+- Store container image in ECR
+- Deploy application using AWS CodeDeploy
+
+Not sure if I'm missing any steps, this is my first try at building an AWS architecture.
