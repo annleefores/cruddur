@@ -495,7 +495,7 @@ I added AWS_CLI_AUTO_PROMPT to ZSH shell and exported it to ~/.zshrc so that is 
 - Add this line `export AWS_CLI_AUTO_PROMPT="on-partial"` to the end of the `.zshrc` file
 - run `source ~/.zshrc`
 
-**Reference**  
+**Reference:**  
 [AWS Docs - AWS_CLI_AUTO_PROMPT](https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-envvars.html#envvars-list-aws_cli_auto_prompt)
 
 ### 2. CI/CD Pipeline
@@ -511,6 +511,6 @@ My take on a CI/CD pipeline for Cruddur.
 - Store container image in ECR.
 - Deploy application using AWS CodeDeploy.
 
-**Reference**  
+**Reference:**  
 [Integrating with github actions](https://aws.amazon.com/blogs/devops/integrating-with-github-actions-ci-cd-pipeline-to-deploy-a-web-app-to-amazon-ec2/)  
 [Automated software delivery using Docker Compose and Amazon ECS](https://aws.amazon.com/blogs/containers/automated-software-delivery-using-docker-compose-and-amazon-ecs/)
