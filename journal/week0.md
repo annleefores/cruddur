@@ -171,10 +171,9 @@ Cyber security goal in an organization is to identify and inform any technical r
 </div>
 
 - You have the permission to rename, delete, move OU(s), nested OU(s).
-
-  ![multiple OUs](media/week0/ou-2.png)
-
 - In most organizations OU(s) are created and set as standby OU(s) so that it can be allotted faster.
+
+![multiple OUs](media/week0/ou-2.png)
 
 ## AWS Cloud Trail
 
