@@ -170,7 +170,7 @@ Cyber security goal in an organization is to identify and inform any technical r
   <p align='center'><img src="media/week0/ou-1.png" alt="Diagram I created following the video" width="50%" alt="conceptual design"></p>
 </div>
 
-- You have the permission to rename, delete, move OU(s), nested OU(s).
+- You have the permission to rename, delete, move OU(s), nested OU(s).  
 
 ![multiple OUs](media/week0/ou-2.png)
 
