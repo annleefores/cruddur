@@ -126,9 +126,7 @@ I made my own additions to the conceptual diagram by including systems to sugges
 - When importing to Lucid, the icon fill color may not appear, so import the svg file inside [Figma](https://www.figma.com/) and then save it (This will fix any issue with the icon).
 - **To import icon**: Import Data -> Shapes -> Import Shapes -> Add to new library -> Choose SVG file
 
-<div>
-  <p align='center'><img src="media/week0/import-icon-lucid.png" alt="Diagram I created following the video" width="50%" alt="conceptual design"></p>
-</div>
+
 
 - Use the icons to create logical diagram
 
@@ -136,9 +134,9 @@ I made my own additions to the conceptual diagram by including systems to sugges
 
 ![Logical Design](media/week0/crudder-logical.png)
 
-### [Lucid Chart Design File Link ](https://lucid.app/lucidchart/1c59d211-6a78-496e-bb86-1db0faf0f6a1/edit?viewport_loc=-1416%2C111%2C3751%2C1823%2Cyv5w6~Ut2Wm0&invitationId=inv_27a0a80d-9325-4670-b7ec-59ff707f157e")
+**[Lucid Chart Design File Link ](https://lucid.app/lucidchart/1c59d211-6a78-496e-bb86-1db0faf0f6a1/edit?viewport_loc=-1416%2C111%2C3751%2C1823%2Cyv5w6~Ut2Wm0&invitationId=inv_27a0a80d-9325-4670-b7ec-59ff707f157e")**
 
-I have added a lambda based trending topic suggestion system which runs on frequent intervals, sorts trending topic by most used and then updates the trending page. This is one of the feature I use the most on twitter, so why not have it here.
+I have added a serverless trending topic suggestion system which runs on frequent intervals, sorts trending topic by most used and then updates the trending page. This is one of the feature I use the most on twitter, so why not have it here.
 
 I have not added the Serverless Avatar Image Processing pipeline since it is not confirmed to be a part of the project as of now.
 
@@ -156,9 +154,8 @@ Cyber security goal in an organization is to identify and inform any technical r
 
 - Root user is the most powerful user in an AWS account so its of the highest priority to secure this account
 - MFA provides second layer of protection
-- Use virtual or hardware MFA devices
 - To set MFA -> profile -> security credentials -> set MFA
-- Also add MFA to IAM user account.  '
+- Also add MFA to IAM user account.
 
 ![MFA](media/week0/mfa.png)
 
@@ -171,14 +168,10 @@ Cyber security goal in an organization is to identify and inform any technical r
 **Create OU(s)**  
 
 - Go to AWS Organizations console and start creating OU inside root. Make sure name and tag them when doing so.
-
-
-<p align='center'><img src="media/week0/ou-2.png" alt="Diagram I created following the video" width="70%" alt="multiple OUs"></p>
-
 - You have the permission to rename, delete, move OU(s), nested OU(s).
 - In most organizations OU(s) are created and set as standby OU(s) so that it can be allotted faster.
 
-
+<p align='center'><img src="media/week0/ou-2.png" alt="Diagram I created following the video" width="70%" alt="multiple OUs"></p>
 
 ## AWS Cloud Trail
 
@@ -229,7 +222,7 @@ User with lesser permission than root user. Its advised to create a IAM user and
 **Attach Policy**
 
 - From IAM left pane select policies
-- Select _SecurityAudit_ (read only policy) police and attach it to a role or a user group
+- Select _SecurityAudit_ (read only policy) policy and attach it to a role or a user group
 - Another policy that can be attached is AmazonEC2FullAccess (only EC2 access)
 
 ![Attach Policy](media/week0/iam-policy.png)
@@ -363,7 +356,7 @@ To view details related to AWS free tier [https://aws.amazon.com/free](https://a
 
 **Cost Budget**
 
-Already Covered [here](#budget)
+Already covered [here](#budget)
 
 **Usage Budget**
 
