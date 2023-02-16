@@ -369,25 +369,25 @@ Already Covered [here](#budget)
 
 Budget alert based on usage amount in hours
 
-![Alt text](media/week0/usage-budget.png)
+![usage budget](media/week0/usage-budget.png)
 
 **Credit Spent Alert**
 
 Allows to send notification when credit usage crosses the threshold
 
-![Alt text](media/week0/credit-alert.png)
+![credit alert](media/week0/credit-alert.png)
 
 ## Create access keys
 
 Access key to send API calls to AWS from CLI, SDKs, or direct API calls
 
-![Alt text](media/week0/access-key.png)
+![access key](media/week0/access-key.png)
 
 ## CloudShell
 
 AWS builtin terminal/shell. Only available in selected regions. Can be accessed from main console by clicking shell icon.
 
-![Alt text](media/week0/cloudshell.png)
+![cloudshell](media/week0/cloudshell.png)
 
 **AWS CLI auto-prompt**
 
@@ -395,7 +395,7 @@ If enabled, the auto-prompt enables you to use the ENTER key to complete a parti
 
 - To enable it run `aws --cli-auto-prompt` (only works for a single line)
 
-![Alt text](media/week0/auto-prompt.png)
+![cli auto prompt](media/week0/auto-prompt.png)
 
 ## Install AWS CLI
 
@@ -433,11 +433,11 @@ tasks:
       cd $THEIA_WORKSPACE_ROOT
 ```
 
-![Alt text](media/week0/gitpod-config.png)
+![gitpod config](media/week0/gitpod-config.png)
 
 - Now every time gitpod workspace is booted up it will auto install AWS CLI and use the saved env variables
 
-![Alt text](media/week0/gitpod-variables.png)
+![gitpod env variables](media/week0/gitpod-variables.png)
 
 - When AWS command is run, it will output data specific to our account as shown below
 
@@ -452,6 +452,21 @@ gitpod /workspace/aws $ aws sts get-caller-identity
 
 ## Create AWS Budget using AWS CLI
 
+Following the tutorial steps I was able to add a new AWS budget alert using CLI
+
+![gitpod screenshot](media/week0/gitpod.png)
+
+![Budget Screenshot](media/week0/aws-cli-1.png)
+
+## Create Billing Alarm using AWS CLI
+
+Following the tutorial steps I was able to Create SNS Topic and add a new AWS billing alarm using CLI
+
+![SNS topic](media/week0/sns-topic.png)
+
+![cloudwatch alarm cli](media/week0/cloudwatch-alarm-cli.png)
+
+![cloudwatch alarm console](media/week0/cloudwatch-alarm-cli-2.png)
 ## Homework Challenges
 
 ### 1. Adding AWS_CLI_AUTO_PROMPT to .zshrc
