@@ -489,5 +489,3 @@ My take on a CI/CD pipeline for Cruddur.
 - Github actions test and builds application
 - Store container image in ECR
 - Deploy application using AWS CodeDeploy
-
-Not sure if I'm missing any steps, this is my first try at building an AWS architecture.
