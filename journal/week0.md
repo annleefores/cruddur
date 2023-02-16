@@ -518,6 +518,8 @@ My take on a CI/CD pipeline for Cruddur.
 
 ### 3. Use EventBridge to hookup Health Dashboard to SNS
 
+**Using Console**
+
 - Create a SNS topic
 - Go to **AWS Health Dashboard**
 - Click on **Amazon EventBridge rule Configure**
@@ -542,6 +544,12 @@ My take on a CI/CD pipeline for Cruddur.
 - **Review and create**
 
 ![Alt text](media/week0/eventbridge-3.png)
+
+
+
+**Using AWS CLI**
+
+TODO
 
 EventBridge monitors for all EC2 events and notifies if there’s any issue
 
