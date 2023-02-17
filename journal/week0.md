@@ -289,7 +289,7 @@ There are AWS-managed and customer-managed SCP policies
 - Governance & Compliance of AWS Services being used
   - Global vs Regional Services
   - Compliant Services
-- Shared Responsibility of Threat Detection.
+- Shared Responsibility of Threat Detection
 - Incident Response Plans to include Cloud
 
 ---
@@ -298,11 +298,11 @@ There are AWS-managed and customer-managed SCP policies
 
 > Different services have different costs and the cost of each service varies based on the region.
 
-View cost and services that are currently running
+View cost and services that are currently running.
 
 - Profile -> Billing Dashboard -> Bills (left pane)
 
-Free tier usage
+Free tier usage.
 
 - Profile -> Billing Dashboard -> Free tier (left pane)
 
@@ -312,7 +312,7 @@ Free tier usage
 
 Manage Billing Alerts is an old method for alerting about spending; the newer one is budgets.
 
-10 alarms are free under the free tier
+10 alarms are free under the free tier.
 
 ![cloudwatch alarm](media/week0/cloudwatch-alarm.png)
 
@@ -322,9 +322,9 @@ Notifies when
 
 1) your actual spending reaches 85%
 2) your actual spending reaches 100%
-3) if your forecasted spend is expected to reach 100%.
+3) if your forecasted spend is expected to reach 100%
 
-2 budgets for free under the free tier
+2 budgets for free under the free tier.
 
 ![budgets](media/week0/budgets.png)
 
@@ -339,7 +339,7 @@ Notifies when
 
 - Profile -> Billing Dashboard -> Cost Explorer (left pane)
 - Spend can be viewed using various filters such as date, frequency, region, tag, services, and so on.
-- View reports and other features
+- View reports and other features.
 
 ![cost explorer](media/week0/cost-exp.png)
 
@@ -373,7 +373,7 @@ To view details related to AWS free tier [https://aws.amazon.com/free](https://a
 
 **Cost Budget**
 
-Already covered [here](#budget)
+Already covered [here](#budget).
 
 **Usage Budget**
 
@@ -404,7 +404,7 @@ AWS built-in terminal/shell. Only available in selected regions. Can be accessed
 
 If enabled, the auto-prompt enables you to use the ENTER key to complete a partially entered command.
 
-- To enable it run `aws --cli-auto-prompt` (only works for a single line)
+- To enable it run `aws --cli-auto-prompt` (only works for a single line).
 
 ![cli auto prompt](media/week0/auto-prompt.png)
 
@@ -412,7 +412,7 @@ If enabled, the auto-prompt enables you to use the ENTER key to complete a parti
 
 - Open repo in gitpod.
 - `cd..` to go back one folder.
-- run AWS CLI install in Linux terminal.
+- run AWS CLI install command in terminal.
 
 ```bash
 curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
@@ -420,7 +420,7 @@ unzip awscliv2.zip
 sudo ./aws/install
 ```
 
-- Next step is to run `aws configure` and add the access details, region
+- Next step is to run `aws configure` and add the access details, region.
 - But for gitpod, since the data outside the workspace is not persistent it can't persist the AWS CLI installation or Access configure so we must perform some additional configurations.
 
 - To make env persistent in gitpod run env variable commands like this  
@@ -581,7 +581,7 @@ aws sns subscribe \
 
 I got this JSON code by following the event pattern setup I did during the manual configuration
 
-- Run this command to create an event rule
+- Run this command to create an event rule.
 
 ```bash
 aws events put-rule --name "eventbridge-sns-health" \
