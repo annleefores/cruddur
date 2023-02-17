@@ -727,7 +727,7 @@ curl --request POST \
 
 ![Alt text](media/week0/notification-api-6.png)
 
-- Check you email client to view the SNS email.
+- Check email client to view SNS email.
 
 ![Alt text](media/week0/notification-api-7.png)
 
