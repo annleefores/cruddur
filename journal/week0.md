@@ -459,9 +459,9 @@ tasks:
 ```
 gitpod /workspace/aws $ aws sts get-caller-identity
 {
-    "UserId": "AIDAW-Redacted",
-    "Account": "453-Redacted",
-    "Arn": "arn:aws:iam::453-Redacted:user/annlee"
+    "UserId": "AIDAW<REDACTED>",
+    "Account": "<REDACTED>7434",
+    "Arn": "arn:aws:iam::<REDACTED>7434:user/annlee"
 }
 ```
 
@@ -582,6 +582,7 @@ aws sns subscribe \
     }
 }
 ```
+
 
 I got this JSON code by following the event pattern setup I did during the manual configuration
 
