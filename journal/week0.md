@@ -6,7 +6,7 @@
 - [Spend Considerations](#spend-considerations)
 - [Security Considerations](#security-considerations)
 - [Napkin Design](#create-conceptual-design)
-- [Logical Design](#create-logical-design)
+- [Logical Design](#create-a-logical-design)
 - [Create Admin User](#iam-user)
 - [Use CloudShell](#cloudshell)
 - [Generate AWS Credentials](#create-access-keys)
