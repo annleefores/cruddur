@@ -731,7 +731,7 @@ curl --request POST \
 
 ![Alt text](media/week0/notification-api-7.png)
 
-For some reason during initial testing SNS was not sending message to subscriber, so I deleted that topic and created new one. This time everything ran successfully.
+For some reason during initial testing SNS was not sending message to subscriber, so I deleted that topic and created new one. This time everything worked without any issue.
 
 **Reference:**  
 [Lambda Function URL](https://docs.aws.amazon.com/lambda/latest/dg/urls-tutorial.html)  
