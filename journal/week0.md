@@ -19,6 +19,7 @@
 - [Adding AWS_CLI_AUTO_PROMPT to .zshrc](#1-adding-aws_cli_auto_prompt-to-zshrc)
 - [CI/CD Pipeline](#2-cicd-pipeline)
 - [Use EventBridge to hookup Health Dashboard to SNS](#3-use-eventbridge-to-hookup-health-dashboard-to-sns)
+- [Serverless Notification API](#4-serverless-notification-api)
 
 ---
 
@@ -616,3 +617,123 @@ So I guess it's configured correctly, and maybe that response status meant nothi
 [Creating event bridge events rule for aws health](https://docs.aws.amazon.com/health/latest/ug/cloudwatch-events-health.html#creating-event-bridge-events-rule-for-aws-health)  
 [Event put-rule](https://awscli.amazonaws.com/v2/documentation/api/latest/reference/events/put-rule.html)  
 [Detect and Notify on AWS Personal Health Dashboard Events](https://asecure.cloud/a/detect-aws-health-events/)
+
+### 4. Serverless Notification API
+
+**Serverless Notification API** is a serverless notification API build using Lambda and SNS, that sends out an email notification to the subscriber when a POST request with message is send to the Lambda function URL.
+
+![Alt text](media/week0/notification-api-1.png)
+
+**Testing Lambda Function POST request**
+
+- So I created a Lambda function with Python 3.9 runtime.
+
+![Alt text](media/week0/notification-api-2.png)
+
+- When creating make sure to **Enable function URL** from advance settings and set **Auth type** to **NONE**.
+
+![Alt text](media/week0/notification-api-3.png)
+
+- I won’t be dealing with URL authentication for now.
+- Replaced Lambda function template code with this one.
+
+```python
+import json
+
+def lambda_handler(event, context):
+    body = json.loads(event.get("body"))
+    return {
+        'statusCode': 200,
+        'body': json.dumps(f"{body['num1']} and {body['num2']}")
+    }
+```
+
+- Deployed and copied the function URL.
+- Open up Insomnia or any other API development platform and send this curl request. Make sure to replace the URL with _Lambda function URL_.
+
+```bash
+curl -X POST \
+    'https://abcdefg.lambda-url.us-east-1.on.aws/' \
+    -H 'Content-Type: application/json' \
+    -d '{"num1": "10", "num2": "10"}'
+```
+
+- So the POST request via Function URL works
+
+![Alt text](media/week0/notification-api-4.png)
+
+**Creating Notification API**
+
+- Create a SNS topic and subscribe.
+
+```bash
+aws sns create-topic --name notification-api
+```
+
+- Copy SNS Topic ARN
+
+```bash
+aws sns subscribe \
+--topic-arn arn:aws:sns:<REGION>:<ACCOUNT ID>:notification-api \
+--protocol email \
+--notification-endpoint <EMAIL>
+```
+
+- Confirm subscription
+
+To give SNS access to Lambda function
+
+- Go to Lambda Function → **Configuration → Permissions → Click Role name link**
+- Under **Permissions → Add Permission → Attach Policies**
+- Filter out **AmazonSNSFullAccess** and add it
+
+Go back to Lambda Function
+
+- Edit the Lambda Function code to this, make sure to update SNS ARN and deploy.
+
+```python
+import json
+import boto3
+
+def lambda_handler(event, context):
+    
+    client = boto3.client('sns')
+    snsArn = 'arn:aws:sns:<REGION>:<ACCOUNT ID>:notification-api'
+    
+    body = json.loads(event.get("body"))
+    
+    
+    response = client.publish(
+        TopicArn = snsArn,
+        Message = body.get("message"),
+        Subject= f"Hello {body['name']}"
+    )
+    
+    return {
+      'statusCode': 200,
+      'body': json.dumps(response)
+   }
+```
+
+![Alt text](media/week0/notification-api-5.png)
+
+- Send this POST request
+
+```bash
+curl --request POST \
+  --url https://szsbz<REDACTED>.lambda-url.us-east-1.on.aws/ \
+  --header 'Content-Type: application/json' \
+  --data '{"name": "Annlee", "message": "This is a test message"}'
+```
+
+![Alt text](media/week0/notification-api-6.png)
+
+- Check you email client to view the SNS email.
+
+![Alt text](media/week0/notification-api-7.png)
+
+For some reason during initial testing SNS was not sending message to subscriber, so I deleted that topic and created new one. This time everything ran successfully.
+
+**Reference:**  
+[Lambda Function URL](https://docs.aws.amazon.com/lambda/latest/dg/urls-tutorial.html)  
+[SNS.Client.publish](https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/sns.html#SNS.Client.publish)
