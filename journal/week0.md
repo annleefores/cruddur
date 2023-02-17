@@ -624,6 +624,8 @@ So I guess it's configured correctly, and maybe that response status meant nothi
 
 ![Alt text](media/week0/notification-api-1.png)
 
+**[Link to lucid charts](https://lucid.app/lucidchart/fc60068a-37cb-46c7-a46f-49b174b434fa/edit?viewport_loc=-703%2C-222%2C2502%2C1216%2C_U8xkCluicMA&invitationId=inv_aaafa779-b369-484b-9736-87d5d365967b)**
+
 **Testing Lambda Function POST request**
 
 - I created a Lambda function with Python 3.9 runtime.
