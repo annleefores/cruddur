@@ -121,7 +121,7 @@ An online diagramming tool that's used in this boot camp to create the diagrams.
 
 _Other diagramming tools, guides, and AWS assets can be found here [AWS Architecture Icons](https://aws.amazon.com/architecture/icons/)_
 
-**Adding AWS Icons**: Open a new document -> Import Data -> Shapes ->Select _AWS Architecture 2021_ (from Standard Libraries) -> Use Selected Shapes.
+**Adding AWS Icons**: Open a new document → Import Data → Shapes → Select _AWS Architecture 2021_ (from Standard Libraries) → Use Selected Shapes.
 
 **Working with Lucid Charts**:
 
@@ -131,8 +131,8 @@ _Other diagramming tools, guides, and AWS assets can be found here [AWS Architec
 - The toolbar contains all of the standard text and shape formatting tools.
 - A document can contain multiple sheets.
 - A page area to create diagrams.
-  - **Enable Infinite Canvas**:  Right click on page area -> page settings -> toggle Infinite canvas
-  - **Enable Line Jumps**:   Right click on page area -> page settings -> Line Settings -> Show Line Jumps
+  - **Enable Infinite Canvas**:  Right click on page area → page settings → toggle Infinite canvas
+  - **Enable Line Jumps**:   Right click on page area → page settings → Line Settings → Show Line Jumps
 
 
 ### Create Conceptual Design
@@ -149,7 +149,7 @@ I customized the conceptual diagram by adding systems to suggest follow users an
 - For the [**Momento**](https://www.gomomento.com/) icon, go to the official website and inspect the website for the icon SVG code.
 - Save the code as `filename.svg` using VScode.
 - When importing to Lucid, the icon fill color may not appear, so import the SVG file inside [Figma](https://www.figma.com/) and then save it (This will fix any issue with the icon).
-- **To import icon**: Import Data -> Shapes -> Import Shapes -> Add to new library -> Choose SVG file
+- **To import icon**: Import Data → Shapes → Import Shapes → Add to new library → Choose SVG file
 - Use the icons to create a logical diagram.
 
 **Logical Design**
@@ -174,7 +174,7 @@ Cyber security's goal in an organization is to identify and inform any technical
 
 - Root user is the most powerful user in an AWS account so it's of the highest priority to secure this account.
 - MFA provides a second layer of protection.
-- To set MFA -> profile -> security credentials -> set MFA
+- To set MFA → profile → security credentials → set MFA
 - Also add MFA to the IAM user account.
 
 ![MFA](media/week0/mfa.png)
@@ -301,11 +301,11 @@ There are AWS-managed and customer-managed SCP policies
 
 View cost and services that are currently running.
 
-- Profile -> Billing Dashboard -> Bills (left pane)
+- Profile → Billing Dashboard → Bills (left pane)
 
 Free tier usage.
 
-- Profile -> Billing Dashboard -> Free tier (left pane)
+- Profile → Billing Dashboard → Free tier (left pane)
 
 ## CloudWatch Alarm
 
@@ -331,14 +331,14 @@ Notifies when
 
 ## Cost allocation tags
 
-- Profile -> Billing Dashboard -> Cost allocation tags (left pane)
+- Profile → Billing Dashboard → Cost allocation tags (left pane)
 - Tagging will aid in calculating the cost of a system with multiple services that are all tagged by a single tag.
 
 ![cost allocation tags](media/week0/cost-allocation-tags.png)
 
 ## Cost Explorer
 
-- Profile -> Billing Dashboard -> Cost Explorer (left pane)
+- Profile → Billing Dashboard → Cost Explorer (left pane)
 - Spend can be viewed using various filters such as date, frequency, region, tag, services, and so on.
 - View reports and other features.
 
@@ -348,7 +348,7 @@ Notifies when
 
 To redeem credits, view the credit balance.
 
-- Profile -> Billing Dashboard -> Credits (left pane)
+- Profile → Billing Dashboard → Credits (left pane)
 
 Certain credit is only applicable to a few services.
 
@@ -506,7 +506,7 @@ My take on a CI/CD pipeline for Cruddur.
 
 - Developer pushes changes to the github repo.
 - GitHub actions test and builds the application.
-- Store container image in ECR.
+- Stores container image in ECR.
 - Deploy the application using AWS CodeDeploy.
 
 **Reference:**  
@@ -620,20 +620,20 @@ So I guess it's configured correctly, and maybe that response status meant nothi
 
 ### 4. Serverless Notification API
 
-**Serverless Notification API** is a serverless notification API build using Lambda and SNS, that sends out an email notification to the subscriber when a POST request with message is send to the Lambda function URL.
+**Serverless Notification API** is a serverless notification API created with Lambda and SNS that sends an email notification to the subscriber whenever a POST request with a name and message is sent to the Lambda function URL.
 
 ![Alt text](media/week0/notification-api-1.png)
 
 **Testing Lambda Function POST request**
 
-- So I created a Lambda function with Python 3.9 runtime.
+- I created a Lambda function with Python 3.9 runtime.
 - When creating make sure to **Enable function URL** from advance settings and set **Auth type** to **NONE**.
 
 ![Alt text](media/week0/notification-api-3.png)
 
 ![Alt text](media/week0/notification-api-2.png)
 
-- I won’t be dealing with URL authentication for now.
+- I won't be dealing with URL authentication for the time being.
 - Replaced Lambda function template code with this one.
 
 ```python
@@ -648,7 +648,7 @@ def lambda_handler(event, context):
 ```
 
 - Deployed and copied the function URL.
-- Open up Insomnia or any other API development platform and send this curl request. Make sure to replace the URL with _Lambda function URL_.
+- Send this curl request using Insomnia or another API development platform. Replace the URL with the _Lambda function URL_.
 
 ```bash
 curl -X POST \
@@ -680,7 +680,7 @@ aws sns subscribe \
 
 - Confirm subscription
 
-To give SNS access to Lambda function
+To allow SNS access to the Lambda function
 
 - Go to Lambda Function → **Configuration → Permissions → Click Role name link**
 - Under **Permissions → Add Permission → Attach Policies**
@@ -688,7 +688,7 @@ To give SNS access to Lambda function
 
 Go back to Lambda Function
 
-- Edit the Lambda Function code to this, make sure to update SNS ARN and deploy.
+- Change the Lambda Function code to this, update the SNS ARN, and deploy.
 
 ```python
 import json
@@ -731,7 +731,7 @@ curl --request POST \
 
 ![Alt text](media/week0/notification-api-7.png)
 
-For some reason during initial testing SNS was not sending message to subscriber, so I deleted that topic and created new one. This time everything worked without any issue.
+SNS was not sending messages to subscribers for some reason during initial testing, so I deleted that topic and created a new one. Everything worked perfectly this time.
 
 **Reference:**  
 [Lambda Function URL](https://docs.aws.amazon.com/lambda/latest/dg/urls-tutorial.html)  
