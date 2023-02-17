@@ -603,8 +603,7 @@ aws events put-rule --name "eventbridge-sns-health" \
 - Now to add the target SNS I ran this command
 
 ```bash
-aws events put-targets --rule eventbridge-sns-health \
---targets "Id"="1" "Arn"="arn:aws:sns:us-east-1:4531<REDACTED>:eventbridge-alert"
+aws events put-targets --rule eventbridge-sns-health --targets "Id"="1","Arn"="arn:aws:sns:us-east-1:<REDACTED>7434:eventbridge-alert"
 ```
 
 ![Alt text](media/week0/ev-cli-4.png)
