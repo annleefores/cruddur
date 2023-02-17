@@ -140,7 +140,7 @@ Create a conceptual design or napkin design of the project.
 
 ![curddur napkin design](media/week0/cruddur-napkin.png)
 
-I made my own additions to the conceptual diagram by including systems to suggest follow users and a trending topic page.
+I customized the conceptual diagram by adding systems to suggest follow users and a trending topic page.
 
 ### Create Logical Design
 
@@ -149,9 +149,6 @@ I made my own additions to the conceptual diagram by including systems to sugges
 - Save the code as `filename.svg` using VScode
 - When importing to Lucid, the icon fill color may not appear, so import the svg file inside [Figma](https://www.figma.com/) and then save it (This will fix any issue with the icon).
 - **To import icon**: Import Data -> Shapes -> Import Shapes -> Add to new library -> Choose SVG file
-
-
-
 - Use the icons to create logical diagram
 
 **Logical Design**
@@ -160,9 +157,7 @@ I made my own additions to the conceptual diagram by including systems to sugges
 
 **[Lucid Chart Design File Link ](https://lucid.app/lucidchart/1c59d211-6a78-496e-bb86-1db0faf0f6a1/edit?viewport_loc=-1416%2C111%2C3751%2C1823%2Cyv5w6~Ut2Wm0&invitationId=inv_27a0a80d-9325-4670-b7ec-59ff707f157e")**
 
-I have added a serverless trending topic suggestion system which runs on frequent intervals, sorts trending topic by most used and then updates the trending page. This is one of the feature I use the most on twitter, so why not have it here.
-
-I have not added the Serverless Avatar Image Processing pipeline since it is not confirmed to be a part of the project as of now.
+I've included a serverless trending topic suggestion system that runs at regular intervals, sorts trending topics by most popular, and then updates the trending page. This is a feature I frequently use on Twitter, so why not include it here?
 
 ---
 
@@ -191,9 +186,9 @@ Cyber security goal in an organization is to identify and inform any technical r
 
 **Create OU(s)**  
 
-- Go to AWS Organizations console and start creating OU inside root. Make sure name and tag them when doing so.
+- Go to the AWS Organizations console and begin creating OUs within root. When doing so, make sure to name and tag them.
 - You have the permission to rename, delete, move OU(s), nested OU(s).
-- In most organizations OU(s) are created and set as standby OU(s) so that it can be allotted faster.
+- In most organizations, OU(s) are created and designated as standby OU(s) so that they can be assigned more quickly.
 
 <p><img src="media/week0/ou-2.png" alt="Diagram I created following the video" width="70%" alt="multiple OUs"></p>
 
@@ -208,7 +203,7 @@ Cyber security goal in an organization is to identify and inform any technical r
 
 **Create Cloud Trail**
 
-I created a Trail following the tutorial and afterwards deleted it, Also deleted the KMS ( so that I don't incur cost for customer managed KMS) and deleted S3 bucket
+I created a Trail using the tutorial and then deleted it. I also deleted the KMS (to avoid paying for customer managed KMS) and the S3 bucket.
 
 ![Trail](media/week0/cloudtrail-2.png)
 
@@ -237,7 +232,7 @@ User with lesser permission than root user. Its advised to create a IAM user and
 **Create Role**
 
 - From IAM left pane select roles.
-- When creating a new role choose AWS Services and EC2 for now.
+- For the time being, select AWS Services and EC2 when creating a new role.
 - Select _AdministratorAccess_ policy (gives all admin access)
 
 ![IAM roles](media/week0/iam-roles.png)
@@ -257,17 +252,18 @@ User with lesser permission than root user. Its advised to create a IAM user and
 [SCP](https://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_policies_scps.html)
 
 There are AWS managed and customer managed SCP policies
+
 - SCPs can also be created
 
 **SCP walkthrough**
 
-- Search for SCP and go to features tab and select Service control policies (SCPs)
+- Search for SCP and go to features tab and select **Service control policies (SCPs)**
 - or go to IAM and then to SCP
 - or through OU
 
 ![SCP](media/week0/scp-1.png)
 
-- Can create a new SCP policy and add this JSON file to prevent users from leaving OU
+- To prevent users from leaving an OU, create a new SCP policy and include this JSON file.
 
 ```bash
 {
@@ -312,9 +308,9 @@ Free tier usage
 
 ## CloudWatch Alarm
 
-Notifies when cost threshold is breached.  
+>Notifies when the cost threshold is exceeded.
 
-Manage Billing Alerts is the old method used to alert about spend newer one is budgets. 
+Manage Billing Alerts is an old method for alerting about spending; the newer one is budgets.
 
 10 alarms are free under free tier
 
@@ -335,33 +331,33 @@ Notifies when
 ## Cost allocation tags
 
 - Profile -> Billing Dashboard -> Cost allocation tags (left pane)
-- Tagging will help to calculate the cost of a system with different services that are all tagged by a common tag
+- Tagging will aid in calculating the cost of a system with multiple services that are all tagged by a single tag.
 
 ![cost allocation tags](media/week0/cost-allocation-tags.png)
 
 ## Cost Explorer
 
 - Profile -> Billing Dashboard -> Cost Explorer (left pane)
-- Can see spend based on different filters like date, frequency, region, tag, services, etc.
+- Spend can be viewed using various filters such as date, frequency, region, tag, services, and so on.
 - View reports and other features
 
 ![cost explorer](media/week0/cost-exp.png)
 
 ## AWS Credit
 
-To redeem credits, view credit balance
+To redeem credits, view credit balance.
 
 - Profile -> Billing Dashboard -> Credits (left pane)
 
-Certain credit is only applicable to few services
+Certain credit is only applicable to few services.
 
 ## AWS estimates calculator
 
 [https://calculator.aws/](https://calculator.aws/)
 
-- Calculate estimate cost for different services
-- AWS Calculator provides estimate based on 730 hrs per month
-- Pricing in real use case will vary based on usage
+- Calculate estimate cost for different services.
+- AWS Calculator provides estimate based on 730 hrs per month.
+- Pricing in real use case will vary based on usage.
 
 ![aws calculator](media/week0/aws-calc.png)
 
@@ -387,7 +383,7 @@ Budget alert based on usage amount in hours
 
 **Credit Spent Alert**
 
-Allows to send notification when credit usage crosses the threshold
+Allows you to receive notifications when your credit usage exceeds a certain threshold.
 
 ![credit alert](media/week0/credit-alert.png)
 
@@ -416,7 +412,7 @@ If enabled, the auto-prompt enables you to use the ENTER key to complete a parti
 
 - Open repo in gitpod
 - `cd..` to go back one file
-- run AWS CLI install in linux command
+- run AWS CLI install in linux terminal
 
 ```bash
 curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
@@ -425,9 +421,9 @@ sudo ./aws/install
 ```
 
 - Next step is to run `aws configure` and add the access details, region
-- But for gitpod, since the data outside workspace is not persistent it can't persist the AWS CLI installation or Access configure we need to do some additional configurations.
+- But for gitpod, since the data outside workspace is not persistent it can't persist the AWS CLI installation or Access configure so we must perform some additional configurations.
 
-- To make env persistent in gitpod run env variable commands like this   
+- To make env persistent in gitpod run env variable commands like this  
 `gp env VARIABLE_NAME="VALUE"`
   - AWS_ACCESS_KEY_ID="VALUE"
   - AWS_SECRET_ACCESS_KEY="VALUE"
@@ -450,11 +446,11 @@ tasks:
 
 ![gitpod config](media/week0/gitpod-config.png)
 
-- Now every time gitpod workspace is booted up it will auto install AWS CLI and use the saved env variables
+- When the gitpod workspace boots up, it will automatically install AWS CLI and use the previously saved environment variables.
 
 ![gitpod env variables](media/week0/gitpod-variables.png)
 
-- When AWS command is run, it will output data specific to our account as shown below
+- When we run the AWS command, it will output data specific to our account, as shown below.
 
 ```
 gitpod /workspace/aws $ aws sts get-caller-identity
@@ -467,7 +463,7 @@ gitpod /workspace/aws $ aws sts get-caller-identity
 
 ## Create AWS Budget using AWS CLI
 
-Following the tutorial steps I was able to add a new AWS budget alert using CLI
+I was able to add a new AWS budget alert using CLI after following the tutorial steps.
 
 ![gitpod screenshot](media/week0/gitpod.png)
 
@@ -475,7 +471,7 @@ Following the tutorial steps I was able to add a new AWS budget alert using CLI
 
 ## Create Billing Alarm using AWS CLI
 
-Following the tutorial steps I was able to Create SNS Topic and add a new AWS billing alarm using CLI
+I was able to Create SNS Topic and Add a New AWS Billing Alarm Using CLI by following the tutorial steps.
 
 ![SNS topic](media/week0/sns-topic.png)
 
@@ -490,7 +486,7 @@ Following the tutorial steps I was able to Create SNS Topic and add a new AWS bi
 
 ### 1. Adding AWS_CLI_AUTO_PROMPT to .zshrc
 
-I added AWS_CLI_AUTO_PROMPT to ZSH shell and exported it to ~/.zshrc so that is auto runs every time I load ZSH on my local machine
+I added AWS_CLI_AUTO_PROMPT to ZSH shell and exported it to ~/.zshrc so that is auto runs every time I launch ZSH on my local machine
 
 - `nvim ~/.zshrc`
 - Add this line `export AWS_CLI_AUTO_PROMPT="on-partial"` to the end of the `.zshrc` file
@@ -518,7 +514,7 @@ My take on a CI/CD pipeline for Cruddur.
 
 ### 3. Use EventBridge to hookup Health Dashboard to SNS
 
->This EventBridge config monitors for all EC2 events and notifies if there’s any issue
+>This EventBridge configuration monitors all EC2 events and alerts you if there is a problem.
 
 **Using Console**
 
@@ -557,7 +553,7 @@ My take on a CI/CD pipeline for Cruddur.
  ```
 
 - Make sure to copy SNS topic ARN thats returned as response.
-- To subscribe to SNS topic run this command replacing `arn` with SNS topic ARN also don't forget to add the email.
+- To subscribe to an SNS topic, run this command, replacing 'arn' with the ARN of the SNS topic, and don't forget to include the email address.
 
 ```
 aws sns subscribe \
@@ -566,8 +562,8 @@ aws sns subscribe \
 --notification-endpoint <EMAIL>
 ```
 
-- Similar to the CLI steps used in billing alarm setup. Go to email client and confirm subscription
-- This is how it looks in the SNS Console.
+- The CLI steps for configuring billing alarms are similar to this one. Confirm your subscription in your email client.
+- This is what the SNS Console looks like.
 
 ![Alt text](media/week0/ev-cli-1.png)
 
@@ -583,7 +579,6 @@ aws sns subscribe \
 }
 ```
 
-
 I got this JSON code by following the event pattern setup I did during the manual configuration
 
 - Run this command to create an event rule
@@ -593,7 +588,7 @@ aws events put-rule --name "eventbridge-sns-health" \
 --event-pattern file://aws/json/eventbridge-sns.json
 ```
 
-- This is the response that I got 
+- This is the response that I got.
 
 ![Alt text](media/week0/ev-cli-2.png)
 
@@ -601,7 +596,7 @@ aws events put-rule --name "eventbridge-sns-health" \
 
 ![Alt text](media/week0/ev-cli-3.png)
 
-- Now to add the target SNS I ran this command
+- Now to add the target SNS I ran this command.
 
 ```bash
 aws events put-targets --rule eventbridge-sns-health --targets "Id"="1","Arn"="arn:aws:sns:us-east-1:<REDACTED>7434:eventbridge-alert"
@@ -609,13 +604,13 @@ aws events put-targets --rule eventbridge-sns-health --targets "Id"="1","Arn"="a
 
 ![Alt text](media/week0/ev-cli-4.png)
 
-I got the response as shown above, at first I thought the command failed, but in the console everything looked okay. So I deleted eventbridge rule  and ran the command again. Making sure to check before connecting target and after connecting target. 
+I received the above response; at first, I thought the command had failed, but everything appeared to be fine in the console. So I deleted the eventbridge rule and reran the command. Making sure to check before and after connecting target.  
 
-This is how it looks in the  console when SNS topic is added
+When an SNS topic is added, the console looks like this.
 
 ![Alt text](media/week0/ev-cli-5.png)
 
-So I guess its configured correctly and maybe that response status meant nothing failed.
+So I guess it's configured correctly, and maybe that response status meant nothing went wrong.
 
 **Reference:**  
 [Creating event bridge events rule for aws health](https://docs.aws.amazon.com/health/latest/ug/cloudwatch-events-health.html#creating-event-bridge-events-rule-for-aws-health)  
