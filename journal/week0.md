@@ -629,7 +629,7 @@ So I guess it's configured correctly, and maybe that response status meant nothi
 **Testing Lambda Function POST request**
 
 - I created a Lambda function with Python 3.9 runtime.
-- When creating make sure to **Enable function URL** from advance settings and set **Auth type** to **NONE**.
+- When creating make sure to **Enable function URL** from advanced settings and set **Auth type** to **NONE**.
 
 ![Alt text](media/week0/notification-api-3.png)
 
