@@ -20,6 +20,7 @@
 - [CI/CD Pipeline](#2-cicd-pipeline)
 - [Use EventBridge to hookup Health Dashboard to SNS](#3-use-eventbridge-to-hookup-health-dashboard-to-sns)
 - [Serverless Notification API](#4-serverless-notification-api)
+- [Destroy root account credentials, Set MFA, IAM role](#5-destroy-root-account-credentials-set-mfa-iam-role)
 
 ---
 
@@ -738,3 +739,21 @@ SNS was not sending messages to subscribers for some reason during initial testi
 **Reference:**  
 [Lambda Function URL](https://docs.aws.amazon.com/lambda/latest/dg/urls-tutorial.html)  
 [SNS.Client.publish](https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/sns.html#SNS.Client.publish)
+
+#### 5 Destroy root account credentials, Set MFA, IAM role
+
+- Created a temporary IAM user, added to admin group that has permission to Billing and AdministratorAccess.
+
+![Alt text](media/week0/destroy-root-1.png)
+
+- Set Access Keys.
+
+![Alt text](media/week0/destroy-root-2.png)
+
+- Set MFA.
+
+![Alt text](media/week0/destroy-root-3.png)
+
+- Deleted Root account credentials.
+
+![Alt text](media/week0/destroy-root-4.png)
