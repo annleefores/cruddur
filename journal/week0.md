@@ -487,7 +487,7 @@ I was able to Create SNS Topic and Add a New AWS Billing Alarm Using CLI by foll
 
 ### 1. Adding AWS_CLI_AUTO_PROMPT to .zshrc
 
-I added AWS_CLI_AUTO_PROMPT to the ZSH shell and exported it to ~/.zshrc so that it auto-runs every time I launch ZSH on my local machine
+I added AWS_CLI_AUTO_PROMPT to the ZSH shell and exported it to `~/.zshrc` so that it auto-runs every time I launch ZSH on my local machine
 
 - `nvim ~/.zshrc`
 - Add this line `export AWS_CLI_AUTO_PROMPT="on-partial"` to the end of the `.zshrc` file
@@ -580,7 +580,7 @@ aws sns subscribe \
 }
 ```
 
-I got this JSON code by following the event pattern setup I did during the manual configuration
+I got this JSON code by following the event pattern setup I did during the manual configuration.
 
 - Run this command to create an event rule.
 
