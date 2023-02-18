@@ -12,7 +12,7 @@
 - [Generate AWS Credentials](#create-access-keys)
 - [Installed AWS CLI](#install-aws-cli)
 - [Create a Billing Alarm](#create-billing-alarm-using-aws-cli)
-- [Create a Budget](#budget)
+- [Create a Budget](#create-aws-budget-using-aws-cli)
 
 ## Homework Challenges
 
