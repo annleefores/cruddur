@@ -740,7 +740,7 @@ SNS was not sending messages to subscribers for some reason during initial testi
 [Lambda Function URL](https://docs.aws.amazon.com/lambda/latest/dg/urls-tutorial.html)  
 [SNS.Client.publish](https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/sns.html#SNS.Client.publish)
 
-### 5 Destroy root account credentials, Set MFA, IAM role
+### 5. Destroy root account credentials, Set MFA, IAM role
 
 - Created a temporary IAM user, added to admin group that has permission to Billing and AdministratorAccess.
 
