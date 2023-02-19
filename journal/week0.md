@@ -498,6 +498,8 @@ I added AWS_CLI_AUTO_PROMPT to the ZSH shell and exported it to `~/.zshrc` so th
 - Add this line `export AWS_CLI_AUTO_PROMPT="on-partial"` to the end of the `.zshrc` file
 - run `source ~/.zshrc`
 
+![Alt text](media/week0/auto-prompt-local.png)
+
 **Reference:**  
 [AWS Docs - AWS_CLI_AUTO_PROMPT](https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-envvars.html#envvars-list-aws_cli_auto_prompt)
 
