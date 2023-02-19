@@ -467,11 +467,15 @@ gitpod /workspace/aws $ aws sts get-caller-identity
 
 I was able to add a new AWS budget alert using CLI after following the tutorial steps.
 
+Steps: [create-budget](https://docs.aws.amazon.com/cli/latest/reference/budgets/create-budget.html#examples)
+
 ![gitpod screenshot](media/week0/gitpod.png)
 
 ![Budget Screenshot](media/week0/aws-cli-1.png)
 
 ## Create Billing Alarm using AWS CLI
+
+Steps: [cloudwatch-estimatedcharges-alarm](https://aws.amazon.com/premiumsupport/knowledge-center/cloudwatch-estimatedcharges-alarm/)
 
 I was able to Create SNS Topic and Add a New AWS Billing Alarm Using CLI by following the tutorial steps.
 
