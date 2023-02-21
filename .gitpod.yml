@@ -16,6 +16,12 @@ tasks:
       sudo apt update
       sudo apt install -y postgresql-client-13 libpq-dev
 
+  - name: npm-update
+    init: |
+      npm install -g npm@latest
+      cd /workspace/aws-bootcamp-cruddur-2023/frontend-react-js
+      npm i
+
 vscode:
   extensions:
     - 42Crunch.vscode-openapi
