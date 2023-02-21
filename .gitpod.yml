@@ -7,11 +7,6 @@ tasks:
       curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
       unzip awscliv2.zip
       sudo ./aws/install
-
-      npm install -g npm@latest
-      cd /workspace/aws-bootcamp-cruddur-2023/frontend-react-js
-      npm i
-
       cd $THEIA_WORKSPACE_ROOT
   
   - name: postgres
