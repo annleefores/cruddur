@@ -10,10 +10,14 @@
 - [DynamoDB Local Container]()
 - [Postgres Container]()
 
-## Homework Challenges
+## [Homework Challenges](#homework-challenges-1)
 
 TODO
 
 ---
 
 ## Containerizing Application
+
+---
+
+## Homework Challenges
