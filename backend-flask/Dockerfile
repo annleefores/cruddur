@@ -22,7 +22,7 @@ EXPOSE ${PORT}
 
 RUN chmod +x ./script.sh
 
-CMD ["sh", "./script.sh"]
+CMD ["/bin/bash", "./script.sh"]
 
 # CMD -> command
 # Run shell command to run flask app
