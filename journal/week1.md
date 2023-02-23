@@ -118,7 +118,7 @@ python3 -m flask run --host=0.0.0.0 --port=4567
     ```
 
   - `-t` → tag : name
-  - `backend-flask` docker image name
+  - `backend-flask` →  docker image name
 - Downloads dependencies and creates layers for container image.
 
 ![docker-image-build-backend](media/week1/docker-image-build-backend.png)
