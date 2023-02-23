@@ -132,9 +132,8 @@ python3 -m flask run --host=0.0.0.0 --port=4567
     ```
 
   - `--rm` → automatically clean up the container and remove the file system when the container exits.
-  - `--it` → is short for --interactive + --tty. Running docker with this command it takes you straight inside the container.
-  - Other flags:
-    - `-d` → run in detached mode/ run in background:
+  - `--it` → is short for --interactive + --tty. Running docker with this command it takes you straight inside the container.  
+  - `-d` → run in detached mode/ run in background:
 
         ```bash
          docker container run --rm -p 4567:4567 -d backend-flask
