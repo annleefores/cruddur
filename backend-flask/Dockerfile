@@ -1,5 +1,5 @@
 # build image
-FROM python:3.10-slim as build
+FROM python:3.10-slim AS build
 
 # for compiling packages
 RUN apt-get update
@@ -22,7 +22,7 @@ FROM python:3.10-slim-buster
 
 WORKDIR /backend-flask
 
-# copy deps
+# copy deps from build image
 COPY --from=build /backend-flask/venv ./venv
 
 COPY . .
