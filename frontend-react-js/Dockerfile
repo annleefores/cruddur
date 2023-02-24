@@ -7,8 +7,8 @@ WORKDIR /frontend-react-js
 RUN npm install
 EXPOSE ${PORT}
 
-RUN chmod +x ./script.sh
+# RUN chmod +x ./script.sh
 
-CMD ["/bin/bash", "./script.sh"]
+# CMD ["/bin/bash", "./script.sh"]
 
-# CMD ["npm", "start"]
+CMD ["npm", "start"]
