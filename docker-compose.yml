@@ -7,8 +7,17 @@ services:
     build: ./backend-flask
     ports:
       - "4567:4567"
+
+    healthcheck:
+      test: curl --fail http://localhost:4567/api/health || exit 1
+      interval: 10s
+      timeout: 10s
+      start_period: 10s
+      retries: 3
+
     volumes:
       - ./backend-flask:/backend-flask
+    
   frontend-react-js:
     environment:
       REACT_APP_BACKEND_URL: "http://localhost:4567"
