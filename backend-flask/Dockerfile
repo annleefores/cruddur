@@ -20,12 +20,9 @@ ENV FLASK_ENV=development
 #TODO
 EXPOSE ${PORT}
 
-RUN chmod +x ./script.sh
-
-CMD ["/bin/bash", "./script.sh"]
 
 # CMD -> command
 # Run shell command to run flask app
 # python3 -m flask run --host=0.0.0.0 --port=4567
-# CMD [ "python3", "-m" , "flask", "run", "--host=0.0.0.0", "--port=4567"]
+CMD [ "python3", "-m" , "flask", "run", "--host=0.0.0.0", "--port=4567"]
 
