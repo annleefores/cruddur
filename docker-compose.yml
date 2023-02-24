@@ -15,8 +15,8 @@ services:
       start_period: 10s
       retries: 3
 
-    volumes:
-      - ./backend-flask:/backend-flask
+    # volumes:
+    #   - ./backend-flask:/backend-flask
     
   frontend-react-js:
     environment:
