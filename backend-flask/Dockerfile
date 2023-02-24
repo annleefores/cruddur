@@ -22,6 +22,9 @@ FROM python:3.10-slim-buster
 
 WORKDIR /backend-flask
 
+# install curl for healthcheck
+RUN apt update && apt install -y curl
+
 # copy deps from build image
 COPY --from=build /backend-flask/venv ./venv
 
