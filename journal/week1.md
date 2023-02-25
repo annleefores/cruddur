@@ -12,7 +12,17 @@
 
 ## [Homework Challenges](#homework-challenges-1)
 
-TODO
+- [Fundamentals of YAML](#fundamentals-of-yaml)
+- [Fundamentals of OpenAPI](#fundamentals-of-openapi)
+- [Basics of Docker](#basics-of-docker)
+- [Run the Dockerfile CMD as an external script](#run-the-dockerfile-cmd-as-an-external-script)
+- [Running container on local machine](#running-container-on-local-machine)
+- [Running container on local machine](#best-practices-of-dockerfiles)
+- [Multi-Stage Docker Build](#multi-stage-docker-build)
+- [Health check in Docker Compose](#health-check-in-docker-compose)
+- [Push and tag image to DockerHub](#push-and-tag-a-image-to-dockerhub)
+- [Launch Docker Container on EC2](#launch-docker-container-on-ec2)
+
 
 ---
 
@@ -135,9 +145,9 @@ python3 -m flask run --host=0.0.0.0 --port=4567
   - `--it` → is short for --interactive + --tty. Running docker with this command it takes you straight inside the container.  
   - `-d` → run in detached mode/ run in background:
 
-        ```bash
+
          docker container run --rm -p 4567:4567 -d backend-flask
-        ```
+        
 
 - To run the container with the environment variables set use `-e` .
 
@@ -575,3 +585,505 @@ class NotificationActivities:
 ---
 
 ## Homework Challenges
+
+I completed the majority of the homework challenges on my local machine rather than using gitpod credits.
+
+### Updated `.gitpod.yml` to auto `npm i`
+
+```yaml
+tasks:
+  - name: aws-cli
+    env:
+      AWS_CLI_AUTO_PROMPT: on-partial
+    init: |
+      cd /workspace
+      curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+      unzip awscliv2.zip
+      sudo ./aws/install
+      cd $THEIA_WORKSPACE_ROOT
+  
+  - name: postgres
+    init: |
+      curl -fsSL https://www.postgresql.org/media/keys/ACCC4CF8.asc|sudo gpg --dearmor -o /etc/apt/trusted.gpg.d/postgresql.gpg
+      echo "deb http://apt.postgresql.org/pub/repos/apt/ `lsb_release -cs`-pgdg main" |sudo tee  /etc/apt/sources.list.d/pgdg.list
+      sudo apt update
+      sudo apt install -y postgresql-client-13 libpq-dev
+      exit
+
+  - name: npm-install
+    init: |
+      cd /workspace/aws-bootcamp-cruddur-2023/frontend-react-js
+      npm i
+      exit
+
+vscode:
+  extensions:
+    - 42Crunch.vscode-openapi
+    - cweijan.vscode-postgresql-client2
+```
+
+### Fundamentals of YAML
+
+- I learned the fundamentals of YAML by using online resources.
+
+### Fundamentals of OpenAPI
+
+- I read the openAPI documentation to learn more about it. I'm going to start using openAPI in my other projects.
+
+### Basics of Docker
+
+- I used Adrian Cantrill’s Docker course to refresh my docker knowledge.
+
+### Run the Dockerfile CMD as an external script
+
+One advantage of having an external script handle bash commands is that we can run multiple commands, whereas Dockerfile only allows us to run one.
+
+#### Backend
+
+- I updated the Dockerfile to make a script executable and run it at the end.
+
+```docker
+FROM python:3.10-slim-buster
+
+WORKDIR /backend-flask
+
+COPY requirements.txt requirements.txt
+
+RUN pip3 install -r requirements.txt
+
+COPY . .
+
+ENV FLASK_ENV=development
+
+EXPOSE ${PORT}
+
+RUN chmod +x ./script.sh
+
+CMD ["/bin/bash", "./script.sh"]
+```
+
+- In the same folder, I created a `script.sh` file and added this bash script to it.
+
+```bash
+#!/bin/bash
+python3 -m flask run --host=0.0.0.0 --port=4567
+```
+
+- Build and ran container.
+
+![Alt text](media/week1/docker-cmd-1.png)
+
+#### Frontend
+
+- I updated the Dockerfile to make a script executable and run it at the end.
+
+```docker
+FROM node:16.18
+
+ENV PORT=3000
+
+COPY . /frontend-react-js
+WORKDIR /frontend-react-js
+RUN npm install
+EXPOSE ${PORT}
+
+RUN chmod +x ./script.sh
+
+CMD ["/bin/bash", "./script.sh"]
+
+# CMD ["npm", "start"]
+```
+
+- In the same folder, I created a `script.sh` file and added this bash script to it.
+
+```bash
+#!/bin/bash
+npm start
+```
+
+- Build and ran container.
+
+![Alt text](media/week1/docker-cmd-2.png)
+
+### Running container on local machine
+
+- I already had Docker installed and running on my Windows machine with WSL 2, and after making a few changes to the URL in ENV VARs, I was able to run the containers using Docker compose.
+
+![Alt text](media/week1/docker-running-locally.png)
+
+- Docker desktop screenshot
+
+![Alt text](media/week1/docker-desktop-locally.png)
+
+- Connected to locally running PostgreSQL server
+
+![Alt text](media/week1/sql-server.png)
+
+### Best practices of Dockerfiles
+
+- Use Multi-stage Builds
+- Order Dockerfile Commands Appropriately
+- Use Small Docker Base Images
+- Use explicit and deterministic Docker base image tags
+- Minimize the Number of Layers by reducing number of `RUN`, `COPY`, and `ADD` commands
+- Run containers with least possible privilege (and never as root)
+- Prefer COPY Over ADD
+- Run Only One Process Per Container
+- Include a HEALTHCHECK Instruction
+- Use a .dockerignore File
+- Lint and Scan Your Dockerfiles and Images
+
+Some of these best practices have been incorporated into the Multi-stage Docker build.
+
+**Reference:**
+
+[https://docs.docker.com/develop/develop-images/dockerfile_best-practices](https://docs.docker.com/develop/develop-images/dockerfile_best-practices/)  [https://testdriven.io/blog/docker-best-practices](https://testdriven.io/blog/docker-best-practices/)  
+[https://snyk.io/blog/10-best-practices-to-containerize-nodejs-web-applications-with-docker](https://snyk.io/blog/10-best-practices-to-containerize-nodejs-web-applications-with-docker/)  
+[https://snyk.io/blog/best-practices-containerizing-python-docker](https://snyk.io/blog/best-practices-containerizing-python-docker/)
+
+### Multi-Stage Docker Build
+
+#### Backend
+
+- I chose to stick with `python:3.10-slim-buster` because it provides the best balance of image size and having all required packages - **Use explicit and deterministic Docker base image tags**.
+- I’m using `virtualenv` to make it easier to move and isolate packages.- **Separate dependencies from source code**.
+- I used two stages for **multi-stage builds**: build image and main image.
+- All dependencies are installed and complied during the build image stage.
+- The `venv` with dependencies is then copied to the main image in the second stage.
+- Using this method, I was able to avoid installing build tools in the main image.
+- This is the Dockerfile
+
+```docker
+# -----------------build image-----------------
+FROM python:3.10-slim AS build
+
+# for compiling packages
+RUN apt-get update
+RUN apt-get install -y --no-install-recommends \
+    build-essential gcc 
+
+WORKDIR /backend-flask
+
+#virtualenv
+RUN python3 -m venv /backend-flask/venv
+ENV PATH="/backend-flask/venv/bin:$PATH"
+
+# install dependencies
+COPY requirements.txt .
+RUN pip3 install -r requirements.txt
+
+# --------------main image-------------------
+FROM python:3.10-slim-buster
+
+WORKDIR /backend-flask
+
+# copy deps from build image
+COPY --from=build /backend-flask/venv ./venv
+
+COPY . .
+
+ENV PATH="/backend-flask/venv/bin:$PATH"
+
+ENV FLASK_ENV=development
+
+EXPOSE ${PORT}
+
+CMD [ "python3", "-m" , "flask", "run", "--host=0.0.0.0", "--port=4567"]
+```
+
+- Here is a comparison of  docker images
+    
+    ![Alt text](media/week1/backend-multi-size%20comparison.png)
+    
+    - The first one is image with **build tools** - 368MB
+    - Second one is image with **multi-stage** and **build tools** - 140MB
+    - Third one is normal image **without any build tools** - 129MB
+- Multi-stage backend docker container running
+
+![Alt text](media/week1/backend-multi-running.png)
+
+**Reference:**
+
+[https://snyk.io/blog/best-practices-containerizing-python-docker/](https://snyk.io/blog/best-practices-containerizing-python-docker/)  
+[https://pythonspeed.com/articles/smaller-python-docker-images/](https://pythonspeed.com/articles/smaller-python-docker-images/)  
+[https://pythonspeed.com/articles/multi-stage-docker-python/](https://pythonspeed.com/articles/multi-stage-docker-python/)  
+[https://www.reddit.com/r/docker/comments/g5hb93/alpine_vs_pythonslim_for_deploying_python_data/](https://www.reddit.com/r/docker/comments/g5hb93/alpine_vs_pythonslim_for_deploying_python_data/)
+
+#### Frontend
+
+- I chose  `node:16.19.1-bullseye-slim` for the main image because it is significantly lighter than what we previously used and contains all of the required libraries. It was also suggested when I searched for node:16.18 on snyk advisor.
+
+![Alt text](media/week1/synk-advisor-node.png)
+
+- Replaced `npm install` with  `npm ci --only=production` (production dependencies)
+- NODE ENV is set to production for optimal performance and security.
+- I used two stages for the multi-stage build, one for the build and one for the main image.
+- The build stage makes use of a standard node image. Deps are installed using package. json
+- In the second stage, these dependencies are copied over to the main image, which is based on a lighter node image. Other application files are also copied.
+- I added a `.dockerignore` file to avoid unnecessary files like node_modules, gitignore, and so on.
+
+```docker
+node_modules
+npm-debug.log
+Dockerfile
+.git
+.gitignore
+.npmrc
+```
+
+- This is the final Dockerfile
+
+```docker
+#--------------build image----------------
+FROM node:16.19.1 AS build
+
+WORKDIR /frontend-react-js
+
+# copy only package-lock.json and package.json files
+COPY package*.json /frontend-react-js
+
+# production ready npm install
+RUN npm ci --only=production
+
+# ------------- main image ---------------000
+FROM node:16.19.1-bullseye-slim
+
+# set node env to production
+ENV NODE_ENV production
+ENV PORT=3000
+
+WORKDIR /frontend-react-js
+
+# copy deps
+COPY --from=build /frontend-react-js/node_modules /frontend-react-js/node_modules 
+COPY . /frontend-react-js
+
+EXPOSE ${PORT}
+
+CMD ["npm", "start"]
+```
+
+- The image size comparison
+    
+    ![Alt text](media/week1/multi-stage-frontend-compare.png)
+    
+    - The first image uses multi-stage - **427MB**
+    - Second one uses single stage - **1.23GB**
+- Multi-stage frontend docker container running
+
+![Alt text](media/week1/multistage-frontend-docker-running.png)
+
+**Reference:**
+
+[https://snyk.io/blog/10-best-practices-to-containerize-nodejs-web-applications-with-docker/](https://snyk.io/blog/10-best-practices-to-containerize-nodejs-web-applications-with-docker/)
+
+I could have further reduced the image size by using an alpine image. However, it is not suitable for production apps and can frequently result in longer build times if compiled binaries that work with it are not available. As a result, you may have to build the binaries yourself, increasing the image size.
+
+### Health check in Docker Compose
+
+- I created an endpoint inside the flask app to check for health (optional)
+
+```python
+@app.route("/api/health", methods=["GET"])
+def health():
+    return "Healthy: OK"
+```
+
+- Then, in the second stage of container build, I added instructions for installing curl inside the backend-flask image.
+    - Curl was not installing at first, so I had to update and then install it.
+        
+        ```docker
+        # install curl for healthcheck
+        RUN sudo apt update && install -y curl
+        ```
+        
+- checking if health check is working locally
+
+```bash
+curl http://localhost:4567/api/health
+
+#response from container
+root@eaf237f1c734:/backend-flask# curl http://localhost:4567/api/health
+Healthy: OK
+root@eaf237f1c734:/backend-flask#
+```
+
+- Added healthcheck to docker compose under backend
+
+```yaml
+ports:
+  - "4567:4567"
+healthcheck:
+  test: curl --fail http://localhost:4567/api/health || exit 1
+  interval: 10s
+  timeout: 10s
+  start_period: 10s
+  retries: 3
+
+volumes:
+  - ./backend-flask:/backend-flask
+```
+
+- `docker compose up` and verify health using `docker ps`
+    - When I tried to compose, I received this error.
+    
+    ```yaml
+    failed to solve: rpc error: code = Unknown desc = failed to solve with frontend dockerfile.v0: failed to create LLB definition: failed to authorize: rpc error: code = Unknown desc = failed to fetch oauth token: Post "https://auth.docker.io/token": EOF
+    ```
+    
+    - A quick Google search revealed that I needed to re-login to resolve this.
+- Then I got this error `/usr/local/bin/python3: No module named flask` and flask isn’t running
+    - My best guess is that this is due to virtualenv, and because we're using bind mounts, it's looking for the same path on the host machine.
+    - I attempted to set up a venv on a local machine, but that did not resolve the problem.
+    - When I added this venv, the normal docker run for the backend failed as well; this was resolved by adding the venv to `.dockerignore`.
+    - I'll look into resolving this path issue later because it was taking up too much of my time.
+- Health status
+
+```bash
+❯ docker ps
+CONTAINER ID   IMAGE                                         COMMAND                  CREATED          STATUS                    PORTS                    NAMES
+809e2fd8abff   aws-bootcamp-cruddur-2023-frontend-react-js   "docker-entrypoint.s…"   13 minutes ago   Up 13 minutes             0.0.0.0:3000->3000/tcp   aws-bootcamp-cruddur-2023-frontend-react-js-1
+96c922386349   postgres:13-alpine                            "docker-entrypoint.s…"   13 minutes ago   Up 13 minutes             0.0.0.0:5432->5432/tcp   aws-bootcamp-cruddur-2023-db-1
+f72efba9472a   amazon/dynamodb-local:latest                  "java -jar DynamoDBL…"   13 minutes ago   Up 13 minutes             0.0.0.0:8000->8000/tcp   dynamodb-local
+b34cf8ba7909   aws-bootcamp-cruddur-2023-backend-flask       "python3 -m flask ru…"   13 minutes ago   Up 13 minutes (healthy)   0.0.0.0:4567->4567/tcp   aws-bootcamp-cruddur-2023-backend-flask-1
+```
+
+**Reference:**
+
+[https://snyk.io/blog/best-practices-containerizing-python-docker/](https://snyk.io/blog/best-practices-containerizing-python-docker/)  
+[https://testdriven.io/blog/docker-best-practices/#include-a-healthcheck-instruction](https://testdriven.io/blog/docker-best-practices/#include-a-healthcheck-instruction)
+
+### Push and tag a image to DockerHub
+
+- Build frontend and backend container image.
+- Tagged images.
+
+```bash
+docker tag <image_id> <username>/<repo_name>:<tag>
+```
+
+```bash
+❯ docker images
+REPOSITORY                      TAG       IMAGE ID       CREATED         SIZE
+annleefores/frontend-react-js   1.0       ea8271a68287   2 minutes ago   427MB
+frontend-react-js               latest    ea8271a68287   2 minutes ago   427MB
+annleefores/backend-flask       1.0       4804f14d80e1   4 minutes ago   164MB
+backend-flask                   latest    4804f14d80e1   4 minutes ago   164MB
+```
+
+- docker push tagged images.
+
+```bash
+docker push <username>/<repo-name>:<tag>
+```
+
+- Container images pushed to dockerhub.
+
+![Alt text](media/week1/dockerhub.png)
+
+[Link to my dockerhub profile](https://hub.docker.com/u/annleefores)
+
+### Launch Docker Container on EC2
+
+- Launch an EC2 instance, set key-pair, Allow HTTP traffic from internet.
+- Connect to instance via SSH
+- Install docker
+
+```bash
+sudo yum update -y && sudo amazon-linux-extras install docker
+```
+
+- Start docker service
+
+```bash
+sudo service docker start
+```
+
+- (Optional) To ensure that the Docker daemon starts after each system reboot, run the following command
+
+```bash
+sudo systemctl enable docker
+```
+
+- Add current user to docker group to use docker commands without sudo permission
+
+```bash
+sudo usermod -a -G docker ec2-user
+```
+
+- Log out and log back in
+- Incase of error when running `docker info` reboot ec2 instance
+- Pull image from dockerhub.
+
+```bash
+[ec2-user@ip-172<redacted>5 ~]$ docker images
+REPOSITORY                      TAG       IMAGE ID       CREATED             SIZE
+annleefores/frontend-react-js   1.0       ea8271a68287   About an hour ago   427MB
+annleefores/backend-flask       1.0       4804f14d80e1   About an hour ago   164MB
+
+```
+
+- If not already done, modify the inbound rules to allow ports 3000 and 4567.
+- I tried running them separately (make sure to use env vars also its http not https)
+- Install docker compose on ec2
+
+```yaml
+mkdir -p ~/.docker/cli-plugins/
+curl -SL https://github.com/docker/compose/releases/download/v2.16.0/docker-compose-linux-x86_64 -o ~/.docker/cli-plugins/docker-compose
+```
+
+```yaml
+chmod +x ~/.docker/cli-plugins/docker-compose
+```
+
+```yaml
+docker compose version
+```
+
+- Get the IP address of the instance within ec2 and store it in an environment variable.
+
+```bash
+export IP=$(curl http://169.254.169.254/latest/meta-data/public-ipv4)
+```
+
+- I made this docker compose file to start them both.
+
+```yaml
+version: "3.8"
+services:
+  backend-flask:
+    environment:
+      FRONTEND_URL: "http://$IP:3000"
+      BACKEND_URL: "http://$IP:4567"
+    image: annleefores/backend-flask:1.0
+    ports:
+      - "4567:4567"
+
+    healthcheck:
+      test: curl --fail http://$IP:4567/api/health || exit 1
+      interval: 10s
+      timeout: 10s
+      start_period: 10s
+      retries: 3
+    
+  frontend-react-js:
+    environment:
+      REACT_APP_BACKEND_URL: "http://$IP:4567"
+    image: annleefores/frontend-react-js:1.0
+    ports:
+      - "3000:3000"
+
+networks: 
+  internal-network:
+    driver: bridge
+    name: cruddur
+```
+
+- Backend and frontend running together on ec2 instance
+
+![Alt text](media/week1/backend-frontend-ec2.png)
+
+**Reference**
+
+[https://docs.aws.amazon.com/AmazonECS/latest/developerguide/create-container-image.html](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/create-container-image.html)  
+[https://github.com/docker/compose](https://github.com/docker/compose)
