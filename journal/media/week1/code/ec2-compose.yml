@@ -1,0 +1,28 @@
+version: "3.8"
+services:
+  backend-flask:
+    environment:
+      FRONTEND_URL: "http://$IP:3000"
+      BACKEND_URL: "http://$IP:4567"
+    image: annleefores/backend-flask:1.0
+    ports:
+      - "4567:4567"
+
+    healthcheck:
+      test: curl --fail http://$IP:4567/api/health || exit 1
+      interval: 10s
+      timeout: 10s
+      start_period: 10s
+      retries: 3
+    
+  frontend-react-js:
+    environment:
+      REACT_APP_BACKEND_URL: "http://$IP:4567"
+    image: annleefores/frontend-react-js:1.0
+    ports:
+      - "3000:3000"
+
+networks: 
+  internal-network:
+    driver: bridge
+    name: cruddur
