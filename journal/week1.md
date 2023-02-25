@@ -23,7 +23,6 @@
 - [Push and tag image to DockerHub](#push-and-tag-a-image-to-dockerhub)
 - [Launch Docker Container on EC2](#launch-docker-container-on-ec2)
 
-
 ---
 
 ## Application containerization
@@ -581,6 +580,103 @@ class NotificationActivities:
 - Launch frontend, sign in and go to notifications
 
 ![Alt text](media/week1/notification-page.png)
+
+---
+
+## App Containerization Pricing Considerations
+
+### Gitpod
+
+- Up to 50 hours of usage/month
+- Standard : 4 cores, 8GB RAM & 30GB storage
+- Avoid spinning up multiple environments at the same time
+- If unused Gitpod workspace will close on it’s on
+
+### Github Codespaces
+
+- Up to 60 hours of usage/month with : 2 cores 4 GB RAM and 15 GB of
+storage
+- Up to 30 hours of usage/month with : 4 cores 8 GB RAM and 15 GB of
+storage
+- If unused this will also shutdown
+
+### AWS Cloud9
+
+- Covered under free tier until the validity of t2.micro instance in your
+account.
+- Avoid using Cloud9 in case of free tier instance in use for other purpose
+
+### CloudTrail
+
+- Avoid cloudtrail if under free tier
+- Use the free 90 days trail
+
+---
+
+## Docker Container Security Best Practices
+
+
+### What is Container Security?
+
+Container Security is the practice of protecting your applications hosted on compute services like Containers. Common examples of applications can be Single Page Applications (SPAs), Microservices, APIs etc
+
+### Container Security Components
+
+- Docker & Host Configuration
+- Securing Images
+- Secret Managements
+- Application Security
+- Data Security
+- Monitoring Containers
+- Compliance Framework
+
+### Security Best Practices
+
+- Keep Host & Docker Updated to latest security Patches
+- Docker daemon & containers should run in non-root user mode - container escape
+- Image Vulnerability Scanning
+  - Limit size of docker image
+- Trusting a Private vs Public Image Registry
+- No Sensitive Data in Docker files or Images
+- Use Secret Management Services to Share secrets
+- Read only File system and Volume for Docker
+- Separate databases for long term storage
+- Use DevSecOps practices while building application security
+- Ensure all Code is tested for vulnerabilities before production use
+
+### Open Source vulnerability check
+
+- [https://snyk.io/](https://snyk.io/)
+
+#### Test Docker Container
+- Create a docker container based on this guide   
+[https://docs.docker.com/compose/gettingstarted/](https://docs.docker.com/compose/gettingstarted/)
+- Install Snyk CLI  
+[https://docs.snyk.io/snyk-cli/install-the-snyk-cli](https://docs.snyk.io/snyk-cli/install-the-snyk-cli)
+- Use this Snyk command `snyk container test <container_name>` to test docker image.
+- Or use Snyk website.
+
+### Secret Manager
+
+- [AWS Secrets Manager](https://aws.amazon.com/secrets-manager/)
+
+- [Hashicorp Vault](https://www.vaultproject.io/)
+
+### Image Vulnerability Scanning
+
+- [AWS Inspector](https://aws.amazon.com/inspector/)
+
+- [Clair](https://github.com/quay/clair)
+
+### Running Containers in AWS
+
+- Problem with docker is that every time there’s need to make change you have to stop the container and docker-compose is limited to only building one application and it has many limitations.
+- Solution is to use managed container services like
+  - AWS EKS - Elastic Kubernetes Service
+  - AWS ECS - Elastic Container Service
+  - AWS Fargate - Serverless Service
+  - AWS App Runner
+  - AWS CoPilot
 
 ---
 
