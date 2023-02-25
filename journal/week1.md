@@ -13,9 +13,7 @@
 ## [Homework Challenges](#homework-challenges-1)
 
 - [Update `.gitpod.yml`](#updated-gitpodyml-to-auto-npm-i)
-- [Fundamentals of YAML](#fundamentals-of-yaml)
-- [Fundamentals of OpenAPI](#fundamentals-of-openapi)
-- [Basics of Docker](#basics-of-docker)
+- [Fundamentals of YAML, OpenAPI & Docker](#learned-fundamentals-of-yaml-openapi--docker)
 - [Run the Dockerfile CMD as an external script](#run-the-dockerfile-cmd-as-an-external-script)
 - [Running container on local machine](#running-container-on-local-machine)
 - [Best practices of Dockerfiles](#best-practices-of-dockerfiles)
@@ -721,16 +719,10 @@ vscode:
     - cweijan.vscode-postgresql-client2
 ```
 
-### Fundamentals of YAML
+### Learned fundamentals of YAML, OpenAPI & Docker
 
 - I learned the fundamentals of YAML by using online resources.
-
-### Fundamentals of OpenAPI
-
 - I read the openAPI documentation to learn more about it. I'm going to start using openAPI in my other projects.
-
-### Basics of Docker
-
 - I used Adrian Cantrill’s Docker course to refresh my docker knowledge.
 
 ### Run the Dockerfile CMD as an external script
