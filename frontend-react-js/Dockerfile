@@ -19,6 +19,8 @@ ENV PORT=3000
 
 WORKDIR /frontend-react-js
 
+RUN apt update && apt install -y curl
+
 # copy deps
 COPY --from=build /frontend-react-js/node_modules /frontend-react-js/node_modules 
 COPY . /frontend-react-js
