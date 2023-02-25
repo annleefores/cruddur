@@ -1026,18 +1026,21 @@ volumes:
     - I attempted to set up a venv on a local machine, but that did not resolve the problem.
     - When I added this venv, the normal docker run for the backend failed as well; this was resolved by adding the venv to `.dockerignore`.
     - I'll look into resolving this path issue later because it was taking up too much of my time.
+
+- I setup health check on frontend app following the same steps and pinging to the frontend main domain.
+
+
 - Health status
 
 ```bash
-❯ docker ps
-CONTAINER ID   IMAGE                                         COMMAND                  CREATED          STATUS                    PORTS                    NAMES
-809e2fd8abff   aws-bootcamp-cruddur-2023-frontend-react-js   "docker-entrypoint.s…"   13 minutes ago   Up 13 minutes             0.0.0.0:3000->3000/tcp   aws-bootcamp-cruddur-2023-frontend-react-js-1
-96c922386349   postgres:13-alpine                            "docker-entrypoint.s…"   13 minutes ago   Up 13 minutes             0.0.0.0:5432->5432/tcp   aws-bootcamp-cruddur-2023-db-1
-f72efba9472a   amazon/dynamodb-local:latest                  "java -jar DynamoDBL…"   13 minutes ago   Up 13 minutes             0.0.0.0:8000->8000/tcp   dynamodb-local
-b34cf8ba7909   aws-bootcamp-cruddur-2023-backend-flask       "python3 -m flask ru…"   13 minutes ago   Up 13 minutes (healthy)   0.0.0.0:4567->4567/tcp   aws-bootcamp-cruddur-2023-backend-flask-1
+CONTAINER ID   IMAGE                                         COMMAND                  CREATED          STATUS                    PORTS                                       NAMES
+a95f9d8dcd4f   aws-bootcamp-cruddur-2023-backend-flask       "python3 -m flask ru…"   15 seconds ago   Up 14 seconds (healthy)   0.0.0.0:4567->4567/tcp, :::4567->4567/tcp   aws-bootcamp-cruddur-2023-backend-flask-1
+a435a8ba6334   postgres:13-alpine                            "docker-entrypoint.s…"   15 seconds ago   Up 14 seconds             0.0.0.0:5432->5432/tcp, :::5432->5432/tcp   aws-bootcamp-cruddur-2023-db-1
+06cc3cb142f2   amazon/dynamodb-local:latest                  "java -jar DynamoDBL…"   15 seconds ago   Up 14 seconds             0.0.0.0:8000->8000/tcp, :::8000->8000/tcp   dynamodb-local
+b1bad4fe7ccc   aws-bootcamp-cruddur-2023-frontend-react-js   "docker-entrypoint.s…"   15 seconds ago   Up 14 seconds (healthy)   0.0.0.0:3000->3000/tcp, :::3000->3000/tcp   aws-bootcamp-cruddur-2023-frontend-react-js-1
 ```
 
-- I did the same thing with the frontend app by pinging to the main domain and got health check on frontend container
+
 
 
 **Reference:**
