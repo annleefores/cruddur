@@ -12,6 +12,7 @@
 
 ## [Homework Challenges](#homework-challenges-1)
 
+- [Update `.gitpod.yml`](#updated-gitpodyml-to-auto-npm-i)
 - [Fundamentals of YAML](#fundamentals-of-yaml)
 - [Fundamentals of OpenAPI](#fundamentals-of-openapi)
 - [Basics of Docker](#basics-of-docker)
