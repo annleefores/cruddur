@@ -17,7 +17,7 @@
 - [Basics of Docker](#basics-of-docker)
 - [Run the Dockerfile CMD as an external script](#run-the-dockerfile-cmd-as-an-external-script)
 - [Running container on local machine](#running-container-on-local-machine)
-- [Running container on local machine](#best-practices-of-dockerfiles)
+- [Best practices of Dockerfiles](#best-practices-of-dockerfiles)
 - [Multi-Stage Docker Build](#multi-stage-docker-build)
 - [Health check in Docker Compose](#health-check-in-docker-compose)
 - [Push and tag image to DockerHub](#push-and-tag-a-image-to-dockerhub)
