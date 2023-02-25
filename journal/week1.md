@@ -160,8 +160,6 @@ docker run --rm -p 4567:4567 -it -e FRONTEND_URL='*' -e BACKEND_URL='*' backend-
 docker run --rm -p 4567:4567 -it  -e FRONTEND_URL -e BACKEND_URL backend-flask
 ```
 
-![docker-run-backend](media/week1/docker-run-backend.png)
-
 - Unlock and open link and go to home URL
 
 ![Alt text](media/week1/flask-running-container.png)
@@ -209,6 +207,10 @@ docker build -t frontend-react-js ./frontend-react-js
 
 ```bash
 docker run --rm -p 3000:3000 -it -e REACT_APP_BACKEND_URL frontend-react-js
+
+# or 
+
+docker run --rm -p 3000:3000 -it -e REACT_APP_BACKEND_URL="*" frontend-react-js
 ```
 
 ![Alt text](media/week1/run-docker-frontend.png)
@@ -227,7 +229,7 @@ docker run --rm -p 3000:3000 -it -e REACT_APP_BACKEND_URL frontend-react-js
 ### List Images
 
 - `docker images`
-- or click docker extension and under images.
+- or click docker extension and then under images.
 
 ### Delete an Image
 
@@ -682,7 +684,7 @@ Container Security is the practice of protecting your applications hosted on com
 
 ## Homework Challenges
 
-I completed the majority of the homework challenges on my local machine rather than using gitpod credits.
+I completed the majority of the homework challenges on my local machine rather than using up gitpod credits.
 
 ### Updated `.gitpod.yml` to auto `npm i`
 
@@ -833,7 +835,8 @@ Some of these best practices have been incorporated into the Multi-stage Docker 
 
 **Reference:**
 
-[https://docs.docker.com/develop/develop-images/dockerfile_best-practices](https://docs.docker.com/develop/develop-images/dockerfile_best-practices/)  [https://testdriven.io/blog/docker-best-practices](https://testdriven.io/blog/docker-best-practices/)  
+[https://docs.docker.com/develop/develop-images/dockerfile_best-practices](https://docs.docker.com/develop/develop-images/dockerfile_best-practices/)  
+[https://testdriven.io/blog/docker-best-practices](https://testdriven.io/blog/docker-best-practices/)  
 [https://snyk.io/blog/10-best-practices-to-containerize-nodejs-web-applications-with-docker](https://snyk.io/blog/10-best-practices-to-containerize-nodejs-web-applications-with-docker/)  
 [https://snyk.io/blog/best-practices-containerizing-python-docker](https://snyk.io/blog/best-practices-containerizing-python-docker/)
 
