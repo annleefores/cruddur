@@ -1037,6 +1037,9 @@ f72efba9472a   amazon/dynamodb-local:latest                  "java -jar DynamoDB
 b34cf8ba7909   aws-bootcamp-cruddur-2023-backend-flask       "python3 -m flask ru…"   13 minutes ago   Up 13 minutes (healthy)   0.0.0.0:4567->4567/tcp   aws-bootcamp-cruddur-2023-backend-flask-1
 ```
 
+- I did the same thing with the frontend app by pinging to the main domain and got health check on frontend container
+
+
 **Reference:**
 
 [https://snyk.io/blog/best-practices-containerizing-python-docker/](https://snyk.io/blog/best-practices-containerizing-python-docker/)  
