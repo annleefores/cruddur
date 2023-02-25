@@ -1,9 +1,9 @@
 # build image
-FROM python:3.10-slim AS build
+FROM python:3.10 AS build
 
 # for compiling packages
-RUN apt-get update
-RUN apt-get install -y --no-install-recommends \
+RUN apt update
+RUN apt install -y --no-install-recommends \
     build-essential gcc 
 
 WORKDIR /backend-flask
