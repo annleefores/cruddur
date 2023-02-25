@@ -973,7 +973,7 @@ CMD ["npm", "start"]
 
 [https://snyk.io/blog/10-best-practices-to-containerize-nodejs-web-applications-with-docker/](https://snyk.io/blog/10-best-practices-to-containerize-nodejs-web-applications-with-docker/)
 
-I could have further reduced the image size by using an alpine image. However, it is not suitable for production apps and can frequently result in longer build times if compiled binaries that work with it are not available. As a result, you may have to build the binaries yourself, increasing the image size.
+I could have further reduced the image size by using an alpine image. However, it is not suitable for production apps and can frequently result in longer build times if compiled binaries that work with it are not available. Also can increase the image size.
 
 ### Health check in Docker Compose
 
