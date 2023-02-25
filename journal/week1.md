@@ -12,7 +12,7 @@
 
 ## [Homework Challenges](#homework-challenges-1)
 
-- [Update `.gitpod.yml`](#updated-gitpodyml-to-auto-npm-i)
+- [Updated `.gitpod.yml`](#updated-gitpodyml-to-auto-npm-i)
 - [Fundamentals of YAML, OpenAPI & Docker](#learned-fundamentals-of-yaml-openapi--docker)
 - [Run the Dockerfile CMD as an external script](#run-the-dockerfile-cmd-as-an-external-script)
 - [Running container on local machine](#running-container-on-local-machine)
