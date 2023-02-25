@@ -721,9 +721,9 @@ vscode:
 
 ### Learned fundamentals of YAML, OpenAPI & Docker
 
-- I learned the fundamentals of YAML by using online resources.
-- I read the openAPI documentation to learn more about it. I'm going to start using openAPI in my other projects.
-- I used Adrian Cantrill’s Docker course to refresh my docker knowledge.
+- I learned the fundamentals of YAML by using [online resources](https://youtu.be/1uFVr15xDGg).
+- I read the [openAPI documentation](https://spec.openapis.org/oas/v3.1.0) to learn more about it. I'm going to start using openAPI in my other projects.
+- I used [Adrian Cantrill’s Docker course](https://learn.cantrill.io/p/docker-fundamentals) to refresh my docker knowledge.
 
 ### Run the Dockerfile CMD as an external script
 
