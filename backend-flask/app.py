@@ -6,7 +6,6 @@ from flask_cors import CORS, cross_origin
 import os
 
 # ----------openTelemetry - Honeycomb------------
-
 from opentelemetry import trace
 from opentelemetry.instrumentation.flask import FlaskInstrumentor
 from opentelemetry.instrumentation.requests import RequestsInstrumentor
@@ -35,7 +34,9 @@ trace.set_tracer_provider(provider)
 tracer = trace.get_tracer(__name__)
 #-----------------------------
 
+
 app = Flask(__name__)
+
 
 #-----Honeycomb---------
 # Initialize automatic instrumentation with Flask
