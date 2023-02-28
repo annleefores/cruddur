@@ -161,7 +161,7 @@ docker run --rm -p 4567:4567 -it  -e FRONTEND_URL -e BACKEND_URL backend-flask
 
 - Unlock and open link and go to home URL
 
-![Alt text](media/week1/flask-running-container-min.png)
+![flask-running-container](media/week1/flask-running-container-min.png)
 
 ## Frontend
 
@@ -212,11 +212,11 @@ docker run --rm -p 3000:3000 -it -e REACT_APP_BACKEND_URL frontend-react-js
 docker run --rm -p 3000:3000 -it -e REACT_APP_BACKEND_URL="*" frontend-react-js
 ```
 
-![Alt text](media/week1/run-docker-frontend-min.png)
+![run-docker-frontend](media/week1/run-docker-frontend-min.png)
 
 - Click the link under the port tab to launch the frontend.
 
-![Alt text](media/week1/frontend-min.png)
+![frontend](media/week1/frontend-min.png)
 
 ## Useful Docker Commands & Tips
 
@@ -278,7 +278,7 @@ FLASK_ENV=production PORT=8080 docker run -p 4567:4567 -it backend-flask
 >
 - Create `docker-compose.yml` at the root of your project.
 
-![Alt text](media/week1/docker-compose-file-min.png)
+![docker compose file](media/week1/docker-compose-file-min.png)
 
 - Paste this YAML code inside `docker-compose.yml` or `compose.yml` file
 
@@ -316,11 +316,11 @@ networks:
 - Launch both frontend and backend container simultaneously while configuring env, mounting, etc → `docker compose up`
 - Or right click the `docker-compose.yml` file on VS code and click **Compose Up**
 
-![Alt text](media/week1/docker-compose-min.png)
+![docker-compose](media/week1/docker-compose-min.png)
 
 - Go to ports, unlock both, and launch the frontend with data.
 
-![Alt text](media/week1/fullstack-app-local-min.png)
+![fullstack-app-local](media/week1/fullstack-app-local-min.png)
 
 - Because we're using mounted volumes, any changes we make to local code will be reflected in the application running inside Docker - useful for development.
 - `docker compose down` → Stops containers and removes containers, networks, volumes, and images created by up
@@ -366,7 +366,7 @@ aws dynamodb create-table \
     --table-class STANDARD
 ```
 
-![Alt text](media/week1/create-dynamodb-table-min.png)
+![create-dynamodb-table](media/week1/create-dynamodb-table-min.png)
 
 - Create an Item
 
@@ -379,7 +379,7 @@ aws dynamodb put-item \
     --return-consumed-capacity TOTAL
 ```
 
-![Alt text](media/week1/create-item-dynamodb-min.png)
+![create-item-dynamodb](media/week1/create-item-dynamodb-min.png)
 
 - List Tables
 
@@ -387,7 +387,7 @@ aws dynamodb put-item \
 aws dynamodb list-tables --endpoint-url http://localhost:8000
 ```
 
-![Alt text](media/week1/dynamodb-list-table-min.png)
+![dynamodb-list-table](media/week1/dynamodb-list-table-min.png)
 
 - Get Data
 
@@ -395,7 +395,7 @@ aws dynamodb list-tables --endpoint-url http://localhost:8000
 aws dynamodb scan --table-name Music --query "Items" --endpoint-url http://localhost:8000
 ```
 
-![Alt text](media/week1/dynamodb-list-data-min.png)
+![dynamodb-list-data](media/week1/dynamodb-list-data-min.png)
 
 Note:
 
@@ -447,14 +447,14 @@ volumes:
 - Execute `psql -U postgres --host localhost` to connect the postgres server that’s already running at port `5432`
 - Type password (which is password itself) to connect
 
-![Alt text](media/week1/psql-connect-min.png)
+![psql-connect](media/week1/psql-connect-min.png)
 
 - `\q` to quit
 
 - To view PostgreSQL install this extension → `cweijan.vscode-postgresql-client2`
   - Add it to `.gitpod.yml` by clicking settings icon
 
-![Alt text](media/week1/database-explorer-min.png)
+![database-explorer](media/week1/database-explorer-min.png)
 
 **Note:**
 
@@ -469,19 +469,19 @@ volumes:
 - OpenAPI is a standard for defining API
 - Open  `openapi-3.0.yml` and click **/API** extension.
 
-![Alt text](media/week1/openapi-1-min.png)
+![openapi-1](media/week1/openapi-1-min.png)
 
 - Lots of services support OpenAPI
 - While `openapi-3.0.yml` file is open, click the window with search icon on top right corner to open up the OpenAPI preview window.
 
-![Alt text](media/week1/openapi-2-min.png)
+![openapi-2](media/week1/openapi-2-min.png)
 
 ## Signing Up
 
 - Run `npm i` to install node modules if they’re not available in *frontend-react-js* folder and `docker-compose up`
 - Sign Up and confirm by typing email and `1234` hard coded confirmation code.
 
-![Alt text](media/week1/sign-in-min.png)
+![sign-in](media/week1/sign-in-min.png)
 
 ## Notification Feature
 
@@ -489,7 +489,7 @@ volumes:
 
 - To add an endpoint for notification use the OpenAPI extension to create a new path.
 
-![Alt text](media/week1/create-new-path-openapi-min.png)
+![create-new-path-openapi](media/week1/create-new-path-openapi-min.png)
 
 - Edit the new path for notification endpoint.
 
@@ -580,7 +580,7 @@ class NotificationActivities:
 - Can create `NotificationsFeedPage.css` in the same folder if you need to add styling
 - Launch frontend, sign in and go to notifications
 
-![Alt text](media/week1/notification-page-min.png)
+![notification-page](media/week1/notification-page-min.png)
 
 ---
 
@@ -762,7 +762,7 @@ python3 -m flask run --host=0.0.0.0 --port=4567
 
 - Build and ran container.
 
-![Alt text](media/week1/docker-cmd-1-min.png)
+![docker-cmd](media/week1/docker-cmd-1-min.png)
 
 #### Frontend
 
@@ -794,21 +794,21 @@ npm start
 
 - Build and ran container.
 
-![Alt text](media/week1/docker-cmd-2-min.png)
+![docker-cmd](media/week1/docker-cmd-2-min.png)
 
 ### Running container on local machine
 
 - I already had Docker installed and running on my Windows machine with WSL 2, and after making a few changes to the URL in ENV VARs, I was able to run the containers using Docker compose.
 
-![Alt text](media/week1/docker-running-locally-min.png)
+![docker-running-locally](media/week1/docker-running-locally-min.png)
 
 - Docker desktop screenshot
 
-![Alt text](media/week1/docker-desktop-locally-min.png)
+![docker-desktop-locally](media/week1/docker-desktop-locally-min.png)
 
 - Connected to locally running PostgreSQL server
 
-![Alt text](media/week1/sql-server-min.png)
+![sql-server](media/week1/sql-server-min.png)
 
 ### Best practices of Dockerfiles
 
@@ -885,14 +885,14 @@ CMD [ "python3", "-m" , "flask", "run", "--host=0.0.0.0", "--port=4567"]
 
 - Here is a comparison of  docker images
     
-    ![Alt text](media/week1/backend-multi-size%20comparison-min.png)
+    ![backend-multi-stage-size-comparison](media/week1/backend-multi-size%20comparison-min.png)
     
     - The first one is image with **build tools** - 368MB
     - Second one is image with **multi-stage** and **build tools** - 140MB
     - Third one is normal image **without any build tools** - 129MB
 - Multi-stage backend docker container running
 
-![Alt text](media/week1/backend-multi-running-min.png)
+![backend-multi-running](media/week1/backend-multi-running-min.png)
 
 **Reference:**
 
@@ -954,13 +954,13 @@ CMD ["npm", "start"]
 
 - The image size comparison
     
-    ![Alt text](media/week1/multi-stage-frontend-compare-min.png)
+    ![multi-stage-frontend-compare](media/week1/multi-stage-frontend-compare-min.png)
     
     - The first image uses multi-stage - **427MB**
     - Second one uses single stage - **1.23GB**
 - Multi-stage frontend docker container running
 
-![Alt text](media/week1/multistage-frontend-docker-running-min.png)
+![multistage-frontend-docker-running](media/week1/multistage-frontend-docker-running-min.png)
 
 **Reference:**
 
@@ -1074,7 +1074,7 @@ docker push <username>/<repo-name>:<tag>
 
 - Container images pushed to dockerhub.
 
-![Alt text](media/week1/dockerhub-min.png)
+![dockerhub](media/week1/dockerhub-min.png)
 
 [Link to my dockerhub profile](https://hub.docker.com/u/annleefores)
 
@@ -1176,7 +1176,7 @@ networks:
 
 - Backend and frontend running together on ec2 instance
 
-![Alt text](media/week1/backend-frontend-ec2-min.png)
+![backend-frontend-ec2](media/week1/backend-frontend-ec2-min.png)
 
 **Reference**
 
