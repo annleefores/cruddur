@@ -1,5 +1,5 @@
 # build image
-FROM python:3.10 AS build
+FROM python:3.10-slim-buster AS build
 
 # for compiling packages
 RUN apt update
