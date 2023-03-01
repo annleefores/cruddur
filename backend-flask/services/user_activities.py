@@ -1,5 +1,5 @@
 from datetime import datetime, timedelta, timezone
-from aws_xray_sdk.core import xray_recorder
+# from aws_xray_sdk.core import xray_recorder
 
 
 class UserActivities:
@@ -9,18 +9,19 @@ class UserActivities:
       'data': None
     }
 
-    # x-ray subsegment
-    subsegment = xray_recorder.begin_subsegment('sub_user_activities')
     now = datetime.now(timezone.utc).astimezone()
 
-    data = {
-    "about": "this is a user_activities subsegment",
-    "time":now.isoformat(),
-    "model_data":model
-    }
+    # # x-ray subsegment
+    # subsegment = xray_recorder.begin_subsegment('sub_user_activities')
 
-    subsegment.put_metadata('data', data)
-    xray_recorder.end_subsegment()
+    # data = {
+    # "about": "this is a user_activities subsegment",
+    # "time":now.isoformat(),
+    # "model_data":model
+    # }
+
+    # subsegment.put_metadata('data', data)
+    # xray_recorder.end_subsegment()
 
 
     if user_handle == None or len(user_handle) < 1:
