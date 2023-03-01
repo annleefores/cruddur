@@ -45,7 +45,6 @@ tracer = trace.get_tracer(__name__)
 
 
 
-
 app = Flask(__name__)
 
 # # Configuring Logger to Use CloudWatch
@@ -135,6 +134,12 @@ def data_create_message():
 def data_home():
     data = HomeActivities.run()
     return data, 200
+
+## for cloudwatch-watchtower
+# @app.route("/api/activities/home", methods=["GET"])
+# def data_home():
+#     data = HomeActivities.run(LOGGER)
+#     return data, 200
 
 
 @app.route("/api/activities/notifications", methods=["GET"])
