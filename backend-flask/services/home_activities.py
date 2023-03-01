@@ -7,6 +7,10 @@ tracer = trace.get_tracer("home_activites")
 
 class HomeActivities:
   def run():
+  
+  # # for cloudwatch-watchtower
+  # def run():
+  
     # LOGGER.info('Hello Cloudwatch! from  /api/activities/home')
     with tracer.start_as_current_span("home-activities-mock-data"): # honeycomb.io create span
       
