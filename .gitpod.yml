@@ -26,6 +26,7 @@ tasks:
   - name: python-package-install
     init: |
       cd /workspace/aws-bootcamp-cruddur-2023/backend-flask
+      pip3 install --upgrade pip
       pip3 install -r requirements.txt
       exit
 
