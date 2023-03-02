@@ -13,3 +13,7 @@ opentelemetry-instrumentation-requests
 
 # #cloudwatch
 # watchtower
+
+# Rollbar
+blinker
+rollbar
