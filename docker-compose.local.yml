@@ -2,14 +2,33 @@ version: "3.8"
 services:
   backend-flask:
     environment:
-      FRONTEND_URL: "http://localhost:3000"
-      BACKEND_URL: "http://localhost:4567"
+      FRONTEND_URL: "${FRONTEND_URL}"
+      BACKEND_URL: "${BACKEND_URL}"
+
+      # openTelemetry
+      OTEL_SERVICE_NAME: "backend-flask"
+      OTEL_EXPORTER_OTLP_ENDPOINT: "https://api.honeycomb.io"
+      OTEL_EXPORTER_OTLP_HEADERS: "x-honeycomb-team=${HONEYCOMB_API_KEY}"
+
+      
+      # # AWS XRAY
+      # AWS_XRAY_URL: "*4567-${GITPOD_WORKSPACE_ID}.${GITPOD_WORKSPACE_CLUSTER_HOST}*"
+      # AWS_XRAY_DAEMON_ADDRESS: "xray-daemon:2000"
+      # # watchtower - cloudwatch
+      # AWS_DEFAULT_REGION: "${AWS_DEFAULT_REGION}"
+      # AWS_ACCESS_KEY_ID: "${AWS_ACCESS_KEY_ID}"
+      # AWS_SECRET_ACCESS_KEY: "${AWS_SECRET_ACCESS_KEY}"
+
+      # # Rollbar
+      # ROLLBAR_ACCESS_TOKEN: "${ROLLBAR_ACCESS_TOKEN}"
+
+
     build: ./backend-flask
     ports:
       - "4567:4567"
 
     healthcheck:
-      test: curl --fail http://localhost:4567/api/health || exit 1
+      test: curl --fail ${BACKEND_URL}/api/health || exit 1
       interval: 300s
       timeout: 10s
       start_period: 10s
@@ -20,13 +39,13 @@ services:
     
   frontend-react-js:
     environment:
-      REACT_APP_BACKEND_URL: "http://localhost:4567"
+      REACT_APP_BACKEND_URL: "${BACKEND_URL}"
     build: ./frontend-react-js
     ports:
       - "3000:3000"
 
     healthcheck:
-      test: curl --fail http://localhost:3000 || exit 1
+      test: curl --fail ${FRONTEND_URL} || exit 1
       interval: 300s
       timeout: 10s
       start_period: 10s
@@ -34,39 +53,23 @@ services:
     volumes:
       - ./frontend-react-js:/frontend-react-js
 
-  # dynamodb-local:
-  #   # https://stackoverflow.com/questions/67533058/persist-local-dynamodb-data-in-volumes-lack-permission-unable-to-open-databa
-  #   # We needed to add user:root to get this working.
-  #   user: root
-  #   command: "-jar DynamoDBLocal.jar -sharedDb -dbPath ./data"
-  #   image: "amazon/dynamodb-local:latest"
-  #   container_name: dynamodb-local
-  #   ports:
-  #     - "8000:8000"
-  #   volumes:
-  #     - "./docker/dynamodb:/home/dynamodblocal/data"
-  #   working_dir: /home/dynamodblocal
 
-  # db:
-  #   image: postgres:13-alpine
-  #   restart: always
+  # xray-daemon:
+  #   image: "amazon/aws-xray-daemon"
   #   environment:
-  #     - POSTGRES_USER=postgres
-  #     - POSTGRES_PASSWORD=password
+  #     AWS_ACCESS_KEY_ID: "${AWS_ACCESS_KEY_ID}"
+  #     AWS_SECRET_ACCESS_KEY: "${AWS_SECRET_ACCESS_KEY}"
+  #     AWS_REGION: "us-east-1"
+  #   command:
+  #     - "xray -o -b xray-daemon:2000"
   #   ports:
-  #     - '5432:5432'
+  #     - 2000:2000/udp
 
-      
-  #   volumes: 
-  #     - db:/var/lib/postgresql/data
 
 # the name flag is a hack to change the default prepend folder
 # name when outputting the image names
+
 networks: 
   internal-network:
     driver: bridge
     name: cruddur
-
-# volumes:
-#   db:
-#     driver: local
