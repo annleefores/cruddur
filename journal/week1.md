@@ -564,7 +564,9 @@ class NotificationActivities:
 - Open `frontend-react-js` folder
 - Add this import statement in App.js
 
-`import NotificationsFeedPage from './pages/NotificationsFeedPage';`
+```js
+import NotificationsFeedPage from './pages/NotificationsFeedPage';
+```
 
 - Add this to `const router = createBrowserRouter([`
 
@@ -578,7 +580,7 @@ class NotificationActivities:
 - Go to `pages/` and create `NotificationsFeedPage.js` file and add this content -> [NotificationsFeedPage.js](media/week1/code/template.NotificationsFeedPage.js)
 
 - Can create `NotificationsFeedPage.css` in the same folder if you need to add styling
-- Launch frontend, sign in and go to notifications
+- Launch frontend, sign in and select notifications
 
 ![notification-page](media/week1/notification-page-min.png)
 
@@ -806,9 +808,6 @@ npm start
 
 ![docker-desktop-locally](media/week1/docker-desktop-locally-min.png)
 
-- Connected to locally running PostgreSQL server
-
-![sql-server](media/week1/sql-server-min.png)
 
 ### Best practices of Dockerfiles
 
