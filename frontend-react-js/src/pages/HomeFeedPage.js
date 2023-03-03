@@ -10,10 +10,12 @@ import ReplyForm from "../components/ReplyForm";
 // [TODO] Authenication
 import Cookies from "js-cookie";
 
-// Honeycomb OTEL
+// --------Honeycomb OTEL------------
 import { trace, context } from "@opentelemetry/api";
 
 const tracer = trace.getTracer();
+
+//---------------------------
 
 export default function HomeFeedPage() {
   const [activities, setActivities] = React.useState([]);
@@ -26,22 +28,10 @@ export default function HomeFeedPage() {
   //-----Honeycomb--------
 
   const rootSpan = tracer.startActiveSpan("document_load", (span) => {
-    //start span when navigating to page
     span.setAttribute("pageUrlwindow", window.location.href);
     window.onload = (event) => {
-      // ... do loading things
-      // ... attach timing information
       span.end(); //once page is loaded, end the span
     };
-
-    // button.clicked = (event) => {
-    //   tracer.startActiveSpan("button_clicked", (btnSpan) => {
-    //     // Add your attributes to describe the button clicked here
-    //     btnSpan.setAttribute("some.attribute", "some.value");
-
-    //     btnSpan.end();
-    //   });
-    // };
   });
 
   //--------------------
