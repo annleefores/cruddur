@@ -16,6 +16,9 @@ import { XMLHttpRequestInstrumentation } from "@opentelemetry/instrumentation-xm
 import { FetchInstrumentation } from "@opentelemetry/instrumentation-fetch";
 import { registerInstrumentations } from "@opentelemetry/instrumentation";
 
+// import { DocumentLoadInstrumentation } from "@opentelemetry/instrumentation-document-load";
+// import { UserInteractionInstrumentation } from "@opentelemetry/instrumentation-user-interaction";
+
 const tracer = trace.getTracer();
 
 //---------------------------
@@ -47,6 +50,14 @@ export default function HomeFeedPage() {
       }),
     ],
   });
+
+  // registerInstrumentations({
+  //   instrumentations: [new DocumentLoadInstrumentation()],
+  // });
+
+  // registerInstrumentations({
+  //   instrumentations: [new UserInteractionInstrumentation()],
+  // });
 
   //--------------------
 
