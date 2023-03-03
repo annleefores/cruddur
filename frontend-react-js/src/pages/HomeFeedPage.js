@@ -12,6 +12,9 @@ import Cookies from "js-cookie";
 
 // --------Honeycomb OTEL------------
 import { trace, context } from "@opentelemetry/api";
+import { XMLHttpRequestInstrumentation } from "@opentelemetry/instrumentation-xml-http-request";
+import { FetchInstrumentation } from "@opentelemetry/instrumentation-fetch";
+import { registerInstrumentations } from "@opentelemetry/instrumentation";
 
 const tracer = trace.getTracer();
 
@@ -27,11 +30,22 @@ export default function HomeFeedPage() {
 
   //-----Honeycomb--------
 
-  const rootSpan = tracer.startActiveSpan("document_load", (span) => {
-    span.setAttribute("pageUrlwindow", window.location.href);
-    window.onload = (event) => {
-      span.end(); //once page is loaded, end the span
-    };
+  // const rootSpan = tracer.startActiveSpan("document_load", (span) => {
+  //   span.setAttribute("pageUrlwindow", window.location.href);
+  //   window.onload = (event) => {
+  //     span.end(); //once page is loaded, end the span
+  //   };
+  // });
+
+  registerInstrumentations({
+    instrumentations: [
+      new XMLHttpRequestInstrumentation({
+        propagateTraceHeaderCorsUrls: [/.+/g, /^http:\/\/localhost:4567\/.*$/],
+      }),
+      new FetchInstrumentation({
+        propagateTraceHeaderCorsUrls: [/.+/g, /^http:\/\/localhost:4567\/.*$/],
+      }),
+    ],
   });
 
   //--------------------

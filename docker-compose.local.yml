@@ -54,7 +54,7 @@ services:
     volumes:
       - ./frontend-react-js:/frontend-react-js
 
-  # Collector
+  # OTEL Collector
   otel-collector:
     environment:
        HONEYCOMB_API_KEY: "${HONEYCOMB_API_KEY}"
