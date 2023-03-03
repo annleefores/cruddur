@@ -267,7 +267,7 @@ OpenTelemetry browser traces are sent via OTLP with HTTP/JSON. Sensitive data is
 
 #### Configuring  `OpenTelemetry Collector`
 
-- Tried out the demo OTEL Collector example → [https://github.com/open-telemetry/opentelemetry-collector-contrib/tree/main/examples/demo](https://github.com/open-telemetry/opentelemetry-collector-contrib/tree/main/examples/demo)
+- Tried out the demo [OTEL Collector example](https://github.com/open-telemetry/opentelemetry-collector-contrib/tree/main/examples/demo)
 - Add [OTEL Collector container instructions](https://opentelemetry.io/docs/collector/getting-started/#docker-compose) to `docker-compose.yml`.
 
 ```yaml
