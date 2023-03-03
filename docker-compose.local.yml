@@ -55,6 +55,8 @@ services:
 
   # Collector
   otel-collector:
+    environment:
+       HONEYCOMB_API_KEY: "${HONEYCOMB_API_KEY}"
     image: otel/opentelemetry-collector
     command: [--config=/etc/otel-collector-config.yaml]
     volumes:
