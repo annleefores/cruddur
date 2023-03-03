@@ -43,10 +43,10 @@ export default function HomeFeedPage() {
   registerInstrumentations({
     instrumentations: [
       new XMLHttpRequestInstrumentation({
-        propagateTraceHeaderCorsUrls: [/.+/g, /^http:\/\/localhost:4567\/.*$/],
+        propagateTraceHeaderCorsUrls: [/.+/g, /^http:\/\/localhost:4567\/.*$/, `${process.env.REACT_APP_BACKEND_URL}`],
       }),
       new FetchInstrumentation({
-        propagateTraceHeaderCorsUrls: [/.+/g, /^http:\/\/localhost:4567\/.*$/],
+        propagateTraceHeaderCorsUrls: [/.+/g, /^http:\/\/localhost:4567\/.*$/, `${process.env.REACT_APP_BACKEND_URL}`],
       }),
     ],
   });
