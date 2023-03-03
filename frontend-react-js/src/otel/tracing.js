@@ -9,7 +9,7 @@ import { Resource } from "@opentelemetry/resources";
 import { SemanticResourceAttributes } from "@opentelemetry/semantic-conventions";
 
 const exporter = new OTLPTraceExporter({
-  url: "http://localhost:4318/v1/traces",
+  url: `${process.env.REACT_APP_OTEL_COLLECTOR_URL}/v1/traces`,
 });
 const provider = new WebTracerProvider({
   resource: new Resource({
