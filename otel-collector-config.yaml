@@ -4,8 +4,8 @@ receivers:
       http: # port 4318
         cors:
           allowed_origins:
-            - "http://localhost:3000/"
-            - "http://localhost:4567/"
+            - "http://localhost:3000"
+            - "https://localhost:3000"
 
 processors:
   batch:
@@ -15,10 +15,12 @@ exporters:
     endpoint: "api.honeycomb.io:443"
     headers:
       "x-honeycomb-team": "${HONEYCOMB_API_KEY}"
-
+  logging:
+    loglevel: debug
+    
 service:
   pipelines:
     traces:
       receivers: [otlp]
       processors: [batch]
-      exporters: [otlp]
+      exporters: [otlp, logging]

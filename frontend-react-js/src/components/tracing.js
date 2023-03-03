@@ -9,11 +9,11 @@ import { Resource } from "@opentelemetry/resources";
 import { SemanticResourceAttributes } from "@opentelemetry/semantic-conventions";
 
 const exporter = new OTLPTraceExporter({
-  url: "https://<your collector endpoint>:443/v1/traces",
+  url: "http://localhost:4318/v1/traces",
 });
 const provider = new WebTracerProvider({
   resource: new Resource({
-    [SemanticResourceAttributes.SERVICE_NAME]: "browser",
+    [SemanticResourceAttributes.SERVICE_NAME]: "frontend-react-js",
   }),
 });
 provider.addSpanProcessor(new BatchSpanProcessor(exporter));
