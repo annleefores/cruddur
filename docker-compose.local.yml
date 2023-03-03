@@ -53,6 +53,15 @@ services:
     volumes:
       - ./frontend-react-js:/frontend-react-js
 
+  # Collector
+  otel-collector:
+    image: otel/opentelemetry-collector
+    command: [--config=/etc/otel-collector-config.yaml]
+    volumes:
+      - ./otel_collector/otel-collector-config.yaml:/etc/otel-collector-config.yaml
+    ports:
+      - 4318:4318 # OTLP http receiver
+
 
   # xray-daemon:
   #   image: "amazon/aws-xray-daemon"
