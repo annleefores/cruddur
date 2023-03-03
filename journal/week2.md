@@ -159,12 +159,16 @@ span.set_attribute("app.result_length", len(results))
 
 ![heat-map](media/week2/images/heat-map.png)
 
+---
+
 ## Homework Challenges
 
 ### Learned about various Python package managers
 
 - The live stream discussion about Python's poor package management got me thinking, so I looked into solutions like [pipenv](https://github.com/pypa/pipenv) and [poetry](https://python-poetry.org/).
 - After learning the fundamentals and comparing them, I've decided to use poetry in all of my future Python projects.
+
+---
 
 ### AWS X-Ray Sub Segments
 
@@ -233,6 +237,8 @@ class UserActivities:
 - [https://docs.aws.amazon.com/xray/latest/devguide/xray-sdk-python-subsegments.html](https://docs.aws.amazon.com/xray/latest/devguide/xray-sdk-python-subsegments.html)
 - [https://docs.aws.amazon.com/xray/latest/devguide/xray-sdk-python-middleware.html](https://docs.aws.amazon.com/xray/latest/devguide/xray-sdk-python-middleware.html)
 
+---
+
 ### `.env` configuration for docker compose
 
 - I created a `.env` file for docker compose so that I can work on the local machine without constantly setting env vars.
@@ -240,10 +246,14 @@ class UserActivities:
 **Reference:**
 - [https://docs.docker.com/compose/environment-variables/set-environment-variables/](https://docs.docker.com/compose/environment-variables/set-environment-variables/)
 
+---
+
 ### Learned fundamentals of OpenTelemetry
 
 - I decided to watch a [freecodecamp video about OpenTelemetry](https://youtu.be/r8UvWSX3KA8) because I was still having trouble understanding all of the jargons and use cases.
 - I learned about OTEL and observation.
+
+---
 
 ### Instrument Honeycomb for the frontend-application to observe network latency between frontend and backend
 
