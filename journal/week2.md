@@ -273,6 +273,8 @@ OpenTelemetry browser traces are sent via OTLP with HTTP/JSON. Sensitive data is
 ```yaml
 #OTEL Collector
 otel-collector:
+  environment:
+      FRONTEND_URL_WITHOUT_HTTP: "localhost:3000"
   image: otel/opentelemetry-collector
   command: [--config=/etc/otel-collector-config.yaml]
   volumes:
@@ -290,8 +292,8 @@ receivers:
       http: # port 4318
         cors:
           allowed_origins:
-            - "http://*.<yourdomain>.com"
-            - "https://*.<yourdomain>.com"
+            - "http://${FRONTEND_URL_WITHOUT_HTTP}"
+            - "https://${FRONTEND_URL_WITHOUT_HTTP}"
 
 processors:
   batch:
@@ -436,7 +438,8 @@ Exporting failed. The error is not retryable. Dropping data.    {"kind": "export
 #OTEL Collector
 otel-collector:
   environment:
-     HONEYCOMB_API_KEY: "${HONEYCOMB_API_KEY}"
+      HONEYCOMB_API_KEY: "${HONEYCOMB_API_KEY}"
+      FRONTEND_URL_WITHOUT_HTTP: "localhost:3000"
   image: otel/opentelemetry-collector
   command: [--config=/etc/otel-collector-config.yaml]
   volumes:
