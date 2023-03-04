@@ -152,7 +152,7 @@ span.set_attribute("app.result_length", len(results))
 
 ![span-details](media/week2/images/span-details.png)
 
-## Heatmap
+### Heatmap
 
 - Choose New Query from the LHS menu.
 - set **Visualize** to ********HEATMAP(duration_ms)******** and ********P90(duration_ms),******** then run query.
@@ -366,7 +366,7 @@ AWS_SECRET_ACCESS_KEY: "${AWS_SECRET_ACCESS_KEY}"
 
 ---
 
-# Rollbar
+## Rollbar
 
 > [https://app.rollbar.com/onboarding](https://app.rollbar.com/onboarding)
 
@@ -727,7 +727,7 @@ Vary: Access-Control-Request-Headers
 Date: Fri, 03 Mar 2023 07:58:06 GMT
 ```
 
-## Frontend OTEL
+### Frontend OTEL
 
 - Install the following npm packages ([based on Honeycomb Browser guide](https://docs.honeycomb.io/getting-data-in/opentelemetry/browser-js/#instrumentation-packages))
 
