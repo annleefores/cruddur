@@ -304,7 +304,7 @@ exporters:
     headers:
       "x-honeycomb-team": "${HONEYCOMB_API_KEY}"
   logging:
-    loglevel: debug
+    verbosity: detailed
     
 service:
   pipelines:
