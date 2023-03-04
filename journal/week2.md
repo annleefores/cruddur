@@ -552,12 +552,13 @@ import { UserInteractionInstrumentation } from '@opentelemetry/instrumentation-u
 // ...general opentelemetry configuration
 
 registerInstrumentations({
-    instrumentations: [new DocumentLoadInstrumentation()],
+
+  // request instrumentation (optional)
+
+  instrumentations: [new DocumentLoadInstrumentation()],
+  instrumentations: [new UserInteractionInstrumentation()],
   });
 
-  registerInstrumentations({
-    instrumentations: [new UserInteractionInstrumentation()],
-  });
 
 ```
 
