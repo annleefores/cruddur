@@ -12,6 +12,7 @@ import Cookies from "js-cookie";
 
 // --------Honeycomb OTEL------------
 // import { trace } from "@opentelemetry/api";
+
 import { XMLHttpRequestInstrumentation } from "@opentelemetry/instrumentation-xml-http-request";
 import { FetchInstrumentation } from "@opentelemetry/instrumentation-fetch";
 import { registerInstrumentations } from "@opentelemetry/instrumentation";
@@ -56,16 +57,10 @@ export default function HomeFeedPage() {
           `${process.env.REACT_APP_BACKEND_URL}`,
         ],
       }),
+      // new DocumentLoadInstrumentation(),
+      // new UserInteractionInstrumentation(),
     ],
   });
-
-  // registerInstrumentations({
-  //   instrumentations: [new DocumentLoadInstrumentation()],
-  // });
-
-  // registerInstrumentations({
-  //   instrumentations: [new UserInteractionInstrumentation()],
-  // });
 
   //--------------------
 
