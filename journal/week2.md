@@ -14,10 +14,11 @@
 
 - [Learned about various Python package managers](#learned-about-various-python-package-managers)
 - [AWS X-Ray Sub Segments](#aws-x-ray-sub-segments)
-- [.env configuration for docker compose](#env-configuration-for-docker-compose)
+- [`.env` configuration for docker compose](#env-configuration-for-docker-compose)
 - [Learned fundamentals of OpenTelemetry](#learned-fundamentals-of-opentelemetry)
 - [Instrument Honeycomb for the frontend-application to observe network latency between frontend and backend](#instrument-honeycomb-for-the-frontend-application-to-observe-network-latency-between-frontend-and-backend)
 - [Add custom instrumentation to Honeycomb](#add-custom-instrumentation-to-honeycomb)
+- [Configured additional instrumentation in Rollbar](#configured-additional-instrumentation-in-rollbar)
 
 ---
 
@@ -1010,3 +1011,66 @@ except:
 
 - [https://docs.honeycomb.io/getting-data-in/opentelemetry/python/](https://docs.honeycomb.io/getting-data-in/opentelemetry/python/)
 - [https://opentelemetry.io/docs/instrumentation/python/manual/](https://opentelemetry.io/docs/instrumentation/python/manual/)
+
+---
+
+### Configured additional instrumentation in Rollbar
+
+- **Exceptions Logging** - add this in home activities service backend
+
+```python
+import rollbar
+import sys
+
+try:
+   print(x)
+except:
+    rollbar.report_exc_info(sys.exc_info())
+```
+
+![rollbar-try-except](media/week2/images/rollbar-try-except.png)
+
+- **Transforming payload** - The custom payload handler will be called for every error reports to modify payload.
+
+```python
+# transform payload
+def modify_payload(payload, **kwargs):
+    # Add or modify any data in the payload
+    payload["data"]["level"] = "warning"
+    # Return the modified payload
+    return payload
+
+# Add the payload handler to Rollbar events
+rollbar.events.add_payload_handler(modify_payload)
+
+# error 
+try:
+    print(x)
+except:
+
+    payload = {
+        "level": "error",
+        "message": "error",
+        "extra_data": None,  # add any extra data you want to send
+    }
+
+    rollbar.report_message(**payload)
+```
+
+- I got this response in rollbar with modified message.
+
+```python
+
+  "environment": "production",
+  "framework": "flask",
+  "message": "This message has been modified",
+  "notifier": {
+    "version": "0.16.3",
+    "name": "pyrollbar"
+  },
+
+```
+
+**Reference:**
+
+- [https://docs.rollbar.com/docs/python#usage](https://docs.rollbar.com/docs/python#usage)
