@@ -4,8 +4,6 @@ receivers:
       http: # port 4318
         cors:
           allowed_origins:
-            - "http://localhost:3000"
-            - "https://localhost:3000"
             - "http://${FRONTEND_URL_WITHOUT_HTTP}"
             - "https://${FRONTEND_URL_WITHOUT_HTTP}"
 

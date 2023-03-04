@@ -58,6 +58,7 @@ services:
   otel-collector:
     environment:
        HONEYCOMB_API_KEY: "${HONEYCOMB_API_KEY}"
+       FRONTEND_URL_WITHOUT_HTTP: "localhost:3000"
     image: otel/opentelemetry-collector
     command: [--config=/etc/otel-collector-config.yaml]
     volumes:
