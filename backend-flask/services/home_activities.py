@@ -3,7 +3,14 @@ from datetime import datetime, timedelta, timezone
 # ------------Honeycomb--------
 from opentelemetry import trace
 
+# from opentelemetry.trace import Status, StatusCode
+
 tracer = trace.get_tracer("home_activites")
+
+
+# @tracer.start_as_current_span("do_work")
+# def do_work():
+#     print("doing some work...")
 
 
 class HomeActivities:
@@ -63,6 +70,8 @@ class HomeActivities:
                     "replies": [],
                 },
             ]
+
+            user = {"user": "Annlee", "userID": 123456}
 
             span.set_attribute("app.result_length", len(results))
 
