@@ -17,6 +17,7 @@
 - [.env configuration for docker compose](#env-configuration-for-docker-compose)
 - [Learned fundamentals of OpenTelemetry](#learned-fundamentals-of-opentelemetry)
 - [Instrument Honeycomb for the frontend-application to observe network latency between frontend and backend](#instrument-honeycomb-for-the-frontend-application-to-observe-network-latency-between-frontend-and-backend)
+- [Add custom instrumentation to Honeycomb](#add-custom-instrumentation-to-honeycomb)
 
 ---
 
@@ -953,7 +954,9 @@ registerInstrumentations({
 - [https://opentelemetry.io/docs/instrumentation/js/instrumentation/](https://opentelemetry.io/docs/instrumentation/js/instrumentation/)
 - [https://www.honeycomb.io/blog/test-span-opentelemetry-collector](https://www.honeycomb.io/blog/test-span-opentelemetry-collector)
 
-# Add custom instrumentation to Honeycomb
+---
+
+### Add custom instrumentation to Honeycomb
 
 - Added nested span and attributes within home activities
 
@@ -1003,7 +1006,7 @@ except:
 
 ![span status](media/week2/images/span%20status.png)
 
-**Reference:***
+**Reference:**
 
 - [https://docs.honeycomb.io/getting-data-in/opentelemetry/python/](https://docs.honeycomb.io/getting-data-in/opentelemetry/python/)
 - [https://opentelemetry.io/docs/instrumentation/python/manual/](https://opentelemetry.io/docs/instrumentation/python/manual/)
