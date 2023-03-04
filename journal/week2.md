@@ -727,7 +727,7 @@ Vary: Access-Control-Request-Headers
 Date: Fri, 03 Mar 2023 07:58:06 GMT
 ```
 
-### Frontend OTEL
+#### Frontend OTEL
 
 - Install the following npm packages ([based on Honeycomb Browser guide](https://docs.honeycomb.io/getting-data-in/opentelemetry/browser-js/#instrumentation-packages))
 
