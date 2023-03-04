@@ -5,10 +5,10 @@ services:
       FRONTEND_URL: "${FRONTEND_URL}"
       BACKEND_URL: "${BACKEND_URL}"
 
-      # openTelemetry
-      OTEL_SERVICE_NAME: "backend-flask"
-      OTEL_EXPORTER_OTLP_ENDPOINT: "https://api.honeycomb.io"
-      OTEL_EXPORTER_OTLP_HEADERS: "x-honeycomb-team=${HONEYCOMB_API_KEY}"
+      # # openTelemetry
+      # OTEL_SERVICE_NAME: "backend-flask"
+      # OTEL_EXPORTER_OTLP_ENDPOINT: "https://api.honeycomb.io"
+      # OTEL_EXPORTER_OTLP_HEADERS: "x-honeycomb-team=${HONEYCOMB_API_KEY}"
 
       
       # # AWS XRAY
@@ -19,8 +19,8 @@ services:
       # AWS_ACCESS_KEY_ID: "${AWS_ACCESS_KEY_ID}"
       # AWS_SECRET_ACCESS_KEY: "${AWS_SECRET_ACCESS_KEY}"
 
-      # # Rollbar
-      # ROLLBAR_ACCESS_TOKEN: "${ROLLBAR_ACCESS_TOKEN}"
+      # Rollbar
+      ROLLBAR_ACCESS_TOKEN: "${ROLLBAR_ACCESS_TOKEN}"
 
 
     build: ./backend-flask
