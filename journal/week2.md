@@ -999,7 +999,7 @@ from opentelemetry.trace import Status, StatusCode
 
 try:
     # something that might fail
-		print(x)
+    print(x)
 except:
     current_span.set_status(Status(StatusCode.ERROR))
 ```
