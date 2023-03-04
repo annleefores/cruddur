@@ -30,20 +30,20 @@
 > Website: [https://www.honeycomb.io/](https://www.honeycomb.io/)  
 > Honeycomb Python Docs: [https://docs.honeycomb.io/getting-data-in/opentelemetry/python/](https://docs.honeycomb.io/getting-data-in/opentelemetry/python/)
 
-- Login to [Honeycomb.io](https://ui.honeycomb.io/) and create an **Environment**.
-- Copy environment API key and export these env variable to gitpod.  Whole project needs to use the same API key.
+- Login to [Honeycomb.io](https://ui.honeycomb.io/) and create an **Environment**
+- Copy the environment API key and export it to gitpod. The same API key must be used throughout the project.
 
 ```bash
 gp env HONEYCOMB_API_KEY="<api-key>"
 gp env HONEYCOMB_SERVICE_NAME="<service-name>"
 
-or 
+# or 
 
 export HONEYCOMB_API_KEY="<api-key>"
 export HONEYCOMB_SERVICE_NAME="<service-name>"
 ```
 
-- Set these env in `docker-compose.yml` under backend.  `OTEL_SERVICE_NAME` should be different for different services so it’s easy to identify different service.
+- Set these environment variables in `docker-compose.yml` under backend. `OTEL_SERVICE_NAME` should be different for each service so that they can be distinguished.
 
 ```bash
 OTEL_SERVICE_NAME: "backend-flask"
@@ -51,7 +51,7 @@ OTEL_EXPORTER_OTLP_ENDPOINT: "https://api.honeycomb.io"
 OTEL_EXPORTER_OTLP_HEADERS: "x-honeycomb-team=${HONEYCOMB_API_KEY}"
 ```
 
-- `cd` into backend and add these packages to `requirements.txt` and run `pip install -r requirements.txt`
+- Add these packages to requirements.txt and run `pip3 install -r requirements.txt.`
 
 ```
 opentelemetry-api 
@@ -72,7 +72,7 @@ from opentelemetry.sdk.trace import TracerProvider
 from opentelemetry.sdk.trace.export import BatchSpanProcessor
 ```
 
-- Initialize tracing and an exporter that can send data to Honeycomb - set this just below all the import statements. `OTLPSpanExporter()` → reads the Honeycomb env vars
+- Set up tracing and an exporter that can send data to Honeycomb just below all the import statements. `OTLPSpanExporter()` reads the Honeycomb environment variables.
 
 ```python
 # Initialize tracing and an exporter that can send data to Honeycomb
@@ -91,15 +91,15 @@ FlaskInstrumentor().instrument_app(app)
 RequestsInstrumentor().instrument()
 ```
 
-- Run `docker compose up`  and invoke some backend API usage to see if it is working.
+- Docker compose up and test some backend API usage to see if it works.
 - Data graph from Honeycomb.
     
-![honeycomb-init-data](media/week2/images/honeycomb-init-data.png)
+![Alt text](media/week2/images/honeycomb-init-data.png)
     
 - Click trace to view - trace with only one span
     
-![Trace](media/week2/images/trace.png)
-
+![Alt text](media/week2/images/trace.png)
+    
 ### What is OpenTelemetry?
 
 - OTEL - [OpenTelemetry](https://opentelemetry.io/) → Open source, High-quality, ubiquitous, and portable telemetry to enable effective observability.
@@ -108,26 +108,26 @@ RequestsInstrumentor().instrument()
 
 ### Creating a span
 
-- Add this line above class in `home_activities` service and change tracer name
+- Change the tracer name and add this line above the class in the home activities service.
 
 ```python
 from opentelemetry import trace
 tracer = trace.get_tracer("tracer.name.here")
 ```
 
-- Add this line below the `def run()` and indent everything to get inside the `with` statement. Give a unique name.  ⚠️ name here is important
+- Add this line below the `def run()` and indent everything to be inside the `with` statement. Give a unique name. Name here is important
 
 ```python
 with tracer.start_as_current_span("http-handler"):
 ```
 
-- In Honeycomb, select recent traces with more that one span to view
+- Go to Honeycomb and view recent traces with more than one span.
     
-![additional-span](media/week2/images/additional-span.png)
-
+![Alt text](media/week2/images/additional-span.png)
+    
 ### Adding attribute to span
 
-- Add these lines below in b/w `datetime.now` line like this and pass in the `now.isoformat()`to last line.
+- Add these lines of code in b/w `datetime now` line like this and pass in the `now.isoformat()` to last line.
 
 ```python
 span = trace.get_current_span()
@@ -135,29 +135,406 @@ now = datetime.now(timezone.utc).astimezone()
 span.set_attribute("app.now", now.isoformat())
 ```
 
-- Add this statement before return statement line.
+- Add this line before the return statement.
 
 ```python
 span.set_attribute("app.result_length", len(results))
 ```
 
-- Select **Query** from Home in honeycomb.
-- Set `COUNT` in **Visualize** and in **Group By**, select `trace.trace_id` and **RUN QUERY**.
-- This Query language is not SQL, its a custom solution. Use the Query to filter out data.
+- In honeycomb, select **Query** from the Home.
+- In **Visualize**, select `COUNT` and in **Group By**, select `trace.trace id` and **RUN QUERY**.
+- This query language is not SQL; rather, it is a custom solution. To filter data, use the Query.
 - Set time to **Last 10 minutes.**
 
-![Query](media/week2/images/query.png)
+![Alt text](media/week2/images/query.png)
 
-- Click any of the graph to go to span details. In this page select the span and search for `app.` to get `app.now` and `app.result_length`.
+- To view span details, click on any of the graphs. To get `app.now` and `app.result` length, select the span and search for `app.` on this page.
 
-![span-details](media/week2/images/span-details.png)
+![Alt text](media/week2/images/span-details.png)
 
-### Heatmap
+## Heatmap
 
-- Select **New Query** from LHS
-- set **Visualize** to **HEATMAP(duration_ms)** and **P90(duration_ms),** then run query.
+- Choose New Query from the LHS menu.
+- set **Visualize** to ********HEATMAP(duration_ms)******** and ********P90(duration_ms),******** then run query.
 
-![heat-map](media/week2/images/heat-map.png)
+![Alt text](media/week2/images/heat-map.png)
+
+---
+
+## Instrument AWS XRay
+
+> AWS XRay - AWS Built-in Observability Solution
+
+![Alt text](media/week2/images/xray-setup%201.png)
+
+- A daemon service is required for Xray to function.
+
+### Install AWS X-RAY SDK (Python)
+
+> [https://aws.amazon.com/developer/tools/](https://aws.amazon.com/developer/tools/)
+> [https://docs.aws.amazon.com/xray/latest/devguide/xray-sdk-python.html](https://docs.aws.amazon.com/xray/latest/devguide/xray-sdk-python.html)
+
+- Add this to `requirements.txt` and install.
+
+```
+aws-xray-sdk
+```
+
+- Add this to `app.py`
+
+```python
+from aws_xray_sdk.core import xray_recorder
+from aws_xray_sdk.ext.flask.middleware import XRayMiddleware
+```
+
+- Add these lines under `app = Flask(__name__)`
+
+```python
+xray_url = os.getenv("AWS_XRAY_URL")
+xray_recorder.configure(service='backend-flask', dynamic_naming=xray_url)
+XRayMiddleware(app, xray_recorder)
+```
+
+### Create X-Ray Group
+
+```bash
+aws xray create-group \
+   --group-name "Cruddur" \
+   --filter-expression "service(\"backend-flask\")"
+```
+
+- Response
+
+```bash
+{
+    "Group": {
+        "GroupName": "Cruddur",
+        "GroupARN": "arn:aws:xray:us-east-1:<REDACTED>7434:group/Cruddur/XOGCY6I3BLGOTRTTVR776IUHW3MY56ESPZRJT7HGEIUWPARAI5BQ",
+        "FilterExpression": "service(\"backend-flask\")",
+        "InsightsConfiguration": {
+            "InsightsEnabled": false,
+            "NotificationsEnabled": false
+        }
+    }
+}
+```
+
+- To ensure that the group has been created, go to AWS X-ray and click the groups section in the left pane under configuration.
+
+![Alt text](media/week2/images/xray-group.png)
+
+### Create Sampling Rule
+
+```bash
+aws xray create-sampling-rule --cli-input-json file://aws/json/xray.json
+```
+
+- From the X-Ray page, select Sampling. The amount of information you want to see is determined by sampling.
+- Create `xray.json` inside `aws/json/` and add this
+
+```json
+{
+    "SamplingRule": {
+        "RuleName": "Cruddur",
+        "ResourceARN": "*",
+        "Priority": 9000,
+        "FixedRate": 0.1,
+        "ReservoirSize": 5,
+        "ServiceName": "backend-flask",
+        "ServiceType": "*",
+        "Host": "*",
+        "HTTPMethod": "*",
+        "URLPath": "*",
+        "Version": 1
+    }
+  }
+```
+
+- To create sampling run this command
+
+```bash
+aws xray create-sampling-rule --cli-input-json file://aws/json/xray.json
+```
+
+- Creates a new sampling rule in console
+
+![Alt text](media/week2/images/sampling-rule.png)
+
+### Add Deamon Service to Docker Compose
+
+> [https://docs.aws.amazon.com/xray/latest/devguide/xray-daemon.html](https://docs.aws.amazon.com/xray/latest/devguide/xray-daemon.html)
+
+- Add this to `docker-compose.yml`
+
+```yaml
+xray-daemon:
+    image: "amazon/aws-xray-daemon"
+    environment:
+      AWS_ACCESS_KEY_ID: "${AWS_ACCESS_KEY_ID}"
+      AWS_SECRET_ACCESS_KEY: "${AWS_SECRET_ACCESS_KEY}"
+      AWS_REGION: "us-east-1"
+    command:
+      - "xray -o -b xray-daemon:2000"
+    ports:
+      - 2000:2000/udp
+```
+
+- In `docker-compose.yml`, add these env variables under backend-flask.
+
+```yaml
+AWS_XRAY_URL: "*4567-${GITPOD_WORKSPACE_ID}.${GITPOD_WORKSPACE_CLUSTER_HOST}*"
+AWS_XRAY_DAEMON_ADDRESS: "xray-daemon:2000"
+```
+
+- Now do compose up. Open up backend URL and trigger some API activities.
+- To see data, go to the X-Ray console and look at the traces.
+
+![Alt text](media/week2/images/x-ray-trace.png)
+
+- Click into a trace to see more details.
+- segments  ==   span
+- To avoid spending, comment out all X-Ray-related code and disable X-Ray for cruddur. Remove the sampling rules and the group.
+
+---
+
+## CloudWatch Logs
+
+> [https://pypi.org/project/watchtower/](https://pypi.org/project/watchtower/)
+
+- Add `watchtower` to `requirements.txt` and install
+- Import these in `app.py`
+
+```python
+import watchtower
+import logging
+from time import strftime
+```
+
+- Add this just below `app = Flask(__name__)` in app.py
+
+```python
+# Configuring Logger to Use CloudWatch
+LOGGER = logging.getLogger(__name__)
+LOGGER.setLevel(logging.DEBUG)
+console_handler = logging.StreamHandler()
+cw_handler = watchtower.CloudWatchLogHandler(log_group='cruddur')
+LOGGER.addHandler(console_handler)
+LOGGER.addHandler(cw_handler)
+LOGGER.info('Test log')
+```
+
+- Add this above all routes.
+
+```python
+@app.after_request
+def after_request(response):
+    timestamp = strftime('[%Y-%b-%d %H:%M]')
+    LOGGER.error('%s %s %s %s %s %s', timestamp, request.remote_addr, request.method, request.scheme, request.full_path, response.status)
+    return response
+```
+
+- Update `/api/activities/home` route like this to pass LOGGER as args.
+
+```python
+@app.route("/api/activities/home", methods=["GET"])
+def data_home():
+    data = HomeActivities.run(LOGGER)
+    return data, 200
+```
+
+- Add LOGGER args to functions in `home activities.py` like this: `def run(LOGGER)`: and then insert this line within the function.
+
+```python
+LOGGER.info('Hello Cloudwatch! from  /api/activities/home')
+```
+
+- Add these env vars under backend in `docker-compose.yml`
+
+```yaml
+AWS_DEFAULT_REGION: "${AWS_DEFAULT_REGION}"
+AWS_ACCESS_KEY_ID: "${AWS_ACCESS_KEY_ID}"
+AWS_SECRET_ACCESS_KEY: "${AWS_SECRET_ACCESS_KEY}"
+```
+
+- Relaunch containers.
+- Make sure backend is displaying JSON data in home route.
+- To view log stream data, launch cloudwatch and navigate to Log Groups.
+
+![Alt text](media/week2/images/cloudwatch-log-stream.png)
+
+- To avoid spending, comment everything related to watchtower and cloudwatch, and delete Cruddur from cloudwatch.
+
+---
+
+# Rollbar
+
+> [https://app.rollbar.com/onboarding](https://app.rollbar.com/onboarding)
+
+- Log in to Rollbar, choose a software/package, and then proceed to the sample code page.
+- Add these packages to backend `requirements.txt` and install
+
+```
+blinker
+rollbar
+```
+
+- Configure the rollbar access token. The access token can be found in the rollbar project's example code.
+
+```bash
+export ROLLBAR_ACCESS_TOKEN=""
+gp env ROLLBAR_ACCESS_TOKEN=""
+```
+
+- Add Rollbar env to docker-compose under backend.
+- Import these modules in `app.py`
+
+```python
+import rollbar
+import rollbar.contrib.flask
+from flask import got_request_exception
+```
+
+- Copy paste this under `app = Flask(__name__)`
+
+```python
+rollbar_access_token = os.getenv('ROLLBAR_ACCESS_TOKEN')
+@app.before_first_request
+def init_rollbar():
+    """init rollbar module"""
+    rollbar.init(
+        # access token
+        rollbar_access_token,
+        # environment name
+        'production',
+        # server root directory, makes tracebacks prettier
+        root=os.path.dirname(os.path.realpath(__file__)),
+        # flask already sets up logging
+        allow_logging_basic_config=False)
+
+    # send exceptions from `app` to rollbar, using flask's signal system.
+    got_request_exception.connect(rollbar.contrib.flask.report_exception, app)
+```
+
+- Add this new endpoint
+
+```python
+@app.route('/rollbar/test')
+def rollbar_test():
+    rollbar.report_message('Hello World!', 'warning')
+    return "Hello World!"
+```
+
+- Continue in the Rollbar to return to the main page. The application that we have currently set up will be listening for incoming messages.
+- Launch the application and navigate to the `rollbar/test` endpoint in the backend. This will send a request to rollbar, which will be displayed on the project page.
+
+![Alt text](media/week2/images/rollbar-data.png)
+
+![Alt text](media/week2/images/rollbar-data-2.png)
+
+- I attempted to set an intentional error by commenting out the return from home activities.
+
+![Alt text](media/week2/images/rollbar-user-activities-error.png)
+
+---
+
+# Security - ****Observability vs Monitoring Explained in AWS****
+
+## Why logging sucks?
+
+- Time Consuming
+- Massive amounts of data with no context for why the security events occurred?
+- Looking for a needle in a haystack
+- Monolith vs. Services vs. Microservices
+- Distributed Modern Applications
+- Increase Alert Fatigue for SOC Teams & Application Teams (SREs, DevOps etc)
+
+## Why Observability?
+
+- Reducing Alert Fatigue in Security Operations Teams
+- End-to-end visibility of logs, metrics, and tracing
+- Troubleshoot and resolve issues quickly and affordably
+- Understand application health
+- Accelerate collaboration between teams
+- Reduce overall operational costs
+- Increase customer satisfaction
+
+## Observability vs Monitoring
+
+![Alt text](media/week2/images/obs-1.png)
+
+## 3 Pillars of Observability
+
+- Logs
+- Traces - trace problem back to it’s roots
+- Metrics
+
+# What is Observability in AWS?
+
+![Alt text](media/week2/images/obs-2.png)
+
+- AWS CloudWatch & AWS CloudTrail (Logs & Metrics)
+- [Amazon Detective](https://aws.amazon.com/detective/)
+- AWS CloudWatch Tracing
+
+## Building Security Metrics, Logs for Tracing
+
+1. Which Application? (Crown Jewels)
+2. Type of application (compute, monolith, microservices)
+3. Threat modelling session
+4. Identity Attack Vectors
+5. Map Attack Vectors to TTP in Attack MITRE Framework
+6. Identify instrumentation agents to create tracing (Cloudwatch or FireLens agent, 3rd party agents etc)
+7. AWS services like AWS Distro for OpenTelemetry (ADOT) for metrics and traces
+8. Dashboard for Practical Attack Vectors only for that application
+9. Repeat for next application
+
+Central Observability Platform - Security
+
+Event Driven Security
+
+---
+
+# Spend Considerations
+
+## Honeycomb
+
+- 20 M events are free in honeycomb under free tier per month
+- Distributed Tracing
+- BubbleUp
+- OpenTelemetry Support
+- Activity + Team History
+- Query Result Permalinks
+- Honeycomb Metrics
+
+## Rollbar
+
+- 5000 free events per month
+- Unlimited users and projects
+- 2FA and encryption at rest
+- Real-time feed and alerts
+- Intelligent error grouping
+- Stack traces and telemetry
+- Deploy and version tracking
+- People tracking
+- Rollbar Query Language (RQL)
+- 30 days data retention
+
+## AWS XRAY
+
+- 100,000 traces recorded per month
+- 1,000,000 traces scanned or retrieved per month
+- Forever free
+- There are additional charge for sampling.
+- [https://aws.amazon.com/xray/pricing/](https://aws.amazon.com/xray/pricing/)
+
+## Amazon CloudWatch
+
+- 10 Custom Metrics and 10 Alarms
+- 1,000,000 API Requests
+- 5GB of Log Data Ingestion and 5GB of Log Data Archive
+- 3 Dashboards with up to 50 Metrics Each per Month
+- Forever free
+- [https://aws.amazon.com/cloudwatch/pricing/](https://aws.amazon.com/cloudwatch/pricing/)
 
 ---
 
