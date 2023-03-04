@@ -952,3 +952,58 @@ registerInstrumentations({
 - [https://opentelemetry.io/docs/instrumentation/js/getting-started/browser/](https://opentelemetry.io/docs/instrumentation/js/getting-started/browser/)
 - [https://opentelemetry.io/docs/instrumentation/js/instrumentation/](https://opentelemetry.io/docs/instrumentation/js/instrumentation/)
 - [https://www.honeycomb.io/blog/test-span-opentelemetry-collector](https://www.honeycomb.io/blog/test-span-opentelemetry-collector)
+
+# Add custom instrumentation to Honeycomb
+
+- Added nested span and attributes within home activities
+
+```python
+user = {"user": "Annlee", "userID": 123456}
+
+span.set_attribute("app.result_length", len(results))
+
+with tracer.start_as_current_span("my-cool-function") as inner_span:
+
+    inner_span.set_attribute("inner", True)
+    span.set_attribute("user.id", user.get("user"))
+
+    with tracer.start_as_current_span("my-cool-function-2") as sub_inner_span:
+        span.set_attribute("user.id", user.get("userID"))
+```
+
+- Span with function decorators.
+
+```python
+@tracer.start_as_current_span("do_work")
+def do_work():
+    print("doing some work...")
+```
+
+- Added events for a nested span.
+
+```python
+current_span = trace.get_current_span()
+
+current_span.add_event("Gonna try it!")
+
+current_span.add_event("Did it!")
+```
+
+- Set span status.
+
+```python
+from opentelemetry.trace import Status, StatusCode
+
+try:
+    # something that might fail
+		print(x)
+except:
+    current_span.set_status(Status(StatusCode.ERROR))
+```
+
+![span status](media/week2/images/span%20status.png)
+
+**Reference:***
+
+- [https://docs.honeycomb.io/getting-data-in/opentelemetry/python/](https://docs.honeycomb.io/getting-data-in/opentelemetry/python/)
+- [https://opentelemetry.io/docs/instrumentation/python/manual/](https://opentelemetry.io/docs/instrumentation/python/manual/)
