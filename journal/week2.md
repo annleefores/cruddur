@@ -230,7 +230,7 @@ aws xray create-sampling-rule --cli-input-json file://aws/json/xray.json
 ```
 
 - From the X-Ray page, select Sampling. The amount of information you want to see is determined by sampling.
-- Create `xray.json` inside `aws/json/` and add this
+- Create `xray.json` inside `aws/json/` and add this.
 
 ```json
 {
@@ -250,13 +250,13 @@ aws xray create-sampling-rule --cli-input-json file://aws/json/xray.json
   }
 ```
 
-- To create sampling run this command
+- To create sampling run this command.
 
 ```bash
 aws xray create-sampling-rule --cli-input-json file://aws/json/xray.json
 ```
 
-- Creates a new sampling rule in console
+- Creates a new sampling rule in console.
 
 ![sampling-rule](media/week2/images/sampling-rule.png)
 
@@ -301,7 +301,7 @@ AWS_XRAY_DAEMON_ADDRESS: "xray-daemon:2000"
 
 > [https://pypi.org/project/watchtower/](https://pypi.org/project/watchtower/)
 
-- Add `watchtower` to `requirements.txt` and install
+- Add `watchtower` to `requirements.txt` and install.
 - Import these in `app.py`
 
 ```python
