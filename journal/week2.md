@@ -261,7 +261,7 @@ aws xray create-sampling-rule --cli-input-json file://aws/json/xray.json
 
 ![sampling-rule](media/week2/images/sampling-rule.png)
 
-### Add Deamon Service to Docker Compose
+### Add Daemon Service to Docker Compose
 
 > [https://docs.aws.amazon.com/xray/latest/devguide/xray-daemon.html](https://docs.aws.amazon.com/xray/latest/devguide/xray-daemon.html)
 
