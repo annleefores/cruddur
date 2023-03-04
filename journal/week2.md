@@ -4,11 +4,11 @@
 
 - [Live Stream](#observability)  
 - [Instrument Honeycomb with OTEL](#honeycombio)
-- [Instrument AWS X-Ray]()
-- [Configure custom logger to send to CloudWatch Logs]()
-- [Integrate Rollbar and capture and error]()
-- [Observability Security Considerations]()
-- [Observability Spending Considerations]()
+- [Instrument AWS X-Ray](#instrument-aws-xray)
+- [Configure custom logger to send to CloudWatch Logs](#cloudwatch-logs)
+- [Integrate Rollbar and capture and error](#rollbar)
+- [Observability Security Considerations](#security---observability-vs-monitoring-explained-in-aws)
+- [Observability Spending Considerations](#spend-considerations)
 
 ## [Homework Challenges](#homework-challenges-1)
 
@@ -94,11 +94,11 @@ RequestsInstrumentor().instrument()
 - Docker compose up and test some backend API usage to see if it works.
 - Data graph from Honeycomb.
     
-![Alt text](media/week2/images/honeycomb-init-data.png)
+![honeycomb-init-data](media/week2/images/honeycomb-init-data.png)
     
 - Click trace to view - trace with only one span
     
-![Alt text](media/week2/images/trace.png)
+![trace](media/week2/images/trace.png)
     
 ### What is OpenTelemetry?
 
@@ -115,7 +115,7 @@ from opentelemetry import trace
 tracer = trace.get_tracer("tracer.name.here")
 ```
 
-- Add this line below the `def run()` and indent everything to be inside the `with` statement. Give a unique name. Name here is important
+- Add this line below the `def run()` and indent everything to be inside the `with` statement. Give a unique name. Name here is important.
 
 ```python
 with tracer.start_as_current_span("http-handler"):
@@ -123,7 +123,7 @@ with tracer.start_as_current_span("http-handler"):
 
 - Go to Honeycomb and view recent traces with more than one span.
     
-![Alt text](media/week2/images/additional-span.png)
+![additional-span](media/week2/images/additional-span.png)
     
 ### Adding attribute to span
 
@@ -146,18 +146,18 @@ span.set_attribute("app.result_length", len(results))
 - This query language is not SQL; rather, it is a custom solution. To filter data, use the Query.
 - Set time to **Last 10 minutes.**
 
-![Alt text](media/week2/images/query.png)
+![query](media/week2/images/query.png)
 
 - To view span details, click on any of the graphs. To get `app.now` and `app.result` length, select the span and search for `app.` on this page.
 
-![Alt text](media/week2/images/span-details.png)
+![span-details](media/week2/images/span-details.png)
 
 ## Heatmap
 
 - Choose New Query from the LHS menu.
 - set **Visualize** to ********HEATMAP(duration_ms)******** and ********P90(duration_ms),******** then run query.
 
-![Alt text](media/week2/images/heat-map.png)
+![heat-map](media/week2/images/heat-map.png)
 
 ---
 
@@ -165,13 +165,13 @@ span.set_attribute("app.result_length", len(results))
 
 > AWS XRay - AWS Built-in Observability Solution
 
-![Alt text](media/week2/images/xray-setup%201.png)
+![xray-setup](media/week2/images/xray-setup%201.png)
 
 - A daemon service is required for Xray to function.
 
 ### Install AWS X-RAY SDK (Python)
 
-> [https://aws.amazon.com/developer/tools/](https://aws.amazon.com/developer/tools/)
+> [https://aws.amazon.com/developer/tools/](https://aws.amazon.com/developer/tools/)  
 > [https://docs.aws.amazon.com/xray/latest/devguide/xray-sdk-python.html](https://docs.aws.amazon.com/xray/latest/devguide/xray-sdk-python.html)
 
 - Add this to `requirements.txt` and install.
@@ -221,7 +221,7 @@ aws xray create-group \
 
 - To ensure that the group has been created, go to AWS X-ray and click the groups section in the left pane under configuration.
 
-![Alt text](media/week2/images/xray-group.png)
+![xray-group](media/week2/images/xray-group.png)
 
 ### Create Sampling Rule
 
@@ -258,7 +258,7 @@ aws xray create-sampling-rule --cli-input-json file://aws/json/xray.json
 
 - Creates a new sampling rule in console
 
-![Alt text](media/week2/images/sampling-rule.png)
+![sampling-rule](media/week2/images/sampling-rule.png)
 
 ### Add Deamon Service to Docker Compose
 
@@ -289,7 +289,7 @@ AWS_XRAY_DAEMON_ADDRESS: "xray-daemon:2000"
 - Now do compose up. Open up backend URL and trigger some API activities.
 - To see data, go to the X-Ray console and look at the traces.
 
-![Alt text](media/week2/images/x-ray-trace.png)
+![x-ray-trace](media/week2/images/x-ray-trace.png)
 
 - Click into a trace to see more details.
 - segments  ==   span
@@ -360,7 +360,7 @@ AWS_SECRET_ACCESS_KEY: "${AWS_SECRET_ACCESS_KEY}"
 - Make sure backend is displaying JSON data in home route.
 - To view log stream data, launch cloudwatch and navigate to Log Groups.
 
-![Alt text](media/week2/images/cloudwatch-log-stream.png)
+![cloudwatch-log-stream](media/week2/images/cloudwatch-log-stream.png)
 
 - To avoid spending, comment everything related to watchtower and cloudwatch, and delete Cruddur from cloudwatch.
 
@@ -427,19 +427,19 @@ def rollbar_test():
 - Continue in the Rollbar to return to the main page. The application that we have currently set up will be listening for incoming messages.
 - Launch the application and navigate to the `rollbar/test` endpoint in the backend. This will send a request to rollbar, which will be displayed on the project page.
 
-![Alt text](media/week2/images/rollbar-data.png)
+![rollbar-data](media/week2/images/rollbar-data.png)
 
-![Alt text](media/week2/images/rollbar-data-2.png)
+![rollbar-data-2](media/week2/images/rollbar-data-2.png)
 
 - I attempted to set an intentional error by commenting out the return from home activities.
 
-![Alt text](media/week2/images/rollbar-user-activities-error.png)
+![rollbar-user-activities-error](media/week2/images/rollbar-user-activities-error.png)
 
 ---
 
-# Security - ****Observability vs Monitoring Explained in AWS****
+## Security - Observability vs Monitoring Explained in AWS
 
-## Why logging sucks?
+### Why logging sucks?
 
 - Time Consuming
 - Massive amounts of data with no context for why the security events occurred?
@@ -448,7 +448,7 @@ def rollbar_test():
 - Distributed Modern Applications
 - Increase Alert Fatigue for SOC Teams & Application Teams (SREs, DevOps etc)
 
-## Why Observability?
+### Why Observability?
 
 - Reducing Alert Fatigue in Security Operations Teams
 - End-to-end visibility of logs, metrics, and tracing
@@ -458,25 +458,25 @@ def rollbar_test():
 - Reduce overall operational costs
 - Increase customer satisfaction
 
-## Observability vs Monitoring
+### Observability vs Monitoring
 
-![Alt text](media/week2/images/obs-1.png)
+![obs-1](media/week2/images/obs-1.png)
 
-## 3 Pillars of Observability
+### 3 Pillars of Observability
 
 - Logs
 - Traces - trace problem back to it’s roots
 - Metrics
 
-# What is Observability in AWS?
+### What is Observability in AWS?
 
-![Alt text](media/week2/images/obs-2.png)
+![obs-2](media/week2/images/obs-2.png)
 
 - AWS CloudWatch & AWS CloudTrail (Logs & Metrics)
 - [Amazon Detective](https://aws.amazon.com/detective/)
 - AWS CloudWatch Tracing
 
-## Building Security Metrics, Logs for Tracing
+### Building Security Metrics, Logs for Tracing
 
 1. Which Application? (Crown Jewels)
 2. Type of application (compute, monolith, microservices)
@@ -494,9 +494,9 @@ Event Driven Security
 
 ---
 
-# Spend Considerations
+## Spend Considerations
 
-## Honeycomb
+### Honeycomb
 
 - 20 M events are free in honeycomb under free tier per month
 - Distributed Tracing
@@ -506,7 +506,7 @@ Event Driven Security
 - Query Result Permalinks
 - Honeycomb Metrics
 
-## Rollbar
+### Rollbar
 
 - 5000 free events per month
 - Unlimited users and projects
@@ -519,7 +519,7 @@ Event Driven Security
 - Rollbar Query Language (RQL)
 - 30 days data retention
 
-## AWS XRAY
+### AWS XRAY
 
 - 100,000 traces recorded per month
 - 1,000,000 traces scanned or retrieved per month
@@ -527,7 +527,7 @@ Event Driven Security
 - There are additional charge for sampling.
 - [https://aws.amazon.com/xray/pricing/](https://aws.amazon.com/xray/pricing/)
 
-## Amazon CloudWatch
+### Amazon CloudWatch
 
 - 10 Custom Metrics and 10 Alarms
 - 1,000,000 API Requests
