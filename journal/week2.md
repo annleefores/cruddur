@@ -857,7 +857,7 @@ import { registerInstrumentations } from '@opentelemetry/instrumentation';
 ```
 
 - Replace the previous *rootSpan page-load* code with this one.
-- I created the backend URL regex using the new ChatGPT powered Bing.
+- I created the backend URL regex using the new ChatGPT.
 
 ```jsx
 registerInstrumentations({
