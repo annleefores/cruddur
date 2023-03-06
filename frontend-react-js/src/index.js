@@ -4,7 +4,7 @@ import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 
-import "./otel/tracing.js"; // otel collector
+// import "./otel/tracing.js"; // otel collector
 
 const el_main = document.getElementsByTagName("main")[0];
 const root = ReactDOM.createRoot(el_main);

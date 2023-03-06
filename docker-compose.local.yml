@@ -19,8 +19,8 @@ services:
       # AWS_ACCESS_KEY_ID: "${AWS_ACCESS_KEY_ID}"
       # AWS_SECRET_ACCESS_KEY: "${AWS_SECRET_ACCESS_KEY}"
 
-      # Rollbar
-      ROLLBAR_ACCESS_TOKEN: "${ROLLBAR_ACCESS_TOKEN}"
+      # # Rollbar
+      # ROLLBAR_ACCESS_TOKEN: "${ROLLBAR_ACCESS_TOKEN}"
 
 
     build: ./backend-flask
@@ -54,17 +54,17 @@ services:
     volumes:
       - ./frontend-react-js:/frontend-react-js
 
-  # OTEL Collector
-  otel-collector:
-    environment:
-       HONEYCOMB_API_KEY: "${HONEYCOMB_API_KEY}"
-       FRONTEND_URL_WITHOUT_HTTP: "localhost:3000"
-    image: otel/opentelemetry-collector
-    command: [--config=/etc/otel-collector-config.yaml]
-    volumes:
-      - ./otel-collector-config.yaml:/etc/otel-collector-config.yaml
-    ports:
-      - 4318:4318 # OTLP http receiver
+  # # OTEL Collector
+  # otel-collector:
+  #   environment:
+  #      HONEYCOMB_API_KEY: "${HONEYCOMB_API_KEY}"
+  #      FRONTEND_URL_WITHOUT_HTTP: "localhost:3000"
+  #   image: otel/opentelemetry-collector
+  #   command: [--config=/etc/otel-collector-config.yaml]
+  #   volumes:
+  #     - ./otel-collector-config.yaml:/etc/otel-collector-config.yaml
+  #   ports:
+  #     - 4318:4318 # OTLP http receiver
 
 
   # xray-daemon:
