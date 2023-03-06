@@ -13,9 +13,9 @@ import Cookies from "js-cookie";
 // --------Honeycomb OTEL------------
 // import { trace } from "@opentelemetry/api";
 
-import { XMLHttpRequestInstrumentation } from "@opentelemetry/instrumentation-xml-http-request";
-import { FetchInstrumentation } from "@opentelemetry/instrumentation-fetch";
-import { registerInstrumentations } from "@opentelemetry/instrumentation";
+// import { XMLHttpRequestInstrumentation } from "@opentelemetry/instrumentation-xml-http-request";
+// import { FetchInstrumentation } from "@opentelemetry/instrumentation-fetch";
+// import { registerInstrumentations } from "@opentelemetry/instrumentation";
 
 // import { DocumentLoadInstrumentation } from "@opentelemetry/instrumentation-document-load";
 // import { UserInteractionInstrumentation } from "@opentelemetry/instrumentation-user-interaction";
@@ -41,26 +41,26 @@ export default function HomeFeedPage() {
   //   };
   // });
 
-  registerInstrumentations({
-    instrumentations: [
-      new XMLHttpRequestInstrumentation({
-        propagateTraceHeaderCorsUrls: [
-          /.+/g,
-          /^http:\/\/localhost:4567\/.*$/,
-          `${process.env.REACT_APP_BACKEND_URL}`,
-        ],
-      }),
-      new FetchInstrumentation({
-        propagateTraceHeaderCorsUrls: [
-          /.+/g,
-          /^http:\/\/localhost:4567\/.*$/,
-          `${process.env.REACT_APP_BACKEND_URL}`,
-        ],
-      }),
-      // new DocumentLoadInstrumentation(),
-      // new UserInteractionInstrumentation(),
-    ],
-  });
+  // registerInstrumentations({
+  //   instrumentations: [
+  //     new XMLHttpRequestInstrumentation({
+  //       propagateTraceHeaderCorsUrls: [
+  //         /.+/g,
+  //         /^http:\/\/localhost:4567\/.*$/,
+  //         `${process.env.REACT_APP_BACKEND_URL}`,
+  //       ],
+  //     }),
+  //     new FetchInstrumentation({
+  //       propagateTraceHeaderCorsUrls: [
+  //         /.+/g,
+  //         /^http:\/\/localhost:4567\/.*$/,
+  //         `${process.env.REACT_APP_BACKEND_URL}`,
+  //       ],
+  //     }),
+  //     // new DocumentLoadInstrumentation(),
+  //     // new UserInteractionInstrumentation(),
+  //   ],
+  // });
 
   //--------------------
 

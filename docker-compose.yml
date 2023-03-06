@@ -5,10 +5,10 @@ services:
       FRONTEND_URL: "https://3000-${GITPOD_WORKSPACE_ID}.${GITPOD_WORKSPACE_CLUSTER_HOST}"
       BACKEND_URL: "https://4567-${GITPOD_WORKSPACE_ID}.${GITPOD_WORKSPACE_CLUSTER_HOST}"
       
-      # openTelemetry
-      OTEL_SERVICE_NAME: "backend-flask"
-      OTEL_EXPORTER_OTLP_ENDPOINT: "https://api.honeycomb.io"
-      OTEL_EXPORTER_OTLP_HEADERS: "x-honeycomb-team=${HONEYCOMB_API_KEY}"
+      # # openTelemetry
+      # OTEL_SERVICE_NAME: "backend-flask"
+      # OTEL_EXPORTER_OTLP_ENDPOINT: "https://api.honeycomb.io"
+      # OTEL_EXPORTER_OTLP_HEADERS: "x-honeycomb-team=${HONEYCOMB_API_KEY}"
 
       # # AWS XRAY
       # AWS_XRAY_URL: "*4567-${GITPOD_WORKSPACE_ID}.${GITPOD_WORKSPACE_CLUSTER_HOST}*"
@@ -51,17 +51,17 @@ services:
     volumes:
       - ./frontend-react-js:/frontend-react-js
 
-  # OTEL Collector
-  otel-collector:
-    environment:
-       HONEYCOMB_API_KEY: "${HONEYCOMB_API_KEY}"
-       FRONTEND_URL_WITHOUT_HTTP: "3000-${GITPOD_WORKSPACE_ID}.${GITPOD_WORKSPACE_CLUSTER_HOST}"
-    image: otel/opentelemetry-collector
-    command: [--config=/etc/otel-collector-config.yaml]
-    volumes:
-      - ./otel-collector-config.yaml:/etc/otel-collector-config.yaml
-    ports:
-      - 4318:4318 # OTLP http receiver
+  # # OTEL Collector
+  # otel-collector:
+  #   environment:
+  #      HONEYCOMB_API_KEY: "${HONEYCOMB_API_KEY}"
+  #      FRONTEND_URL_WITHOUT_HTTP: "3000-${GITPOD_WORKSPACE_ID}.${GITPOD_WORKSPACE_CLUSTER_HOST}"
+  #   image: otel/opentelemetry-collector
+  #   command: [--config=/etc/otel-collector-config.yaml]
+  #   volumes:
+  #     - ./otel-collector-config.yaml:/etc/otel-collector-config.yaml
+  #   ports:
+  #     - 4318:4318 # OTLP http receiver
   
   # xray-daemon:
   #   image: "amazon/aws-xray-daemon"
