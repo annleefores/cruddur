@@ -5,6 +5,11 @@ services:
       FRONTEND_URL: "https://3000-${GITPOD_WORKSPACE_ID}.${GITPOD_WORKSPACE_CLUSTER_HOST}"
       BACKEND_URL: "https://4567-${GITPOD_WORKSPACE_ID}.${GITPOD_WORKSPACE_CLUSTER_HOST}"
       
+      #jwt verification
+      AWS_DEFAULT_REGION: "${AWS_DEFAULT_REGION}"
+      AWS_COGNITO_USER_POOL_ID: "${AWS_USER_POOLS_ID}"
+      AWS_COGNITO_USER_POOL_CLIENT_ID: "${CLIENT_ID}"
+
       # # openTelemetry
       # OTEL_SERVICE_NAME: "backend-flask"
       # OTEL_EXPORTER_OTLP_ENDPOINT: "https://api.honeycomb.io"
@@ -39,6 +44,12 @@ services:
     environment:
       REACT_APP_BACKEND_URL: "https://4567-${GITPOD_WORKSPACE_ID}.${GITPOD_WORKSPACE_CLUSTER_HOST}"
       REACT_APP_OTEL_COLLECTOR_URL: "https://4318-${GITPOD_WORKSPACE_ID}.${GITPOD_WORKSPACE_CLUSTER_HOST}"
+       # for cognito
+      REACT_APP_AWS_PROJECT_REGION: "${AWS_DEFAULT_REGION}"
+      REACT_APP_AWS_COGNITO_REGION: "${AWS_DEFAULT_REGION}"
+      REACT_APP_AWS_USER_POOLS_ID: "${AWS_USER_POOLS_ID}"
+      REACT_APP_CLIENT_ID: "${CLIENT_ID}"
+      # ------------
     build: ./frontend-react-js
     ports:
       - "3000:3000"
