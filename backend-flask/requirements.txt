@@ -17,3 +17,6 @@ flask-cors
 # # Rollbar
 # blinker
 # rollbar
+
+requests
+python-jose
