@@ -4,7 +4,6 @@ import os
 
 from lib.cognito_jwt_token import (
     CognitoJwtToken,
-    extract_access_token,
     TokenVerifyError,
 )
 
@@ -26,10 +25,8 @@ class middleware:
 
         if "Authorization" in request.headers:
 
-            access_token = extract_access_token(request.headers)
-
             try:
-                claims = cognito_jwt_token.verify(access_token)
+                claims = cognito_jwt_token.extract_access_token(request.headers)
 
                 # transfer data through request
                 environ["auth"] = True
