@@ -13,14 +13,6 @@ class TokenVerifyError(Exception):
     pass
 
 
-def extract_access_token(request_headers):
-    access_token = None
-    auth_header = request_headers.get("Authorization")
-    if auth_header and " " in auth_header:
-        _, access_token = auth_header.split()
-    return access_token
-
-
 class CognitoJwtToken:
     def __init__(self, user_pool_id, user_pool_client_id, region, request_client=None):
         self.region = region
@@ -115,3 +107,11 @@ class CognitoJwtToken:
 
         self.claims = claims
         return claims
+
+
+def extract_access_token(request_headers):
+    access_token = None
+    auth_header = request_headers.get("Authorization")
+    if auth_header and " " in auth_header:
+        _, access_token = auth_header.split()
+    return access_token
