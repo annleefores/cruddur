@@ -24,7 +24,7 @@ class middleware:
 
         request = Request(environ)
 
-        if request.path == "/api/activities/home":
+        if "Authorization" in request.headers:
 
             access_token = extract_access_token(request.headers)
 
