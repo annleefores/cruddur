@@ -108,10 +108,9 @@ class CognitoJwtToken:
         self.claims = claims
         return claims
 
-
-def extract_access_token(request_headers):
-    access_token = None
-    auth_header = request_headers.get("Authorization")
-    if auth_header and " " in auth_header:
-        _, access_token = auth_header.split()
-    return access_token
+    def extract_access_token(self, request_headers):
+        access_token = None
+        auth_header = request_headers.get("Authorization")
+        if auth_header and " " in auth_header:
+            _, access_token = auth_header.split()
+        return self.verify(access_token)
