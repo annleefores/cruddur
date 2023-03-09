@@ -4,11 +4,8 @@ from flask import request
 from flask_cors import CORS, cross_origin
 import os
 
-from lib.cognito_jwt_token import (
-    CognitoJwtToken,
-    extract_access_token,
-    TokenVerifyError,
-)
+
+from lib.middleware import middleware
 
 # # ----------openTelemetry - Honeycomb------------
 # from opentelemetry import trace
@@ -62,12 +59,10 @@ from services.show_activity import *
 
 app = Flask(__name__)
 
-# JWT_Verification
-cognito_jwt_token = CognitoJwtToken(
-    region=os.getenv("AWS_DEFAULT_REGION"),
-    user_pool_client_id=os.getenv("AWS_COGNITO_USER_POOL_CLIENT_ID"),
-    user_pool_id=os.getenv("AWS_COGNITO_USER_POOL_ID"),
-)
+
+# calling our middleware
+app.wsgi_app = middleware(app.wsgi_app)
+
 
 # # rollbar - init
 # rollbar_access_token = os.getenv("ROLLBAR_ACCESS_TOKEN")
@@ -185,21 +180,16 @@ def data_create_message():
 @app.route("/api/activities/home", methods=["GET"])
 def data_home():
 
-    # ----jwt auth-----
-    access_token = extract_access_token(request.headers)
-    try:
-        claims = cognito_jwt_token.verify(access_token)
-        # authenticated request
-        app.logger.debug("authenticated")
-        app.logger.debug(claims)
-        app.logger.debug(claims["username"])
+    auth_state = request.environ["auth"]
+    claims = request.environ["claims"]
+
+    if auth_state:
         data = HomeActivities.run(cognito_user_id=claims["username"])
-    except TokenVerifyError as e:
-        # unauthenticated request
-        app.logger.debug(e)
+        app.logger.debug("authenticated")
+    else:
         app.logger.debug("unauthenticated")
         data = HomeActivities.run()
-    # ---------------
+
     return data, 200
 
 
