@@ -114,8 +114,13 @@ origins = [frontend, backend]
 cors = CORS(
     app,
     resources={r"/api/*": {"origins": origins}},
-    headers=["Content-Type", "Authorization", "traceparent"],
-    expose_headers="Authorization",
+    headers=[
+        "Content-Type",
+        "Authorization",
+        "traceparent",
+        "if-modified-since",
+    ],
+    expose_headers=["Authorization", "location", "link"],
     methods="OPTIONS,GET,HEAD,POST",
 )
 
