@@ -186,7 +186,7 @@ def data_create_message():
 @app.route("/api/activities/home", methods=["GET"])
 def data_home():
 
-    app.logger.debug("request", request.headers)
+    app.logger.debug(request.headers.get("X-Current-User"))
 
     # auth_state = request.environ["auth"]
     # claims = request.environ["claims"]
