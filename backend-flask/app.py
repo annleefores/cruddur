@@ -185,15 +185,19 @@ def data_create_message():
 @app.route("/api/activities/home", methods=["GET"])
 def data_home():
 
-    auth_state = request.environ["auth"]
-    claims = request.environ["claims"]
+    app.logger.debug("request", request.headers)
 
-    if auth_state:
-        data = HomeActivities.run(cognito_user_id=claims["username"])
-        app.logger.debug("authenticated")
-    else:
-        app.logger.debug("unauthenticated")
-        data = HomeActivities.run()
+    # auth_state = request.environ["auth"]
+    # claims = request.environ["claims"]
+
+    # if auth_state:
+    #     data = HomeActivities.run(cognito_user_id=claims["username"])
+    #     app.logger.debug("authenticated")
+    # else:
+    #     app.logger.debug("unauthenticated")
+    #     data = HomeActivities.run()
+
+    data = HomeActivities.run()
 
     return data, 200
 
