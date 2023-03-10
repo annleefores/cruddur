@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "aws-jwt-verify": "^3.4.0",
+    "dotenv": "^16.0.3"
+  }
+}
