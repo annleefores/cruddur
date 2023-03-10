@@ -15,8 +15,7 @@ const server = http.createServer(async (req, res) => {
 
   res.statusCode = 200;
   res.setHeader("Content-Type", "text/plain");
-  res.writeHead(200, { "Content-Type": "application/json" });
-  res.write(JSON.stringify(result));
+  res.writeHead(200, { "Content-Type": "application/json", "x-current-user": JSON.stringify(result) });
   res.end();
 });
 
@@ -34,9 +33,9 @@ async function awsCognito(authorization) {
   try {
     const payload = await verifier.verify(authorization);
     console.log("Token is valid. Payload:", payload);
-    return "valid" + payload;
+    return payload;
   } catch {
     console.log("Token not valid!");
-    return "not valid";
+    return False;
   }
 }

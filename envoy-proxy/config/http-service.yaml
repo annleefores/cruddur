@@ -19,7 +19,7 @@ static_resources:
                         - "*"
                       routes:
                         - match:
-                            prefix: "/"
+                            prefix: "/api/activities/home"
                           route:
                             cluster: backend-flask
                 http_filters:

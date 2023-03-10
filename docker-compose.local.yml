@@ -33,7 +33,7 @@ services:
 
     healthcheck:
       test: curl --fail ${BACKEND_URL}/api/health || exit 1
-      interval: 300s
+      interval: 10s
       timeout: 10s
       start_period: 10s
       retries: 3
@@ -95,20 +95,20 @@ services:
 
   front-envoy:
     build:
-      context: .
-      dockerfile: envoy-proxy/Dockerfile-frontenvoy
+      context: ./envoy-proxy
+      dockerfile: Dockerfile-frontenvoy
     depends_on:
       backend-flask:
         condition: service_healthy
     environment:
-      FRONT_ENVOY_YAML: "envoy-proxy/config/http-service.yaml"
+      FRONT_ENVOY_YAML: "config/http-service.yaml"
     ports:
       - "${PORT_PROXY:-8000}:8000"
 
   ext_authz-http-service:
     build:
-      context: .
-      dockerfile: envoy-proxy/auth/Dockerfile
+      context: ./envoy-proxy/auth
+      dockerfile: Dockerfile
     environment:
       AWS_USER_POOLS_ID: "${AWS_USER_POOLS_ID}"
       CLIENT_ID: "${CLIENT_ID}"
