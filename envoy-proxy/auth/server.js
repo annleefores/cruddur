@@ -10,6 +10,8 @@ const port = 9002;
 
 const server = http.createServer(async (req, res) => {
 
+  console.log(req.headers)
+
   const authorization = req.headers["authorization"] || "";
 
   const token = authorization.split(" ");
