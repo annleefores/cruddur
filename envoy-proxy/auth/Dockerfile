@@ -1,6 +1,13 @@
 FROM node:16.19.1-alpine3.16
-COPY . /app
 
-RUN cd app && npm install 
+WORKDIR /usr/src/app
 
-CMD ["node", "/app/server"]
+COPY package*.json ./
+
+RUN npm install
+
+COPY . . 
+
+EXPOSE 9002 
+
+CMD ["node", "server.js"]
