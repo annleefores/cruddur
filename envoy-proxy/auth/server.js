@@ -16,7 +16,7 @@ const server = http.createServer(async (req, res) => {
 
   const token = authorization.split(" ");
 
-  if (token.length === 2 && token[0] === "Bearer") {
+  if (token.length === 2 && token[0] === ("Bearer" || "bearer")) {
 
     const result = await awsCognito(token[1]);
 
