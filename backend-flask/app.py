@@ -5,7 +5,7 @@ from flask_cors import CORS, cross_origin
 import os
 
 
-from lib.middleware import middleware
+# from lib.middleware import middleware
 
 # # ----------openTelemetry - Honeycomb------------
 # from opentelemetry import trace
@@ -60,8 +60,8 @@ from services.show_activity import *
 app = Flask(__name__)
 
 
-# calling our middleware
-app.wsgi_app = middleware(app.wsgi_app)
+# # calling our middleware
+# app.wsgi_app = middleware(app.wsgi_app)
 
 
 # # rollbar - init
