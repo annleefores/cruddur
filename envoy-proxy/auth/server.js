@@ -5,18 +5,26 @@ var http = require("http");
 
 require("dotenv").config();
 
-const hostname = "localhost";
+const hostname = "0.0.0.0";
 const port = 9002;
 
 const server = http.createServer(async (req, res) => {
-  const authorization = req.headers["authorization"];
 
-  const result = await awsCognito(authorization);
+  const authorization = req.headers["authorization"] || "";
 
-  res.statusCode = 200;
-  res.setHeader("Content-Type", "text/plain");
-  res.writeHead(200, { "Content-Type": "application/json", "x-current-user": JSON.stringify(result) });
+  const token = authorization.split(" ");
+
+  if (token.length === 2 && token[0] === "Bearer") {
+
+    const result = await awsCognito(token[1]);
+
+    // res.writeHead(200, { "x-current-user": JSON.stringify(result) });
+    res.writeHead(200, { "x-current-user": JSON.stringify(result) });
+    res.end();
+  }
+  res.writeHead(403);
   res.end();
+
 });
 
 server.listen(port, hostname, () => {
@@ -36,6 +44,6 @@ async function awsCognito(authorization) {
     return payload;
   } catch {
     console.log("Token not valid!");
-    return False;
+    return null;
   }
 }

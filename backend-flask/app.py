@@ -119,8 +119,9 @@ cors = CORS(
         "Authorization",
         "traceparent",
         "if-modified-since",
+        "x-current-user",
     ],
-    expose_headers=["Authorization", "location", "link"],
+    expose_headers=["Authorization", "location", "link", "x-current-user"],
     methods="OPTIONS,GET,HEAD,POST",
 )
 
