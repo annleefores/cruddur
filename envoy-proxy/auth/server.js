@@ -10,8 +10,6 @@ const port = 9002;
 
 const server = http.createServer(async (req, res) => {
 
-  console.log(req.headers)
-
   const authorization = req.headers["authorization"] || "";
 
   const token = authorization.split(" ");
@@ -43,10 +41,8 @@ async function awsCognito(authorization) {
 
   try {
     const payload = await verifier.verify(authorization);
-    console.log("Token is valid. Payload:", payload);
     return payload;
   } catch {
-    console.log("Token not valid!");
     return null;
   }
 }

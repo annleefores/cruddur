@@ -191,7 +191,6 @@ def data_home():
 
     if auth_state != "null":
         claims = json.loads(auth_state)
-        app.logger.debug(claims)
         data = HomeActivities.run(cognito_user_id=claims["username"])
         app.logger.debug("authenticated")
     else:
