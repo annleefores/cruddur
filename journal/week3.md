@@ -16,6 +16,80 @@
 ## Required Homework
 
 ---
+### Security - Amazon Cognito Security Best Practices
+
+#### Credentials and Authentication
+
+- Traditional Authentication.
+    - Username & password or access cards.
+- SAML/Single Sign ON & Identity Provider
+    - Security Assertion Markup Language (SAML) allows you to have a single point of entry into any application.
+- OpenID connect
+    - Use social credentials to authenticate on different services
+    - Only Authentication
+- OAuth
+    - For authorization
+    - Used with OpenID connect
+
+#### What is Decentralized Authentication?
+
+- Store username and password at one location and use it everywhere.
+
+#### What is Amazon Cognito?
+
+- Service which allows authentication for using user info stored in AWS account.
+- Choose any one or both
+
+##### Cognito User Pool
+
+- Authentication using OAuth or user directly logging in
+
+##### Cognito Identity Pool
+
+- Authorization to use AWS services.
+- Provides temporary creds to access AWS service
+
+#### Why use Cognito?
+
+![aws-cognito](media/week3/images/1-aws-cognito.png)
+
+- User-pool is region based
+- User Directory for Customers
+- Ability to access AWS Resources for the Application being built
+- Identity Broker for AWS Resources with Temporary credentials
+- Can extend users to AWS Resources easily
+
+#### User Lifecycle Management
+
+![user-lifecycle](media/week3/images/user-lifecycle.png)
+#### Token Lifecycle Management
+
+![tokenlife-cycle](media/week3/images/tokenlife-cycle.png)
+
+#### AWS Cognito Security Best Practices
+
+- AWS Services - API Gateway, AWS Resources shared with the App Client (Backend or Back channels)
+    - Limit user base of access to specific services.
+- AWS WAF with Web ACLs for Rate limiting, Allow/Deny List, Deny access from region & many more waf management rules similar to OWASP (marketplace)
+- Amazon Cognito Compliance standard is what your business requires
+- Amazon Cognito should only be in the AWS region that you are legally allowed to be holding user data in.
+- Amazon Organizations SCP - to manage User Pool deletion, creation, region lock etc
+- AWS CloudTrail is enabled & monitored to trigger alerts on malicious Cognito behavior by an identity in AWS.
+- Encryption is enabled by default in Amazon Cognito
+
+#### AWS Cognito Security Best Practices - Application
+
+- Application should use an industry standard for Authentication & Authorization (SAML, OpenID Connect, OAuth2.O etc)
+- App User Lifecycle Management - Create, Modify, Delete Users
+- AWS User Access Lifecycle Management - Change of Roles/ Revoke Roles etc
+- Role based Access to manage how much access to AWS Resources for the Application being built
+- Token Lifecycle Management - Issue new tokens, revoke compromised tokens, where to store (client/server) etc.
+- Security tests of the application through penetration testing
+- Access Token Scope - should be limited
+- JWT Token best practice - no sensitive info
+- Encryption in Transit for API Calls.
+
+---
 ## Homework Challenges
 
 ### Learned about JWT
