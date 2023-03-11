@@ -19,7 +19,6 @@ const server = http.createServer(async (req, res) => {
 
     const result = await awsCognito(token[1]);
 
-    // res.writeHead(200, { "x-current-user": JSON.stringify(result) });
     res.writeHead(200, { "x-current-user": JSON.stringify(result) });
     res.end();
   }
