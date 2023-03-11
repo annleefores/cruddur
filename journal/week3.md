@@ -1232,7 +1232,7 @@ server_uri:
 
 ![working-in-insomnia](media/week3/images/5-working-in-insomnia.png)
 
-- At this point, I still had to figure out why the frontend is not loading data
+- At this point, I still had to figure out why the frontend was not loading data
 
 ```bash
 Response to preflight request doesn't pass access control check: No 'Access-Control-Allow-Origin' header is present on the requested resource. If an opaque response serves your needs, set the request's mode to 'no-cors' to fetch the resource with CORS disabled.
