@@ -3,10 +3,11 @@ from flask import Flask
 from flask import request
 from flask_cors import CORS, cross_origin
 import os
-import json
+
+# import json ## for envoy-proxy
 
 
-# from lib.middleware import middleware
+from lib.middleware import middleware  # for middleware auth
 
 # # ----------openTelemetry - Honeycomb------------
 # from opentelemetry import trace
@@ -61,8 +62,8 @@ from services.show_activity import *
 app = Flask(__name__)
 
 
-# # calling our middleware
-# app.wsgi_app = middleware(app.wsgi_app)
+# calling python middleware
+app.wsgi_app = middleware(app.wsgi_app)
 
 
 # # rollbar - init
@@ -187,10 +188,10 @@ def data_create_message():
 @app.route("/api/activities/home", methods=["GET"])
 def data_home():
 
-    auth_state = request.headers.get("X-Current-User")
+    auth_state = request.environ["auth"]
+    claims = request.environ["claims"]
 
-    if auth_state != "null":
-        claims = json.loads(auth_state)
+    if auth_state:
         data = HomeActivities.run(cognito_user_id=claims["username"])
         app.logger.debug("authenticated")
     else:
@@ -198,6 +199,23 @@ def data_home():
         data = HomeActivities.run()
 
     return data, 200
+
+
+# # home route for envoy proxy
+# @app.route("/api/activities/home", methods=["GET"])
+# def data_home():
+
+#     auth_state = request.headers.get("X-Current-User")
+
+#     if auth_state != "null":
+#         claims = json.loads(auth_state)
+#         data = HomeActivities.run(cognito_user_id=claims["username"])
+#         app.logger.debug("authenticated")
+#     else:
+#         app.logger.debug("unauthenticated")
+#         data = HomeActivities.run()
+
+#     return data, 200
 
 
 ## for cloudwatch-watchtower
