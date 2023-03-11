@@ -49,7 +49,7 @@
 - Hit **Next.**
 - **Review**  and **Create User Pool.**
 
-![create-user-pool](media/week3/images/1-create-user-pool.png)
+![user-pool](media/week3/images/create-user-pool.png)
 
 💡 Federated Identity Provider can be added within **Cognito user pool**
 
