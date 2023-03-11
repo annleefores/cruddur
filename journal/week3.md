@@ -2,6 +2,13 @@
 
 ## [Required Homework](#required-homework-1)
 
+- [Setup Cognito User Pool](#aws-cognito-console)
+- [Implement Custom Signin Page](#signin-page)
+- [Implement Custom Signup Page](#sign-up-page)
+- [Implement Custom Confirmation Page](#confirmation-page)
+- [Implement Custom Recovery Page](#recovery-page)
+- [Different approaches to verifying JWTs](#few-other-approaches-we-can-take-to-verify-jwt)
+
 
 ## [Homework Challenges](#homework-challenges-1)
 
@@ -52,6 +59,604 @@
 ![user-pool](media/week3/images/create-user-pool.png)
 
 💡 Federated Identity Provider can be added within **Cognito user pool**
+
+### Configure Amplify
+
+- [https://docs.amplify.aws/lib/auth/getting-started/q/platform/js/](https://docs.amplify.aws/lib/auth/getting-started/q/platform/js/)
+- The only way to use Cognito client-side is through the Amplify JS library/SDK.
+- CD into the frontend directory and install the AWS Amplify library:
+    - The `--save` flag will save all your installed core packages into the dependency section in the `package.json` file (optional, as of the latest version, only needed for dev deps).
+
+```bash
+npm i aws-amplify --save
+```
+
+- In `app.js` add this import:
+
+```jsx
+import { Amplify } from 'aws-amplify';
+```
+
+- To configure Amplify, add the following code below the import statements:
+
+```jsx
+Amplify.configure({
+  AWS_PROJECT_REGION: process.env.REACT_APP_AWS_PROJECT_REGION,
+  aws_cognito_region: process.env.REACT_APP_AWS_COGNITO_REGION,
+  aws_user_pools_id: process.env.REACT_APP_AWS_USER_POOLS_ID,
+  aws_user_pools_web_client_id: process.env.REACT_APP_CLIENT_ID,
+  oauth: {},
+  Auth: {
+    // We are not using an Identity Pool
+    // identityPoolId: process.env.REACT_APP_IDENTITY_POOL_ID, // REQUIRED - Amazon Cognito Identity Pool ID
+    region: process.env.REACT_APP_AWS_PROJECT_REGION, // REQUIRED - Amazon Cognito Region
+    userPoolId: process.env.REACT_APP_AWS_USER_POOLS_ID, // OPTIONAL - Amazon Cognito User Pool ID
+    userPoolWebClientId: process.env.REACT_APP_CLIENT_ID, // OPTIONAL - Amazon Cognito Web Client ID (26-char alphanumeric string)
+  },
+});
+```
+
+- Add these environment variables to the docker-compose file under frontend:
+
+```yaml
+
+# for cognito
+REACT_APP_AWS_PROJECT_REGION: "${AWS_DEFAULT_REGION}"
+REACT_APP_AWS_COGNITO_REGION: "${AWS_DEFAULT_REGION}"
+REACT_APP_AWS_USER_POOLS_ID: "${AWS_USER_POOLS_ID}"
+REACT_APP_CLIENT_ID: "${CLIENT_ID}"
+
+```
+
+- Copy the user pool ID from AWS and set it as an environment variable:
+    - Click into the user pool and click **App integration** tab. Under **App clients and analytics** you can find the app client ID.
+
+```bash
+export REACT_APP_AWS_USER_POOLS_ID=<USER_POOLS_ID>
+export REACT_APP_CLIENT_ID=<APP_CLIENT_ID>
+
+// or
+
+gp env REACT_APP_AWS_USER_POOLS_ID=<USER_POOLS_ID>
+gp env REACT_APP_CLIENT_ID=<APP_CLIENT_ID>
+```
+
+- Inside `src/pages/HomeFeedPage.js`, add the following import:
+
+```jsx
+import { Auth } from 'aws-amplify';
+```
+
+- Replace the previous code with this one:
+
+```jsx
+// ------ BEGIN  Of Cognito Code-------
+  // check if we are authenicated
+  const checkAuth = async () => {
+    Auth.currentAuthenticatedUser({
+      // Optional, By default is false.
+      // If set to true, this call will send a
+      // request to Cognito to get the latest user data
+      bypassCache: false,
+    })
+      .then((user) => {
+        console.log("user", user);
+        return Auth.currentAuthenticatedUser();
+      })
+      .then((cognito_user) => {
+        setUser({
+          display_name: cognito_user.attributes.name,
+          handle: cognito_user.attributes.preferred_username,
+        });
+      })
+      .catch((err) => console.log(err));
+  };
+
+  // ------ END Of Cognito Code-------
+```
+
+- Update `ProfileInfo.js`. Replace old `signOut` function with this new one.
+
+```jsx
+import { Auth } from 'aws-amplify';
+
+const signOut = async () => {
+  try {
+      await Auth.signOut({ global: true });
+      window.location.href = "/"
+  } catch (error) {
+      console.log('error signing out: ', error);
+  }
+}
+```
+
+#### Signin Page
+
+- In `pages/SignInPage.js`
+
+```jsx
+import { Auth } from 'aws-amplify';
+```
+
+- Replace `onsubmit` function with this code
+
+```jsx
+const onsubmit = async (event) => {
+    setErrors("");
+    event.preventDefault();
+
+    Auth.signIn(email, password)
+      .then((user) => {
+        localStorage.setItem(
+          "access_token",
+          user.signInUserSession.accessToken.jwtToken
+        );
+        window.location.href = "/";
+      })
+      .catch((error) => {
+        console.log("Error!", error);
+        if (error.code === "UserNotConfirmedException") {
+          window.location.href = "/confirm";
+        }
+        setErrors(error.message);
+      });
+
+    return false;
+  };
+```
+
+- Try signing in to get an error similar to the one shown below.
+
+![incorrect_username](media/week3/images/1-incorrect_username.png)
+
+#### Create User in Cognito
+
+- To create a user manually in Cognito, select `User` tab from the user pool.
+- Click on the **Create User** button, enter details, and create the user.
+- Make sure to mark the email as verified.
+- Now try signing in.
+
+![cannot-read-properties](media/week3/images/2-cannot-read-properties.png)
+#### Fix token error
+
+- Run this command to reset the password:
+
+```bash
+aws cognito-idp admin-set-user-password --username <username>--
+password <password>. --user-pool-id <userpool_id> --permanent
+```
+
+- Try signing in again. It should authenticate without any error.
+- Add a console log to view the user data.
+
+![auth-console-log](media/week3/images/3-auth-console-log.png)
+
+- In the **User page** under **User attributes**, select **Edit**.
+- Add **Name** and **Preferred Name** (can be specified beforehand).
+- Re-login in Cruddur to view the name changes.
+- The current structure of our app uses checkAuth in every single page.
+- Go back to Cognito, delete the user, and sign out in Cruddur.
+
+#### Sign Up Page
+
+- Open `signupPage.js`.
+- Replace `cookies` import with this:
+
+```jsx
+import { Auth } from 'aws-amplify';
+```
+
+- Replace `onsubmit` with this code:
+
+```jsx
+const onsubmit = async (event) => {
+  event.preventDefault();
+  setErrors('')
+  try {
+      const { user } = await Auth.signUp({
+        username: email,
+        password: password,
+        attributes: {
+            name: name,
+            email: email,
+            preferred_username: username,
+        },
+        autoSignIn: { // optional - enables auto sign in after user is confirmed
+            enabled: true,
+        }
+      });
+      console.log(user);
+      window.location.href = `/confirm?email=${email}`
+  } catch (error) {
+      console.log(error);
+      setErrors(error.message)
+  }
+  return false
+}
+```
+
+#### Confirmation Page
+
+- In `ConfirmationPage.js` add this import statement:
+
+```jsx
+import { Auth } from 'aws-amplify';
+```
+
+- Replace `resend_code` with this:
+
+```jsx
+const resend_code = async (event) => {
+  setErrors('')
+  try {
+    await Auth.resendSignUp(email);
+    console.log('code resent successfully');
+    setCodeSent(true)
+  } catch (err) {
+    // does not return a code
+    // does cognito always return english
+    // for this to be an okay match?
+    console.log(err)
+    if (err.message == 'Username cannot be empty'){
+      setErrors("You need to provide an email in order to send Resend Activiation Code")   
+    } else if (err.message == "Username/client id combination not found."){
+      setErrors("Email is invalid or cannot be found.")   
+    }
+  }
+}
+```
+
+- Replace `onsubmit` with this one:
+
+```jsx
+const onsubmit = async (event) => {
+    event.preventDefault();
+    setErrors('')
+    try {
+      await Auth.confirmSignUp(email, code);
+      window.location.href = "/"
+    } catch (error) {
+      setErrors(error.message)
+    }
+    return false
+  }
+```
+
+- Refresh Cruddur webpage.
+- Click **Join Now** and sign up using a valid email.
+- This will open up the confirmation page, enter the confirmation code received in email client.
+- Resend code option also works after entering email in confirmation page.
+
+![check-resend-code](media/week3/images/3-check-resend-code.png)
+
+- After verification, you have to sign in.
+
+#### Recovery Page
+
+- Open `RecoverPage.js` and make these changes:
+
+```jsx
+import { Auth } from 'aws-amplify';
+
+const onsubmit_send_code = async (event) => {
+  event.preventDefault();
+  setErrors('')
+  Auth.forgotPassword(username)
+  .then((data) => setFormState('confirm_code') )
+  .catch((err) => setErrors(err.message) );
+  return false
+}
+
+const onsubmit_confirm_code = async (event) => {
+  event.preventDefault();
+  setErrors('')
+  if (password == passwordAgain){
+    Auth.forgotPasswordSubmit(username, code, password)
+    .then((data) => setFormState('success'))
+    .catch((err) => setErrors(err.message) );
+  } else {
+    setErrors('Passwords do not match')
+  }
+  return false
+}
+
+```
+
+- Choose "forgot password", enter your email, and click **Send Recovery Code.**
+- This will take you to the recovery page.
+
+![Recover page](media/week3/images/4-recovery-page.png)
+
+- Enter the code and new password.
+
+#### Update Frontend Headers
+
+- Update fetch request under `loadData` function in `HomeFeedPage.js` with header.
+
+```jsx
+const res = await fetch(backend_url, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("access_token")}`,
+        },
+        method: "GET",
+      });
+```
+
+### Server Side Authorization CORS update
+
+- Update backend CORS in `app.py`
+
+```python
+cors = CORS(
+    app,
+    resources={r"/api/*": {"origins": origins}},
+    headers=["Content-Type", "Authorization", "traceparent"],
+    expose_headers="Authorization",
+    methods="OPTIONS,GET,HEAD,POST",
+)
+```
+
+- Add this logger statement in `data_home()` route in `app.py`
+
+```python
+app.logger.debug("AUTH HEADER", request.headers.get("Authorization"))
+```
+
+- Open backend logs. it should print the auth headers, so that’s working correctly.
+- Delete logger statement.
+
+#### Custom JWT Verification
+
+- Create a file `cognito_jwt_token.py` in `lib/`
+
+```python
+import time
+import requests
+from jose import jwk, jwt
+from jose.exceptions import JOSEError
+from jose.utils import base64url_decode
+
+class FlaskAWSCognitoError(Exception):
+  pass
+
+class TokenVerifyError(Exception):
+  pass
+
+def extract_access_token(request_headers):
+    access_token = None
+    auth_header = request_headers.get("Authorization")
+    if auth_header and " " in auth_header:
+        _, access_token = auth_header.split()
+    return access_token
+
+class CognitoJwtToken:
+    def __init__(self, user_pool_id, user_pool_client_id, region, request_client=None):
+        self.region = region
+        if not self.region:
+            raise FlaskAWSCognitoError("No AWS region provided")
+        self.user_pool_id = user_pool_id
+        self.user_pool_client_id = user_pool_client_id
+        self.claims = None
+        if not request_client:
+            self.request_client = requests.get
+        else:
+            self.request_client = request_client
+        self._load_jwk_keys()
+
+    def _load_jwk_keys(self):
+        keys_url = f"https://cognito-idp.{self.region}.amazonaws.com/{self.user_pool_id}/.well-known/jwks.json"
+        try:
+            response = self.request_client(keys_url)
+            self.jwk_keys = response.json()["keys"]
+        except requests.exceptions.RequestException as e:
+            raise FlaskAWSCognitoError(str(e)) from e
+
+    @staticmethod
+    def _extract_headers(token):
+        try:
+            headers = jwt.get_unverified_headers(token)
+            return headers
+        except JOSEError as e:
+            raise TokenVerifyError(str(e)) from e
+
+    def _find_pkey(self, headers):
+        kid = headers["kid"]
+        # search for the kid in the downloaded public keys
+        key_index = -1
+        for i in range(len(self.jwk_keys)):
+            if kid == self.jwk_keys[i]["kid"]:
+                key_index = i
+                break
+        if key_index == -1:
+            raise TokenVerifyError("Public key not found in jwks.json")
+        return self.jwk_keys[key_index]
+
+    @staticmethod
+    def _verify_signature(token, pkey_data):
+        try:
+            # construct the public key
+            public_key = jwk.construct(pkey_data)
+        except JOSEError as e:
+            raise TokenVerifyError(str(e)) from e
+        # get the last two sections of the token,
+        # message and signature (encoded in base64)
+        message, encoded_signature = str(token).rsplit(".", 1)
+        # decode the signature
+        decoded_signature = base64url_decode(encoded_signature.encode("utf-8"))
+        # verify the signature
+        if not public_key.verify(message.encode("utf8"), decoded_signature):
+            raise TokenVerifyError("Signature verification failed")
+
+    @staticmethod
+    def _extract_claims(token):
+        try:
+            claims = jwt.get_unverified_claims(token)
+            return claims
+        except JOSEError as e:
+            raise TokenVerifyError(str(e)) from e
+
+    @staticmethod
+    def _check_expiration(claims, current_time):
+        if not current_time:
+            current_time = time.time()
+        if current_time > claims["exp"]:
+            raise TokenVerifyError("Token is expired")  # probably another exception
+
+    def _check_audience(self, claims):
+        # and the Audience  (use claims['client_id'] if verifying an access token)
+        audience = claims["aud"] if "aud" in claims else claims["client_id"]
+        if audience != self.user_pool_client_id:
+            raise TokenVerifyError("Token was not issued for this audience")
+
+    def verify(self, token, current_time=None):
+        """ https://github.com/awslabs/aws-support-tools/blob/master/Cognito/decode-verify-jwt/decode-verify-jwt.py """
+        if not token:
+            raise TokenVerifyError("No token provided")
+
+        headers = self._extract_headers(token)
+        pkey_data = self._find_pkey(headers)
+        self._verify_signature(token, pkey_data)
+
+        claims = self._extract_claims(token)
+        self._check_expiration(claims, current_time)
+        self._check_audience(claims)
+
+        self.claims = claims 
+        return claims
+```
+
+- Import this file inside `app.py` and add this initialization under `app = Flask(__name__)` :
+
+```python
+from lib.cognito_jwt_token import CognitoJwtToken, extract_access_token, TokenVerifyError
+```
+
+```python
+# JWT_Verification
+cognito_jwt_token = CognitoJwtToken(
+    region=os.getenv("AWS_DEFAULT_REGION"),
+    user_pool_client_id=os.getenv("AWS_COGNITO_USER_POOL_CLIENT_ID"),
+    user_pool_id=os.getenv("AWS_COGNITO_USER_POOL_ID"),
+)
+```
+
+- Add this under **backend-flask** in **docker-compose.yml**
+
+```python
+#jwt verification
+AWS_DEFAULT_REGION: "${AWS_DEFAULT_REGION}"
+AWS_COGNITO_USER_POOL_ID: "${AWS_USER_POOLS_ID}"
+AWS_COGNITO_USER_POOL_CLIENT_ID: "${CLIENT_ID}"
+```
+
+- Update home route like this:
+
+```python
+@app.route("/api/activities/home", methods=["GET"])
+def data_home():
+
+    # ----jwt auth-----
+    access_token = extract_access_token(request.headers)
+    try:
+        claims = cognito_jwt_token.verify(access_token)
+        # authenticated request
+        app.logger.debug("authenticated")
+        app.logger.debug(claims)
+        app.logger.debug(claims["username"])
+        data = HomeActivities.run(cognito_user_id=claims["username"])
+    except TokenVerifyError as e:
+        # unauthenticated request
+        app.logger.debug(e)
+        app.logger.debug("unauthenticated")
+        data = HomeActivities.run()
+    # ---------------
+    return data, 200
+```
+
+- Update `/service/**home_activities.py`** by adding this code before `return results`:
+
+```python
+if cognito_user_id != None:
+    extra_crud = {
+      'uuid': '248959df-3079-4947-b847-9e0892d1baz4',
+      'handle':  'Lore',
+      'message': 'My dear brother, it the humans that are the problem',
+      'created_at': (now - timedelta(hours=1)).isoformat(),
+      'expires_at': (now + timedelta(hours=12)).isoformat(),
+      'likes': 1042,
+      'replies': []
+    }
+    results.insert(0,extra_crud)
+```
+
+- Add this as an argument to `def run()` in **`home_activities.py`:**
+
+```python
+cognito_user_id=None
+```
+
+- Add these packages to **requirements.txt** and install:
+
+```
+requests
+python-jose
+```
+
+- update `signOut` in `src/components/ProfileInfo.js`:
+
+```jsx
+const signOut = async () => {
+    try {
+        await Auth.signOut({ global: true });
+        window.location.href = "/"
+        localStorage.removeItem("access_token")
+    } catch (error) {
+        console.log('error signing out: ', error);
+    }
+  }
+```
+
+- Now try logging in and out to see the cruds displayed changing based on auth:
+
+![server-side-verify](media/week3/images/6-server-side-verify.png)
+- Logs from backend:
+
+```bash
+[07/Mar/2023 16:31:14] "GET /api/activities/home HTTP/1.1" 200 -
+[07/Mar/2023 16:31:28] "OPTIONS /api/activities/home HTTP/1.1" 200 -
+[2023-03-07 16:31:28,744] DEBUG in app: authenticated
+[2023-03-07 16:31:28,745] DEBUG in app: {'sub': '7d206624-3c4a-4540-8bae-6252528059bb', 'iss': 'https://cognito-idp.us-east-1.amazonaws.com/us-east-1_**', 'client_id': '59lu9**', 'origin_jti': '01ef736b-ce14-4a8e-9e63-fea3ada5ac15', 'event_id': 'ba9e53b9-f1db-4eb5-aeb2-304fb25aa8bd', 'token_use': 'access', 'scope': 'aws.cognito.signin.user.admin', 'auth_time': 1678206683, 'exp': 1678210283, 'iat': 1678206683, 'jti': 'd2016da8-e173-4eb2-89af-21b3ec16dee9', 'username': '7d206624-3c4a-4540-8bae-6252528059bb'}
+[2023-03-07 16:31:28,745] DEBUG in app: 7d206624-3c4a-4540-8bae-6252528059bb
+[07/Mar/2023 16:31:28] "GET /api/activities/home HTTP/1.1" 200 -
+```
+
+Why are we using a third-party library for JWT token verification?
+
+- The approach using Boto takes a non-expired access token to verify it with minimal coding.
+- The reason why we are not using this approach is that we need to hit the AWS API to verify. With JWT, we don’t need to use an external service to verify it.
+- Here are the official [docs from AWS about JWT verification](https://docs.aws.amazon.com/cognito/latest/developerguide/amazon-cognito-user-pools-using-tokens-verifying-a-jwt.html).
+- We could have used [aws-jwt-verify.js](https://docs.aws.amazon.com/cognito/latest/developerguide/amazon-cognito-user-pools-using-tokens-verifying-a-jwt.html#amazon-cognito-user-pools-using-tokens-aws-jwt-verify) library , but it only supports Node.js.
+- There's a Python-based implementation available on the [awslabs github repo](https://github.com/awslabs/aws-support-tools/blob/master/Cognito/decode-verify-jwt/decode-verify-jwt.py).
+- Another option is the [python package](https://pypi.org/project/cognitojwt/)
+
+### Few other approaches we can take to verify JWT
+
+- A middleware approach in Flask (must be written in the same language).
+- Using `aws-jwt-verify.js` in a sidecar container:
+    - This approach could be economical in the long term.
+    - Disadvantage:
+        - Extra resource is needed for this.
+        - It might make it hard for us down the road.
+        - Scaling issues.
+- [Using API Gateway](https://aws.amazon.com/blogs/security/how-to-secure-api-gateway-http-endpoints-with-jwt-authorizer/) where endpoints in the app are tied to a specific endpoint in API Gateway:
+    - A custom authorizer can be attached in API Gateway using Lambda.
+    - Advantages :
+        - Easy implementation with fewer resources.
+    - Disadvantage:
+        - Cost associated with API Gateway.
+        - Not the best solution for us
+
+💡 More decoupled as we go down the approaches
 
 ---
 ### Security - Amazon Cognito Security Best Practices
