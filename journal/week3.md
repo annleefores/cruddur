@@ -1240,7 +1240,7 @@ Response to preflight request doesn't pass access control check: No 'Access-Cont
 
 - I tried fixing the way we are sending the request from the frontend, but that did not solve the issue.
 - I found out that the OPTIONS request from the browser was getting blocked by the proxy.
-- Finally, I realized that it was a CORS issue with the frontend Envoy proxy that was blocking the OPTIONS request sent out by the browser. Since the OPTIONS request was blocked, the GET request also failed.
+- Finally, I realized that it was a CORS issue with the front Envoy proxy that was blocking the OPTIONS request sent out by the browser. Since the OPTIONS request was blocked, the GET request also failed.
 
 <p align=center><img src="media/week3/images/cors-error.png" alt="cors-error" width="50%"/></p>
 
