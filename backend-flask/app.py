@@ -3,9 +3,10 @@ from flask import Flask
 from flask import request
 from flask_cors import CORS, cross_origin
 import os
+import json
 
 
-from lib.middleware import middleware
+# from lib.middleware import middleware
 
 # # ----------openTelemetry - Honeycomb------------
 # from opentelemetry import trace
@@ -60,8 +61,8 @@ from services.show_activity import *
 app = Flask(__name__)
 
 
-# calling our middleware
-app.wsgi_app = middleware(app.wsgi_app)
+# # calling our middleware
+# app.wsgi_app = middleware(app.wsgi_app)
 
 
 # # rollbar - init
@@ -119,8 +120,9 @@ cors = CORS(
         "Authorization",
         "traceparent",
         "if-modified-since",
+        "x-current-user",
     ],
-    expose_headers=["Authorization", "location", "link"],
+    expose_headers=["Authorization", "location", "link", "x-current-user"],
     methods="OPTIONS,GET,HEAD,POST",
 )
 
@@ -185,10 +187,10 @@ def data_create_message():
 @app.route("/api/activities/home", methods=["GET"])
 def data_home():
 
-    auth_state = request.environ["auth"]
-    claims = request.environ["claims"]
+    auth_state = request.headers.get("X-Current-User")
 
-    if auth_state:
+    if auth_state != "null":
+        claims = json.loads(auth_state)
         data = HomeActivities.run(cognito_user_id=claims["username"])
         app.logger.debug("authenticated")
     else:
