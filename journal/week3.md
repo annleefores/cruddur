@@ -946,6 +946,8 @@ The sidecar container pattern is a design pattern used in Docker Compose where a
 
 #### Implementation
 
+![envoy-proxy-arch](media/week3/images/envoy-proxy-arch.png)
+
 - I based my authentication architecture on [External authorization (`ext_authz`) filter example](https://www.envoyproxy.io/docs/envoy/latest/start/sandboxes/ext_authz) in envoy proxy.
 - Added these services to `docker-compose.yml` file in order to launch the front proxy Envoy sidecar and `aws-jwt-verify` sidecar:
 
