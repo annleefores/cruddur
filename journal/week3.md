@@ -508,7 +508,7 @@ aws-bootcamp-cruddur-2023-backend-flask-1           | 127.0.0.1 - - [10/Mar/2023
 server_uri:
   uri: ext_authz
   cluster: ext_authz-http-service
-  timeout: 0.200s
+  timeout: 5s
 ```
 
 ![working-in-insomnia](media/week3/images/5-working-in-insomnia.png)
