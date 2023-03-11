@@ -15,6 +15,44 @@
 
 ## Required Homework
 
+### AWS Cognito Console
+
+- In [AWS Cognito Console](http://console.aws.amazon.com/cognito) , create a new user pool.
+- ClickOps is used as CLI method requires a lot of configurations.
+- **Authentication providers:**
+    - **Cognito user pool →** Allows for login and sign up on your own. You can also add different identity providers (IDP).
+    - **Federated identity providers** → Allows for login with social identity.
+- Select **Cognito user pool.**
+- **Cognito user pool sign-in options.**
+    - Select **Email.**
+
+
+⚠️ Cognito user pool sign-in options can't be changed after the user pool has been created.
+
+- Hit **Next.**
+- Select **No MFA.**
+- In **User account recovery**, leave it at the default for now.
+    - Email has limited a free monthly usage it uses SNS.
+- Hit **Next.**
+- In **Required attributes** select **name** and **preferred_username.**
+- Hit **Next.**
+
+⚠️ Required attributes can't be changed once this user pool has been created. So you will have to delete and configure a new user pool
+
+- Select **Send email with Cognito** as email provider.
+- Hit **Next.**
+- Enter a **User pool name.**
+
+⚠️ Never use **Use the Cognito Hosted UI**
+
+- In **App type,** select **Public Client** and set a **App client name.**
+- Hit **Next.**
+- **Review**  and **Create User Pool.**
+
+![create-user-pool](media/week3/images/1-create-user-pool.png)
+
+💡 Federated Identity Provider can be added within **Cognito user pool**
+
 ---
 ### Security - Amazon Cognito Security Best Practices
 
