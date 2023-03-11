@@ -3,6 +3,7 @@ from flask import Flask
 from flask import request
 from flask_cors import CORS, cross_origin
 import os
+import json
 
 
 # from lib.middleware import middleware
@@ -186,19 +187,16 @@ def data_create_message():
 @app.route("/api/activities/home", methods=["GET"])
 def data_home():
 
-    app.logger.debug(request.headers.get("X-Current-User"))
+    auth_state = request.headers.get("X-Current-User")
 
-    # auth_state = request.environ["auth"]
-    # claims = request.environ["claims"]
-
-    # if auth_state:
-    #     data = HomeActivities.run(cognito_user_id=claims["username"])
-    #     app.logger.debug("authenticated")
-    # else:
-    #     app.logger.debug("unauthenticated")
-    #     data = HomeActivities.run()
-
-    data = HomeActivities.run()
+    if auth_state != "null":
+        claims = json.loads(auth_state)
+        app.logger.debug(claims)
+        data = HomeActivities.run(cognito_user_id=claims["username"])
+        app.logger.debug("authenticated")
+    else:
+        app.logger.debug("unauthenticated")
+        data = HomeActivities.run()
 
     return data, 200
 
