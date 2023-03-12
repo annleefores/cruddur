@@ -80,11 +80,11 @@ export default function SigninPage() {
         </form>
 
         <div className="center-a-div">
-          <div className="google-btn">
+          <div className="google-btn" onClick={() => Auth.federatedSignIn({ provider: 'Google' })}>
             <div className="google-icon-wrapper">
               <img className="google-icon" src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg" />
             </div>
-            <button onClick={() => Auth.federatedSignIn({ provider: 'Google' })} class="btn-text"><b>Sign in with google</b></button>
+            <p class="btn-text"><b>Sign in with google</b></p>
           </div>
         </div>
 
