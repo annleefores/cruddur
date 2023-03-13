@@ -8,9 +8,16 @@ import { Auth } from "aws-amplify";
 // import Cookies from "js-cookie";
 
 export default function SigninPage() {
+
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
   const [errors, setErrors] = React.useState("");
+
+
+
+  const googleLog = async () => {
+    Auth.federatedSignIn({ provider: "Google" })
+  }
 
   const onsubmit = async (event) => {
     setErrors("");
@@ -82,7 +89,7 @@ export default function SigninPage() {
         <div className="center-a-div">
           <div
             className="google-btn"
-            onClick={() => Auth.federatedSignIn({ provider: "Google" })}
+            onClick={googleLog}
           >
             <div className="google-icon-wrapper">
               <img
