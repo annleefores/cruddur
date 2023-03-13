@@ -1303,3 +1303,132 @@ def data_home():
 - [https://medium.com/@upgrade.outdated/how-to-use-envoy-separate-cross-cutting-concerns-of-web-app-security-1ca869bbfd40](https://medium.com/@upgrade.outdated/how-to-use-envoy-separate-cross-cutting-concerns-of-web-app-security-1ca869bbfd40)
 - [https://www.digitalocean.com/community/tutorials/how-to-create-a-web-server-in-node-js-with-the-http-module](https://www.digitalocean.com/community/tutorials/how-to-create-a-web-server-in-node-js-with-the-http-module)
 - [https://nodejs.org/en/docs/guides/getting-started-guide/](https://nodejs.org/en/docs/guides/getting-started-guide/)
+
+
+### Implement a IdP login
+
+- Followed the steps [here](https://docs.amplify.aws/lib/auth/social/q/platform/js/#oauth-and-federation-overview) to enable OAuth in the Google Developer Console.
+- Updated existing user pool to [enable Federated sign-in](https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-pools-social-idp.html) .
+- Enabled Hosted UI and added a Cognito domain.
+- When editing the Hosted UI for App clients, use redirect URLs to the frontend sign in page and set the OAuth 2.0 grant types to the Implicit grant. This specifies that the client should directly receive the access token (and optionally, the ID token based on scopes).
+- There is a recommended option to use the authorization code, but in order to do so, I will need to implement Proof Key for Code Exchange (PKCE) in the backend, which will complicate things. Therefore, for now, I am sticking with the option of sending the token directly to the client (Implicit grant).
+- I was able to view the hosted UI authentication page by using this link.
+
+```jsx
+https://<your_user_pool_domain>/login?response_type=code&client_id=<your_client_id>&redirect_uri=https://www.example.com
+```
+
+- I was able to login in and get redirected to cruddur frontend.
+- Update the Amplify configuration inside `App.js` like this. OAuth is required for the Google login button to work on the frontend.
+
+```jsx
+Amplify.configure({
+  AWS_PROJECT_REGION: process.env.REACT_APP_AWS_PROJECT_REGION,
+  aws_cognito_region: process.env.REACT_APP_AWS_COGNITO_REGION,
+  aws_user_pools_id: process.env.REACT_APP_AWS_USER_POOLS_ID,
+  aws_user_pools_web_client_id: process.env.REACT_APP_CLIENT_ID,
+  oauth: {
+    domain: 'annlee-cruddur.auth.us-east-1.amazoncognito.com',
+    scope: ['email', 'profile', 'openid'],
+    redirectSignIn: 'http://localhost:3000/signin',
+    redirectSignOut: 'http://localhost:3000/',
+    responseType: 'token' // or 'token', note that REFRESH token will only be generated when the responseType is code
+  },
+
+  Auth: {
+    // We are not using an Identity Pool
+    // identityPoolId: process.env.REACT_APP_IDENTITY_POOL_ID, // REQUIRED - Amazon Cognito Identity Pool ID
+    region: process.env.REACT_APP_AWS_PROJECT_REGION, // REQUIRED - Amazon Cognito Region
+    userPoolId: process.env.REACT_APP_AWS_USER_POOLS_ID, // OPTIONAL - Amazon Cognito User Pool ID
+    userPoolWebClientId: process.env.REACT_APP_CLIENT_ID, // OPTIONAL - Amazon Cognito Web Client ID (26-char alphanumeric string)
+  },
+});
+```
+
+- I used this as a reference to build a sign in with google button → [https://codepen.io/stefanjs98/pen/ambVgK](https://codepen.io/stefanjs98/pen/ambVgK)
+- Add this CSS to `SigninPage.css`
+
+```css
+@import url(https://fonts.googleapis.com/css?family=Roboto:500);
+ .google-btn {
+  cursor:pointer;
+	 width: 184px;
+	 height: 42px;
+	 background-color: #4285f4;
+	 border-radius: 2px;
+	 box-shadow: 0 3px 4px 0 rgba(0, 0, 0, .25);
+   
+}
+ .google-btn .google-icon-wrapper {
+	 position: absolute;
+	 margin-top: 1px;
+	 margin-left: 1px;
+	 width: 40px;
+	 height: 40px;
+	 border-radius: 2px;
+	 background-color: #fff;
+}
+ .google-btn .google-icon {
+	 position: absolute;
+	 margin-top: 11px;
+	 margin-left: 11px;
+	 width: 18px;
+	 height: 18px;
+}
+ .google-btn .btn-text {
+  cursor:pointer;
+	 float: right;
+	 margin: 11px 11px 0 0;
+   background-color: transparent; 
+   border: none;
+	 font-size: 14px;
+	 letter-spacing: 0.2px;
+	 font-family: "Roboto";
+}
+ .google-btn:hover {
+	 box-shadow: 0 0 6px #4285f4;
+}
+ .google-btn:active {
+	 background: #1669f2;
+}
+ .center-a-div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 300px;
+  
+
+ }
+```
+
+- Add this HTML just below the end of form tag in `SigninPage.js`
+
+```html
+<div className="center-a-div">
+  <div className="google-btn" onClick={() => Auth.federatedSignIn({ provider: 'Google' })}>
+    <div className="google-icon-wrapper">
+      <img className="google-icon" src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg" />
+    </div>
+    <p class="btn-text"><b>Sign in with google</b></p>
+  </div>
+</div>
+```
+
+- This creates a 'Sign in with Google' button.
+- Click this button to open the Google sign-in page. After signing in, you will be redirected back to the frontend. Below is a sample of the redirect with the token and other details.
+
+```
+https://www.example.com/#id_token=123456789tokens123456789&expires_in=3600&token_type=Bearer
+```
+![google-login-button](media/week3/images/google-login-button.png)
+
+I am not sure why, but once the page loads, all the parameters are being removed from the callback URL. I have not found a solution to this issue yet, and I may need to come back and address it at a later time. For now, the frontend Google sign-in is functional, but the backend verification has not been implemented due to the redirect URL issue.
+
+**Reference:**
+
+- [https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-pools-social-idp.html](https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-pools-social-idp.html)
+- [https://medium.com/wolox/integrating-social-media-to-your-app-with-aws-cognito-8943329aa89b](https://medium.com/wolox/integrating-social-media-to-your-app-with-aws-cognito-8943329aa89b)
+- [https://dev.to/dabit3/the-complete-guide-to-user-authentication-with-the-amplify-framework-2inh](https://dev.to/dabit3/the-complete-guide-to-user-authentication-with-the-amplify-framework-2inh)
+- [https://docs.amplify.aws/lib/auth/start/q/platform/js/](https://docs.amplify.aws/lib/auth/start/q/platform/js/)
+- [https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-pools-app-integration.html](https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-pools-app-integration.html)
+- [https://docs.aws.amazon.com/cognito/latest/developerguide/token-endpoint.html](https://docs.aws.amazon.com/cognito/latest/developerguide/token-endpoint.html)
