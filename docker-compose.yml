@@ -92,3 +92,27 @@ networks:
   internal-network:
     driver: bridge
     name: cruddur
+
+  # the name flag is a hack to change the default prepend folder
+  # name when outputting the image names
+
+  # for envoy proxy
+  # front-envoy:
+  #   build:
+  #     context: ./envoy-proxy
+  #     dockerfile: Dockerfile-frontenvoy
+  #   depends_on:
+  #     backend-flask:
+  #       condition: service_healthy
+  #   environment:
+  #     FRONT_ENVOY_YAML: "config/http-service.yaml"
+  #   ports:
+  #     - "${PORT_PROXY:-8000}:8000"
+
+  # ext_authz-http-service:
+  #   build:
+  #     context: ./envoy-proxy/auth
+  #     dockerfile: Dockerfile
+  #   environment:
+  #     AWS_USER_POOLS_ID: "${AWS_USER_POOLS_ID}"
+  #     CLIENT_ID: "${CLIENT_ID}"
