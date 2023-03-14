@@ -75,19 +75,20 @@ services:
       - POSTGRES_PASSWORD=password
     ports:
       - '5432:5432'
-
-      
     volumes: 
       - db:/var/lib/postgresql/data
+
+  
 
 networks:
   internal-network:
     driver: bridge
     name: cruddur
-
+  
 volumes:
   db:
     driver: local
+
 
   # # OTEL Collector
   # otel-collector:
