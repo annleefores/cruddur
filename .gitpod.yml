@@ -51,3 +51,6 @@ ports:
   - name: otel-collector
     port: 4318
     visibility: public
+  - name: psql 
+    port: 5432
+    visibility: public
