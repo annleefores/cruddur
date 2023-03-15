@@ -1,3 +1,11 @@
 #! /usr/bin/bash
 
-psql $CONNECTION_URL
+if [ "$1" = "prod" ]; then
+    echo "running in production"
+    CON_URL=$PROD_CONNECTION_URL
+else
+    echo "running in development"
+    CON_URL=$CONNECTION_URL
+fi
+
+psql $CON_URL
