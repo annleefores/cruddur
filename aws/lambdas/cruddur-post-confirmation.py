@@ -10,10 +10,16 @@ def lambda_handler(event, context):
         conn = psycopg2.connect(os.getenv("CONNECTION_URL"))
         cur = conn.cursor()
 
-        cur.execute(
-            "INSERT INTO public.users (display_name, email, handle, cognito_user_id) VALUES (%s, %s, %s, %s)",
-            (user["name"], user["email"], user["preferred_username"], user["sub"]),
-        )
+        parameters = [
+            user["name"],
+            user["email"],
+            user["preferred_username"],
+            user["sub"],
+        ]
+
+        sql = f"INSERT INTO public.users (display_name, email, handle, cognito_user_id) VALUES (%s, %s, %s, %s)"
+
+        cur.execute(sql, *parameters)
 
         conn.commit()
 
