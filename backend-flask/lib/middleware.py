@@ -1,6 +1,7 @@
-from werkzeug.wrappers import Request
+from werkzeug.wrappers import Request, Response
 
 import os
+import json
 
 from lib.cognito_jwt_token import (
     CognitoJwtToken,
@@ -22,6 +23,9 @@ class middleware:
     def __call__(self, environ, start_response):
         request = Request(environ)
 
+        environ["auth"] = False
+        environ["claims"] = None
+
         if "Authorization" in request.headers:
             try:
                 claims = cognito_jwt_token.extract_access_token(request.headers)
@@ -33,7 +37,11 @@ class middleware:
             except TokenVerifyError as e:
                 print("unauthenticated", e)
                 # transfer data through request
-                environ["auth"] = False
-                environ["claims"] = None
+                res = Response(
+                    json.dumps({"error": "Unauthorized"}),
+                    content_type="application/json",
+                    status=401,
+                )
+                return res(environ, start_response)
 
         return self.app(environ, start_response)
