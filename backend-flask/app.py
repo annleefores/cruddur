@@ -187,7 +187,6 @@ def data_create_message():
 
 @app.route("/api/activities/home", methods=["GET"])
 def data_home():
-
     auth_state = request.environ["auth"]
     claims = request.environ["claims"]
 
@@ -259,7 +258,7 @@ def data_search():
 @app.route("/api/activities", methods=["POST", "OPTIONS"])
 @cross_origin()
 def data_activities():
-    user_handle = "andrewbrown"
+    user_handle = request.json["user_handle"]
     message = request.json["message"]
     ttl = request.json["ttl"]
     model = CreateActivity.run(message, user_handle, ttl)
