@@ -20,11 +20,9 @@ class middleware:
         self.app = app
 
     def __call__(self, environ, start_response):
-
         request = Request(environ)
 
         if "Authorization" in request.headers:
-
             try:
                 claims = cognito_jwt_token.extract_access_token(request.headers)
 
@@ -33,7 +31,6 @@ class middleware:
                 environ["claims"] = claims
 
             except TokenVerifyError as e:
-
                 print("unauthenticated", e)
                 # transfer data through request
                 environ["auth"] = False
