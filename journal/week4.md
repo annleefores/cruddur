@@ -12,8 +12,8 @@
 
 ## [Homework Challenges](#homework-challenges-1)
 
-- [Solution: Passing user_handle from Frontend to /api/activities](#solution-passing-user_handle-from-frontend-to-apiactivities)
 - [Update schema path](#update-schema-path)
+- [Solution: Passing user_handle from Frontend to /api/activities](#solution-passing-user_handle-from-frontend-to-apiactivities)
 - [Understanding Current Data Flow](#understanding-current-data-flow)
 
 ---
