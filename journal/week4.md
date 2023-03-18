@@ -334,7 +334,7 @@ Type "help" for help.
 cruddur=#
 ```
 
-- 1. Run **`\dt`** to view tables:
+- Run **`\dt`** to view tables:
 
 ```bash
 cruddur=# \dt
