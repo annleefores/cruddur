@@ -23,6 +23,7 @@ export default function ActivityForm(props) {
         method: "POST",
         headers: {
           'Accept': 'application/json',
+          'Authorization': `Bearer ${localStorage.getItem("access_token")}`,
           'Content-Type': 'application/json'
         },
         body: JSON.stringify({
