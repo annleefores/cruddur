@@ -1154,6 +1154,8 @@ user_handle = <your-username>
 
 ![first-crud](media/week4/4-first-crud.png)
 
+---
+
 ## Securing Your Amazon RDS Postgres Database
 
 - RDS is a Relational DB (SQL)
@@ -1181,6 +1183,8 @@ user_handle = <your-username>
 - Encryption in Transit for comms between App & RDS
 - Secret Management: Master User passwords can be used with AWS
 - Secrets Manager to automatically rotate the secrets for Amazon RDS.
+
+---
 
 ## Homework Challenges
 
