@@ -120,6 +120,10 @@ export default function HomeFeedPage() {
 
     loadData();
     checkAuth();
+    setUser({
+      display_name: "annlee",
+      handle: "annlee",
+    });
   }, []);
 
   return (
