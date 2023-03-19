@@ -15,6 +15,7 @@
 - [Update schema path](#update-schema-path)
 - [Solution: Passing user_handle from Frontend to /api/activities](#solution-passing-user_handle-from-frontend-to-apiactivities)
 - [Understanding Current Data Flow](#understanding-current-data-flow)
+- [Setting env vars & script execution in local machine](#setting-env-vars--script-execution-in-local-machine)
 
 ---
 
@@ -748,19 +749,6 @@ CREATE TABLE
 CREATE TABLE
 ```
 
-### Local ENV VARS
-
-Since I was working on my machine, I added all these persistent environment variables and execution commands to `.zshrc`:
-
-```bash
-export CONNECTION_URL="postgresql://postgres:password@localhost:5432/cruddur"
-export PROD_CONNECTION_URL="postgresql://cruddurroot:<password>@<RDS_ENDPOINT>:5432/cruddur"
-export GITPOD_IP="$(curl -s ifconfig.me)"
-export DB_SG_ID="sg-<VALUE>"
-export DB_SG_RULE_ID="sgr-<VALUE>"
-source "<path to bash script" > /dev/null 2>&1 &
-```
-
 - Note that `> /dev/null 2>&1` is used to redirect and discard script execution logs.
 - `&` at the end indicates that this command should be run in background.
 
@@ -1245,3 +1233,19 @@ The `ttl_offset` + `current time` is used to calculate the `expires_at` for the 
 Using this UUID, the data is retrieved from the RDS and stored as JSON. The data portion from this JSON is stored under the model dictionary's `data` key and returned.
 
 If the model has no errors, the data portion is sent back as a response. If there are any errors, a 422 response is given with an error message. The frontend is then updated with the new post using this data.
+
+### Setting env vars & script execution in local machine
+
+Since I was working on my machine, I added all these persistent environment variables and execution commands to `.zshrc`:
+
+```bash
+export CONNECTION_URL="postgresql://postgres:password@localhost:5432/cruddur"
+export PROD_CONNECTION_URL="postgresql://cruddurroot:<password>@<RDS_ENDPOINT>:5432/cruddur"
+export GITPOD_IP="$(curl -s ifconfig.me)"
+export DB_SG_ID="sg-<VALUE>"
+export DB_SG_RULE_ID="sgr-<VALUE>"
+source "<path to bash script" > /dev/null 2>&1 &
+```
+
+- Note that `> /dev/null 2>&1` is used to redirect and discard script execution logs.
+- `&` at the end indicates that this command should be run in background.
