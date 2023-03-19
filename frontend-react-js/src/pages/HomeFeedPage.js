@@ -103,13 +103,16 @@ export default function HomeFeedPage() {
         return Auth.currentAuthenticatedUser();
       })
       .then((cognito_user) => {
+
         setUser({
           display_name: cognito_user.attributes.name,
           handle: cognito_user.attributes.preferred_username,
         });
+
       })
       .catch((err) => console.log(err));
   };
+
 
   // ------ END Of Cognito Code-------
 
@@ -120,10 +123,7 @@ export default function HomeFeedPage() {
 
     loadData();
     checkAuth();
-    setUser({
-      display_name: "annlee",
-      handle: "annlee",
-    });
+
   }, []);
 
   return (
