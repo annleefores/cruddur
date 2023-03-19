@@ -12,12 +12,54 @@ export default function SigninPage() {
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
   const [errors, setErrors] = React.useState("");
+  const dataFetchedRef = React.useRef(false);
 
 
 
   const googleLog = async () => {
     Auth.federatedSignIn({ provider: "Google" })
+    
   }
+
+  const getIdToken = async() => {
+    
+    Auth.currentSession().then(res=>{
+      let accessToken = res.getAccessToken()
+      let jwt = accessToken.getJwtToken()
+          
+      //You can print them to see the full objects
+      console.log(`myAccessToken`,accessToken)
+      console.log(`myJwt: ${jwt}`)
+
+      localStorage.setItem(
+        "access_token",
+        jwt
+      );
+      window.location.href = "/";
+    })
+  }
+
+  // async function getIdAwait() {
+  //   try {
+  //     const jwtToken = await getIdToken();
+  //     console.log(jwtToken);
+  //   } catch (error) {
+  //     console.error(error);
+  //   }
+  // }
+
+
+  React.useEffect(() => {
+    // //prevents double call
+    if (dataFetchedRef.current) return;
+    dataFetchedRef.current = true;
+
+    // getIdAwait()
+    getIdToken()
+  }, []);
+
+
+  
 
   const onsubmit = async (event) => {
     setErrors("");

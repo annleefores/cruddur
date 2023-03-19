@@ -22,8 +22,8 @@ Amplify.configure({
   oauth: {
     domain: 'annlee-cruddur.auth.us-east-1.amazoncognito.com',
     scope: ['email', 'profile', 'openid'],
-    redirectSignIn: 'http://localhost:3000/signin',
-    redirectSignOut: 'http://localhost:3000/',
+    redirectSignIn: 'https://3000-annleefores-awsbootcamp-az22phg6hb2.ws-us90.gitpod.io/signin',
+    redirectSignOut: 'https://3000-annleefores-awsbootcamp-az22phg6hb2.ws-us90.gitpod.io/signin',
     responseType: 'token' // or 'token', note that REFRESH token will only be generated when the responseType is code
   },
 
