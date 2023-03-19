@@ -1329,7 +1329,7 @@ Amplify.configure({
   aws_user_pools_id: process.env.REACT_APP_AWS_USER_POOLS_ID,
   aws_user_pools_web_client_id: process.env.REACT_APP_CLIENT_ID,
   oauth: {
-    domain: 'annlee-cruddur.auth.us-east-1.amazoncognito.com',
+    domain: '<your_user_pool_domain_without_http>',
     scope: ['email', 'profile', 'openid'],
     redirectSignIn: 'http://localhost:3000/signin',
     redirectSignOut: 'http://localhost:3000/',
