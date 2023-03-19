@@ -21,9 +21,9 @@ Amplify.configure({
   aws_user_pools_web_client_id: process.env.REACT_APP_CLIENT_ID,
   oauth: {
     domain: 'annlee-cruddur.auth.us-east-1.amazoncognito.com',
-    scope: ['email', 'profile', 'openid'],
-    redirectSignIn: 'https://3000-annleefores-awsbootcamp-az22phg6hb2.ws-us90.gitpod.io/signin',
-    redirectSignOut: 'https://3000-annleefores-awsbootcamp-az22phg6hb2.ws-us90.gitpod.io/signin',
+    scope: ['email', 'profile', 'openid', "aws.cognito.signin.user.admin"],
+    redirectSignIn: 'http://localhost:3000/signin',
+    redirectSignOut: 'http://localhost:3000/signin',
     responseType: 'token' // or 'token', note that REFRESH token will only be generated when the responseType is code
   },
 
