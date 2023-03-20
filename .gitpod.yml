@@ -21,12 +21,12 @@ tasks:
 
       exit
       
-
   - name: npm-install
     init: |
       cd /workspace/aws-bootcamp-cruddur-2023/frontend-react-js
       npm i
-      exit
+      source "$THEIA_WORKSPACE_ROOT/frontend-react-js/bin/auto-redirect"
+      
 
   - name: python-package-install
     init: |
