@@ -1,3 +1,5 @@
+#! /usr/bin/bash
+
 aws cognito-idp update-user-pool-client \
 --user-pool-id $AWS_USER_POOLS_ID \
 --client-id $CLIENT_ID \
