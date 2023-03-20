@@ -81,8 +81,8 @@ export default function HomeFeedPage() {
       checkAuth();
 
     })
+      .catch((err) => console.log(err));
   }
-
 
   const loadData = async () => {
     try {
