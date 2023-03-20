@@ -13,31 +13,6 @@ export default function SigninPage() {
   const [password, setPassword] = React.useState("");
   const [errors, setErrors] = React.useState("");
 
-  const dataFetchedRef = React.useRef(false);
-
-  const getIdToken = async () => {
-
-    Auth.currentSession().then(res => {
-      let accessToken = res.getAccessToken()
-
-      localStorage.setItem(
-        "access_token",
-        accessToken.jwtToken
-      );
-
-      window.location.href = "/";
-    })
-  }
-
-
-  React.useEffect(() => {
-    // //prevents double call
-    if (dataFetchedRef.current) return;
-    dataFetchedRef.current = true;
-    getIdToken()
-  }, []);
-
-
   const onsubmit = async (event) => {
     setErrors("");
     event.preventDefault();
