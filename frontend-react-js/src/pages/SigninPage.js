@@ -12,15 +12,8 @@ export default function SigninPage() {
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
   const [errors, setErrors] = React.useState("");
+
   const dataFetchedRef = React.useRef(false);
-
-
-
-  const googleLog = async () => {
-
-    Auth.federatedSignIn({ provider: "Google" })
-
-  }
 
   const getIdToken = async () => {
 
@@ -31,6 +24,7 @@ export default function SigninPage() {
         "access_token",
         accessToken.jwtToken
       );
+
       window.location.href = "/";
     })
   }
@@ -114,8 +108,8 @@ export default function SigninPage() {
         <div className="center-a-div">
           <div
             className="google-btn"
-            onClick={googleLog}
-          >
+            onClick={() => Auth.federatedSignIn({ provider: 'Google' })}>
+
             <div className="google-icon-wrapper">
               <img
                 className="google-icon"
