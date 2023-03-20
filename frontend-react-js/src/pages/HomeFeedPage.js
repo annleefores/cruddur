@@ -67,23 +67,6 @@ export default function HomeFeedPage() {
 
   //--------------------
 
-  const getIdToken = async () => {
-
-    Auth.currentSession().then(res => {
-      let accessToken = res.getAccessToken()
-
-      localStorage.setItem(
-        "access_token",
-        accessToken.jwtToken
-      );
-
-      loadData();
-      checkAuth();
-
-    })
-  }
-
-
   const loadData = async () => {
     try {
       // const backend_url = `http://localhost:8000/api/activities/home`; // for envoy-proxy
@@ -137,7 +120,9 @@ export default function HomeFeedPage() {
     //prevents double call
     if (dataFetchedRef.current) return;
     dataFetchedRef.current = true;
-    getIdToken();
+
+    loadData();
+    checkAuth();
 
   }, []);
 
