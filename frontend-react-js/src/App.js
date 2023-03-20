@@ -22,8 +22,8 @@ Amplify.configure({
   oauth: {
     domain: 'annlee-cruddur.auth.us-east-1.amazoncognito.com',
     scope: ['email', 'profile', 'openid', "aws.cognito.signin.user.admin"],
-    redirectSignIn: 'http://localhost:3000/signin',
-    redirectSignOut: 'http://localhost:3000',
+    redirectSignIn: `${process.env.REACT_APP_FRONTEND_URL}/signin`,
+    redirectSignOut: `${process.env.REACT_APP_FRONTEND_URL}`,
     responseType: 'token' // or 'token', note that REFRESH token will only be generated when the responseType is code
   },
 
