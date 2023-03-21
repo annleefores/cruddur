@@ -10,6 +10,8 @@ services:
       AWS_COGNITO_USER_POOL_ID: "${AWS_USER_POOLS_ID}"
       AWS_COGNITO_USER_POOL_CLIENT_ID: "${CLIENT_ID}"
 
+      PYTHONUNBUFFERED: 1 # disable buffer
+
       CONNECTION_URL: "${PROD_CONNECTION_URL}" 
       # # openTelemetry
       # OTEL_SERVICE_NAME: "backend-flask"
