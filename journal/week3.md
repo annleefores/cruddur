@@ -1426,7 +1426,7 @@ https://www.example.com/#id_token=123456789tokens123456789&expires_in=3600&token
 I am not sure why, but once the page loads, all the parameters are being removed from the callback URL. I have not found a solution to this issue yet, and I may need to come back and address it at a later time. For now, the frontend Google sign-in is functional, but the backend verification has not been implemented due to the redirect URL issue.
 
 I have finally figured out everything and now google login is working flawlessly. I wrote an article about the whole implementation here:  
-https://dev.to/annleefores/cruddur-google-idp-integration-with-aws-cognito-without-hosted-ui-48j0
+[Cruddur Google IdP Integration with AWS Cognito (without Hosted UI)](https://dev.to/annleefores/cruddur-google-idp-integration-with-aws-cognito-without-hosted-ui-48j0)
 
 **Reference:**
 
