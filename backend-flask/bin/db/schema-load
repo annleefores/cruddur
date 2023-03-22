@@ -6,7 +6,7 @@ NO_COLOR='\033[0m'
 LABEL="db-schema-load"
 printf "${CYAN}== ${LABEL}${NO_COLOR}\n"
 
-schema_path="$(dirname $(dirname $(realpath $0)))/db/schema.sql"
+schema_path="$(dirname $(dirname $(dirname $(realpath $0))))/db/schema.sql"
 
 # echo $schema_path
 
