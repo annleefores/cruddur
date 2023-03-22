@@ -86,16 +86,16 @@ services:
     working_dir: /home/dynamodblocal
 
 
-  # db:
-  #   image: postgres:13-alpine
-  #   restart: always
-  #   environment:
-  #     - POSTGRES_USER=postgres
-  #     - POSTGRES_PASSWORD=password
-  #   ports:
-  #     - '5432:5432'
-  #   volumes: 
-  #     - db:/var/lib/postgresql/data
+  db:
+    image: postgres:13-alpine
+    restart: always
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=password
+    ports:
+      - '5432:5432'
+    volumes: 
+      - db:/var/lib/postgresql/data
 
   
 
@@ -104,9 +104,9 @@ networks:
     driver: bridge
     name: cruddur
   
-# volumes:
-#   db:
-#     driver: local
+volumes:
+  db:
+    driver: local
 
 
   # # OTEL Collector
