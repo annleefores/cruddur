@@ -492,7 +492,7 @@ process_id |   user   |    db    | client_addr | app  | state
 ```bash
 #! /usr/bin/bash
 
--e # stop if it fails at any point
+set -e # stop if it fails at any point
 
 CYAN='\033[1;36m'
 NO_COLOR='\033[0m'
