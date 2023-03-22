@@ -3,29 +3,47 @@
 import boto3
 import sys
 import json
+import os
+import sys
 
-attrs = {
-  'endpoint_url': 'http://localhost:8000'
-}
+current_path = os.path.dirname(os.path.abspath(__file__))
+parent_path = os.path.abspath(os.path.join(current_path, "..", "..", ".."))
+sys.path.append(parent_path)
+from lib.db import db
+
+attrs = {"endpoint_url": "http://localhost:8000"}
 
 if len(sys.argv) == 2:
-  if "prod" in sys.argv[1]:
-    attrs = {}
+    if "prod" in sys.argv[1]:
+        attrs = {}
 
-dynamodb = boto3.client('dynamodb',**attrs)
-table_name = 'cruddur-messages'
+dynamodb = boto3.client("dynamodb", **attrs)
+table_name = "cruddur-messages"
 
 
-brown_user_uuid = "1506fa16-d775-4808-9f46-456661029af2"
+def get_my_user_uuids():
+    sql = """
+        SELECT 
+            users.uuid
+        FROM users
+        WHERE
+            users.handle = %(handle)s
+    """
+
+    uuid = db.query_value(sql, {"handle": "andrewbrown"})
+
+    return uuid
+
+
+my_user_uuid = get_my_user_uuids()
+
 
 # define the query parameters
 query_params = {
-  'TableName': table_name,
-  'KeyConditionExpression': 'pk = :pkey',
-  'ExpressionAttributeValues': {
-    ':pkey': {'S': f"GRP#{brown_user_uuid}"}
-  },
-  'ReturnConsumedCapacity': 'TOTAL'
+    "TableName": table_name,
+    "KeyConditionExpression": "pk = :pk",
+    "ExpressionAttributeValues": {":pk": {"S": f"GRP#{my_user_uuid}"}},
+    "ReturnConsumedCapacity": "TOTAL",
 }
 
 # query the table
