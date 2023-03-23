@@ -154,13 +154,12 @@ def data_message_groups():
         return model["data"], 200
 
 
-@app.route("/api/messages/@<string:handle>", methods=["GET"])
-def data_messages(handle):
-    user_sender_handle = "andrewbrown"
-    user_receiver_handle = request.args.get("user_reciever_handle")
-
+@app.route("/api/messages/@<string:message_group_uuid>", methods=["GET"])
+def data_messages(message_group_uuid):
+    claims = request.environ["claims"]
+    cognito_user_id = claims["sub"]
     model = Messages.run(
-        user_sender_handle=user_sender_handle, user_receiver_handle=user_receiver_handle
+        cognito_user_id=cognito_user_id, message_group_uuid=message_group_uuid
     )
     if model["errors"] is not None:
         return model["errors"], 422
