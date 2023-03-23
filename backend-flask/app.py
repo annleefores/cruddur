@@ -30,6 +30,7 @@ from services.messages import *
 from services.create_message import *
 from services.show_activity import *
 
+
 # # ----------AWS X-Ray-------------
 # from aws_xray_sdk.core import xray_recorder
 # from aws_xray_sdk.ext.flask.middleware import XRayMiddleware
@@ -143,8 +144,10 @@ cors = CORS(
 
 @app.route("/api/message_groups", methods=["GET"])
 def data_message_groups():
-    user_handle = "andrewbrown"
-    model = MessageGroups.run(user_handle=user_handle)
+    claims = request.environ["claims"]
+    cognito_user_id = claims["sub"]
+    model = MessageGroups.run(cognito_user_id=cognito_user_id)
+
     if model["errors"] is not None:
         return model["errors"], 422
     else:
