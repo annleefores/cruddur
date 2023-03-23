@@ -12,7 +12,8 @@ services:
 
       PYTHONUNBUFFERED: 1 # disable buffer
 
-      CONNECTION_URL: "${PROD_CONNECTION_URL}" 
+      # CONNECTION_URL: "${PROD_CONNECTION_URL}" 
+      CONNECTION_URL: "${CONNECTION_URL}" 
       # # openTelemetry
       # OTEL_SERVICE_NAME: "backend-flask"
       # OTEL_EXPORTER_OTLP_ENDPOINT: "https://api.honeycomb.io"
@@ -94,34 +95,6 @@ services:
       - db:/var/lib/postgresql/data
   
 
-
-
-  # the name flag is a hack to change the default prepend folder
-  # name when outputting the image names
-
-  # for envoy proxy
-  # front-envoy:
-  #   build:
-  #     context: ./envoy-proxy
-  #     dockerfile: Dockerfile-frontenvoy
-  #   depends_on:
-  #     backend-flask:
-  #       condition: service_healthy
-  #   environment:
-  #     FRONT_ENVOY_YAML: "config/http-service.yaml"
-  #   ports:
-  #     - "${PORT_PROXY:-8000}:8000"
-
-  # ext_authz-http-service:
-  #   build:
-  #     context: ./envoy-proxy/auth
-  #     dockerfile: Dockerfile
-  #   environment:
-  #     AWS_USER_POOLS_ID: "${AWS_USER_POOLS_ID}"
-  #     CLIENT_ID: "${CLIENT_ID}"
-
-# the name flag is a hack to change the default prepend folder
-# name when outputting the image names
 networks: 
   internal-network:
     driver: bridge
@@ -153,3 +126,31 @@ volumes:
   #     - "xray -o -b xray-daemon:2000"
   #   ports:
   #     - 2000:2000/udp
+
+
+  # the name flag is a hack to change the default prepend folder
+  # name when outputting the image names
+
+  # for envoy proxy
+  # front-envoy:
+  #   build:
+  #     context: ./envoy-proxy
+  #     dockerfile: Dockerfile-frontenvoy
+  #   depends_on:
+  #     backend-flask:
+  #       condition: service_healthy
+  #   environment:
+  #     FRONT_ENVOY_YAML: "config/http-service.yaml"
+  #   ports:
+  #     - "${PORT_PROXY:-8000}:8000"
+
+  # ext_authz-http-service:
+  #   build:
+  #     context: ./envoy-proxy/auth
+  #     dockerfile: Dockerfile
+  #   environment:
+  #     AWS_USER_POOLS_ID: "${AWS_USER_POOLS_ID}"
+  #     CLIENT_ID: "${CLIENT_ID}"
+
+# the name flag is a hack to change the default prepend folder
+# name when outputting the image names
