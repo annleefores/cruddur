@@ -79,42 +79,6 @@ services:
       - "./docker/dynamodb:/home/dynamodblocal/data"
     working_dir: /home/dynamodblocal
 
-  # # OTEL Collector
-  # otel-collector:
-  #   environment:
-  #      HONEYCOMB_API_KEY: "${HONEYCOMB_API_KEY}"
-  #      FRONTEND_URL_WITHOUT_HTTP: "3000-${GITPOD_WORKSPACE_ID}.${GITPOD_WORKSPACE_CLUSTER_HOST}"
-  #   image: otel/opentelemetry-collector
-  #   command: [--config=/etc/otel-collector-config.yaml]
-  #   volumes:
-  #     - ./otel-collector-config.yaml:/etc/otel-collector-config.yaml
-  #   ports:
-  #     - 4318:4318 # OTLP http receiver
-  
-  # xray-daemon:
-  #   image: "amazon/aws-xray-daemon"
-  #   environment:
-  #     AWS_ACCESS_KEY_ID: "${AWS_ACCESS_KEY_ID}"
-  #     AWS_SECRET_ACCESS_KEY: "${AWS_SECRET_ACCESS_KEY}"
-  #     AWS_REGION: "us-east-1"
-  #   command:
-  #     - "xray -o -b xray-daemon:2000"
-  #   ports:
-  #     - 2000:2000/udp
-
-
-  dynamodb-local:
-    # https://stackoverflow.com/questions/67533058/persist-local-dynamodb-data-in-volumes-lack-permission-unable-to-open-databa
-    # We needed to add user:root to get this working.
-    user: root
-    command: "-jar DynamoDBLocal.jar -sharedDb -dbPath ./data"
-    image: "amazon/dynamodb-local:latest"
-    container_name: dynamodb-local
-    ports:
-      - "8000:8000"
-    volumes:
-      - "./docker/dynamodb:/home/dynamodblocal/data"
-    working_dir: /home/dynamodblocal
 
   db:
     image: postgres:13-alpine
@@ -166,3 +130,26 @@ networks:
 volumes:
   db:
     driver: local
+
+  # # OTEL Collector
+  # otel-collector:
+  #   environment:
+  #      HONEYCOMB_API_KEY: "${HONEYCOMB_API_KEY}"
+  #      FRONTEND_URL_WITHOUT_HTTP: "3000-${GITPOD_WORKSPACE_ID}.${GITPOD_WORKSPACE_CLUSTER_HOST}"
+  #   image: otel/opentelemetry-collector
+  #   command: [--config=/etc/otel-collector-config.yaml]
+  #   volumes:
+  #     - ./otel-collector-config.yaml:/etc/otel-collector-config.yaml
+  #   ports:
+  #     - 4318:4318 # OTLP http receiver
+  
+  # xray-daemon:
+  #   image: "amazon/aws-xray-daemon"
+  #   environment:
+  #     AWS_ACCESS_KEY_ID: "${AWS_ACCESS_KEY_ID}"
+  #     AWS_SECRET_ACCESS_KEY: "${AWS_SECRET_ACCESS_KEY}"
+  #     AWS_REGION: "us-east-1"
+  #   command:
+  #     - "xray -o -b xray-daemon:2000"
+  #   ports:
+  #     - 2000:2000/udp
