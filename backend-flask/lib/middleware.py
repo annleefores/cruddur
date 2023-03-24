@@ -25,6 +25,7 @@ class middleware:
 
         environ["auth"] = False
         environ["claims"] = None
+        # environ["request"] = request
 
         if "Authorization" in request.headers:
             try:
