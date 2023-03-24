@@ -8,20 +8,25 @@ INSERT INTO
         cognito_user_id
     )
 VALUES (
+        'Annlee Test',
+        'annleetestmail@gmail.com',
+        'Annleetest',
+        'MOCK'
+    ), (
         'Andrew Brown',
         'andrewb@exampro.co',
         'andrewbrown',
-        '<your-cognito-user-id'
+        'MOCK'
     ), (
         'Andrew Bayko',
         'bayko@exampro.co',
         'bayko',
-        '<your-cognito-user-id'
+        'MOCK'
     ), (
         'Londo Mollari',
         'lmollari@centari.com',
         'londo',
-        '<your-cognito-user-id'
+        'MOCK'
     );
 
 INSERT INTO
