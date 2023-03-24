@@ -11,12 +11,17 @@ VALUES (
         'Andrew Brown',
         'andrewb@exampro.co',
         'andrewbrown',
-        'MOCK'
+        '<your-cognito-user-id'
     ), (
         'Andrew Bayko',
         'bayko@exampro.co',
         'bayko',
-        'MOCK'
+        '<your-cognito-user-id'
+    ), (
+        'Londo Mollari',
+        'lmollari@centari.com',
+        'londo',
+        '<your-cognito-user-id'
     );
 
 INSERT INTO
