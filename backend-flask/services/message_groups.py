@@ -3,8 +3,6 @@ from datetime import datetime, timedelta, timezone
 from lib.ddb import Ddb
 from lib.db import db
 
-# from lib.momento import MomentoCounter
-
 
 class MessageGroups:
     def run(cognito_user_id):
@@ -19,6 +17,5 @@ class MessageGroups:
         data = Ddb.list_message_groups(ddb, my_user_uuid)
         print("list_message_groups: ", data)
 
-        # MomentoCounter.reset(f"msgs/{user_handle}")
         model["data"] = data
         return model
