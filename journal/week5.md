@@ -1506,3 +1506,25 @@ DynamoDB creation, region lock etc
 ---
 
 ## Homework Challenges
+
+### Local PSQL domain issue
+
+I encountered an error when attempting to connect to local PSQL from the backend.
+
+```bash
+Is the server running on that host and accepting TCP/IP connections?
+```
+
+After doing a quick search on [Stack Overflow](https://stackoverflow.com/questions/45637206/docker-is-the-server-running-on-host-localhost-1-and-accepting-tcp-ip-con), I found that the issue was caused by attempting to access localhost:5432 from the backend container, which should have been servicename:5432 instead. Based on this information, I updated the CONNECTION_URL for local PSQL in the docker-compose file to the following:
+
+```yaml
+CONNECTION_URL: "postgresql://postgres:password@db:5432/cruddur"
+```
+
+### Learned basics of DynamoDB
+
+- Exampro - [AWS Developer Associate 2020](https://youtu.be/Ih8Bxtt5Ekw)
+
+### Learned about DynamoDB streams
+
+- Be A Better Dev - [What is a DynamoDB Stream? (And why you should be using it!)](https://youtu.be/OjppS4RWWt8)
