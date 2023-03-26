@@ -36,6 +36,7 @@
 | MSG#{message_group_uuid} | MSG#{created_at} |  | 32423432-235325-3525-325235352-235235 | Andrew Brown | andrewbrown | Testing 123 | 90324830-2948230948-23424-30924 | 23523532-6433634643-234234234-23423525 |
 | GRP#{my_user_uuid} | GRP#{last_reply_at} |  |  | Andrew Bayko | bayko | Great, I'll go take a look | 2342342-52353252-23523523-23424 | 23523532-6433634643-234234234-23423525 |
 | GRP#{my_user_uuid} | GRP#{last_reply_at} |  |  | Andrew Brown | brown | Testing 123 | 90324830-2948230948-23424-30924 | 23523532-6433634643-234234234-23423525 |
+
 - Every query must include a partition key (pk) and, if present in the table, a sort key (sk).
 - When writing a query, you must provide a primary key (equality), such as pk = 'andrew'.
 - Whenever you change a key (simple or composite), such as pk or sk, you must create a new item.
