@@ -55,7 +55,7 @@
 - Create a new folder `ddb` inside `backend-flask/bin` .
 - Add `schema-load` script to this folder and make it executable
 
-```json
+```python
 #! /usr/bin/env python3
 
 import boto3
