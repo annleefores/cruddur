@@ -18,6 +18,9 @@
 
 ## [Homework Challenges](#homework-challenges-1)
 
+- [Local PSQL domain issue](#local-psql-domain-issue)
+- [Learned basics of DynamoDB](#learned-basics-of-dynamodb)
+- [Learned about DynamoDB streams](#learned-about-dynamodb-streams)
 
 ---
 
