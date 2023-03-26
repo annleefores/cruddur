@@ -2,6 +2,19 @@
 
 ## [Required Homework](#required-homework-1)
 
+- [Data Modelling](#data-modelling)
+- [Implement Schema Load Script](#implement-schema-load-script)
+- [Implement Seed Script](#implement-seed-script)
+- [Implement Scan Script](#implement-scan-script)
+- [Implement Pattern Scripts for Read and List Conversations](#implement-pattern-scripts-for-read-and-list-conversations)
+- [Implement Update Cognito ID Script for Postgres Database](#implement-update-cognito-id-script-for-postgres-database)
+- [Implement (Pattern A) Listing Messages in Message Group into Application](#implement-pattern-a-listing-messages-in-message-group-into-application)
+- [Implement (Pattern B) Listing Messages Group into Application](#implement-pattern-b-listing-messages-group-into-application)
+- [Implement (Pattern C) Creating a Message for an existing Message Group into Application](#implement-pattern-c-creating-a-message-for-an-existing-message-group-into-application)
+- [Implement (Pattern D) Creating a Message for a new Message Group into Application](#implement-pattern-d-creating-a-message-for-a-new-message-group-into-application)
+- [Implement (Pattern E) Updating a Message Group using DynamoDB Streams](#implement-pattern-e-updating-a-message-group-using-dynamodb-streams)
+- [Security - How to use Amazon DynamoDB for security and speed](#security---how-to-use-amazon-dynamodb-for-security-and-speed)
+
 
 ## [Homework Challenges](#homework-challenges-1)
 
