@@ -40,12 +40,12 @@ services:
     ports:
       - "4567:4567"
 
-    healthcheck:
-      test: curl --fail ${BACKEND_URL}/api/health || exit 1
-      interval: 10s
-      timeout: 10s
-      start_period: 10s
-      retries: 3
+    # healthcheck:
+    #   test: curl --fail ${BACKEND_URL}/api/health-check || exit 1
+    #   interval: 10s
+    #   timeout: 10s
+    #   start_period: 10s
+    #   retries: 3
 
     volumes:
       - ./backend-flask:/backend-flask
@@ -67,12 +67,12 @@ services:
     ports:
       - "3000:3000"
 
-    healthcheck:
-      test: curl --fail ${FRONTEND_URL} || exit 1
-      interval: 300s
-      timeout: 10s
-      start_period: 10s
-      retries: 3
+    # healthcheck:
+    #   test: curl --fail ${FRONTEND_URL} || exit 1
+    #   interval: 300s
+    #   timeout: 10s
+    #   start_period: 10s
+    #   retries: 3
     volumes:
       - ./frontend-react-js:/frontend-react-js
 

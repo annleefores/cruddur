@@ -247,9 +247,9 @@ def data_notification():
     return data, 200
 
 
-@app.route("/api/health", methods=["GET"])
-def health():
-    return "Healthy: OK"
+@app.route("/api/health-check")
+def health_check():
+    return {"success": True}, 200
 
 
 @app.route("/api/activities/@<string:handle>", methods=["GET"])

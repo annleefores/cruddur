@@ -4,8 +4,8 @@ FROM python:3.10-slim-buster
 # make a new directory and move into it
 WORKDIR /backend-flask
 
-# install curl for healthcheck
-RUN apt update && apt install -y curl
+# # install curl for healthcheck
+# RUN apt update && apt install -y curl
 
 # local -> inside container
 # copy local requirements.txt to inside container
