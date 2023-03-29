@@ -1,4 +1,4 @@
-FROM python:3.10-slim-buster
+FROM ***REMOVED***.dkr.ecr.us-east-1.amazonaws.com/cruddur-python:3.10-slim-buster
 
 # Inside container
 # make a new directory and move into it
@@ -18,7 +18,7 @@ RUN pip3 install -r requirements.txt
 COPY . .
 
 # set env variables inside container and will remain when container is running
-ENV FLASK_DEBUG=true
+ENV FLASK_DEBUG=1
 
 #TODO
 EXPOSE ${PORT}
