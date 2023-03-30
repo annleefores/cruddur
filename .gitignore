@@ -1,3 +1,4 @@
 docker/*
 .env
 local
+frontend-react-js/build
