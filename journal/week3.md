@@ -1428,6 +1428,8 @@ I am not sure why, but once the page loads, all the parameters are being removed
 I have finally figured out everything and now google login is working flawlessly. I wrote an article about the whole implementation here:  
 [Cruddur Google IdP Integration with AWS Cognito (without Hosted UI)](https://dev.to/annleefores/cruddur-google-idp-integration-with-aws-cognito-without-hosted-ui-48j0)
 
+![Google IDP Login GIF](media/week3/images/chrome_5KZrLgIWyS.gif)
+
 **Reference:**
 
 - [https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-pools-social-idp.html](https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-pools-social-idp.html)
