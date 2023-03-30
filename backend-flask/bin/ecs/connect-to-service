@@ -1,0 +1,18 @@
+#! /usr/bin/bash
+
+if [ -z "$1" ]; then
+    echo "No CONTAINER_NAME argument supplied eg ./bin/ecs/connect-to-service <CONTAINER_NAME>"
+    exit 1
+fi
+
+CONTAINER_NAME=$1
+
+TASK_ARN=$(aws ecs list-tasks --cluster cruddur --service-name $CONTAINER_NAME --output json | jq -r '.taskArns[0]')
+
+aws ecs execute-command  \
+--region us-east-1 \
+--cluster cruddur \
+--task $TASK_ARN \
+--container $CONTAINER_NAME \
+--command "/bin/bash" \
+--interactive
