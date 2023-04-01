@@ -1,0 +1,11 @@
+#! /usr/bin/bash
+
+docker build \
+    --build-arg REACT_APP_BACKEND_URL="http://localhost:4567" \
+    --build-arg REACT_APP_FRONTEND_URL="http://localhost:3000" \
+    --build-arg REACT_APP_AWS_PROJECT_REGION="$AWS_DEFAULT_REGION" \
+    --build-arg REACT_APP_AWS_COGNITO_REGION="$AWS_DEFAULT_REGION" \
+    --build-arg REACT_APP_AWS_USER_POOLS_ID="$AWS_USER_POOLS_ID" \
+    --build-arg REACT_APP_CLIENT_ID="$CLIENT_ID" \
+    -t frontend-react-js \
+    -f frontend-react-js/Dockerfile.prod .

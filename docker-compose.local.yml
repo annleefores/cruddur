@@ -37,6 +37,7 @@ services:
 
 
     build: ./backend-flask
+    # image: "backend-flask-prod:latest"
     ports:
       - "4567:4567"
 

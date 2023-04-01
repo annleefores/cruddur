@@ -1,44 +1,25 @@
-# build image
-FROM python:3.10-slim-buster AS build
+FROM ***REMOVED***.dkr.ecr.us-east-1.amazonaws.com/cruddur-python:3.10-slim-buster
 
-# for compiling packages
-RUN apt update
-RUN apt install -y --no-install-recommends \
-    build-essential gcc 
-
-WORKDIR /backend-flask
-
-#virtualenv
-RUN python3 -m venv /backend-flask/venv
-ENV PATH="/backend-flask/venv/bin:$PATH"
-
-# install dependencies
-COPY requirements.txt .
-RUN pip3 install -r requirements.txt
-
-
-# main image
-FROM python:3.10-slim-buster
-
+# Inside container
+# make a new directory and move into it
 WORKDIR /backend-flask
 
 # # install curl for healthcheck
 # RUN apt update && apt install -y curl
 
-# copy deps from build image
-COPY --from=build /backend-flask/venv ./venv
+# local -> inside container
+# copy local requirements.txt to inside container
+COPY requirements.txt requirements.txt
 
+# install dependencies listed in requirements.txt inside the container
+RUN pip3 install -r requirements.txt
+
+# copy contents from current local directory to inside container
 COPY . .
-
-ENV PATH="/backend-flask/venv/bin:$PATH"
-
-ENV FLASK_ENV=development
 
 EXPOSE ${PORT}
 
+# CMD -> command
+# Run shell command to run flask app
 
-CMD [ "python3", "-m" , "flask", "run", "--host=0.0.0.0", "--port=4567"]
-
-# RUN chmod +x ./script.sh
-
-# CMD ["/bin/bash", "./script.sh"]
+CMD [ "python3", "-m" , "flask", "run", "--host=0.0.0.0", "--port=4567", "--no-debug","--no-debugger", "--no-reload" ]
