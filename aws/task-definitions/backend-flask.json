@@ -44,8 +44,8 @@
           {"name": "OTEL_EXPORTER_OTLP_ENDPOINT", "value": "https://api.honeycomb.io"},
           {"name": "AWS_COGNITO_USER_POOL_ID", "value": "<AWS_COGNITO_USER_POOL_ID>"},
           {"name": "AWS_COGNITO_USER_POOL_CLIENT_ID", "value": "<AWS_COGNITO_USER_POOL_CLIENT_ID>"},
-          {"name": "FRONTEND_URL", "value": "annleefores.cloud"},
-          {"name": "BACKEND_URL", "value": "api.annleefores.cloud"},
+          {"name": "FRONTEND_URL", "value": "https://annleefores.cloud"},
+          {"name": "BACKEND_URL", "value": "https://api.annleefores.cloud"},
           {"name": "AWS_DEFAULT_REGION", "value": "<AWS_REGION>"}
         ],
         "secrets": [
