@@ -1,5 +1,17 @@
 #! /usr/bin/bash
 
+# set the absolute path to the file
+abs_filepath="$ABS_PATH/backend-flask/Dockerfile.prod"
+
+# get the relative path to the file from the current directory
+FilePath=$(realpath --relative-base="$PWD" "$abs_filepath")
+
+# get directory path of file
+FilePathDir=$(dirname "$FilePath") 
+
+echo $FilePath
+
+
 docker build \
     --build-arg REACT_APP_BACKEND_URL="http://localhost:4567" \
     --build-arg REACT_APP_FRONTEND_URL="http://localhost:3000" \
@@ -8,4 +20,4 @@ docker build \
     --build-arg REACT_APP_AWS_USER_POOLS_ID="$AWS_USER_POOLS_ID" \
     --build-arg REACT_APP_CLIENT_ID="$CLIENT_ID" \
     -t frontend-react-js-prod \
-    -f frontend-react-js/Dockerfile.prod ./frontend-react-js
+    -f $FilePath $FilePathDir

@@ -7,10 +7,18 @@ NO_COLOR='\033[0m'
 LABEL="db-setup"
 printf "${CYAN}== ${LABEL}${NO_COLOR}\n"
 
-bin_path="$(dirname $(dirname $(realpath $0)))"
+# set the absolute path to the file
+abs_filepath="$ABS_PATH/backend-flask/bin/db"
 
-source "$bin_path/db/drop"
-source "$bin_path/db/create"
-source "$bin_path/db/schema-load"
-source "$bin_path/db/seed"
-python3 "$bin_path/db/update_cognito_user_ids"
+
+# get the relative path to the file from the current directory
+FilePath=$(realpath --relative-base="$PWD" "$abs_filepath")
+
+# get directory path of file
+FilePathDir=$(dirname "$FilePath") 
+
+source "$FilePath/drop"
+source "$FilePath/create"
+source "$FilePath/schema-load"
+source "$FilePath/seed"
+python3 "$FilePath/update_cognito_user_ids"
