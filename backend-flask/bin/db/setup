@@ -14,9 +14,6 @@ abs_filepath="$ABS_PATH/backend-flask/bin/db"
 # get the relative path to the file from the current directory
 FilePath=$(realpath --relative-base="$PWD" "$abs_filepath")
 
-# get directory path of file
-FilePathDir=$(dirname "$FilePath") 
-
 source "$FilePath/drop"
 source "$FilePath/create"
 source "$FilePath/schema-load"
