@@ -6,7 +6,11 @@ NO_COLOR='\033[0m'
 LABEL="db-seed"
 printf "${CYAN}== ${LABEL}${NO_COLOR}\n"
 
-seed_path="$(dirname $(dirname $(dirname $(realpath $0))))/db/seed.sql"
+# set the absolute path to the file
+abs_filepath="$ABS_PATH/backend-flask/db/seed.sql"
+
+# get the relative path to the file from the current directory
+seed_path=$(realpath --relative-base="$PWD" "$abs_filepath")
 
 # echo $seed_path
 

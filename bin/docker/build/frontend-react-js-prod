@@ -10,8 +10,6 @@ FilePath=$(realpath --relative-base="$PWD" "$abs_filepath")
 FilePathDir=$(dirname "$FilePath") 
 
 echo $FilePath
-echo $PWD
-
 
 docker build \
     --build-arg REACT_APP_BACKEND_URL="$FRONTEND_URL" \

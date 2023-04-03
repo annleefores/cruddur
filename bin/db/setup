@@ -8,8 +8,7 @@ LABEL="db-setup"
 printf "${CYAN}== ${LABEL}${NO_COLOR}\n"
 
 # set the absolute path to the file
-abs_filepath="$ABS_PATH/backend-flask/bin/db"
-
+abs_filepath="$ABS_PATH/bin/db"
 
 # get the relative path to the file from the current directory
 FilePath=$(realpath --relative-base="$PWD" "$abs_filepath")

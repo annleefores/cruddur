@@ -6,9 +6,12 @@ NO_COLOR='\033[0m'
 LABEL="db-schema-load"
 printf "${CYAN}== ${LABEL}${NO_COLOR}\n"
 
-schema_path="$(dirname $(dirname $(dirname $(realpath $0))))/db/schema.sql"
+# set the absolute path to the file
+abs_filepath="$ABS_PATH/backend-flask/db/schema.sql"
 
-# echo $schema_path
+# get the relative path to the file from the current directory
+schema_path=$(realpath --relative-base="$PWD" "$abs_filepath")
+
 
 echo "db-schema-load"
 
