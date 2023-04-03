@@ -1,5 +1,12 @@
 #! /usr/bin/bash
 
+# set the absolute path to the file
+abs_filepath="$ABS_PATH/backend-flask/Dockerfile.prod"
 
+# get the relative path to the file from the current directory
+FilePath=$(realpath --relative-base="$PWD" "$abs_filepath")
 
-docker build -f backend-flask/Dockerfile.prod -t backend-flask-prod ./backend-flask
+# get directory path of file
+FilePathDir=$(dirname "$FilePath") 
+
+docker build -f $FilePath -t backend-flask-prod $FilePathDir
