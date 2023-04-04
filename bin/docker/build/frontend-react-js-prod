@@ -12,8 +12,8 @@ FilePathDir=$(dirname "$FilePath")
 echo $FilePath
 
 docker build \
-    --build-arg REACT_APP_BACKEND_URL="$FRONTEND_URL" \
-    --build-arg REACT_APP_FRONTEND_URL="$BACKEND_URL" \
+    --build-arg REACT_APP_BACKEND_URL="https://api.annleefores.cloud" \
+    --build-arg REACT_APP_FRONTEND_URL="https://annleefores.cloud" \
     --build-arg REACT_APP_AWS_PROJECT_REGION="$AWS_DEFAULT_REGION" \
     --build-arg REACT_APP_AWS_COGNITO_REGION="$AWS_DEFAULT_REGION" \
     --build-arg REACT_APP_AWS_USER_POOLS_ID="$AWS_USER_POOLS_ID" \
