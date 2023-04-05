@@ -85,8 +85,8 @@ class Db:
             with conn.cursor() as cur:
                 cur.execute(wrapped_sql, params)
                 json = cur.fetchone()
-                if json == None:
-                    "{}"
+                if json is None:
+                    return "{}"
                 else:
                     return json[0]
 
