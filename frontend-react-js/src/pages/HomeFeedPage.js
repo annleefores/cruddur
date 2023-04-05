@@ -9,7 +9,7 @@ import DesktopSidebar from "../components/DesktopSidebar";
 import ActivityFeed from "../components/ActivityFeed";
 import ActivityForm from "../components/ActivityForm";
 import ReplyForm from "../components/ReplyForm";
-import checkAuth from '../lib/CheckAuth'
+import { checkAuth, getAccessToken } from '../lib/CheckAuth'
 
 
 
@@ -88,10 +88,12 @@ export default function HomeFeedPage() {
     try {
       // const backend_url = `http://localhost:8000/api/activities/home`; // for envoy-proxy
       const backend_url = `${process.env.REACT_APP_BACKEND_URL}/api/activities/home`;
+      await getAccessToken()
+      const access_token = localStorage.getItem("access_token")
       const res = await fetch(backend_url, {
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': `Bearer ${localStorage.getItem("access_token")}`,
+          'Authorization': `Bearer ${access_token}`,
         },
         method: "GET",
       });
