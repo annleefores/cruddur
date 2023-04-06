@@ -20,8 +20,8 @@ tasks:
       export GITPOD_IP=$(curl ifconfig.me)
       cd "$THEIA_WORKSPACE_ROOT"
       source "./bin/rds/update-sg-rule"
-      source "./bin/frontend/generate-env"
-      source "./bin/backend/generate-env"
+      ruby "./bin/frontend/generate-env"
+      ruby "./bin/backend/generate-env"
       
   - name: npm-install
     before: |
