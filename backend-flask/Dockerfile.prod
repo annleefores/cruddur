@@ -7,6 +7,10 @@ WORKDIR /backend-flask
 # # install curl for healthcheck
 # RUN apt update && apt install -y curl
 
+# [TODO] For debugging, don't leave these in
+RUN apt update && apt install -y iputils-ping
+# -----
+
 # local -> inside container
 # copy local requirements.txt to inside container
 COPY requirements.txt requirements.txt
