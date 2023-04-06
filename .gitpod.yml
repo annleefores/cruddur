@@ -22,7 +22,6 @@ tasks:
       source "/bin/rds/update-sg-rule"
       source "/bin/frontend/generate-env"
       source "/bin/backend/generate-env"
-      exit
       
   - name: npm-install
     before: |
