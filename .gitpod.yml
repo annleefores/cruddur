@@ -15,27 +15,25 @@ tasks:
       echo "deb http://apt.postgresql.org/pub/repos/apt/ `lsb_release -cs`-pgdg main" |sudo tee  /etc/apt/sources.list.d/pgdg.list
       sudo apt update
       sudo apt install -y postgresql-client-13 libpq-dev
+      
     command: |
       export GITPOD_IP=$(curl ifconfig.me)
-      source "$THEIA_WORKSPACE_ROOT/bin/rds/update-sg-rule"
-
+      cd "$THEIA_WORKSPACE_ROOT"
+      source "/bin/rds/update-sg-rule"
+      source "/bin/frontend/generate-env"
+      source "/bin/backend/generate-env"
       exit
       
   - name: npm-install
     before: |
-      cd "$THEIA_WORKSPACE_ROOT"
-      source /bin/frontend/generate-env
-      cd frontend-react-js
+      cd "$THEIA_WORKSPACE_ROOT/frontend-react-js"
       npm i
       exit
     # source "$THEIA_WORKSPACE_ROOT/frontend-react-js/bin/auto-redirect"
       
-
   - name: python-package-install
     before: |
-      cd "$THEIA_WORKSPACE_ROOT"
-      source /bin/backend/generate-env
-      cd backend-flask
+      cd "$THEIA_WORKSPACE_ROOT/backend-flask"
       pip3 install --upgrade pip
       pip3 install -r requirements.txt
       exit
@@ -46,8 +44,6 @@ tasks:
       sudo dpkg -i session-manager-plugin.deb
       sudo rm session-manager-plugin.deb
       exit
-
-
 
 vscode:
   extensions:
