@@ -16,6 +16,8 @@ services:
 
     volumes:
       - ./backend-flask:/backend-flask
+    networks:
+      - cruddur-net
     
   frontend-react-js:
     env_file:
@@ -29,6 +31,8 @@ services:
     #   timeout: 10s
     #   start_period: 10s
     #   retries: 3
+    networks:
+      - cruddur-net
     volumes:
       - ./frontend-react-js:/frontend-react-js
 
@@ -41,6 +45,8 @@ services:
     container_name: dynamodb-local
     ports:
       - "8000:8000"
+    networks:
+    - cruddur-net
     volumes:
       - "./docker/dynamodb:/home/dynamodblocal/data"
     working_dir: /home/dynamodblocal
@@ -55,10 +61,24 @@ services:
     ports:
       - '5432:5432'
 
-      
+    networks:
+      - cruddur-net
+
     volumes: 
       - db:/var/lib/postgresql/data
   
+  xray-daemon:
+    image: "amazon/aws-xray-daemon"
+    environment:
+      AWS_ACCESS_KEY_ID: "${AWS_ACCESS_KEY_ID}"
+      AWS_SECRET_ACCESS_KEY: "${AWS_SECRET_ACCESS_KEY}"
+      AWS_REGION: "us-east-1"
+    command:
+      - "xray -o -b xray-daemon:2000"
+    ports:
+      - 2000:2000/udp
+    networks:
+      - cruddur-net
 
 networks: 
   cruddur-net:
@@ -81,16 +101,6 @@ volumes:
   #   ports:
   #     - 4318:4318 # OTLP http receiver
   
-  # xray-daemon:
-  #   image: "amazon/aws-xray-daemon"
-  #   environment:
-  #     AWS_ACCESS_KEY_ID: "${AWS_ACCESS_KEY_ID}"
-  #     AWS_SECRET_ACCESS_KEY: "${AWS_SECRET_ACCESS_KEY}"
-  #     AWS_REGION: "us-east-1"
-  #   command:
-  #     - "xray -o -b xray-daemon:2000"
-  #   ports:
-  #     - 2000:2000/udp
 
 
   # the name flag is a hack to change the default prepend folder
