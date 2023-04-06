@@ -27,6 +27,11 @@ VALUES (
         'lmollari@centari.com',
         'londo',
         'MOCK'
+    ),(
+        'technodude',
+        'technodudetrickster@gmail.com',
+        'technodude',
+        'MOCK'
     );
 
 INSERT INTO

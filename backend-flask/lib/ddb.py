@@ -93,7 +93,7 @@ class Ddb:
         my_user_display_name,
         my_user_handle,
     ):
-        now = datetime.now(timezone.utc).astimezone().isoformat()
+        now = datetime.now().isoformat()
         created_at = now
         message_uuid = str(uuid.uuid4())
 
@@ -135,7 +135,7 @@ class Ddb:
 
         message_group_uuid = str(uuid.uuid4())
         message_uuid = str(uuid.uuid4())
-        now = datetime.now(timezone.utc).astimezone().isoformat()
+        now = datetime.now().isoformat()
         last_message_at = now
         created_at = now
         print("== create_message_group.2")
