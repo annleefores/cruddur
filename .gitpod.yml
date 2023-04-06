@@ -22,6 +22,7 @@ tasks:
       source "./bin/rds/update-sg-rule"
       ruby "./bin/frontend/generate-env"
       ruby "./bin/backend/generate-env"
+      exit
       
   - name: npm-install
     before: |
