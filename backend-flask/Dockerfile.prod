@@ -8,7 +8,7 @@ WORKDIR /backend-flask
 # RUN apt update && apt install -y curl
 
 # [TODO] For debugging, don't leave these in
-RUN apt update && apt install -y iputils-ping
+# RUN apt update && apt install -y iputils-ping
 # -----
 
 # local -> inside container

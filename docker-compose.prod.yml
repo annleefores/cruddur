@@ -7,7 +7,7 @@ services:
     
     build:
       context: ./backend-flask
-      dockerfile: Dockerfile.prod
+      dockerfile: Dockerfile.multi
     ports:
       - "4567:4567"
 

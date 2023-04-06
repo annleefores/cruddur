@@ -32,10 +32,16 @@ services:
       # ROLLBAR_ACCESS_TOKEN: "${ROLLBAR_ACCESS_TOKEN}"
 
 
-    build: ./backend-flask
-    # image: "backend-flask-prod:latest"
+    # build: ./backend-flask
+
+    build:
+      context: ./backend-flask
+      dockerfile: Dockerfile.prod
+
     ports:
       - "4567:4567"
+    networks:
+      - cruddur-net
 
     # healthcheck:
     #   test: curl --fail ${BACKEND_URL}/api/health-check || exit 1
@@ -63,6 +69,8 @@ services:
     build: ./frontend-react-js
     ports:
       - "3000:3000"
+    networks:
+      - cruddur-net
 
     # healthcheck:
     #   test: curl --fail ${FRONTEND_URL} || exit 1
@@ -82,6 +90,8 @@ services:
     container_name: dynamodb-local
     ports:
       - "8000:8000"
+    networks:
+      - cruddur-net
     volumes:
       - "./docker/dynamodb:/home/dynamodblocal/data"
     working_dir: /home/dynamodblocal
@@ -95,15 +105,28 @@ services:
       - POSTGRES_PASSWORD=password
     ports:
       - '5432:5432'
+    networks:
+      - cruddur-net
     volumes: 
       - db:/var/lib/postgresql/data
 
-  
+  xray-daemon:
+    image: "amazon/aws-xray-daemon"
+    environment:
+      AWS_ACCESS_KEY_ID: "${AWS_ACCESS_KEY_ID}"
+      AWS_SECRET_ACCESS_KEY: "${AWS_SECRET_ACCESS_KEY}"
+      AWS_REGION: "us-east-1"
+    command:
+      - "xray -o -b xray-daemon:2000"
+    ports:
+      - 2000:2000/udp
+    networks:
+      - cruddur-net
 
-networks:
-  internal-network:
+networks: 
+  cruddur-net:
     driver: bridge
-    name: cruddur
+    name: cruddur-net
   
 volumes:
   db:
@@ -123,16 +146,6 @@ volumes:
   #     - 4318:4318 # OTLP http receiver
 
 
-  # xray-daemon:
-  #   image: "amazon/aws-xray-daemon"
-  #   environment:
-  #     AWS_ACCESS_KEY_ID: "${AWS_ACCESS_KEY_ID}"
-  #     AWS_SECRET_ACCESS_KEY: "${AWS_SECRET_ACCESS_KEY}"
-  #     AWS_REGION: "us-east-1"
-  #   command:
-  #     - "xray -o -b xray-daemon:2000"
-  #   ports:
-  #     - 2000:2000/udp
 
 
   # the name flag is a hack to change the default prepend folder
