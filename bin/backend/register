@@ -1,0 +1,4 @@
+#! /usr/bin/bash
+echo "Task Def Backend"
+
+aws ecs register-task-definition --cli-input-json file://aws/task-definitions/backend-flask.json
