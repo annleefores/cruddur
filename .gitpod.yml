@@ -23,8 +23,9 @@ tasks:
       
   - name: npm-install
     before: |
-      source "$THEIA_WORKSPACE_ROOT/bin/frontend/generate-env"
-      cd /workspace/aws-bootcamp-cruddur-2023/frontend-react-js
+      cd "$THEIA_WORKSPACE_ROOT"
+      source /bin/frontend/generate-env
+      cd frontend-react-js
       npm i
       exit
     # source "$THEIA_WORKSPACE_ROOT/frontend-react-js/bin/auto-redirect"
@@ -32,8 +33,9 @@ tasks:
 
   - name: python-package-install
     before: |
-      source "$THEIA_WORKSPACE_ROOT/bin/backend/generate-env"
-      cd /workspace/aws-bootcamp-cruddur-2023/backend-flask
+      cd "$THEIA_WORKSPACE_ROOT"
+      source /bin/backend/generate-env
+      cd backend-flask
       pip3 install --upgrade pip
       pip3 install -r requirements.txt
       exit
