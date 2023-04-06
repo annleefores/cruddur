@@ -1,39 +1,8 @@
 version: "3.8"
 services:
   backend-flask:
-    environment:
-      FRONTEND_URL: "https://3000-${GITPOD_WORKSPACE_ID}.${GITPOD_WORKSPACE_CLUSTER_HOST}"
-      BACKEND_URL: "https://4567-${GITPOD_WORKSPACE_ID}.${GITPOD_WORKSPACE_CLUSTER_HOST}"
-      
-      #jwt verification
-      AWS_DEFAULT_REGION: "${AWS_DEFAULT_REGION}"
-      AWS_ACCESS_KEY_ID: "${AWS_ACCESS_KEY_ID}"
-      AWS_SECRET_ACCESS_KEY: "${AWS_SECRET_ACCESS_KEY}"
-      AWS_COGNITO_USER_POOL_ID: "${AWS_USER_POOLS_ID}"
-      AWS_COGNITO_USER_POOL_CLIENT_ID: "${CLIENT_ID}"
-
-      PYTHONUNBUFFERED: 1 # disable buffer
-
-      # CONNECTION_URL: "${PROD_CONNECTION_URL}" 
-      CONNECTION_URL: "${LOCAL_CONNECTION_URL}"
-
-      # AWS_ENDPOINT_URL: "http://dynamodb-local:8000"
-      # # openTelemetry
-      # OTEL_SERVICE_NAME: "backend-flask"
-      # OTEL_EXPORTER_OTLP_ENDPOINT: "https://api.honeycomb.io"
-      # OTEL_EXPORTER_OTLP_HEADERS: "x-honeycomb-team=${HONEYCOMB_API_KEY}"
-
-      # # AWS XRAY
-      # AWS_XRAY_URL: "*4567-${GITPOD_WORKSPACE_ID}.${GITPOD_WORKSPACE_CLUSTER_HOST}*"
-      # AWS_XRAY_DAEMON_ADDRESS: "xray-daemon:2000"
-      # # watchtower - cloudwatch
-      # AWS_DEFAULT_REGION: "${AWS_DEFAULT_REGION}"
-      # AWS_ACCESS_KEY_ID: "${AWS_ACCESS_KEY_ID}"
-      # AWS_SECRET_ACCESS_KEY: "${AWS_SECRET_ACCESS_KEY}"
-
-      # # Rollbar
-      # ROLLBAR_ACCESS_TOKEN: "${ROLLBAR_ACCESS_TOKEN}"
-
+    env_file:
+     - backend-flask.env
     build: ./backend-flask
     ports:
       - "4567:4567"
@@ -49,16 +18,8 @@ services:
       - ./backend-flask:/backend-flask
     
   frontend-react-js:
-    environment:
-      REACT_APP_BACKEND_URL: "https://4567-${GITPOD_WORKSPACE_ID}.${GITPOD_WORKSPACE_CLUSTER_HOST}"
-      REACT_APP_FRONTEND_URL: "https://3000-${GITPOD_WORKSPACE_ID}.${GITPOD_WORKSPACE_CLUSTER_HOST}"
-      REACT_APP_OTEL_COLLECTOR_URL: "https://4318-${GITPOD_WORKSPACE_ID}.${GITPOD_WORKSPACE_CLUSTER_HOST}"
-       # for cognito
-      REACT_APP_AWS_PROJECT_REGION: "${AWS_DEFAULT_REGION}"
-      REACT_APP_AWS_COGNITO_REGION: "${AWS_DEFAULT_REGION}"
-      REACT_APP_AWS_USER_POOLS_ID: "${AWS_USER_POOLS_ID}"
-      REACT_APP_CLIENT_ID: "${CLIENT_ID}"
-      # ------------
+    env_file:
+      - frontend-react-js.env
     build: ./frontend-react-js
     ports:
       - "3000:3000"
@@ -100,9 +61,9 @@ services:
   
 
 networks: 
-  internal-network:
+  cruddur-net:
     driver: bridge
-    name: cruddur
+    name: cruddur-net
 
 volumes:
   db:
