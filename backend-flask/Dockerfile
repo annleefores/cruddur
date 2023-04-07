@@ -1,5 +1,4 @@
-FROM ***REMOVED***.dkr.ecr.us-east-1.amazonaws.com/cruddur-python:3.10-slim-buster
-
+FROM python:3.10-slim-buster
 # Inside container
 # make a new directory and move into it
 WORKDIR /backend-flask

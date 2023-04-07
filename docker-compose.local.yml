@@ -36,6 +36,8 @@ services:
 
     build:
       context: ./backend-flask
+      args:
+        AWS_ACCOUNT_ID: ${AWS_ACCOUNT_ID}
       dockerfile: Dockerfile.prod
 
     ports:
