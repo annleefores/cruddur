@@ -993,7 +993,7 @@ docker run --rm -p 3000:3000 -it frontend-react-js
 
 - Run this command to register task definition.
 
-```json
+```
 aws ecs register-task-definition --cli-input-json file://aws/task-definitions/frontend-react-js.json
 ```
 
@@ -1044,7 +1044,7 @@ aws ecs register-task-definition --cli-input-json file://aws/task-definitions/fr
 - Go to EC2 - Target Groups and copy the Target Group ARN for frontend. Paste this in above file under load balancer.
 - Run this command to create frontend-service.
 
-```json
+```
 aws ecs create-service --cli-input-json file://aws/json/service-frontend-react-js.json
 ```
 
