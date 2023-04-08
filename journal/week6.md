@@ -245,8 +245,10 @@ aws ssm put-parameter --type "SecureString" --name "/cruddur/backend-flask/OTEL_
 - Select **GetParameter** and **GetParameters** for the **Actions**.
 - Choose **Specific** in the **Resources** section and add the ARN.
 
-```json
+```
+
 arn:aws:ssm:<REGION>:<AWS_ACCOUNT_ID>:parameter/cruddur/backend-flask/*
+
 ```
 
 - Click on **Add additional permissions**.
