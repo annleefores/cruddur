@@ -20,7 +20,7 @@ aws ecs create-cluster \
 
 - **service-connect** → creates a namespace → cloudmap → can be used instead of endpoint internally.
 
-![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/92374742-1138-4837-8afc-3b5c7239599b/Untitled.png)
+![ecs-cluster](media/week6_7/1-ecs-cluster.png)
 
 ### ECS - Backend-Flask
 
@@ -108,7 +108,7 @@ aws logs create-log-group --log-group-name cruddur
 aws logs put-retention-policy --log-group-name cruddur --retention-in-days 1
 ```
 
-![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/4be67f53-e0b7-4ba9-915e-364762c32928/Untitled.png)
+![cloudwatch-log](media/week6_7/2-cloudwatch-log.png)
 
 #### Create ECR repo and push image
 
@@ -124,7 +124,7 @@ aws ecr create-repository \
   --image-tag-mutability MUTABLE
 ```
 
-![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/b804d953-3823-465a-a907-2ad5d5aef21b/Untitled.png)
+![ecr-repo](media/week6_7/3-ecr-repo.png)
 
 - Check the box and click on the **View Push Commands** button to see the commands for pushing images.
 - Log in to ECR
@@ -158,7 +158,7 @@ docker tag python:3.10-slim-buster $ECR_PYTHON_URL:3.10-slim-buster
 docker push $ECR_PYTHON_URL:3.10-slim-buster
 ```
 
-![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/fe3623d0-f068-4f69-b570-df1a1bdda282/Untitled.png)
+![python-image](media/week6_7/4-python-image.png)
 
 **For Flask**
 
@@ -232,7 +232,7 @@ aws ssm put-parameter --type "SecureString" --name "/cruddur/backend-flask/ROLLB
 aws ssm put-parameter --type "SecureString" --name "/cruddur/backend-flask/OTEL_EXPORTER_OTLP_HEADERS" --value "x-honeycomb-team=$HONEYCOMB_API_KEY"
 ```
 
-![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/d481b9ce-ed7a-41a3-9f97-b2797e525524/Untitled.png)
+![parameter-store](media/week6_7/5-parameter-store.png)
 
 #### Create ExecutionRole
 
@@ -265,7 +265,7 @@ arn:aws:ssm:<REGION>:<AWS_ACCOUNT_ID>:parameter/cruddur/backend-flask/*
 - Enter **Role name** as `CruddurServiceExecutionRole`.
 - Click on **Create Role**.
 
-![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/c2fe126f-a24e-424e-8607-958334eb05f2/Untitled.png)
+![CruddurServiceExecutionRole](media/week6_7/6-CruddurServiceExecutionRole.png)
 
 #### Create TaskRole
 
@@ -424,7 +424,7 @@ Note:
 - Navigate to ECS > Task Definitions and verify these changes.
 - Each task definition has a revision value associated with its name.
 
-![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/bfbafabb-8809-43b3-82dc-e7973921a3e1/Untitled.png)
+![backend-task-def](media/week6_7/7-backend-task-def.png)
 
 #### Create Security Group
 
@@ -527,7 +527,7 @@ aws ecs create-service --cli-input-json file://aws/json/service-backend-flask.js
 - Wait for the new task to appear in the Task tab.
 - The Backend ECS cluster is now running successfully.
 
-![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/464f64c5-7d01-4f5b-88dd-208c6cda5c23/Untitled.png)
+![backend-task](media/week6_7/8-backend-task.png)
 
 #### Connect to Backend-Flask via Session Manager
 
@@ -609,7 +609,7 @@ aws ecs execute-command  \
 - Click into **backend-flask** task to view it’s **Public IP**.
 - Use **Public IP:4567** to access the backend application.
 
-![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/b2806122-0acd-4695-9a1b-e8ac8ce85c39/Untitled.png)
+![backend-public-ip](media/week6_7/9-backend-public-ip.png)
 
 #### Check RDS connection from Backend Application
 
@@ -635,7 +635,7 @@ Connection successful!
 
 - Go to _/api/activities/home_ to view data.
 
-![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/0298149e-fe65-43cd-a2fd-b5bb398c7a6e/Untitled.png)
+![backend-activties](media/week6_7/10-backend-activties.png)
 
 #### Service Connect
 
@@ -653,7 +653,7 @@ Learn more about **[Service Connect](https://docs.aws.amazon.com/AmazonECS/lates
 - Port = **4567**
 - Click **Create**
 
-![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/8b4e4cad-5b05-4940-90dd-614f1e735c3b/Untitled.png)
+![service-connect](media/week6_7/11-service-connect.png)
 
 - This will also show up under Services in Namespaces for **cruddur**.
 
@@ -742,7 +742,7 @@ aws ecs create-service --cli-input-json file://aws/json/service-backend-flask.js
 - In the additional listener, set the port to 3000 and the **Default action** to **cruddur-frontend-react-js**
 - Click **Create Load Balancer**
 
-![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/63b7346b-ce7b-45a7-8393-0e1b72c0859f/Untitled.png)
+![load-balancer](media/week6_7/12-load-balancer.png)
 
 ### Update ECS Backend to use ALB
 
@@ -778,7 +778,7 @@ aws ecs create-service --cli-input-json file://aws/json/service-backend-flask.js
 
 - This should now show the health response.
 
-![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/b4477625-f9d3-41d7-afce-d3b68dfd9212/Untitled.png)
+![backend-on-alb](media/week6_7/13-backend-on-alb.png)
 
 ### ECS - Frontend-React
 
@@ -1048,7 +1048,7 @@ aws ecs register-task-definition --cli-input-json file://aws/task-definitions/fr
 aws ecs create-service --cli-input-json file://aws/json/service-frontend-react-js.json
 ```
 
-![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/f4bc356a-03bc-4fb1-b1a7-36550a07ebc6/Untitled.png)
+![frontend-service](media/week6_7/14-frontend-service.png)
 
 - Wait for target group to initialize (if it’s unhealthy, somethings wrong)
 
@@ -1091,11 +1091,11 @@ aws ecs execute-command  \
 - Go to the Security Group (SG) of the frontend from the Networking tab.
 - Edit the Inbound Rule to add port 3000, and for the source, set the **`cruddur-alb-sg`**.
 
-![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/e98eb0dd-6e0c-435e-8b25-585192757daf/Untitled.png)
+![frontend-and-serviceConnect](media/week6_7/15-frontend-and-serviceConnect.png)
 
 - Visit the frontend on port 3000 using the DNS NAME.
 
-![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/eca36862-2f53-4b29-9148-76e896c45d2a/Untitled.png)
+![frontend-on-alb](media/week6_7/16-frontend-on-alb.png)
 
 ### Custom Domain
 
@@ -1162,11 +1162,11 @@ aws ecs execute-command  \
 - It might take some time for the changes to take effect, or you can try a different browser.
 - The frontend should now be working on the custom domain.
 
-![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/eb2f27be-c121-4cb2-b328-5685ff94e1ad/Untitled.png)
+![frontend-on-custom-domain](media/week6_7/17-frontend-on-custom-domain.png)
 
 - Backend working on custom subdomain.
 
-![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/6721bb96-6d94-4280-b3d8-432b82ed1506/Untitled.png)
+![backend-on-custom-domain](media/week6_7/18-backend-on-custom-domain.png)
 
 ### CORS update
 
@@ -1215,7 +1215,7 @@ docker build \
 - Wait for the changes to complete.
 - Check that both the frontend and backend URLs are running.
 
-![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/70fd8552-2710-4c6c-8181-3bf4221762ba/Untitled.png)
+![fullstack-app-running](media/week6_7/19-fullstack-app-running.png)
 
 ### Securing Flask
 
@@ -1590,7 +1590,7 @@ aws ecs register-task-definition --cli-input-json file://aws/task-definitions/ba
 - Create scripts to run these commands.
 - Now update backend service to include xray daemon.
 
-![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/6dcaccd0-e3ac-4315-ae4b-804caf8f3dd7/Untitled.png)
+![xray-daemon](media/week6_7/20-xray-daemon.png)
 
 #### Turn on container insights
 
@@ -1601,7 +1601,7 @@ aws ecs register-task-definition --cli-input-json file://aws/task-definitions/ba
 - Under insights select **Container Insights**
 - Follow steps in image to view Nodes, click any of the nodes to view it’s logs.
 
-![container-insights.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/909a77ff-8129-45a0-8198-0f71adc1ef8b/container-insights.png)
+![container-insights](media/week6_7/21-container-insights.png)
 
 ### Debugging Container Networks
 
@@ -1784,12 +1784,10 @@ env_file:
 - When an AWS user calls ECS to run containers, it uses the Amazon ECS container agent to call to run the container fetched from ECR.
 - This all happens in EC2 or Fargate.
 
-![ecs_working.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/1657e1b1-d197-46dd-86db-b6823ff0a30a/ecs_working.png)
+![ecs-working](media/week6_7/22-ecs-working.png)
 
 - The ECS cluster manages all the EC2 instances in an ECS architecture.
 - In ECS Fargate, instead of EC2 instances, Fargate tasks are managed (serverless containers).
-
-![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/dcc4a0c5-0e77-4ba2-83bb-6e990141327b/Untitled.png)
 
 #### Security Challenges with AWS Fargate
 
@@ -1832,9 +1830,9 @@ env_file:
 
 #### Protecting web applications in AWS
 
-![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/1602f6ba-953b-448b-9837-bea423588269/Untitled.png)
+![protecting-web-apps](media/week6_7/23-protecting-web-apps.png)
 
-![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/15a95609-5d8e-4b5f-b342-e1cffddc38e5/Untitled.png)
+![protecting-serverless-app](media/week6_7/24-protecting-serverless-app.png)
 
 - Route53 is a DNS service provided by Amazon.
 - Route53 can be used to create both Public and Private hosted zones.
