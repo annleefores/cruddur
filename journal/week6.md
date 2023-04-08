@@ -2,7 +2,33 @@
 
 ## [Required Homework](#required-homework-1)
 
+- [Provision ECS Cluster](#create-ecs-cluster)
+- [Create ECR repo and push image for backend-flask](#create-ecr-repo-and-push-image)
+- [Deploy Backend Flask app as a service to Fargate](#launch-backend-container)
+- [Create ECR repo and push image for fronted-react-js](#ecs---frontend-react)
+- [Deploy Frontend React JS app as a service to Fargate](#fixing-frontend-ecs-container-error)
+- [Provision and configure Application Load Balancer along with target groups](#load-balancer)
+- [Manage your domain using Route53 via hosted zone](#custom-domain)
+- [Create an SSL certificate via ACM](#create-ssl-certificate)
+- [Setup a record set for naked domain to point to frontend-react-js](#update-alb)
+- [Setup a record set for api subdomain to point to the backend-flask](#update-alb)
+- [Configure CORS to only permit traffic from our domain](#cors-update)
+- [Secure Flask by not running in debug mode](#securing-flask)
+- [Implement Refresh Token for Amazon Cognito](#implement-refresh-token-cognito)
+- [Refactor bin directory to be top level](#update-bin-structure)
+- [Configure task definitions to contain x-ray and turn on Container Insights](#fargate---configuring-for-container-insights)
+- [Change Docker Compose to explicitly use a user-defined network](#debugging-container-networks)
+- [Create Dockerfile specifically for production use case](#move-env-from-docker-compose-to-a-dot-env-file)
+- [Using ruby generate out env dot files for docker using erb templates](#create-template-files-using-ruby)
+- [Fargate Technical Questions with Maish](#fargate-technical-questions)
+- [AWS ECS Security Best Practices](#amazon-ecs-security-best-practices)
+- [How to securely host a website on AWS with custom domain](#how-to-securely-host-a-website-on-aws-with-a-custom-domain)
+
 ## [Homework Challenges](#homework-challenges-1)
+
+- [Updated `connect-to-service`](#updated-connect-to-service)
+- [Script to launch & delete ECS services](#script-to-launch--delete-services)
+- [Get Relative Path](#get-relative-path)
 
 ---
 
@@ -772,7 +798,7 @@ aws ecs create-service --cli-input-json file://aws/json/service-backend-flask.js
 - Copy the ALB **`DNS Name`** and paste it into the browser search bar.
 - Append this to the DNS Name.
 
-```json
+```
 :4567/api/health-check
 ```
 
@@ -1122,7 +1148,7 @@ aws ecs execute-command  \
 - Wait for the status to become **Success**
 - Go back to the **Route53** console to see the new CNAME
 
-#### Update ALB - Frontend
+#### Update ALB
 
 - Go back to the EC2 → load balancer page
 - Check the box for **cruddur-alb** and select the **Listeners** tab
