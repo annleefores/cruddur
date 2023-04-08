@@ -5,8 +5,8 @@
 - [Provision ECS Cluster](#create-ecs-cluster)
 - [Create ECR repo and push image for backend-flask](#create-ecr-repo-and-push-image)
 - [Deploy Backend Flask app as a service to Fargate](#launch-backend-container)
-- [Create ECR repo and push image for fronted-react-js](#ecs---frontend-react)
-- [Deploy Frontend React JS app as a service to Fargate](#fixing-frontend-ecs-container-error)
+- [Create ECR repo and push image for frontend-react-js](#ecs---frontend-react)
+- [Deploy Frontend React JS app as a service to Fargate](#task-definition)
 - [Provision and configure Application Load Balancer along with target groups](#load-balancer)
 - [Manage your domain using Route53 via hosted zone](#custom-domain)
 - [Create an SSL certificate via ACM](#create-ssl-certificate)
@@ -18,8 +18,7 @@
 - [Refactor bin directory to be top level](#update-bin-structure)
 - [Configure task definitions to contain x-ray and turn on Container Insights](#fargate---configuring-for-container-insights)
 - [Change Docker Compose to explicitly use a user-defined network](#debugging-container-networks)
-- [Create Dockerfile specifically for production use case](#move-env-from-docker-compose-to-a-dot-env-file)
-- [Using ruby generate out env dot files for docker using erb templates](#create-template-files-using-ruby)
+- [Using ruby generate out env dot files for docker using erb templates](#move-env-from-docker-compose-to-a-dot-env-file)
 - [Fargate Technical Questions with Maish](#fargate-technical-questions)
 - [AWS ECS Security Best Practices](#amazon-ecs-security-best-practices)
 - [How to securely host a website on AWS with custom domain](#how-to-securely-host-a-website-on-aws-with-a-custom-domain)
@@ -811,7 +810,7 @@ aws ecs create-service --cli-input-json file://aws/json/service-backend-flask.js
 #### `Dockerfile.prod`
 
 - Create `Dockerfile.prod` in `frontend-react-js` folder and add this instruction
-- In my case, I had to add REACT_APP_FRONTEND_URL \*\*for Google IDP to work
+- In my case, I had to add REACT_APP_FRONTEND_URL for Google IDP to work
 
 ```docker
 # Base Image ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
