@@ -28,6 +28,7 @@
 - [Updated `connect-to-service`](#updated-connect-to-service)
 - [Script to launch & delete ECS services](#script-to-launch--delete-services)
 - [Get Relative Path](#get-relative-path)
+- [Host Frontend Application on CloudFront](#host-frontend-application-on-cloudfront)
 
 ---
 
@@ -2033,3 +2034,66 @@ python3 "$FilePath/update_cognito_user_ids"
 ```
 
 **For more details:** [https://www.gnu.org/software/coreutils/manual/html_node/Realpath-usage-examples.html](https://www.gnu.org/software/coreutils/manual/html_node/Realpath-usage-examples.html)
+
+### Host Frontend Application on CloudFront
+
+- Create a new S3 bucket and leave all settings to default.
+- Go to the **CloudFront console** and **create a distribution**.
+- Select the S3 bucket as the origin domain.
+- Choose **Origin access control settings (recommended)** from Origin access, and select **Create Control Settings** for Origin access control.
+- Provide a description in the opening tab, select the recommended settings, and click **Create**.
+- In Viewer set, **redirect HTTP to HTTPS** and set Allowed HTTP methods to **GET, HEAD, OPTIONS**.
+- In **Default root object - optional**, set it to **`index.html`**.
+- Click **Create distribution**.
+- Copy the S3 bucket policy from the top notification.
+- Click **Go to S3 bucket permissions to update policy** to navigate to the S3 bucket permission page.
+- Click **Bucket policy edit** and add the Policy JSON you copied from CloudFront.
+- Click **Save changes**.
+- Wait for CloudFront deployment to complete.
+
+![cloudfront-deploy](media/week6_7/25-cloudfront-deploy.png)
+
+- From the frontend folder, run `npm run build` to create the build file for the frontend.
+- Run the following command to sync the build folder with the S3 bucket:
+
+```bash
+aws s3 sync build s3://<bucket_name>
+```
+
+![s3-build-file](media/week6_7/26-s3-build-file.png)
+
+- In CloudFront Error pages, choose **Create custom error response**.
+- Select **403** error code.
+- In Customize error response, choose **Yes** and set Response page path to `/index.html`, HTTP Response code to `200`.
+- Do the same for 404 and wait for CloudFront deployment to complete.
+- Copy **Distribution domain name** from CloudFront and try visiting that page.
+
+![cloudfront-frontend](media/week6_7/27-cloudfront-frontend.png)
+
+I encountered a `client pool not found` error due to missing env vars in the build file. I resolved this by creating a `.env.production` file with env vars in the frontend folder and then building it with `NODE_ENV=production npm run build`. Although this is a less secure way of doing it, I went with this solution for demonstration purposes.
+
+I then synced this new file and invalidated CloudFront cache using this command:
+
+```bash
+aws cloudfront create-invalidation --distribution-id
+<dist_id> --paths '/*'
+```
+
+To fix the CORS issue, go to backend `app.py`and add the **Distribution domain name** to origins:
+
+```python
+origins = [frontend, backend, '<distribution_domain_name>']
+```
+
+Build, push, and update the backend service, then sign into Cruddur through the Distribution domain name to view posts and messages.
+
+![cloudfront-working](media/week6_7/29-cloudfront-working.png)
+
+References:
+
+- [Creating response headers policies in CloudFront](https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/creating-response-headers-policies.html)
+- [How to Deploy React App on AWS S3 and CloudFront](https://youtu.be/CQ8vzm1kYkM)
+- [How to set up a CloudFront distribution for Amazon EC2](https://aws.amazon.com/cloudfront/getting-started/EC2/)
+- [Dynamic whole site delivery with Amazon CloudFront](https://aws.amazon.com/blogs/networking-and-content-delivery/dynamic-whole-site-delivery-with-amazon-cloudfront/)
+- [Deploying your Angular app in CloudFront with SSL](https://medium.com/cloud-base/deploying-your-angularapp-in-cloudfront-with-ssl-80af7b045193)
+- [How do I resolve the CloudFront error "No Access-Control-Allow-Origin header?](https://youtu.be/8P9JvEURHO4)
