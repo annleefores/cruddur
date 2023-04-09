@@ -9,4 +9,4 @@ FilePath=$(realpath --relative-base="$PWD" "$abs_filepath")
 # get directory path of file
 FilePathDir=$(dirname "$FilePath") 
 
-docker build -f $FilePath -t backend-flask-prod $FilePathDir
+docker build -f $FilePath -t backend-flask-prod --build-arg AWS_ACCOUNT_ID=$AWS_ACCOUNT_ID $FilePathDir
