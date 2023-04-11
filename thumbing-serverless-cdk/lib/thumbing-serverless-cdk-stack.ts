@@ -22,9 +22,11 @@ export class ThumbingServerlessCdkStack extends cdk.Stack {
     const topicName: string = process.env.THUMBING_TOPIC_NAME as string;
     const functionPath: string = process.env.THUMBING_FUNCTION_PATH as string;
     
-    const bucket = this.createBucket(bucketName);
+    // const bucket = this.createBucket(bucketName);
+    const bucket = this.importBucket(bucketName)
     const lambda = this.createLambda(functionPath, bucketName, folderInput, folderOutput);
     this.createS3NotifyToLambda(folderInput,lambda,bucket)
+    // const s3ReadWritePolicy = this.createPolicyBucketAccess(bucket.bucketArn)
   }
 
   createBucket(bucketName: string): s3.IBucket {
@@ -33,6 +35,11 @@ export class ThumbingServerlessCdkStack extends cdk.Stack {
       removalPolicy: cdk.RemovalPolicy.DESTROY
     });
     return bucket;
+  }
+
+  importBucket(bucketName:string): s3.IBucket {
+    const bucket = s3.Bucket.fromBucketName(this, "AssetsBucket", bucketName);
+    return bucket
   }
 
   createLambda(functionPath:string, bucketName:string, folderInput:string, folderOutput:string): lambda.IFunction {
