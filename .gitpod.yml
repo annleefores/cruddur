@@ -15,7 +15,7 @@ tasks:
       echo "deb http://apt.postgresql.org/pub/repos/apt/ `lsb_release -cs`-pgdg main" |sudo tee  /etc/apt/sources.list.d/pgdg.list
       sudo apt update
       sudo apt install -y postgresql-client-13 libpq-dev
-      
+
     command: |
       export GITPOD_IP=$(curl ifconfig.me)
       cd "$THEIA_WORKSPACE_ROOT"
@@ -23,26 +23,34 @@ tasks:
       ruby "./bin/frontend/generate-env"
       ruby "./bin/backend/generate-env"
       exit
-      
+
   - name: npm-install
     before: |
       cd "$THEIA_WORKSPACE_ROOT/frontend-react-js"
       npm i
       exit
     # source "$THEIA_WORKSPACE_ROOT/frontend-react-js/bin/auto-redirect"
-      
+
   - name: python-package-install
     before: |
       cd "$THEIA_WORKSPACE_ROOT/backend-flask"
       pip3 install --upgrade pip
       pip3 install -r requirements.txt
       exit
-      
+
   - name: fargate
     before: |
       curl "https://s3.amazonaws.com/session-manager-downloads/plugin/latest/ubuntu_64bit/session-manager-plugin.deb" -o "session-manager-plugin.deb"
       sudo dpkg -i session-manager-plugin.deb
       sudo rm session-manager-plugin.deb
+      exit
+
+  - name: cdk
+    before: |
+      npm install aws-cdk -g
+      cd thumbing-serverless-cdk
+      cp .env.example .env
+      npm i
       exit
 
 vscode:
@@ -65,9 +73,9 @@ ports:
   # - name: otel-collector
   #   port: 4318
   #   visibility: public
-  - name: psql 
+  - name: psql
     port: 5432
     visibility: public
-  - name: ddb 
+  - name: ddb
     port: 8000
     visibility: public

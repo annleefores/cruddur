@@ -1,0 +1,13 @@
+#! /usr/bin/bash
+
+# set the absolute path to the file
+abs_filepath="$ABS_PATH/thumbing-serverless-cdk"
+
+# get the relative path to the file from the current directory
+FilePath=$(realpath --relative-base="$PWD" "$abs_filepath")
+
+cd $FilePath
+
+npm install
+rm -rf node_modules/sharp
+SHARP_IGNORE_GLOBAL_LIBVIPS=1 npm install --arch=x64 --platform=linux --libc=glibc sharp
