@@ -1,0 +1,21 @@
+#! /usr/bin/bash
+
+# set -e # stop if it fails at any point
+
+CYAN='\033[1;36m'
+NO_COLOR='\033[0m'
+LABEL="bootstrap"
+printf "${CYAN}== ${LABEL}${NO_COLOR}\n"
+
+# set the absolute path to the file
+setup_filepath="$ABS_PATH/bin/db/setup"
+ddb_schema_filepath="$ABS_PATH/bin/ddb/schema-load"
+
+# get the relative path to the file from the current directory
+db_filePath=$(realpath --relative-base="$PWD" "$setup_filepath")
+ddb_filePath=$(realpath --relative-base="$PWD" "$ddb_schema_filepath")
+
+
+source "$db_filePath"
+python3 "$ddb_filePath"
+# python3 "$FilePath/ddb/seed"
