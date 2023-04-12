@@ -1,10 +1,10 @@
 #! /usr/bin/bash
 
 # set the absolute path to the file
-abs_filepath="$ABS_PATH/bin/serverless/files/rinzler.jpg"
+abs_filepath="$ABS_PATH/bin/avatar/files/rinzler.jpg"
 
 # get the relative path to the file from the current directory
 FilePath=$(realpath --relative-base="$PWD" "$abs_filepath")
 
 
-aws s3 cp "$FilePath" "s3://assets.$DOMAIN_NAME/avatars/original/data.jpg"
+aws s3 cp "$FilePath" "s3://cruddur-uploaded-avatars-annlee/data.jpg"
