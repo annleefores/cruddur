@@ -13,7 +13,7 @@ export default function ProfileHeading(props) {
   return (
     <div className="activity_feed_heading profile_heading">
       <div className="title">{props.profile.display_name}</div>
-      <div className="crud_count">{props.profile.cruds_count}Cruds</div>
+      <div className="cruds_count">{props.profile.cruds_count}Cruds</div>
       <div className="banner" style={styles}>
         <div className="avatar">
           <img
