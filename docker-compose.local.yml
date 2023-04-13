@@ -31,13 +31,13 @@ services:
       # ROLLBAR_ACCESS_TOKEN: "${ROLLBAR_ACCESS_TOKEN}"
 
 
-    # build: ./backend-flask
+    build: ./backend-flask
 
-    build:
-      context: ./backend-flask
-      args:
-        AWS_ACCOUNT_ID: ${AWS_ACCOUNT_ID}
-      dockerfile: Dockerfile.prod
+    # build:
+    #   context: ./backend-flask
+    #   args:
+    #     AWS_ACCOUNT_ID: ${AWS_ACCOUNT_ID}
+    #   dockerfile: Dockerfile.prod
 
     ports:
       - "4567:4567"
