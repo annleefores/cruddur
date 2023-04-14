@@ -21,10 +21,12 @@ export default function ProfileForm(props) {
     const type = file.type;
     const preview_image_url = URL.createObjectURL(file);
 
-    console.log("file", file);
+    const presignedurl = await s3uploadKey();
+
+    console.log("presignedurl", presignedurl);
 
     try {
-      const backend_url = ``;
+      const backend_url = `${presignedurl}`;
       const res = await fetch(backend_url, {
         method: "PUT",
         body: file,
@@ -52,6 +54,7 @@ export default function ProfileForm(props) {
       const res = await fetch(backend_url, {
         method: "POST",
         headers: {
+          Origin: "http://localhost:3000",
           Authorization: `Bearer ${access_token}`,
           Accept: "application/json",
           "Content-Type": "application/json",
@@ -60,7 +63,7 @@ export default function ProfileForm(props) {
 
       let data = await res.json();
       if (res.status === 200) {
-        console.log("presigned_url", data);
+        return data.url;
       } else {
         console.log(res);
       }
@@ -119,20 +122,18 @@ export default function ProfileForm(props) {
     return (
       <div className="popup_form_wrap profile_popup" onClick={close}>
         <form className="profile_form popup_form" onSubmit={onsubmit}>
-          <div class="popup_heading">
-            <div class="popup_title">Edit Profile</div>
+          <div className="popup_heading">
+            <div className="popup_title">Edit Profile</div>
             <div className="submit">
               <button type="submit">Save</button>
             </div>
           </div>
           <div className="popup_content">
-            <div className="upload" onClick={s3uploadKey}>
+            {/* <div className="upload" onClick={s3uploadKey}>
               Upload Avatar
-            </div>
+            </div> */}
             <input type="file" name="avatarupload" onChange={s3upload} />
-            <div className="upload" onClick={s3upload}>
-              Upload Avatar
-            </div>
+
             <div className="field display_name">
               <label>Display Name</label>
               <input
