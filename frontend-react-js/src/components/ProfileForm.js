@@ -14,6 +14,37 @@ export default function ProfileForm(props) {
   }, [props.profile]);
 
   const s3upload = async (event) => {
+    const file = event.target.files[0];
+
+    const filename = file.name;
+    const size = file.size;
+    const type = file.type;
+    const preview_image_url = URL.createObjectURL(file);
+
+    console.log("file", file);
+
+    try {
+      const backend_url = ``;
+      const res = await fetch(backend_url, {
+        method: "PUT",
+        body: file,
+        headers: {
+          "Content-Type": type,
+        },
+      });
+
+      let data = await res.json();
+      if (res.status === 200) {
+        console.log("presigned_url", data);
+      } else {
+        console.log(res);
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const s3uploadKey = async (event) => {
     try {
       const backend_url = `https://78taypnlz2.execute-api.us-east-1.amazonaws.com/avatars/key_upload`;
       await getAccessToken();
@@ -29,7 +60,7 @@ export default function ProfileForm(props) {
 
       let data = await res.json();
       if (res.status === 200) {
-        console.log('presigned_url', data)
+        console.log("presigned_url", data);
       } else {
         console.log(res);
       }
@@ -95,6 +126,10 @@ export default function ProfileForm(props) {
             </div>
           </div>
           <div className="popup_content">
+            <div className="upload" onClick={s3uploadKey}>
+              Upload Avatar
+            </div>
+            <input type="file" name="avatarupload" onChange={s3upload} />
             <div className="upload" onClick={s3upload}>
               Upload Avatar
             </div>
