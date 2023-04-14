@@ -2,7 +2,6 @@ import "./ProfileForm.css";
 import React from "react";
 import process from "process";
 import { getAccessToken } from "lib/CheckAuth";
-// import { S3Client } from "@aws-sdk/client-s3";
 
 export default function ProfileForm(props) {
   const [bio, setBio] = React.useState(0);
@@ -14,7 +13,30 @@ export default function ProfileForm(props) {
     setDisplayName(props.profile.display_name);
   }, [props.profile]);
 
-  const s3upload = async (event) => { };
+  const s3upload = async (event) => {
+    try {
+      const backend_url = `https://78taypnlz2.execute-api.us-east-1.amazonaws.com/avatars/key_upload`;
+      await getAccessToken();
+      const access_token = localStorage.getItem("access_token");
+      const res = await fetch(backend_url, {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${access_token}`,
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+      });
+
+      let data = await res.json();
+      if (res.status === 200) {
+        console.log('presigned_url', data)
+      } else {
+        console.log(res);
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
   const onsubmit = async (event) => {
     event.preventDefault();
