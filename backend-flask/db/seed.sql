@@ -8,9 +8,9 @@ INSERT INTO
         cognito_user_id
     )
 VALUES (
-        'Annlee Test',
+        'Annlee Fores',
         'annleetestmail@gmail.com',
-        'Annleetest',
+        'annleefores',
         'MOCK'
     ), (
         'Andrew Brown',
@@ -28,9 +28,9 @@ VALUES (
         'londo',
         'MOCK'
     ),(
-        'technodude',
+        'Annlee Test',
         'technodudetrickster@gmail.com',
-        'technodude',
+        'Annlee',
         'MOCK'
     );
 

@@ -30,6 +30,7 @@ from services.message_groups import *
 from services.messages import *
 from services.create_message import *
 from services.show_activity import *
+from services.update_profile import *
 
 
 # # ----------AWS X-Ray-------------
@@ -141,6 +142,24 @@ cors = CORS(
 # def rollbar_test():
 #     rollbar.report_message("Hello Error!", "warning")
 #     return "Hello World!"
+
+
+@app.route("/api/profile/update", methods=["POST", "OPTIONS"])
+@cross_origin()
+def data_update_profile():
+    bio = request.json.get("bio", None)
+    display_name = request.json.get("display_name", None)
+
+    claims = request.environ["claims"]
+    cognito_user_id = claims["sub"]
+
+    model = UpdateProfile.run(
+        cognito_user_id=cognito_user_id, bio=bio, display_name=display_name
+    )
+    if model["errors"] is not None:
+        return model["errors"], 422
+    else:
+        return model["data"], 200
 
 
 @app.route("/api/message_groups", methods=["GET"])
