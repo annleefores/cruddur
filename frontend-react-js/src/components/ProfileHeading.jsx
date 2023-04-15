@@ -1,5 +1,6 @@
 import "./ProfileHeading.css";
 import EditProfileButton from "../components/EditProfileButton";
+import ProfileAvatar from "./ProfileAvatar";
 
 export default function ProfileHeading(props) {
   const backgroundImage =
@@ -15,12 +16,7 @@ export default function ProfileHeading(props) {
       <div className="title">{props.profile.display_name}</div>
       <div className="cruds_count">{props.profile.cruds_count}Cruds</div>
       <div className="banner" style={styles}>
-        <div className="avatar">
-          <img
-            alt="profile_pic"
-            src="https://assets.annleefores.cloud/avatars/data.jpg"
-          />
-        </div>
+        <ProfileAvatar id={props.profile.cognito_user_uuid} />
       </div>
 
       <div className="info">
