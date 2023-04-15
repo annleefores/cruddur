@@ -22,6 +22,12 @@ exports.handler = async (event) => {
     try {
         const payload = await jwtVerifier.verify(jwt);
         console.log("Access allowed. JWT payload:", payload);
+        return {
+            isAuthorized: true,
+            "context": {
+                "sub": payload.sub
+            },
+        };
     } catch (err) {
         console.error("Access forbidden:", err);
         return {
@@ -29,7 +35,4 @@ exports.handler = async (event) => {
         };
     }
 
-    return {
-        isAuthorized: true,
-    };
 };

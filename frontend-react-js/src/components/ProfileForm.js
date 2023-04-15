@@ -4,11 +4,11 @@ import process from "process";
 import { getAccessToken } from "lib/CheckAuth";
 
 export default function ProfileForm(props) {
-  const [bio, setBio] = React.useState(0);
-  const [displayName, setDisplayName] = React.useState(0);
+  const [bio, setBio] = React.useState("");
+  const [displayName, setDisplayName] = React.useState("");
 
   React.useEffect(() => {
-    setBio(props.profile.bio);
+    setBio(props.profile.bio || "");
     setDisplayName(props.profile.display_name);
   }, [props.profile]);
 
@@ -19,8 +19,9 @@ export default function ProfileForm(props) {
     const size = file.size;
     const type = file.type;
     const preview_image_url = URL.createObjectURL(file);
-
-    const presignedurl = await s3uploadKey();
+    const fileparts = filename.split(".");
+    const extension = fileparts[fileparts.length - 1];
+    const presignedurl = await s3uploadKey(extension);
 
     console.log("presignedurl", presignedurl);
 
@@ -34,9 +35,8 @@ export default function ProfileForm(props) {
         },
       });
 
-      let data = await res.json();
       if (res.status === 200) {
-        console.log("presigned_url", data);
+        console.log("uploaded");
       } else {
         console.log(res);
       }
@@ -45,12 +45,17 @@ export default function ProfileForm(props) {
     }
   };
 
-  const s3uploadKey = async (event) => {
+  const s3uploadKey = async (extension) => {
+    console.log("ext", extension);
     try {
-      const backend_url = `${process.env.REACT_APP_API_GATEWAY_ENDPOINT_URL}`;
+      const gateway_url = `${process.env.REACT_APP_API_GATEWAY_ENDPOINT_URL}`;
       await getAccessToken();
       const access_token = localStorage.getItem("access_token");
-      const res = await fetch(backend_url, {
+      const json = {
+        extension: extension,
+      };
+      const res = await fetch(gateway_url, {
+        body: JSON.stringify(json),
         method: "POST",
         headers: {
           Authorization: `Bearer ${access_token}`,
@@ -110,7 +115,6 @@ export default function ProfileForm(props) {
   };
 
   const close = (event) => {
-    console.log("close", event.target);
     if (event.target.classList.contains("profile_popup")) {
       props.setPopped(false);
     }
