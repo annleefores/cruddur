@@ -2,11 +2,19 @@
 
 ## [Required Homework](#required-homework-1)
 
-- []()
+- [Implement CDK Stack](#what-is-cdk)
+- [Serve Avatars via CloudFront](#serving-avatars-via-cloudfront)
+- [Implement Users Profile Page](#implement-users-profile-page)
+- [Implement Users Profile Form](#implement-users-profile-page)
+- [Implement Backend Migrations](#implement-migrations-backend-endpoint-and-profile-form)
+- [Presigned URL generation via Ruby Lambda](#implement-avatar-uploading)
+- [HTTP API Gateway with Lambda Authorizer](#implement-avatar-uploading)
+- [Create JWT Lambda Layer](#fix-cors-aws-lambda)
+- [Render Avatars in App via CloudFront](#render-avatar-from-cloudfront)
 
 ## [Homework Challenges](#homework-challenges-1)
 
-- []()
+- [Passing the JWT sub from Authorizer Lambda to CruddurAvatarUpload Lambda](#passing-the-jwt-sub-from-authorizer-lambda-to-crudduravatarupload-lambda)
 
 ## Required Homework
 
