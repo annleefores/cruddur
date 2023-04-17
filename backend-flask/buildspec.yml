@@ -30,8 +30,8 @@ env:
     REPO_NAME: backend-flask:latest
 
   parameter-store:
-    AWS_ACCOUNT_ID: "/cruddur/backend-flask/AWS_ACCOUNT_ID"
-    IMAGE_URL: "/cruddur/backend-flask/BACKEND_IMAGE_URL"
+    AWS_ACCOUNT_ID: /cruddur/backend-flask/AWS_ACCOUNT_ID
+    IMAGE_URL: /cruddur/backend-flask/BACKEND_IMAGE_URL
 
 artifacts:
   files:
