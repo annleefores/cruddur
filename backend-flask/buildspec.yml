@@ -27,7 +27,7 @@ env:
   variables:
     AWS_DEFAULT_REGION: us-east-1
     CONTAINER_NAME: backend-flask
-    REPO_NAME: backend-flask
+    REPO_NAME: backend-flask:latest
 
   parameter-store:
     AWS_ACCOUNT_ID: /cruddur/backend-flask/AWS_ACCOUNT_ID
