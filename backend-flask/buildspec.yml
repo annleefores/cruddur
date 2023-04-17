@@ -28,19 +28,8 @@ env:
     AWS_DEFAULT_REGION: us-east-1
     CONTAINER_NAME: backend-flask
     REPO_NAME: backend-flask:latest
-    FRONTEND_URL: https://annleefores.cloud
-    BACKEND_URL: https://api.annleefores.cloud
-    OTEL_SERVICE_NAME: "backend-flask"
-    OTEL_EXPORTER_OTLP_ENDPOINT: "https://api.honeycomb.io"
 
   parameter-store:
-    AWS_ACCESS_KEY_ID: "/cruddur/backend-flask/AWS_ACCESS_KEY_ID"
-    AWS_COGNITO_USER_POOL_CLIENT_ID: "/cruddur/backend-flask/AWS_COGNITO_USER_POOL_CLIENT_ID"
-    AWS_COGNITO_USER_POOL_ID: "/cruddur/backend-flask/AWS_COGNITO_USER_POOL_ID"
-    AWS_SECRET_ACCESS_KEY: "/cruddur/backend-flask/AWS_SECRET_ACCESS_KEY"
-    CONNECTION_URL: "/cruddur/backend-flask/CONNECTION_URL"
-    OTEL_EXPORTER_OTLP_HEADERS: "/cruddur/backend-flask/OTEL_EXPORTER_OTLP_HEADERS"
-    ROLLBAR_ACCESS_TOKEN: "/cruddur/backend-flask/ROLLBAR_ACCESS_TOKEN"
     AWS_ACCOUNT_ID: "/cruddur/backend-flask/AWS_ACCOUNT_ID"
     IMAGE_URL: "/cruddur/backend-flask/BACKEND_IMAGE_URL"
 
