@@ -2,11 +2,16 @@
 
 ## [Required Homework](#required-homework-1)
 
-- []()
+- [Configuring CodePipeline](#codepipeline)
+- [Configuring CodeBuild Part 1](#codebuild-project)
+- [Add Build stage to Pipeline](#add-build-stage-to-pipeline)
+- [CICD Pipeline Security](#ci-cd-pipeline-security-explained-for-aws)
 
 ## [Homework Challenges](#homework-challenges-1)
 
-- []()
+- [Parameter store value in buildspec](#parameter-store-values-in-build-spec)
+- [ECR CodeBuild Permissions](#ecr-codebuild-permissions)
+- [Create test build and add step to codePipeline](#create-test-build-and-add-step-to-codepipeline)
 
 ## Required Homework
 
