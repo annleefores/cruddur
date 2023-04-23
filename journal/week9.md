@@ -35,7 +35,7 @@ Note: Artifacts are used to store outputs from different stages of the pipeline,
 - Enter **backend-flask** as the service name and click **Next**.
 - Click on **Create Pipeline** to finish.
 
-![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/94cc35e4-8f3e-49f0-80e8-8756e9811f83/Untitled.png)
+![create-pipeline](media/week9/images/1-create-pipeline.png)
 
 ### CodeBuild Project
 
@@ -58,7 +58,7 @@ Note: Artifacts are used to store outputs from different stages of the pipeline,
 - Turn on **CloudWatch Logs**.
 - Click on **Create build project**.
 
-![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/08de238d-6a64-4688-985d-62f14421f826/Untitled.png)
+![build](media/week9/images/2-build.png)
 
 ### `buildspec.yml`
 
@@ -130,11 +130,11 @@ To allow CodeBuild to retrieve custom environment variables stored in Amazon EC2
 
 - Click **Release Changes** to run the pipeline
 
-![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/7dfe172f-31b2-4784-b291-4f13eb3f482d/Untitled.png)
+![pipeline-update](media/week9/images/3-pipeline-update.png)
 
 ⚠️ Make sure to keep the ECS Fargate services running for deployment to work.
 
-![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/d90aee05-84f8-44ae-a40b-2760b6af5acf/Untitled.png)
+![deployment-success](media/week9/images/4-deployment-success.png)
 
 ### Test Deployment
 
@@ -146,7 +146,7 @@ return {"success": True, "ver": 1}, 200
 
 Push the changes to prod and visit API health check URL
 
-![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/af3d438a-0ce9-477c-b87a-ee04237be349/Untitled.png)
+![checking-deploy](media/week9/images/5-checking-deploy.png)
 
 ### CI CD Pipeline SECURITY EXPLAINED FOR AWS
 
@@ -167,7 +167,7 @@ Non AWS Code Repo’s: GitLab, GitHub, Bitbucket
 
 **Simple CI/CD Pipeline Architecture**
 
-![6-codepipline.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/b4140ddc-dcd9-48cc-804e-27fb972da943/6-codepipline.png)
+![codepipline](media/week9/images/6-codepipline.png)
 
 **Security Considerations**
 
@@ -400,9 +400,9 @@ I could have just used the RDS database, but then I would have to keep it runnin
 
 I had to update the Flask route return to `{"data": data}, 200` for pytest to work in CodeBuild.
 
-![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/af25ae1a-4474-4466-b134-31419ce73808/Untitled.png)
+![build-test](media/week9/images/7-build-test.png)
 
-![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/46f13092-9896-4d36-a713-4f4c56fd0a9c/Untitled.png)
+![test-pipeline](media/week9/images/8-test-pipeline.png)
 
 **Reference:**
 
