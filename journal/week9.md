@@ -227,7 +227,7 @@ So, I added an inline policy to the service role with this action.
       "Sid": "VisualEditor0",
       "Effect": "Allow",
       "Action": "ssm:GetParameters",
-      "Resource": "arn:aws:ssm:us-east-1:***REMOVED***:parameter/cruddur*"
+      "Resource": "arn:aws:ssm:us-east-1:<AWS_ACCOUNT_ID>:parameter/cruddur*"
     }
   ]
 }
