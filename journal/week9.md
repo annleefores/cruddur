@@ -270,7 +270,7 @@ Reference:
 
 **Creating sample test in backend-flask using pytest**
 
-- Install pytest by running `pip3 install pytest`
+- Install pytest by running `pip3 install pytest` and add it to requirements.txt
 - Create a `tests/` folder in the backend flask directory.
 - Inside the `backend-flask/tests/` directory, create a `conftest.py` file to configure pytest.
 
