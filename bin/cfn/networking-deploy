@@ -1,0 +1,18 @@
+#! /usr/bin/bash
+
+set -e # stop execution if anything fails
+
+# set the absolute path to the file
+abs_filepath="$ABS_PATH/aws/cfn/networking/template.yaml"
+
+# get the relative path to the file from the current directory
+FilePath=$(realpath --relative-base="$PWD" "$abs_filepath")
+
+cfn-lint $FilePath
+
+aws cloudformation deploy \
+  --stack-name "Cruddur" \
+  --s3-bucket "cfn-artifacts-annlee" \
+  --template-file $FilePath \
+  --no-execute-changeset \
+  --capabilities CAPABILITY_NAMED_IAM
