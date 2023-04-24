@@ -8,8 +8,11 @@ abs_filepath="$ABS_PATH/aws/cfn/template.yaml"
 # get the relative path to the file from the current directory
 FilePath=$(realpath --relative-base="$PWD" "$abs_filepath")
 
+cfn-lint $FilePath
+
 aws cloudformation deploy \
   --stack-name "my-cluster" \
+  --s3-bucket "cfn-artifacts-annlee" \
   --template-file $FilePath \
   --no-execute-changeset \
   --capabilities CAPABILITY_NAMED_IAM
