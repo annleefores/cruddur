@@ -3,6 +3,7 @@ AWSTemplateFormatVersion: "2010-09-09"
 # VPC
 Resources:
   VPC:
+  # https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ec2-vpc.html
     Type: AWS::EC2::VPC
     Properties:
       CidrBlock: 10.0.0.0/16
@@ -43,15 +44,13 @@ Resources:
       GatewayId: !Ref IGW 
       DestinationCidrBlock: 10.0.0.0/0
 
-  mySubnetRouteTableAssociation:
-  # https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ec2-subnetroutetableassociation.html
-    Type: AWS::EC2::SubnetRouteTableAssociation
-    Properties:
-      SubnetId:
-        Ref: mySubnet
-      RouteTableId:
-        Ref: myRouteTable
-
+  PubSubnetA:
+  PubSubnetB:
+  PubSubnetC:
+  
+  PriSubnetA:
+  PriSubnetB:
+  PriSubnetC:
 
 # IGW
 # Route-Tables
