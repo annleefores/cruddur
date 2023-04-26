@@ -1,5 +1,20 @@
 AWSTemplateFormatVersion: "2010-09-09"
 
+Parameters:
+  # https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/parameters-section-structure.html
+  VPCCiderBlock:
+    
+  Az1:
+    Type: AWS::EC2::AvailabilityZone::Name
+    Default: us-east-1a
+  Az2:
+    Type: AWS::EC2::AvailabilityZone::Name
+    Default: us-east-1b
+  Az3:
+    Type: AWS::EC2::AvailabilityZone::Name
+    Default: us-east-1c
+
+
 # VPC
 Resources:
   VPC:
@@ -42,18 +57,119 @@ Resources:
     Properties:
       RouteTableId: !Ref RouteTable
       GatewayId: !Ref IGW 
-      DestinationCidrBlock: 10.0.0.0/0
+      DestinationCidrBlock: 0.0.0.0/0
 
-  PubSubnetA:
-  PubSubnetB:
-  PubSubnetC:
+  SubnetPub1:
+    # https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ec2-subnet.html
+    Type: AWS::EC2::Subnet
+    Properties:
+      CidrBlock: 10.0.0.0/24
+      EnableDns64: false
+      MapPublicIpOnLaunch: true # public subnet
+      VpcId: !Ref VPC
+      AvailabilityZone: !Ref Az1 
+      Tags:
+      - Key: Name
+        Value: CruddurSubnetPub1
+
+  SubnetPub2:
+    Type: AWS::EC2::Subnet
+    Properties:
+      CidrBlock: 10.0.4.0/24
+      EnableDns64: false
+      MapPublicIpOnLaunch: true # public subnet
+      VpcId: !Ref VPC
+      AvailabilityZone: !Ref Az2 
+      Tags:
+      - Key: Name
+        Value: CruddurSubnetPub2
+
+  SubnetPub3:
+    Type: AWS::EC2::Subnet
+    Properties:
+      CidrBlock: 10.0.8.0/24
+      EnableDns64: false
+      MapPublicIpOnLaunch: true # public subnet
+      VpcId: !Ref VPC
+      AvailabilityZone: !Ref Az3
+      Tags:
+      - Key: Name
+        Value: CruddurSubnetPub3
+
+  SubnetPriv1:
+    Type: AWS::EC2::Subnet
+    Properties:
+      CidrBlock: 10.0.16.0/24
+      EnableDns64: false
+      MapPublicIpOnLaunch: false # public subnet
+      VpcId: !Ref VPC
+      AvailabilityZone: !Ref Az1
+      Tags:
+      - Key: Name
+        Value: CruddurSubnetPriv1
+
+  SubnetPriv2:
+    Type: AWS::EC2::Subnet
+    Properties:
+      CidrBlock: 10.0.20.0/24
+      EnableDns64: false
+      MapPublicIpOnLaunch: false # public subnet
+      VpcId: !Ref VPC
+      AvailabilityZone: !Ref Az2
+      Tags:
+      - Key: Name
+        Value: CruddurSubnetPriv2
+
+  SubnetPriv3:
+    Type: AWS::EC2::Subnet
+    Properties:
+      CidrBlock: 10.0.24.0/24
+      EnableDns64: false
+      MapPublicIpOnLaunch: false # public subnet
+      VpcId: !Ref VPC
+      AvailabilityZone: !Ref Az3
+      Tags:
+      - Key: Name
+        Value: CruddurSubnetPriv3
+
+  SubnetPub1RTAssociation:
+  # https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ec2-subnetroutetableassociation.html
+    Type: AWS::EC2::SubnetRouteTableAssociation
+    Properties:
+      SubnetId: !Ref SubnetPub1
+      RouteTableId: !Ref RouteTable
+
+  SubnetPub2RTAssociation:
+  # https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ec2-subnetroutetableassociation.html
+    Type: AWS::EC2::SubnetRouteTableAssociation
+    Properties:
+      SubnetId: !Ref SubnetPub2
+      RouteTableId: !Ref RouteTable
+
+  SubnetPub3RTAssociation:
+  # https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ec2-subnetroutetableassociation.html
+    Type: AWS::EC2::SubnetRouteTableAssociation
+    Properties:
+      SubnetId: !Ref SubnetPub3
+      RouteTableId: !Ref RouteTable
   
-  PriSubnetA:
-  PriSubnetB:
-  PriSubnetC:
+  SubnetPriv1RTAssociation:
+  # https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ec2-subnetroutetableassociation.html
+    Type: AWS::EC2::SubnetRouteTableAssociation
+    Properties:
+      SubnetId: !Ref SubnetPriv1
+      RouteTableId: !Ref RouteTable
 
-# IGW
-# Route-Tables
-# subnets a
-# subnets b
-# subnets c
+  SubnetPriv2RTAssociation:
+  # https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ec2-subnetroutetableassociation.html
+    Type: AWS::EC2::SubnetRouteTableAssociation
+    Properties:
+      SubnetId: !Ref SubnetPriv2
+      RouteTableId: !Ref RouteTable
+
+  SubnetPriv3RTAssociation:
+  # https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ec2-subnetroutetableassociation.html
+    Type: AWS::EC2::SubnetRouteTableAssociation
+    Properties:
+      SubnetId: !Ref SubnetPriv3
+      RouteTableId: !Ref RouteTable
