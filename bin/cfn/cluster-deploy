@@ -3,7 +3,7 @@
 set -e # stop execution if anything fails
 
 # set the absolute path to the file
-abs_filepath="$ABS_PATH/aws/cfn/template.yaml"
+abs_filepath="$ABS_PATH/aws/cfn/cluster/template.yaml"
 
 # get the relative path to the file from the current directory
 FilePath=$(realpath --relative-base="$PWD" "$abs_filepath")
