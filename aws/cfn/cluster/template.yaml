@@ -16,6 +16,7 @@ Description: |
   - Frontend Target Group
 
 Parameters:
+
   NetworkingStack:
     Type: String
     Description: This is our base layer of networking components eg. VPC, Subnets
@@ -111,6 +112,7 @@ Resources:
           - ","
           - Fn::ImportValue:
               !Sub "${NetworkingStack}SubnetIds"
+
       LoadBalancerAttributes: 
       # https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-elasticloadbalancingv2-loadbalancer-loadbalancerattributes.html
         - Key: routing.http2.enabled
@@ -157,14 +159,13 @@ Resources:
               Path: "/#{path}"
               Query: "#{query}"
               StatusCode: "HTTP_301"
-  APIALBListenerRule:
+  ApiALBListenerRule:
   # https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-elasticloadbalancingv2-listenerrule.html
-    Type: AWS::ElasticLoadBalancingV2::Listener
+    Type: AWS::ElasticLoadBalancingV2::ListenerRule
     Properties:
       Conditions: 
         - Field: host-header
           HostHeaderConfig:
-          # https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-elasticloadbalancingv2-listenerrule-hostheaderconfig.html
             Values:
              - api.annleefores.cloud
       Actions: 

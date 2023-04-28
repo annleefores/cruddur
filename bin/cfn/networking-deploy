@@ -11,9 +11,9 @@ FilePath=$(realpath --relative-base="$PWD" "$abs_filepath")
 cfn-lint $FilePath
 
 aws cloudformation deploy \
-  --stack-name "Cruddur" \
+  --stack-name "CrdNet" \
   --s3-bucket "cfn-artifacts-annlee" \
   --template-file $FilePath \
   --no-execute-changeset \
-  --tags group=cruddur-cluster \
+  --tags group=cruddur-networking \
   --capabilities CAPABILITY_NAMED_IAM

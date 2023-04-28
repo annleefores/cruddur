@@ -11,7 +11,7 @@ FilePath=$(realpath --relative-base="$PWD" "$abs_filepath")
 cfn-lint $FilePath
 
 aws cloudformation deploy \
-  --stack-name "my-cluster" \
+  --stack-name "CrdCluster" \
   --s3-bucket "cfn-artifacts-annlee" \
   --template-file $FilePath \
   --no-execute-changeset \
