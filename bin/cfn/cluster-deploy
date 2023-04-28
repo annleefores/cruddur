@@ -15,4 +15,5 @@ aws cloudformation deploy \
   --s3-bucket "cfn-artifacts-annlee" \
   --template-file $FilePath \
   --no-execute-changeset \
+  --tags group=cruddur-cluster \
   --capabilities CAPABILITY_NAMED_IAM

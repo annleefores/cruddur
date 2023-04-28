@@ -9,7 +9,7 @@ Description: |
   - Route Table
     - route to the IGW
     - route to Local
-  - 6 Subnets Explicity Associated to Route Table
+  - 6 Subnets Explicitly Associated to Route Table
     - 3 Public Subnets numbered 1 to 3
     - 3 Private Subnets numbered 1 to 3
 
