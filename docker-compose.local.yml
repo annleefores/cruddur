@@ -27,8 +27,8 @@ services:
       # AWS_XRAY_URL: "*4567-${GITPOD_WORKSPACE_ID}.${GITPOD_WORKSPACE_CLUSTER_HOST}*"
       # AWS_XRAY_DAEMON_ADDRESS: "xray-daemon:2000"
 
-      # # Rollbar
-      # ROLLBAR_ACCESS_TOKEN: "${ROLLBAR_ACCESS_TOKEN}"
+      # Rollbar
+      ROLLBAR_ACCESS_TOKEN: "${ROLLBAR_ACCESS_TOKEN}"
 
 
     build: ./backend-flask

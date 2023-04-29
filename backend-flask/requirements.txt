@@ -14,9 +14,9 @@ flask-cors
 # #cloudwatch
 # watchtower
 
- # Rollbar
-# blinker
-# rollbar
+## Rollbar
+blinker
+rollbar
 
 requests
 python-jose
