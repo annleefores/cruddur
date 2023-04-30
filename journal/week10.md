@@ -1,6 +1,6 @@
 # Week 10 — CloudFormation Part 1
 
-## [Required Homework](#required-homework-1)
+## Required Homework
 
 - [Cluster CFN](#cluster-cfn)
 - [CFN for Networking Layer](#cfn-for-networking-layer)
