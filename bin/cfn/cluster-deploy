@@ -2,18 +2,25 @@
 
 set -e # stop execution if anything fails
 
-# set the absolute path to the file
-abs_filepath="$ABS_PATH/aws/cfn/cluster/template.yaml"
+abs_template_filepath="$ABS_PATH/aws/cfn/cluster/template.yaml"
+TemplateFilePath=$(realpath --relative-base="$PWD" "$abs_template_filepath")
 
-# get the relative path to the file from the current directory
-FilePath=$(realpath --relative-base="$PWD" "$abs_filepath")
+abs_config_filepath="$ABS_PATH/aws/cfn/cluster/config.toml"
+ConfigFilePath=$(realpath --relative-base="$PWD" "$abs_config_filepath")
 
-cfn-lint $FilePath
+BUCKET=$(cfn-toml key deploy.bucket -t $ConfigFilePath)
+REGION=$(cfn-toml key deploy.region -t $ConfigFilePath)
+STACK_NAME=$(cfn-toml key deploy.stack_name -t $ConfigFilePath)
+PARAMETERS=$(cfn-toml params v2 -t $ConfigFilePath)
+
+cfn-lint $TemplateFilePath
 
 aws cloudformation deploy \
-  --stack-name "CrdCluster" \
-  --s3-bucket "cfn-artifacts-annlee" \
-  --template-file $FilePath \
+  --stack-name "$STACK_NAME" \
+  --s3-bucket "$BUCKET" \
+  --region $REGION \
+  --template-file $TemplateFilePath \
   --no-execute-changeset \
   --tags group=cruddur-cluster \
+  --parameter-overrides $PARAMETERS \
   --capabilities CAPABILITY_NAMED_IAM

@@ -2,18 +2,23 @@
 
 set -e # stop execution if anything fails
 
-# set the absolute path to the file
 abs_filepath="$ABS_PATH/aws/cfn/networking/template.yaml"
-
-# get the relative path to the file from the current directory
 FilePath=$(realpath --relative-base="$PWD" "$abs_filepath")
+
+abs_config_filepath="$ABS_PATH/aws/cfn/networking/config.toml"
+ConfigFilePath=$(realpath --relative-base="$PWD" "$abs_config_filepath")
+
+BUCKET=$(cfn-toml key deploy.bucket -t $ConfigFilePath)
+REGION=$(cfn-toml key deploy.region -t $ConfigFilePath)
+STACK_NAME=$(cfn-toml key deploy.stack_name -t $ConfigFilePath)
 
 cfn-lint $FilePath
 
 aws cloudformation deploy \
-  --stack-name "CrdNet" \
-  --s3-bucket "cfn-artifacts-annlee" \
-  --template-file $FilePath \
+  --stack-name $STACK_NAME \
+  --s3-bucket $BUCKET \
+  --region $REGION \
+  --template-file "$FilePath" \
   --no-execute-changeset \
   --tags group=cruddur-networking \
   --capabilities CAPABILITY_NAMED_IAM

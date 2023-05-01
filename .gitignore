@@ -6,3 +6,4 @@ node_modules
 temp
 .vscode
 .pytest_cache/
+config.toml

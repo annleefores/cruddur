@@ -2,6 +2,8 @@ tasks:
   - name: cfn
     before: |
       pip3 install cfn-lint
+      cargo install cfn-guard
+      gem install cfn-toml
       
   - name: aws-cli
     env:
