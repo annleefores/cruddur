@@ -214,7 +214,7 @@ Resources:
       IpAddressType: ipv4
       Matcher: 
         HttpCode: 200
-      Protocol: HTTp
+      Protocol: HTTP
       ProtocolVersion: HTTP2
       TargetGroupAttributes: 
         - Key: deregistration_delay.timeout_seconds
@@ -240,7 +240,7 @@ Resources:
       IpAddressType: ipv4
       Matcher: 
         HttpCode: 200
-      Protocol: HTTp
+      Protocol: HTTP
       ProtocolVersion: HTTP2
       TargetGroupAttributes: 
         - Key: deregistration_delay.timeout_seconds
