@@ -250,4 +250,8 @@ Resources:
           !Sub ${NetworkingStack}VpcId
 
 
-# Outputs
+Outputs:
+  ALBSecurityGroupId:
+    Value: !GetAtt ALBSG.GroupID
+    Export:
+      Name: !Sub "${AWS::StackName}ALBSecurityGroupId"
