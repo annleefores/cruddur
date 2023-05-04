@@ -20,15 +20,15 @@ Parameters:
   ContainerPort:
     Type: Number
     Default: 4567
+    
+  ContainerName:
+    Type: String
+    Default: backend-flask
   
   TaskFamily: 
     Type: String
     Default: backend-flask
   
-  ServiceName:
-    Type: String
-    Default: backend-flask
-
   ServiceName:
     Type: String
     Default: backend-flask
@@ -42,8 +42,8 @@ Parameters:
     Default: '512'
 
   EcrImage:
-    Type: String
-    Default: !Sub '${AWS::AccountId}.dkr.ecr.${AWS::Region}.amazonaws.com/backend-flask'
+    Type: AWS::SSM::Parameter::Value<String>
+    Default: /cfn/cruddur/backend-flask/BACKEND_IMAGE_URL
 
   EnvOtelServiceName:
     Type: String
@@ -54,12 +54,12 @@ Parameters:
     Default: https://api.honeycomb.io
 
   EnvAWSCognitoUserPoolId:
-    Type: String
-    Default: !Sub 'arn:aws:ssm:${AWS::Region}:${AWS::AccountId}:parameter/cruddur/backend-flask/AWS_COGNITO_USER_POOL_ID'
+    Type: AWS::SSM::Parameter::Value<String>
+    Default: /cfn/cruddur/backend-flask/EnvAWSCognitoUserPoolId
 
   EnvCognitoUserPoolClientId:
-    Type: String
-    Default: !Sub 'arn:aws:ssm:${AWS::Region}:${AWS::AccountId}:parameter/cruddur/backend-flask/AWS_COGNITO_USER_POOL_CLIENT_ID'
+    Type: AWS::SSM::Parameter::Value<String>
+    Default: '/cfn/cruddur/backend-flask/EnvCognitoUserPoolClientId'
 
   EnvFrontendUrl:
     Type: String
@@ -70,24 +70,24 @@ Parameters:
     Default: "*"
 
   SecretsAWSAccessKeyId:
-    Type: String
-    Default: !Sub 'arn:aws:ssm:${AWS::Region}:${AWS::AccountId}:parameter/cruddur/backend-flask/AWS_ACCESS_KEY_ID'
+    Type: AWS::SSM::Parameter::Value<String>
+    Default: /cfn/cruddur/backend-flask/SecretsAWSAccessKeyId
 
   SecretsSecretAccessKey:
-    Type: String
-    Default: !Sub 'arn:aws:ssm:${AWS::Region}:${AWS::AccountId}:parameter/cruddur/backend-flask/AWS_SECRET_ACCESS_KEY'
+    Type: AWS::SSM::Parameter::Value<String>
+    Default: /cfn/cruddur/backend-flask/SecretsSecretAccessKey
 
   SecretsConnectionUrl:
-    Type: String
-    Default: !Sub 'arn:aws:ssm:${AWS::Region}:${AWS::AccountId}:parameter/cruddur/backend-flask/CONNECTION_URL'
+    Type: AWS::SSM::Parameter::Value<String>
+    Default: /cfn/cruddur/backend-flask/SecretsConnectionUrl
 
   SecretsRollbarAccessToken:
-    Type: String
-    Default: !Sub 'arn:aws:ssm:${AWS::Region}:${AWS::AccountId}:parameter/cruddur/backend-flask/ROLLBAR_ACCESS_TOKEN'
+    Type: AWS::SSM::Parameter::Value<String>
+    Default: /cfn/cruddur/backend-flask/SecretsRollbarAccessToken
 
-  SecretOtelExporterOltpHeaders:
-    Type: String
-    Default: !Sub 'arn:aws:ssm:${AWS::Region}:${AWS::AccountId}:parameter/cruddur/backend-flask/OTEL_EXPORTER_OTLP_HEADERS'
+  SecretsOtelExporterOltpHeaders:
+    Type: AWS::SSM::Parameter::Value<String>
+    Default: /cfn/cruddur/backend-flask/SecretsOtelExporterOltpHeaders
 
 Resources:
   ServiceSG:
@@ -107,24 +107,25 @@ Resources:
               !Sub ${ClusterStack}ALBSecurityGroupId
           FromPort: 80
           ToPort: 80
-          CidrIp: '0.0.0.0/0'
           Description: ALB HTTP
 
   FargateService:
   # https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ecs-service.html
     Type: AWS::ECS::Service
     Properties:
-      Cluster: String
-      DeploymentConfiguration:
-      DeploymentController:
-      DesiredCount: 0
+      Cluster:
+        Fn::ImportValue:
+          !Sub "${ClusterStack}ClusterName"
+      DeploymentController: 
+        Type: ECS
+      DesiredCount: 1
       EnableECSManagedTags: true
       EnableExecuteCommand: true 
-      HealthCheckGracePeriodSeconds: 
-      LaunchType: 
+      HealthCheckGracePeriodSeconds: 0
+      LaunchType: FARGATE
       LoadBalancers:
-        - TargetGroupArn: "arn:aws:elasticloadbalancing:${AWS::Region}:${AWS::AccountId}:targetgroup/cruddur-backend-flask-tg/174e05c72838dc23"
-        - ContainerName: 'backend-flask'
+        - TargetGroupArn: !Sub "arn:aws:elasticloadbalancing:${AWS::Region}1:${AWS::AccountId}:targetgroup/cruddur-backend-flask-tg/174e05c72838dc23"
+        - ContainerName: !Ref ContainerName
         - ContainerPort: !Ref ContainerPort
       NetworkConfiguration:
         AwsvpcConfiguration:
@@ -141,10 +142,10 @@ Resources:
       ServiceRegistries:
         - RegistryArn: !Sub 'arn:aws:servicediscovery:${AWS::Region}:${AWS::AccountId}:service/srv-cruddur-backend-flask'
           Port: !Ref ContainerPort
-          ContainerName: 'backend-flask'
+          ContainerName: !Ref ContainerName
           ContainerPort: !Ref ContainerPort
       ServiceName: !Ref ServiceName
-      TaskDefinition: !Ref TaskFamily
+      TaskDefinition: !Ref TaskDefinition
 
   TaskDefinition:
   # https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ecs-taskdefinition.html
@@ -251,7 +252,7 @@ Resources:
                 Resource: !Sub 'arn:aws:ssm:${AWS::Region}:${AWS::AccountId}:parameter/cruddur/${ServiceName}/*'
       ManagedPolicyArns:
         - arn:aws:iam::aws:policy/CloudWatchLogsFullAccess
-        
+
   TaskRole:
       # https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-iam-role.html
       Type: AWS::IAM::Role
