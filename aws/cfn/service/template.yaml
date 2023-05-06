@@ -95,7 +95,7 @@ Resources:
     Type: AWS::EC2::SecurityGroup
     Properties: 
       GroupDescription: Public Facing SG for Cruddur ALB
-      GroupName: !Sub "${AWS::StackName}ALBSG"
+      GroupName: !Sub "${AWS::StackName}AlbSG"
       VpcId: 
         Fn::ImportValue:
           !Sub ${NetworkingStack}VpcId
@@ -121,12 +121,14 @@ Resources:
       DesiredCount: 1
       EnableECSManagedTags: true
       EnableExecuteCommand: true 
-      HealthCheckGracePeriodSeconds: 0
+      HealthCheckGracePeriodSeconds: 100
       LaunchType: FARGATE
       LoadBalancers:
-        - TargetGroupArn: !Sub "arn:aws:elasticloadbalancing:${AWS::Region}1:${AWS::AccountId}:targetgroup/cruddur-backend-flask-tg/174e05c72838dc23"
-        - ContainerName: !Ref ContainerName
-        - ContainerPort: !Ref ContainerPort
+        - TargetGroupArn:
+            Fn::ImportValue:
+              !Sub "${ClusterStack}BackendTGArn"
+          ContainerName: !Ref ContainerName
+          ContainerPort: !Ref ContainerPort
       NetworkConfiguration:
         AwsvpcConfiguration:
           AssignPublicIp: ENABLED
@@ -139,11 +141,23 @@ Resources:
                   !Sub "${NetworkingStack}PublicSubnetIds"
       PlatformVersion: LATEST
       PropagateTags: SERVICE
-      ServiceRegistries:
-        - RegistryArn: !Sub 'arn:aws:servicediscovery:${AWS::Region}:${AWS::AccountId}:service/srv-cruddur-backend-flask'
-          Port: !Ref ContainerPort
-          ContainerName: !Ref ContainerName
-          ContainerPort: !Ref ContainerPort
+      ServiceConnectConfiguration:
+        Enabled: true
+
+        Namespace: "cruddur"
+        # log config 
+        Services:
+          - DiscoveryName: backend-flask
+            PortName: backend-flask
+            ClientAliases:
+              - Port: !Ref ContainerPort
+            
+      # ServiceRegistries:
+      #   - RegistryArn: !Sub 'arn:aws:servicediscovery:${AWS::Region}:${AWS::AccountId}:service/srv-cruddur-backend-flask'
+      #     Port: !Ref ContainerPort
+      #     ContainerName: !Ref ContainerName
+      #     ContainerPort: !Ref ContainerPort
+
       ServiceName: !Ref ServiceName
       TaskDefinition: !Ref TaskDefinition
 
@@ -281,4 +295,10 @@ Resources:
         ManagedPolicyArns:
           - arn:aws:iam::aws:policy/CloudWatchLogsFullAccess
           - arn:aws:iam::aws:policy/AWSXRayDaemonWriteAccess
+  
+Outputs:
+  ServiceSecurityGroupId:
+    Value: !GetAtt ServiceSG.GroupId
+    Export:
+      Name: !Sub "${AWS::StackName}ServiceSecurityGroupId"
   
