@@ -7,7 +7,7 @@ fi
 
 CONTAINER_NAME=$1
 
-TASK_ARN=$(aws ecs list-tasks --cluster cruddur --service-name $CONTAINER_NAME --output json | jq -r '.taskArns[0]')
+TASK_ARN=$(aws ecs list-tasks --cluster CrdClusterFargateCluster --service-name $CONTAINER_NAME --output json | jq -r '.taskArns[0]')
 
 if [ $CONTAINER_NAME == 'backend-flask' ]; then
     COMMAND="/bin/bash"
@@ -17,7 +17,7 @@ fi
 
 aws ecs execute-command  \
 --region us-east-1 \
---cluster cruddur \
+--cluster CrdClusterFargateCluster \
 --task $TASK_ARN \
 --container $CONTAINER_NAME \
 --command $COMMAND \
