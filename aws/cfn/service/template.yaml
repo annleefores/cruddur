@@ -43,7 +43,7 @@ Parameters:
 
   EcrImage:
     Type: AWS::SSM::Parameter::Value<String>
-    Default: /cfn/cruddur/backend-flask/BACKEND_IMAGE_URL
+    Default: /cfn/cruddur/backend-flask/ECRImage
 
   EnvOtelServiceName:
     Type: String
@@ -103,7 +103,7 @@ Resources:
       DesiredCount: 1
       EnableECSManagedTags: true
       EnableExecuteCommand: true 
-      HealthCheckGracePeriodSeconds: 100
+      HealthCheckGracePeriodSeconds: 0
       LaunchType: FARGATE
       LoadBalancers:
         - TargetGroupArn:
@@ -115,7 +115,8 @@ Resources:
         AwsvpcConfiguration:
           AssignPublicIp: ENABLED
           SecurityGroups:
-            - !GetAtt ServiceSG.GroupId
+            - Fn::ImportValue:
+                !Sub "${ClusterStack}ServiceSecurityGroupId"
           Subnets:
             Fn::Split:
               - ","
@@ -191,10 +192,6 @@ Resources:
                 Value: !Ref EnvOtelServiceName
               - Name: 'OTEL_EXPORTER_OTLP_ENDPOINT'
                 Value: !Ref EnvOtelExporterOtlpEndpoint
-              - Name: 'AWS_COGNITO_USER_POOL_ID'
-                Value: !Ref EnvAWSCognitoUserPoolId
-              - Name: 'AWS_COGNITO_USER_POOL_CLIENT_ID'
-                Value: !Ref EnvCognitoUserPoolClientId
               - Name: 'FRONTEND_URL'
                 Value: !Ref EnvFrontendUrl
               - Name: 'BACKEND_URL'
@@ -212,6 +209,10 @@ Resources:
                 ValueFrom: !Ref SecretsRollbarAccessToken
               - Name: 'OTEL_EXPORTER_OTLP_HEADERS'
                 ValueFrom: !Ref SecretsOtelExporterOltpHeaders
+              - Name: 'AWS_COGNITO_USER_POOL_ID'
+                ValueFrom: !Ref EnvAWSCognitoUserPoolId
+              - Name: 'AWS_COGNITO_USER_POOL_CLIENT_ID'
+                ValueFrom: !Ref EnvCognitoUserPoolClientId
 
   ExecutionRole:
     # https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-iam-role.html
@@ -278,9 +279,4 @@ Resources:
           - arn:aws:iam::aws:policy/CloudWatchLogsFullAccess
           - arn:aws:iam::aws:policy/AWSXRayDaemonWriteAccess
   
-Outputs:
-  ServiceSecurityGroupId:
-    Value: !GetAtt ServiceSG.GroupId
-    Export:
-      Name: !Sub "${AWS::StackName}ServiceSecurityGroupId"
   
