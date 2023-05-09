@@ -22,6 +22,7 @@ provider "aws" {
   region = "us-east-1"
 }
 
+
 module "networking" {
   source = "./networking_modules"
 }
