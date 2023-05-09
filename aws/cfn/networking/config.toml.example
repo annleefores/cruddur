@@ -1,4 +1,4 @@
 [deploy]
 bucket = ''
 region = ''
-stack_name = 'CrdNet'
+stack_name = 'CrdSrvBackendFlask'

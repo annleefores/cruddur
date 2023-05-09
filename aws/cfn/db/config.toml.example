@@ -1,0 +1,9 @@
+[deploy]
+bucket = ''
+region = ''
+stack_name = 'CrdDb'
+
+[parameters]
+ClusterStack = 'CrdCluster'
+NetworkingStack = 'CrdNet'
+MasterUsername = ''
