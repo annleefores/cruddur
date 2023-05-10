@@ -22,5 +22,17 @@ provider "aws" {
   region = "us-east-1"
 }
 
+# get output from network stack
+data "terraform_remote_state" "network" {
+  backend = "s3"
+  config = {
+    bucket = "tf-state-annlee"
+    key    = "terraform/networking/terraform.tfstate"
+    region = "us-east-1"
+  }
+}
+
+
+
 
 

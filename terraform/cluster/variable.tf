@@ -1,29 +1,56 @@
-variable "healthy_threshold" {
+variable "BackendHealthy_threshold" {
   type    = number
   default = 2
 }
 
-variable "unhealthy_threshold" {
+variable "BackendUnhealthy_threshold" {
   type    = number
   default = 2
 }
-variable "interval" {
+variable "BackendInterval" {
   type    = number
   default = 15
 }
-variable "path" {
+variable "BackendPath" {
   type    = string
   default = "/api/health-check"
 }
-variable "port" {
+variable "BackendPort" {
   type    = string
   default = "80"
 }
-variable "timeout" {
+variable "BackendTimeout" {
   type    = number
   default = 5
 }
 variable "BackendPort" {
   type    = number
   default = 4567
+}
+variable "FrontendPort" {
+  type    = number
+  default = 3000
+}
+
+variable "FrontendHealthy_threshold" {
+  type    = number
+  default = 2
+}
+
+variable "FrontendUnhealthy_threshold" {
+  type    = number
+  default = 2
+}
+variable "FrontendInterval" {
+  type    = number
+  default = 15
+}
+variable "FrontendPath" {
+  type    = string
+  default = "/"
+}
+
+variable "FrontendTimeout" {
+  type    = number
+  default = 5
 }
