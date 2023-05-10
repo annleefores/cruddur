@@ -4,7 +4,7 @@ terraform {
     key            = "terraform/networking/terraform.tfstate"
     region         = "us-east-1"
     dynamodb_table = "tf-state-lock"
-    encrypt        = false
+    encrypt        = true
 
   }
   required_providers {
