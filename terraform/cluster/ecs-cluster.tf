@@ -17,7 +17,6 @@ resource "aws_ecs_cluster" "CrdFargateCluster" {
 
 }
 
-
 resource "aws_ecs_cluster_capacity_providers" "ClusterCapProv" {
   cluster_name       = aws_ecs_cluster.CrdFargateCluster.name
   capacity_providers = ["FARGATE"]
