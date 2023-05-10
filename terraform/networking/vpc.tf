@@ -6,20 +6,20 @@ resource "aws_vpc" "cruddur_vpc" {
   enable_dns_hostnames = true
 
   tags = {
-    name = "cruddur_vpc"
+    Name = "crdnetworkvpc"
   }
 
 }
 
-resource "aws_subnet" "public_subnet_1" {
-  for_each                = toset(var.subnet_cidr_blocks)
+resource "aws_subnet" "public_subnet" {
+  for_each                = { for idx, cidr in var.subnet_cidr_blocks : idx => cidr }
   vpc_id                  = aws_vpc.cruddur_vpc.id
   cidr_block              = each.value
-  availability_zone       = var.availability_zones[index(var.subnet_cidr_blocks, each.value)]
+  availability_zone       = var.availability_zones[each.key]
   enable_dns64            = false
   map_public_ip_on_launch = true
 
   tags = {
-    Name = "${var.stack_name}SubnetPub${index(var.subnet_cidr_blocks, each.value) + 1}"
+    Name = "${var.stack_name}SubnetPub${each.key + 1}"
   }
 }

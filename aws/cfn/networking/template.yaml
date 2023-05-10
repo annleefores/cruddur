@@ -134,7 +134,7 @@ Resources:
       AvailabilityZone: !Ref Az1
       Tags:
       - Key: Name
-        Value: !Sub "${AWS::StackName}SubnetPub1"
+        Value: !Sub "${AWS::StackName}SubnetPriv1"
 
   SubnetPriv2:
     Type: AWS::EC2::Subnet
@@ -146,7 +146,7 @@ Resources:
       AvailabilityZone: !Ref Az2
       Tags:
       - Key: Name
-        Value: !Sub "${AWS::StackName}SubnetPub2"
+        Value: !Sub "${AWS::StackName}SubnetPriv2"
 
   SubnetPriv3:
     Type: AWS::EC2::Subnet
@@ -158,7 +158,7 @@ Resources:
       AvailabilityZone: !Ref Az3
       Tags:
       - Key: Name
-        Value: !Sub "${AWS::StackName}SubnetPub3"
+        Value: !Sub "${AWS::StackName}SubnetPriv3"
 
   SubnetPub1RTAssociation:
   # https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ec2-subnetroutetableassociation.html
