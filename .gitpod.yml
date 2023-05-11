@@ -59,11 +59,22 @@ tasks:
       cp .env.example .env
       npm i
       exit
+  - name: aws-sam
+    before: |
+      cd /workspace
+      wget https://github.com/aws/aws-sam-cli/releases/latest/download/aws-sam-cli-linux-x86_64.zip
+      unzip aws-sam-cli-linux-x86_64.zip -d sam-installation
+      sudo ./sam-installation/install
+      sudo rm -rf ./aws-sam-cli-linux-x86_64.zip
+      sudo rm -rf ./aws-sam-cli-linux-x86_64
+      cd $THEIA_WORKSPACE_ROOT
+
 
 vscode:
   extensions:
     - 42Crunch.vscode-openapi
     - cweijan.vscode-postgresql-client2
+    - amazonwebservices.aws-toolkit-vscode
 
 # To open ports automatically
 ports:

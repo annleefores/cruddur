@@ -2,25 +2,22 @@
 
 set -e # stop execution if anything fails
 
-abs_template_filepath="$ABS_PATH/aws/cfn/ddb/template.yaml"
-TemplateFilePath=$(realpath --relative-base="$PWD" "$abs_template_filepath")
+ABS_FILEPATH="$ABS_PATH/aws/lambdas/cruddur-messaging-stream"
+FUNC_DIR=$(realpath --relative-base="$PWD" "$ABS_FILEPATH")
 
-abs_config_filepath="$ABS_PATH/aws/cfn/ddb/config.toml"
-ConfigFilePath=$(realpath --relative-base="$PWD" "$abs_config_filepath")
+ABS_TEMPLATE_FILEPATH="$ABS_PATH/aws/cfn/ddb/template.yaml"
+TEMPLATE_PATH=$(realpath --relative-base="$PWD" "$ABS_TEMPLATE_FILEPATH")
 
-BUCKET=$(cfn-toml key deploy.bucket -t $ConfigFilePath)
-REGION=$(cfn-toml key deploy.region -t $ConfigFilePath)
-STACK_NAME=$(cfn-toml key deploy.stack_name -t $ConfigFilePath)
-PARAMETERS=$(cfn-toml params v2 -t $ConfigFilePath)
+ABS_CONFIG_FILEPATH="$ABS_PATH/aws/cfn/ddb/config.toml"
+CONFIG_PATH=$(realpath --relative-base="$PWD" "$ABS_CONFIG_FILEPATH")
 
-cfn-lint $TemplateFilePath
+# https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/serverless-sam-cli-command-reference.html
+sam build \
+--config-file $ABS_CONFIG_FILEPATH \
+--template $TEMPLATE_PATH \ 
+--build-dir $FUNC_DIR \
+--base-dir $FUNC_DIR
+# --parameter-overrides
 
-aws cloudformation deploy \
-  --stack-name "$STACK_NAME" \
-  --s3-bucket "$BUCKET" \
-  --region $REGION \
-  --template-file $TemplateFilePath \
-  --no-execute-changeset \
-  --tags group=cruddur-ddb \
-  --parameter-overrides $PARAMETERS \
-  --capabilities CAPABILITY_NAMED_IAM
+# sam package
+# sam deploy

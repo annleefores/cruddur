@@ -59,15 +59,15 @@ Resources:
     Properties:
       Architectures: 
         - arm64
-      CodeUri: "????"
+      CodeUri: "???"
+      InlineCode: "???"
       Handler: lambda_handler
       Runtime: !Ref PythonRuntime
       Role: !GetAtt ExecutionRole
       MemorySize: !Ref MemorySize
       PackageType: ZIP
-      InlineCode: "???"
       Timeout: !Ref Timeout
-      
+
       Events:
         Stream:
           Type: DynamoDB
