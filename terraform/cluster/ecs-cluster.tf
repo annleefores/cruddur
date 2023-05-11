@@ -26,3 +26,19 @@ resource "aws_service_discovery_http_namespace" "namespace" {
   name        = "cruddurtf"
   description = "cruddur tf namespace"
 }
+
+# service SG
+resource "aws_security_group" "ServiceSG" {
+  name   = "ServiceSG_TF"
+  vpc_id = data.terraform_remote_state.network.outputs.vpc_id
+}
+
+resource "aws_vpc_security_group_ingress_rule" "ServiceSG_ingress" {
+  security_group_id = aws_security_group.ServiceSG.id
+
+  description                  = "ALB HTTP"
+  from_port                    = var.BackendPort
+  referenced_security_group_id = aws_security_group.ALBSG.id
+  ip_protocol                  = "tcp"
+  to_port                      = var.BackendPort
+}

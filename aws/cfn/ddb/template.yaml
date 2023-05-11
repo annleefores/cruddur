@@ -9,7 +9,7 @@ Parameters:
     Type: String
     Default: python3.9
   MemorySize:
-    Type: String
+    Type: Number 
     Default: 128
   Timeout:
     Type: Number
