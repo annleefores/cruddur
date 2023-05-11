@@ -2,10 +2,10 @@
 
 set -e # stop execution if anything fails
 
-abs_template_filepath="$ABS_PATH/aws/cfn/db/template.yaml"
+abs_template_filepath="$ABS_PATH/aws/cfn/ddb/template.yaml"
 TemplateFilePath=$(realpath --relative-base="$PWD" "$abs_template_filepath")
 
-abs_config_filepath="$ABS_PATH/aws/cfn/db/config.toml"
+abs_config_filepath="$ABS_PATH/aws/cfn/ddb/config.toml"
 ConfigFilePath=$(realpath --relative-base="$PWD" "$abs_config_filepath")
 
 BUCKET=$(cfn-toml key deploy.bucket -t $ConfigFilePath)
@@ -21,6 +21,6 @@ aws cloudformation deploy \
   --region $REGION \
   --template-file $TemplateFilePath \
   --no-execute-changeset \
-  --tags group=cruddur-db \
-  --parameter-overrides $PARAMETERS MasterUserPassword=$DB_PASSWORD\
+  --tags group=cruddur-ddb \
+  --parameter-overrides $PARAMETERS \
   --capabilities CAPABILITY_NAMED_IAM
