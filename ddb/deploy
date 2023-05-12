@@ -2,7 +2,7 @@
 
 set -e # stop execution if anything fails
 
-ABS_FILEPATH="$ABS_PATH/aws/cfn/ddb"
+ABS_FILEPATH="$ABS_PATH/ddb"
 ARTIFACT_BUCKET="cfn-artifacts-annlee"
 
 echo ">>> Deploy <<<"

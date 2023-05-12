@@ -18,6 +18,7 @@ cfn-lint $TemplateFilePath
 aws cloudformation deploy \
   --stack-name "$STACK_NAME" \
   --s3-bucket "$BUCKET" \
+  --s3-prefix db \
   --region $REGION \
   --template-file $TemplateFilePath \
   --no-execute-changeset \

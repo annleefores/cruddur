@@ -2,8 +2,8 @@
 
 set -e # stop execution if anything fails
 
-ABS_FILEPATH="$ABS_PATH/aws/cfn/ddb"
-LAMBDA_FILEPATH="$ABS_PATH/aws/lambdas/cruddur-messaging-stream/"
+ABS_FILEPATH="$ABS_PATH/ddb"
+LAMBDA_FILEPATH="$ABS_PATH/ddb/function/"
 
 echo ">>> Validate <<<"
 
