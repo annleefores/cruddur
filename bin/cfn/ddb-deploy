@@ -2,25 +2,26 @@
 
 set -e # stop execution if anything fails
 
-ABS_FUNC_DIR="$ABS_PATH/aws/lambdas/cruddur-messaging-stream/"
-
-ABS_TEMPLATE_FILEPATH="$ABS_PATH/aws/cfn/ddb/template.yaml"
-
-ABS_CONFIG_FILEPATH="$ABS_PATH/aws/cfn/ddb/config.toml"
-
+ABS_FILEPATH="$ABS_PATH/aws/cfn/ddb"
+LAMBDA_FILEPATH="$ABS_PATH/aws/lambdas/cruddur-messaging-stream/"
 ARTIFACT_BUCKET="cfn-artifacts-annlee"
 
-# https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/serverless-sam-cli-command-reference.html
 sam build \
---config-file $ABS_CONFIG_FILEPATH \
---template-file $ABS_TEMPLATE_FILEPATH \ 
---base-dir $ABS_FUNC_DIR
-# --build-dir $ABS_FUNC_DIR \
+    --config-file $ABS_FILEPATH/config.toml \
+    --template-file $ABS_FILEPATH/template.yaml \
+    --base-dir $LAMBDA_FILEPATH 
 # --parameter-overrides
 
-# sam package \
-# --config-file $ABS_CONFIG_FILEPATH \
-# --template-file $TEMPLATE_PATH \ 
-# --s3-bucket $ARTIFACT_BUCKET
+sam package \
+    --s3-bucket $ARTIFACT_BUCKET \
+    --config-file $ABS_FILEPATH/config.toml \
+    --output-template-file $ABS_PATH/.aws-sam/build/package.yaml
+    --s3-prefix "ddb"
+    --template-file $ABS_PATH/.aws-sam/build/template.yaml"
 
-# sam deploy
+sam deploy \
+    --template-file $ABS_PATH/.aws-sam/build/package.yaml \
+    --config-file $ABS_FILEPATH/config.toml \
+    --stack-name "CrdDdb" \
+    --tags group=cruddur-ddb \
+    --capabilities "CAPABILITY_IAM"
