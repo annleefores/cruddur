@@ -1,0 +1,15 @@
+#! /usr/bin/bash
+
+set -e # stop execution if anything fails
+
+ABS_FILEPATH="$ABS_PATH/aws/cfn/ddb"
+ARTIFACT_BUCKET="cfn-artifacts-annlee"
+
+echo ">>> Package <<<"
+
+sam package \
+    --s3-bucket $ARTIFACT_BUCKET \
+    --config-file $ABS_FILEPATH/config.toml \
+    --output-template-file $ABS_PATH/.aws-sam/build/package.yaml \
+    --s3-prefix "ddb" \
+    --template-file $ABS_PATH/.aws-sam/build/template.yaml

@@ -1,0 +1,20 @@
+#! /usr/bin/bash
+
+set -e # stop execution if anything fails
+
+ABS_FILEPATH="$ABS_PATH/aws/cfn/ddb"
+LAMBDA_FILEPATH="$ABS_PATH/aws/lambdas/cruddur-messaging-stream/"
+
+echo ">>> Validate <<<"
+
+sam validate -t $ABS_FILEPATH/template.yaml
+
+echo ">>> Build <<<"
+# use-container is for building the lambda in a container
+# it's still using the runtimes and its not a custom 
+sam build \
+    --use-container \
+    --config-file $ABS_FILEPATH/config.toml \
+    --template-file $ABS_FILEPATH/template.yaml \
+    --base-dir $LAMBDA_FILEPATH 
+# --parameter-overrides

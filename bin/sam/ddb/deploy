@@ -1,0 +1,16 @@
+#! /usr/bin/bash
+
+set -e # stop execution if anything fails
+
+ABS_FILEPATH="$ABS_PATH/aws/cfn/ddb"
+ARTIFACT_BUCKET="cfn-artifacts-annlee"
+
+echo ">>> Deploy <<<"
+
+sam deploy \
+    --template-file $ABS_PATH/.aws-sam/build/package.yaml \
+    --config-file $ABS_FILEPATH/config.toml \
+    --stack-name "CrdDdb" \
+    --tags group=cruddur-ddb \
+    --no-execute-changeset \
+    --capabilities "CAPABILITY_NAMED_IAM"

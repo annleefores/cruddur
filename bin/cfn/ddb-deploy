@@ -6,22 +6,35 @@ ABS_FILEPATH="$ABS_PATH/aws/cfn/ddb"
 LAMBDA_FILEPATH="$ABS_PATH/aws/lambdas/cruddur-messaging-stream/"
 ARTIFACT_BUCKET="cfn-artifacts-annlee"
 
+echo ">>> Validate <<<"
+
+sam validate -t $ABS_FILEPATH/template.yaml
+
+echo ">>> Build <<<"
+# use-container is for building the lambda in a container
+# it's still using the runtimes and its not a custom 
 sam build \
+    --use-container \
     --config-file $ABS_FILEPATH/config.toml \
     --template-file $ABS_FILEPATH/template.yaml \
     --base-dir $LAMBDA_FILEPATH 
 # --parameter-overrides
 
+echo ">>> Package <<<"
+
 sam package \
     --s3-bucket $ARTIFACT_BUCKET \
     --config-file $ABS_FILEPATH/config.toml \
-    --output-template-file $ABS_PATH/.aws-sam/build/package.yaml
-    --s3-prefix "ddb"
-    --template-file $ABS_PATH/.aws-sam/build/template.yaml"
+    --output-template-file $ABS_PATH/.aws-sam/build/package.yaml \
+    --s3-prefix "ddb" \
+    --template-file $ABS_PATH/.aws-sam/build/template.yaml
+
+echo ">>> Deploy <<<"
 
 sam deploy \
     --template-file $ABS_PATH/.aws-sam/build/package.yaml \
     --config-file $ABS_FILEPATH/config.toml \
     --stack-name "CrdDdb" \
     --tags group=cruddur-ddb \
-    --capabilities "CAPABILITY_IAM"
+    --no-execute-changeset \
+    --capabilities "CAPABILITY_NAMED_IAM"
