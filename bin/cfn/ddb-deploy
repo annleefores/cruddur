@@ -2,27 +2,25 @@
 
 set -e # stop execution if anything fails
 
-ABS_FILEPATH="$ABS_PATH/aws/lambdas/cruddur-messaging-stream/"
-FUNC_DIR=$(realpath --relative-base="$PWD" "$ABS_FILEPATH")
+ABS_FUNC_DIR="$ABS_PATH/aws/lambdas/cruddur-messaging-stream/"
 
 ABS_TEMPLATE_FILEPATH="$ABS_PATH/aws/cfn/ddb/template.yaml"
-TEMPLATE_PATH=$(realpath --relative-base="$PWD" "$ABS_TEMPLATE_FILEPATH")
 
 ABS_CONFIG_FILEPATH="$ABS_PATH/aws/cfn/ddb/config.toml"
-ARTIFACT_BUCKET=cfn-artifacts-annlee
 
+ARTIFACT_BUCKET="cfn-artifacts-annlee"
 
 # https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/serverless-sam-cli-command-reference.html
 sam build \
 --config-file $ABS_CONFIG_FILEPATH \
---template-file $TEMPLATE_PATH \ 
---build-dir $FUNC_DIR \
---base-dir $FUNC_DIR
+--template-file $ABS_TEMPLATE_FILEPATH \ 
+--base-dir $ABS_FUNC_DIR
+# --build-dir $ABS_FUNC_DIR \
 # --parameter-overrides
 
-sam package \
---config-file $ABS_CONFIG_FILEPATH \
---template-file $TEMPLATE_PATH \ 
---s3-bucket $ARTIFACT_BUCKET
+# sam package \
+# --config-file $ABS_CONFIG_FILEPATH \
+# --template-file $TEMPLATE_PATH \ 
+# --s3-bucket $ARTIFACT_BUCKET
 
 # sam deploy
