@@ -4,6 +4,7 @@ local
 frontend-react-js/build
 node_modules
 temp
+tmp/*
 .vscode
 .pytest_cache/
 config.toml

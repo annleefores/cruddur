@@ -1,0 +1,11 @@
+[deploy]
+bucket = ''
+region = ''
+stack_name = 'CrdCicd'
+
+[parameters]
+ServiceStack = 'CrdSrvBackendFlask'
+ClusterStack = 'CrdCluster'
+GitHubBranch = 'prod'
+GitHubRepo = ''
+ArtifactBucketName = ''

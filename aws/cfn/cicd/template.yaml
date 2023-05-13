@@ -8,7 +8,7 @@ Parameters:
   GitHubBranch:
     Type: String
     Default: prod
-  GithubRepo:
+  GitHubRepo:
     Type: String
     Default: 'annleefores/aws-bootcamp-cruddur-2023'
   ClusterStack:
@@ -52,7 +52,7 @@ Resources:
                 - Name: Source
               Configuration:
                 ConnectionArn: !Ref CodeStarConnection
-                FullRepositoryId: !Ref GithubRepo
+                FullRepositoryId: !Ref GitHubRepo
                 BranchName: !Ref GitHubBranch
                 OutputArtifactFormat: "CODE_ZIP"
         - Name: Build
