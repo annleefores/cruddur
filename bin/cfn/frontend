@@ -21,10 +21,10 @@ echo ">>> Deploy CFN <<<"
 aws cloudformation deploy \
   --stack-name "$STACK_NAME" \
   --s3-bucket "$BUCKET" \
-  --s3-prefix cicd \
+  --s3-prefix frontend \
   --region $REGION \
-  --template-file $PackagedPath \
+  --template-file $TemplateFilePath \
   --no-execute-changeset \
-  --tags group=cruddur-cicd \
+  --tags group=cruddur-frontend \
   --parameter-overrides $PARAMETERS \
   --capabilities CAPABILITY_NAMED_IAM
