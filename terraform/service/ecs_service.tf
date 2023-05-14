@@ -1,10 +1,10 @@
 resource "aws_ecs_service" "backend-flask-tf" {
-  name            = "backend-flask-tf"
-  cluster         = data.terraform_remote_state.cluster.outputs.ClusterId
-  task_definition = aws_ecs_task_definition.backendTD.arn
-  desired_count   = 1
-  launch_type     = "FARGATE"
-  #   depends_on                        = [aws_iam_role.CrdExecutionRole_TF, aws_iam_role.CrdTaskRole_TF]
+  name                              = "backend-flask-tf"
+  cluster                           = data.terraform_remote_state.cluster.outputs.ClusterId
+  task_definition                   = aws_ecs_task_definition.backendTD.arn
+  desired_count                     = 1
+  launch_type                       = "FARGATE"
+  depends_on                        = [aws_iam_role.CrdExecutionRole_TF, aws_iam_role.CrdTaskRole_TF]
   enable_ecs_managed_tags           = true
   enable_execute_command            = true
   propagate_tags                    = "SERVICE"
