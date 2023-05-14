@@ -1,12 +1,12 @@
 resource "aws_lb" "crdALB" {
-  name               = "crdALB"
+  name               = "crdALB-TF"
   internal           = false
   load_balancer_type = "application"
   ip_address_type    = "ipv4"
   security_groups    = [aws_security_group.ALBSG.id]
   subnets            = [for subnet in data.terraform_remote_state.network.outputs.PubSubIds : subnet]
 
-  enable_deletion_protection       = true
+  enable_deletion_protection       = false
   enable_cross_zone_load_balancing = true
 
   tags = {

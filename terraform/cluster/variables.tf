@@ -15,10 +15,10 @@ variable "BackendPath" {
   type    = string
   default = "/api/health-check"
 }
-variable "BackendHealthCheckPort" {
-  type    = string
-  default = "80"
-}
+# variable "BackendHealthCheckPort" {
+#   type    = string
+#   default = "80"
+# }
 variable "BackendTimeout" {
   type    = number
   default = 5
@@ -54,10 +54,10 @@ variable "FrontendTimeout" {
   type    = number
   default = 5
 }
-variable "FrontendHealthCheckPort" {
-  type    = string
-  default = "80"
-}
+# variable "FrontendHealthCheckPort" {
+#   type    = string
+#   default = "80"
+# }
 
 variable "certificate_arn" {
   type      = string

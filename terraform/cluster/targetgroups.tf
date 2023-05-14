@@ -17,9 +17,9 @@ resource "aws_lb_target_group" "backendTG" {
     interval            = var.BackendInterval
     matcher             = 200
     path                = var.BackendPath
-    port                = var.BackendHealthCheckPort
-    protocol            = "HTTP"
-    timeout             = var.BackendTimeout
+    # port                = var.BackendHealthCheckPort
+    protocol = "HTTP"
+    timeout  = var.BackendTimeout
   }
 
   tags = {
@@ -43,9 +43,9 @@ resource "aws_lb_target_group" "frontendTG" {
     interval            = var.FrontendInterval
     matcher             = 200
     path                = var.FrontendPath
-    port                = var.FrontendHealthCheckPort
-    protocol            = "HTTP"
-    timeout             = var.FrontendTimeout
+    # port                = var.FrontendHealthCheckPort
+    protocol = "HTTP"
+    timeout  = var.FrontendTimeout
   }
   tags = {
     Name : "FrontendTG"

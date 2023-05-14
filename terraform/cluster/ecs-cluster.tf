@@ -1,5 +1,5 @@
 resource "aws_ecs_cluster" "CrdFargateCluster" {
-  name = "CrdFargateCluster"
+  name = "CrdFargateClusterTF"
 
   setting {
     name  = "containerInsights"
@@ -41,4 +41,11 @@ resource "aws_vpc_security_group_ingress_rule" "ServiceSG_ingress" {
   referenced_security_group_id = aws_security_group.ALBSG.id
   ip_protocol                  = "tcp"
   to_port                      = var.BackendPort
+}
+
+resource "aws_vpc_security_group_egress_rule" "example" {
+  security_group_id = aws_security_group.ServiceSG.id
+
+  cidr_ipv4   = "0.0.0.0/0"
+  ip_protocol = "-1"
 }
