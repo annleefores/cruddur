@@ -38,7 +38,12 @@ resource "aws_vpc_security_group_ingress_rule" "Internet_HTTP" {
   to_port     = 80
 }
 
+resource "aws_vpc_security_group_egress_rule" "ALBSG_egress" {
+  security_group_id = aws_security_group.ALBSG.id
 
+  cidr_ipv4   = "0.0.0.0/0"
+  ip_protocol = "-1"
+}
 resource "aws_lb_listener" "HTTPSList" {
   load_balancer_arn = aws_lb.crdALB.arn
   port              = "443"
@@ -83,7 +88,7 @@ resource "aws_lb_listener_rule" "API_ALB_Listerner_Rule" {
 
   condition {
     host_header {
-      values = ["api.annleefores.cloud"]
+      values = ["testapi.annleefores.cloud"]
     }
   }
 }
