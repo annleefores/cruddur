@@ -22,7 +22,10 @@ Parameters:
     Default: BUILD_GENERAL1_SMALL
   CodeBuildTimeoutMins:
     Type: Number
-    Default: 5
+    Default: 15
+  CodeBuildQueueTimeoutMins:
+    Type: Number
+    Default: 30
   BuildSpec:
     Type: String
     Default: 'buildspec.yaml'
@@ -32,7 +35,8 @@ Resources:
     # https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-codebuild-project.html
     Type: AWS::CodeBuild::Project
     Properties:
-      QueuedTimeoutInMinutes: !Ref CodeBuildTimeoutMins
+      QueuedTimeoutInMinutes: !Ref CodeBuildQueueTimeoutMins
+      TimeoutInMinutes: !Ref CodeBuildTimeoutMins
       ServiceRole: !GetAtt CodeBuildRole.Arn
       # PrivilegedMode is needed to build Docker images
       # even though we have No Artifacts, CodePipeline Demands both to be set as CODEPIPLINE

@@ -1,5 +1,5 @@
 resource "aws_ecs_cluster" "CrdFargateCluster" {
-  name = "CrdFargateClusterTF"
+  name = "CrdCluster_TF"
 
   setting {
     name  = "containerInsights"

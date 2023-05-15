@@ -1,5 +1,5 @@
 resource "aws_ecs_service" "backend-flask-tf" {
-  name                              = "backend-flask-tf"
+  name                              = "CrdSrvBackendFlask_TF"
   cluster                           = data.terraform_remote_state.cluster.outputs.ClusterId
   task_definition                   = aws_ecs_task_definition.backendTD.arn
   desired_count                     = 1
@@ -41,7 +41,7 @@ resource "aws_ecs_service" "backend-flask-tf" {
   }
 
   tags = {
-    Name = "backend-flask-service"
+    Name = "CrdSrvBackendFlask_TF"
   }
 }
 
