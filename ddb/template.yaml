@@ -67,6 +67,9 @@ Resources:
       Role: !GetAtt ExecutionRole.Arn
       MemorySize: !Ref MemorySize
       Timeout: !Ref Timeout
+      Environment:
+        Variables:
+          REGION: !Sub ${AWS::Region}
 
       Events:
         Stream:

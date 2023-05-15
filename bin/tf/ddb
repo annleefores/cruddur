@@ -2,11 +2,11 @@
 
 set -e # stop execution if anything fails
 
-abs_filepath="$ABS_PATH/terraform/db"
+abs_filepath="$ABS_PATH/terraform/ddb"
 FilePath=$(realpath --relative-base="$PWD" "$abs_filepath")
 
 cd $FilePath
 
 terraform validate
 tflint
-terraform apply -var="password=$DB_PASSWORD" -auto-approve
+terraform apply -auto-approve

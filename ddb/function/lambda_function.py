@@ -1,11 +1,14 @@
 import json
 import boto3
 from boto3.dynamodb.conditions import Key, Attr
+import os
+
+region = os.environ.get("REGION")
 
 dynamodb = boto3.resource(
     "dynamodb",
-    region_name="<region>",
-    endpoint_url="http://dynamodb.<region>.amazonaws.com",
+    region_name=region,
+    endpoint_url=f"http://dynamodb.{region}.amazonaws.com",
 )
 
 
