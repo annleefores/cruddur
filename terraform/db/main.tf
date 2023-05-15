@@ -1,7 +1,7 @@
 terraform {
   backend "s3" {
     bucket         = "tf-state-annlee"
-    key            = "terraform/db/terraform.tfstate"
+    key            = "terraform/rds/terraform.tfstate"
     region         = "us-east-1"
     dynamodb_table = "tf-state-lock"
     encrypt        = true
@@ -59,6 +59,7 @@ resource "aws_db_instance" "crd_rds_tf" {
   publicly_accessible          = true
   db_subnet_group_name         = aws_db_subnet_group.RDSsubnetGrp.id
   vpc_security_group_ids       = [aws_security_group.DB_SG_TF.id]
+  skip_final_snapshot          = true
 
 }
 

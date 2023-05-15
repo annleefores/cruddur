@@ -9,4 +9,4 @@ cd $FilePath
 
 terraform validate
 tflint
-terraform apply -var="password=$DB_PASSWORD" -auto-approve
+terraform apply -var="password=$DB_PASSWORD" -auto-approve -lock=false

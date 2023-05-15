@@ -9,7 +9,7 @@ variable "crd_db_tf" {
 }
 variable "deletion_protection" {
   type    = bool
-  default = true
+  default = false
 }
 
 variable "engine_version" {
