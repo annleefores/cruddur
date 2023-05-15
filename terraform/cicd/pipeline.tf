@@ -1,5 +1,6 @@
 resource "aws_s3_bucket" "codepipeline_bucket" {
-  bucket = "tf-codepipeline-artifacts-annlee"
+  bucket        = "tf-codepipeline-artifacts-annlee"
+  force_destroy = true
 }
 
 resource "aws_codepipeline" "codepipeline" {
