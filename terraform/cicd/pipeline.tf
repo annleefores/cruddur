@@ -1,3 +1,7 @@
+resource "aws_s3_bucket" "codepipeline_bucket" {
+  bucket = "tf-codepipeline-artifacts-annlee"
+}
+
 resource "aws_codepipeline" "codepipeline" {
   name     = "crdPipelineTF"
   role_arn = aws_iam_role.codepipeline_role.arn
@@ -6,10 +10,6 @@ resource "aws_codepipeline" "codepipeline" {
     location = aws_s3_bucket.codepipeline_bucket.bucket
     type     = "S3"
 
-    encryption_key {
-      id   = data.aws_kms_alias.s3kmskey.arn
-      type = "KMS"
-    }
   }
 
   stage {

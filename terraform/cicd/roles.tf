@@ -59,7 +59,6 @@ data "aws_iam_policy_document" "codepipeline_inline_policy" {
       "logs:CreateLogGroup",
       "logs:CreateLogStream",
       "logs:PutLogEvents",
-      "cloudformation:*",
       "iam:PassRole",
       "iam:CreateRole",
       "iam:DetachRolePolicy",
@@ -80,8 +79,9 @@ data "aws_iam_policy_document" "codeBuild_inline_policy" {
       "codebuild:StartBuild",
       "codebuild:StopBuild",
       "codebuild:RetryBuild",
+      "codebuild:BatchGetBuilds",
     ]
-    resources = []
+    resources = ["arn:aws:codebuild:${var.Region}:${var.AccountId}:project/${aws_codebuild_project.crd_codebuild.name}"]
     effect    = "Allow"
   }
 }

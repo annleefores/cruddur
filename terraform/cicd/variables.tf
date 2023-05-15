@@ -10,19 +10,13 @@ variable "branch" {
 
 }
 
-variable "artifact_bucket" {
-  type    = string
-  default = 
-
-}
-
 variable "ClusterStack" {
-  type    = string
+  type = string
 
 }
 
 variable "ServiceStack" {
-  type    = string
+  type = string
 
 }
 
@@ -39,28 +33,38 @@ variable "codebuild_image" {
 }
 
 variable "buildspec" {
-  type = string
+  type    = string
   default = "backend-flask/buildspec.yml"
-  
+
 }
 variable "codebuild_queue_timeout" {
-  type = number
+  type    = number
   default = 30
-  
+
 }
 variable "codebuild_build_timeout" {
-  type = number
+  type    = number
   default = 10
-  
+
 }
 
 variable "group_name" {
-  type = string
+  type    = string
   default = "/cruddurtf/codebuild/bake-service"
-  
+
 }
 variable "stream_name" {
-  type = string
+  type    = string
   default = "backend-flask"
-  
+
+}
+
+
+variable "AccountId" {
+  type      = string
+  sensitive = true
+}
+variable "Region" {
+  type      = string
+  sensitive = true
 }
