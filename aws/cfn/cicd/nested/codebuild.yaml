@@ -28,13 +28,17 @@ Parameters:
     Default: 30
   BuildSpec:
     Type: String
-    Default: 'buildspec.yaml'
+    Default: backend-flask/buildspec.yml
+  CodeBuildName:
+    Type: String
+    Default: CrdCodeBuild_CFN
 
 Resources:
   CodeBuild:
     # https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-codebuild-project.html
     Type: AWS::CodeBuild::Project
     Properties:
+      Name: !Ref CodeBuildName 
       QueuedTimeoutInMinutes: !Ref CodeBuildQueueTimeoutMins
       TimeoutInMinutes: !Ref CodeBuildTimeoutMins
       ServiceRole: !GetAtt CodeBuildRole.Arn
@@ -55,6 +59,13 @@ Resources:
       Source:
         Type: CODEPIPELINE
         BuildSpec: !Ref BuildSpec
+      # Triggers:
+      #     BuildType: BUILD
+      #     Webhook: True
+      #     FilterGroups:
+      #     - - Type: EVENT
+      #         Pattern: PULL_REQUEST_MERGED
+        
   CodeBuildRole:
     # https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-iam-role.html
     Type: AWS::IAM::Role
@@ -113,7 +124,29 @@ Resources:
                 Resource:
                   - !Sub arn:aws:logs:${AWS::Region}:${AWS::AccountId}:log-group:${LogGroupPath}*
                   - !Sub arn:aws:logs:${AWS::Region}:${AWS::AccountId}:log-group:${LogGroupPath}:*
+        - PolicyName: !Sub ${AWS::StackName}SSM
+          PolicyDocument:
+            Version: '2012-10-17'
+            Statement:
+              - Action:
+                - ssm:GetParameters
+                Effect: Allow
+                Resource:
+                  - !Sub arn:aws:ssm:${AWS::Region}:${AWS::AccountId}:parameter/cruddur*
+        - PolicyName: !Sub ${AWS::StackName}S3
+          PolicyDocument:
+            Version: '2012-10-17'
+            Statement:
+              - Action:
+                - s3:PutObject
+                - s3:GetObject
+                - s3:GetObjectVersion
+                - s3:GetBucketAcl
+                - s3:GetBucketLocation
+                Effect: Allow
+                Resource:
+                 - arn:aws:s3:::codepipeline-crd-artifacts-annlee/*
 Outputs:
   CodeBuildProjectName:
     Description: "CodeBuildProjectName"
-    Value: !Sub ${AWS::StackName}Project
+    Value: !Ref CodeBuildName

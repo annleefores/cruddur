@@ -6,7 +6,7 @@ resource "aws_codebuild_project" "crd_codebuild" {
   service_role   = aws_iam_role.codebuildrole_tf.arn
 
   artifacts {
-    type = "CODEPIPELINE"
+    type = "NO_ARTIFACTS"
   }
 
   environment {
@@ -18,9 +18,10 @@ resource "aws_codebuild_project" "crd_codebuild" {
 
 
   source {
-    type            = "CODEPIPELINE"
+    type            = "GITHUB"
     buildspec       = var.buildspec
     git_clone_depth = 1
+    location        = "https://github.com/annleefores/aws-bootcamp-cruddur-2023.git"
   }
 
   logs_config {
@@ -34,6 +35,18 @@ resource "aws_codebuild_project" "crd_codebuild" {
   tags = {
     Environment = "dev"
     Name        = "crd_codebuild_tf"
+  }
+}
+
+resource "aws_codebuild_webhook" "codebuild_webhook" {
+  project_name = aws_codebuild_project.crd_codebuild.name
+  build_type   = "BUILD"
+  filter_group {
+    filter {
+      type    = "EVENT"
+      pattern = "PULL_REQUEST_MERGED"
+    }
+
   }
 }
 
