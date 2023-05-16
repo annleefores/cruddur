@@ -1,0 +1,8 @@
+#! /usr/bin/bash
+
+ABS_FILEPATH="$ABS_PATH/frontend-react-js/"
+DIR=$(realpath --relative-base="$PWD" "$ABS_FILEPATH")
+
+cd $DIR
+
+npm run build
