@@ -27,6 +27,7 @@ tasks:
       export GITPOD_IP=$(curl ifconfig.me)
       cd "$THEIA_WORKSPACE_ROOT"
       source "./bin/rds/update-sg-rule"
+      bundle update --bundler
       ruby "./bin/frontend/generate-env"
       ruby "./bin/backend/generate-env"
       exit

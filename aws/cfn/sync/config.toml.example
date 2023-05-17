@@ -1,0 +1,9 @@
+[deploy]
+bucket = ''
+region = ''
+stack_name = 'CrdSyncRole'
+
+[parameters]
+GitHubOrg = ''
+RepositoryName = 'aws-bootcamp-cruddur-2023'
+OIDCProviderArn = ''
