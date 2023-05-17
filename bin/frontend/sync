@@ -3,14 +3,14 @@
 require 'aws_s3_website_sync'
 require 'dotenv'
 
-env_path = "/workspace/aws-bootcamp-cruddur-2023/sync.env"
+env_path = File.expand_path('../../../sync.env', __FILE__)
 Dotenv.load(env_path)
 
-puts "== configuration"
-puts "aws_default_region:   #{ENV["AWS_DEFAULT_REGION"]}"
-puts "s3_bucket:            #{ENV["SYNC_S3_BUCKET"]}"
-puts "distribution_id:      #{ENV["SYNC_CLOUDFRONT_DISTRUBTION_ID"]}"
-puts "build_dir:            #{ENV["SYNC_BUILD_DIR"]}"
+puts ">>> configuration <<<"
+puts "aws_default_region:      #{ENV["AWS_DEFAULT_REGION"]}"
+puts "s3_bucket:               #{ENV["SYNC_S3_BUCKET"]}"
+puts "distribution_id:         #{ENV["SYNC_CLOUDFRONT_DISTRUBTION_ID"]}"
+puts "build_dir:               #{ENV["SYNC_BUILD_DIR"]}"
 
 changeset_path = ENV["SYNC_OUTPUT_CHANGESET_PATH"]
 changeset_path = changeset_path.sub(".json","-#{Time.now.to_i}.json")
