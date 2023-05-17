@@ -2,6 +2,23 @@
 
 ## Required Homework
 
+- [cfn-toml]()
+- [CFN Cluster Layer Continuation](#cfn-cluster-layer-continuation)
+- [CFN Service Layer](#cfn-service-layer)
+- [CFN RDS](#cfn-rds)
+- [SAM CFN for DynamoDB & DynamoDB Streams Lambda](#sam-cfn-for-dynamodb--dynamodb-streams-lambda)
+- [CFN CICD](#cfn-cicd)
+- [CFN Static Website Hosting - Frontend](#cfn-static-website-hosting---frontend)
+- [CFN Diagram](#cfn-diagram)
+- [AWS CloudFormation Security Best Practices](#aws-cloudformation-security-best-practices)
+
+## Homework Challenges
+
+- [Cruddur IaC using Terraform](#cruddur-iac-using-terraform)
+- [Removing exposed AWS Account ID in parameters](#removing-exposed-aws-account-id-in-parameters)
+
+## Required Homework
+
 ### `cfn-toml`
 
 `cfn-toml` is a tool utilized for retrieving environment variables from a config.toml file specifically designed for CloudFormation templates.
@@ -696,7 +713,7 @@ Update Route53 main domain and `api.` subdomain to point to new load balancer (t
 
 ![backend-service-working](media/week11/5-backend-service-working.jpg)
 
-### SAM CFN for Dynamodb & DynamoDB Streams Lambda
+### SAM CFN for DynamoDB & DynamoDB Streams Lambda
 
 Reference: [DynamoDB & DynamoDB Streams](https://docs.aws.amazon.com/lambda/latest/dg/kinesis-tutorial-spec.html)
 
