@@ -1624,6 +1624,8 @@ _Note: CloudFront is a global service, and using an SSL certificate from another
 
 _Created in draw.io_
 
+---
+
 ### AWS CloudFormation Security Best Practices
 
 **AWS CFN Best Practices - AWS**
@@ -1647,6 +1649,8 @@ _Created in draw.io_
   using AWS Private Link etc
 - Only use Trusted source control for sending changes to CFN
 - Develop process for continuously verifying if there is a changes in compromise the known state of a CI/CD pipeline
+
+---
 
 ## Homework Challenges
 
