@@ -698,7 +698,7 @@ Update Route53 main domain and `api.` subdomain to point to new load balancer (t
 
 ### SAM CFN for Dynamodb & DynamoDB Streams Lambda
 
-Reference: [Dynamodb & DynamoDB Streams](https://docs.aws.amazon.com/lambda/latest/dg/kinesis-tutorial-spec.html)
+Reference: [DynamoDB & DynamoDB Streams](https://docs.aws.amazon.com/lambda/latest/dg/kinesis-tutorial-spec.html)
 
 Include `-s3-prefix <prefix_name>` in all CFN deploy scripts to organize artifacts in a dedicated folder.
 
@@ -1444,7 +1444,7 @@ Parameters:
     Type: String
 ```
 
-Create S3 Buckets for www.domain and root domain
+Create S3 Buckets for www.<domain> and <domain>
 
 ```yaml
 WWWBucket:
