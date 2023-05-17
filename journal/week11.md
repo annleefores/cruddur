@@ -116,8 +116,8 @@ Add `VpcId:` to ALBSG service properties.
 
 ```yaml
 VpcId:
-	  Fn::ImportValue:
-	    !Sub ${NetworkingStack}VpcId
+    Fn::ImportValue:
+    !Sub ${NetworkingStack}VpcId
 ```
 
 Add TG ARN outputs to cluster CFN template.
