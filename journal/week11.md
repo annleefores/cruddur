@@ -1641,7 +1641,7 @@ Once I gained sufficient knowledge about Terraform's functionality, I developed 
 
 Personally, I find Terraform's syntax much more familiar as I am accustomed to programming languages like Python. When comparing CFN and Terraform, both have their own advantages and disadvantages.
 
-Here is the link to the Terraform configuration files: [Cruddur Terraform IaC](/home/annlee/aws-bootcamp-cruddur-2023/terraform/)
+Here is the link to the Terraform configuration files: [Cruddur Terraform IaC](../terraform/)
 
 ### Removing exposed AWS Account ID in parameters
 
