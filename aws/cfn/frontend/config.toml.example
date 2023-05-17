@@ -2,3 +2,8 @@
 bucket = ''
 region = ''
 stack_name = 'CrdFrontend'
+
+[parameters]
+RootBucketName = '<domain>'
+WWWBucketName = 'www.<domain>'
+CertificateArn = ''
