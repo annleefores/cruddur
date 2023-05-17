@@ -1632,3 +1632,25 @@ _Created in draw.io_
 - Develop process for continuously verifying if there is a changes in compromise the known state of a CI/CD pipeline
 
 ## Homework Challenges
+
+### Cruddur IaC using Terraform
+
+I took on the challenge of creating most of the infrastructure as code (IaC) for Cruddur using Terraform. Since it was my first time using Terraform, I had to learn the basics and try it out with some simple projects.
+
+Once I gained sufficient knowledge about Terraform's functionality, I developed the IaC for Cruddur in a similar manner to how we did it with CFN. This process provided me with valuable insights into how IaC tools work and the slight differences in how each tool handles various aspects.
+
+Personally, I find Terraform's syntax much more familiar as I am accustomed to programming languages like Python. When comparing CFN and Terraform, both have their own advantages and disadvantages.
+
+Here is the link to the Terraform configuration files: [Cruddur Terraform IaC](/home/annlee/aws-bootcamp-cruddur-2023/terraform/)
+
+### Removing exposed AWS Account ID in parameters
+
+To avoid hardcoding the AWS account ID, I chose to store data as strings in parameter store values and retrieve them as parameters using the following method:
+
+Unfortunately, there is a limitation in the CloudFormation (CFN) template that prevents us from directly using secure strings in the parameters section for certain resources, such as Fargate.
+
+```yaml
+Name:
+  Type: AWS::SSM::Parameter::Value<String>
+  Default: <parameter_name>
+```
