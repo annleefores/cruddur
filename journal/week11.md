@@ -1635,7 +1635,7 @@ _Created in draw.io_
 
 ### Cruddur IaC using Terraform
 
-I took on the challenge of creating most of the infrastructure as code (IaC) for Cruddur using Terraform. Since it was my first time using Terraform, I had to learn the basics and try it out with some simple projects.
+I took on the challenge of creating most of the IaC for Cruddur using Terraform. Since it was my first time using Terraform, I had to learn the basics and try it out with some simple projects.
 
 Once I gained sufficient knowledge about Terraform's functionality, I developed the IaC for Cruddur in a similar manner to how we did it with CFN. This process provided me with valuable insights into how IaC tools work and the slight differences in how each tool handles various aspects.
 
