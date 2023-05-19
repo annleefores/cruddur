@@ -6,6 +6,7 @@ from jose.utils import base64url_decode
 import os
 from functools import wraps, partial
 from flask import request, g
+from flask import current_app as app
 
 
 class FlaskAWSCognitoError(Exception):
@@ -138,7 +139,7 @@ def jwt_required(f=None, on_error=None):
             ]  # storing the user_id in the global g object
         except TokenVerifyError as e:
             # unauthenticated request
-            # app.logger.debug(e)
+            app.logger.debug(e)
             if on_error:
                 return on_error(e)
             return {}, 401
