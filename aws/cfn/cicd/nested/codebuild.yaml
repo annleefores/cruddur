@@ -33,6 +33,7 @@ Parameters:
     Type: String
   BuildSpec:
     Type: String
+    Default: backend-flask/buildspec.yml
 
 Resources:
   CodeBuild:
