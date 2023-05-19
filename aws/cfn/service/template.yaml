@@ -63,11 +63,9 @@ Parameters:
 
   EnvFrontendUrl:
     Type: String
-    Default: "*"
 
   EnvBackendUrl:
     Type: String
-    Default: "*"
 
   SecretsAWSAccessKeyId:
     Type: AWS::SSM::Parameter::Value<String>
@@ -173,7 +171,7 @@ Resources:
                 - 'CMD-SHELL'
                 - 'python /backend-flask/bin/health-check'
               Interval: 30
-              Timeout: 5
+              Timeout: 6
               Retries: 3
               StartPeriod: 60
             PortMappings:

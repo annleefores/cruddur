@@ -31,12 +31,12 @@ variable "OTEL_EXPORTER_OTLP_ENDPOINT" {
 }
 variable "FRONTEND_URL" {
   type    = string
-  default = "*"
+  default = "https://annleefores.cloud"
 
 }
 variable "BACKEND_URL" {
   type    = string
-  default = "*"
+  default = "https://api.annleefores.cloud"
 
 }
 variable "service_cpu" {

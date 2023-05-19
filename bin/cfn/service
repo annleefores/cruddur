@@ -11,6 +11,8 @@ ConfigFilePath=$(realpath --relative-base="$PWD" "$abs_config_filepath")
 BUCKET=$(cfn-toml key deploy.bucket -t $ConfigFilePath)
 REGION=$(cfn-toml key deploy.region -t $ConfigFilePath)
 STACK_NAME=$(cfn-toml key deploy.stack_name -t $ConfigFilePath)
+PARAMETERS=$(cfn-toml params v2 -t $ConfigFilePath)
+
 
 cfn-lint $TemplateFilePath
 
@@ -22,4 +24,5 @@ aws cloudformation deploy \
   --template-file $TemplateFilePath \
   --no-execute-changeset \
   --tags group=cruddur-backend-flask \
+  --parameter-overrides $PARAMETERS \
   --capabilities CAPABILITY_NAMED_IAM
