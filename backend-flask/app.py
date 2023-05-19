@@ -1,13 +1,14 @@
 # ------------flask deps--------------
 from flask import Flask
-from flask import request
+from flask import request, g
 from flask_cors import CORS, cross_origin
 import os
 
 # import json ## for envoy-proxy
 
 
-from lib.middleware import middleware  # for middleware auth
+# from lib.middleware import middleware  # for middleware auth
+from lib.cognito_jwt_token import jwt_required
 
 # # ----------openTelemetry - Honeycomb------------
 # from opentelemetry import trace
@@ -65,8 +66,8 @@ from flask import got_request_exception
 app = Flask(__name__)
 
 
-# calling python middleware
-app.wsgi_app = middleware(app.wsgi_app)
+# # calling python middleware
+# app.wsgi_app = middleware(app.wsgi_app)
 
 
 # # rollbar - init
@@ -149,15 +150,13 @@ def rollbar_test():
 
 @app.route("/api/profile/update", methods=["POST", "OPTIONS"])
 @cross_origin()
+@jwt_required()
 def data_update_profile():
     bio = request.json.get("bio", None)
     display_name = request.json.get("display_name", None)
 
-    claims = request.environ["claims"]
-    cognito_user_id = claims["sub"]
-
     model = UpdateProfile.run(
-        cognito_user_id=cognito_user_id, bio=bio, display_name=display_name
+        cognito_user_id=g.cognito_user_id, bio=bio, display_name=display_name
     )
     if model["errors"] is not None:
         return model["errors"], 422
@@ -166,11 +165,9 @@ def data_update_profile():
 
 
 @app.route("/api/message_groups", methods=["GET"])
+@jwt_required()
 def data_message_groups():
-    claims = request.environ["claims"]
-    cognito_user_id = claims["sub"]
-    model = MessageGroups.run(cognito_user_id=cognito_user_id)
-
+    model = MessageGroups.run(cognito_user_id=g.cognito_user_id)
     if model["errors"] is not None:
         return model["errors"], 422
     else:
@@ -178,11 +175,10 @@ def data_message_groups():
 
 
 @app.route("/api/messages/<string:message_group_uuid>", methods=["GET"])
+@jwt_required()
 def data_messages(message_group_uuid):
-    claims = request.environ["claims"]
-    cognito_user_id = claims["sub"]
     model = Messages.run(
-        cognito_user_id=cognito_user_id, message_group_uuid=message_group_uuid
+        cognito_user_id=g.cognito_user_id, message_group_uuid=message_group_uuid
     )
     if model["errors"] is not None:
         return model["errors"], 422
@@ -192,20 +188,18 @@ def data_messages(message_group_uuid):
 
 @app.route("/api/messages", methods=["POST", "OPTIONS"])
 @cross_origin()
+@jwt_required()
 def data_create_message():
     message_group_uuid = request.json.get("message_group_uuid", None)
     user_receiver_handle = request.json.get("handle", None)
     message = request.json["message"]
-
-    claims = request.environ["claims"]
-    cognito_user_id = claims["sub"]
 
     if message_group_uuid is None:
         # Create for the first time
         model = CreateMessage.run(
             mode="create",
             message=message,
-            cognito_user_id=cognito_user_id,
+            cognito_user_id=g.cognito_user_id,
             user_receiver_handle=user_receiver_handle,
         )
     else:
@@ -214,7 +208,7 @@ def data_create_message():
             mode="update",
             message=message,
             message_group_uuid=message_group_uuid,
-            cognito_user_id=cognito_user_id,
+            cognito_user_id=g.cognito_user_id,
         )
 
     if model["errors"] is not None:
@@ -224,17 +218,9 @@ def data_create_message():
 
 
 @app.route("/api/activities/home", methods=["GET"])
+@jwt_required(on_error=default_home_feed)
 def data_home():
-    auth_state = request.environ["auth"]
-    claims = request.environ["claims"]
-
-    if auth_state:
-        data = HomeActivities.run(cognito_user_id=claims["username"])
-        app.logger.debug("authenticated")
-    else:
-        app.logger.debug("unauthenticated")
-        data = HomeActivities.run()
-
+    data = HomeActivities.run(cognito_user_id=g.cognito_user_id)
     return data, 200
 
 
@@ -296,12 +282,9 @@ def data_search():
 @app.route("/api/activities", methods=["POST", "OPTIONS"])
 @cross_origin()
 def data_activities():
-    claims = request.environ["claims"]
-    cognito_user_id = claims["sub"]
-
     message = request.json["message"]
     ttl = request.json["ttl"]
-    model = CreateActivity.run(message, cognito_user_id, ttl)
+    model = CreateActivity.run(message, g.cognito_user_id, ttl)
     if model["errors"] is not None:
         return model["errors"], 422
     else:
