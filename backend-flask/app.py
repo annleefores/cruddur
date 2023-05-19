@@ -1,8 +1,7 @@
 # ------------flask deps--------------
 from flask import Flask
 from flask import request, g
-from flask_cors import CORS, cross_origin
-import os
+from flask_cors import cross_origin
 
 from lib.rollbar import init_rollbar
 from lib.xray import init_xray
@@ -11,10 +10,7 @@ from lib.cloudwatch import init_cloudwatch
 from lib.honeycomb import init_honeycomb
 from lib.helpers import model_json
 
-
-# from lib.middleware import middleware  # for middleware auth
 from lib.cognito_jwt_token import jwt_required
-
 
 # --------------Services-----------------
 from services.users_short import *
@@ -41,40 +37,10 @@ with app.app_context():
     g.rollbar = init_rollbar(app)
 
 
-# # calling python middleware
-# app.wsgi_app = middleware(app.wsgi_app)
-
-
-frontend = os.getenv("FRONTEND_URL")
-backend = os.getenv("BACKEND_URL")
-origins = [frontend, backend]
-cors = CORS(
-    app,
-    resources={r"/api/*": {"origins": origins}},
-    headers=[
-        "Content-Type",
-        "Authorization",
-        "traceparent",
-        "if-modified-since",
-        "x-current-user",
-    ],
-    expose_headers=["Authorization", "location", "link", "x-current-user"],
-    methods="OPTIONS,GET,HEAD,POST",
-)
-
-
-# # ----- rollbar---------------
 @app.route("/rollbar/test")
 def rollbar_test():
     rollbar.report_message("Hello Error!", "warning")
     return "Hello World!"
-
-
-def model_json(model):
-    if model["errors"] is not None:
-        return model["errors"], 422
-    else:
-        return model["data"], 200
 
 
 @app.route("/api/profile/update", methods=["POST", "OPTIONS"])

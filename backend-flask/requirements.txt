@@ -1,18 +1,18 @@
 flask
 flask-cors
 
-# # openTelemetry - Honeycomb
-# opentelemetry-api 
-# opentelemetry-sdk
-# opentelemetry-exporter-otlp-proto-http
-# opentelemetry-instrumentation-flask
-# opentelemetry-instrumentation-requests
+# openTelemetry - Honeycomb
+opentelemetry-api 
+opentelemetry-sdk
+opentelemetry-exporter-otlp-proto-http
+opentelemetry-instrumentation-flask
+opentelemetry-instrumentation-requests
 
-# # aws xray
-# aws-xray-sdk
+# aws xray
+aws-xray-sdk
 
-# #cloudwatch
-# watchtower
+#cloudwatch
+watchtower
 
 ## Rollbar
 blinker

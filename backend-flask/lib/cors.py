@@ -9,7 +9,13 @@ def init_cors(app):
     cors = CORS(
         app,
         resources={r"/api/*": {"origins": origins}},
-        headers=["Content-Type", "Authorization"],
-        expose_headers="Authorization",
+        headers=[
+            "Content-Type",
+            "Authorization",
+            "traceparent",
+            "if-modified-since",
+            "x-current-user",
+        ],
+        expose_headers=["Authorization", "location", "link", "x-current-user"],
         methods="OPTIONS,GET,HEAD,POST",
     )
