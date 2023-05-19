@@ -26,13 +26,12 @@ Parameters:
   CodeBuildQueueTimeoutMins:
     Type: Number
     Default: 30
-  BuildSpec:
-    Type: String
-    Default: 'buildspec.yaml'
   CodeBuildName:
     Type: String
     Default: CrdCodeBuild
   ArtifactBucketName:
+    Type: String
+  BuildSpec:
     Type: String
 
 Resources:
