@@ -28,9 +28,9 @@ VALUES (
         'londo',
         'MOCK'
     ),(
-        'Annlee Test',
+        'techno dude',
         'technodudetrickster@gmail.com',
-        'Annlee',
+        'technodude',
         'MOCK'
     );
 

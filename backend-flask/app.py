@@ -296,16 +296,16 @@ def data_search():
 @app.route("/api/activities", methods=["POST", "OPTIONS"])
 @cross_origin()
 def data_activities():
-    # user_handle = "annleetest"
-    user_handle = request.json["user_handle"]
+    claims = request.environ["claims"]
+    cognito_user_id = claims["sub"]
+
     message = request.json["message"]
     ttl = request.json["ttl"]
-    model = CreateActivity.run(message, user_handle, ttl)
+    model = CreateActivity.run(message, cognito_user_id, ttl)
     if model["errors"] is not None:
         return model["errors"], 422
     else:
         return model["data"], 200
-    return
 
 
 @app.route("/api/activities/<string:activity_uuid>", methods=["GET"])
