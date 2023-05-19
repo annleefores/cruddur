@@ -31,7 +31,7 @@ Parameters:
     Default: backend-flask/buildspec.yml
   CodeBuildName:
     Type: String
-    Default: CrdCodeBuild_CFN
+    Default: CrdCodeBuild
 
 Resources:
   CodeBuild:
@@ -149,4 +149,4 @@ Resources:
 Outputs:
   CodeBuildProjectName:
     Description: "CodeBuildProjectName"
-    Value: !Ref CodeBuildName
+    Value: !Ref CodeBuild
