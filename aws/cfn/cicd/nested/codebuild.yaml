@@ -28,10 +28,12 @@ Parameters:
     Default: 30
   BuildSpec:
     Type: String
-    Default: backend-flask/buildspec.yml
+    Default: 'buildspec.yaml'
   CodeBuildName:
     Type: String
     Default: CrdCodeBuild
+  ArtifactBucketName:
+    Type: String
 
 Resources:
   CodeBuild:
@@ -133,19 +135,17 @@ Resources:
                 Effect: Allow
                 Resource:
                   - !Sub arn:aws:ssm:${AWS::Region}:${AWS::AccountId}:parameter/cruddur*
-        - PolicyName: !Sub ${AWS::StackName}S3
+        - PolicyName: !Sub ${AWS::StackName}S3ArtifactsAccess
           PolicyDocument:
             Version: '2012-10-17'
             Statement:
               - Action:
-                - s3:PutObject
-                - s3:GetObject
-                - s3:GetObjectVersion
-                - s3:GetBucketAcl
-                - s3:GetBucketLocation
+                - s3:*
                 Effect: Allow
                 Resource:
-                 - arn:aws:s3:::codepipeline-crd-artifacts-annlee/*
+                - !Sub arn:aws:s3:::${ArtifactBucketName}
+                - !Sub arn:aws:s3:::${ArtifactBucketName}/*
+
 Outputs:
   CodeBuildProjectName:
     Description: "CodeBuildProjectName"

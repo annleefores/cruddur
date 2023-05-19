@@ -24,6 +24,8 @@ Resources:
     Type: AWS::CloudFormation::Stack
     Properties:
       TemplateURL: nested/codebuild.yaml
+      Parameters:
+        ArtifactBucketName: !Ref ArtifactBucketName
   CodeStarConnection:
     # https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-codestarconnections-connection.html
     Type: AWS::CodeStarConnections::Connection
@@ -165,6 +167,15 @@ Resources:
                     - !Ref AWS::AccountId
                     - ':project/'
                     - !GetAtt CodeBuild.Outputs.CodeBuildProjectName
+        - PolicyName: !Sub ${AWS::StackName}S3ArtifactsAccess
+          PolicyDocument:
+            Version: '2012-10-17'
+            Statement:
+              - Action:
+                - s3:*
+                Effect: Allow
+                Resource:
+                - !Sub arn:aws:s3:::${ArtifactBucketName}
+                - !Sub arn:aws:s3:::${ArtifactBucketName}/*
 
 
-  
