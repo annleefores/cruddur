@@ -17,10 +17,10 @@ services:
       CONNECTION_URL: "${LOCAL_CONNECTION_URL}"
 
       AWS_ENDPOINT_URL: "http://dynamodb-local:8000"
-      # # openTelemetry
-      # OTEL_SERVICE_NAME: "backend-flask"
-      # OTEL_EXPORTER_OTLP_ENDPOINT: "https://api.honeycomb.io"
-      # OTEL_EXPORTER_OTLP_HEADERS: "x-honeycomb-team=${HONEYCOMB_API_KEY}"
+      # openTelemetry
+      OTEL_SERVICE_NAME: "backend-flask"
+      OTEL_EXPORTER_OTLP_ENDPOINT: "https://api.honeycomb.io"
+      OTEL_EXPORTER_OTLP_HEADERS: "x-honeycomb-team=${HONEYCOMB_API_KEY}"
 
 
       # # AWS XRAY
