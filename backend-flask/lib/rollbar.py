@@ -1,4 +1,5 @@
 from flask import got_request_exception
+from time import strftime
 import os
 import rollbar
 import rollbar.contrib.flask
