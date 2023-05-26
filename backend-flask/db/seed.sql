@@ -53,4 +53,4 @@ VALUES ( (
             LIMIT
                 1
         ), 'I am the other me! ', current_timestamp + interval '10 day'
-    )
+    );
