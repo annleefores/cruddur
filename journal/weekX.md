@@ -1,3 +1,5 @@
 # Week X — Final
 
-CICD Fix
+## Required Homework
+
+## Homework Challenges
