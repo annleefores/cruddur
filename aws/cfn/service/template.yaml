@@ -87,6 +87,10 @@ Parameters:
     Type: AWS::SSM::Parameter::Value<String>
     Default: /cfn/cruddur/backend-flask/SecretsOtelExporterOltpHeaders
 
+  DDBMessageTable:
+    Type: String
+    Default: cruddur-messages
+
 Resources:
   
   FargateService:
@@ -196,6 +200,8 @@ Resources:
                 Value: !Ref EnvBackendUrl
               - Name: 'AWS_DEFAULT_REGION'
                 Value: !Ref AWS::Region
+              - Name: DDB_MESSAGE_TABLE
+                Value: !Ref DDBMessageTable
             Secrets:
               - Name: 'AWS_ACCESS_KEY_ID'
                 ValueFrom: !Ref SecretsAWSAccessKeyId

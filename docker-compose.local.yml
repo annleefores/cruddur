@@ -17,6 +17,7 @@ services:
       CONNECTION_URL: "${LOCAL_CONNECTION_URL}"
 
       AWS_ENDPOINT_URL: "http://dynamodb-local:8000"
+      DDB_MESSAGE_TABLE: "cruddur-messages"
       # openTelemetry
       OTEL_SERVICE_NAME: "backend-flask"
       OTEL_EXPORTER_OTLP_ENDPOINT: "https://api.honeycomb.io"
