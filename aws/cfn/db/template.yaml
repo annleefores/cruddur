@@ -39,6 +39,8 @@ Parameters:
     NoEcho: true
   MasterUsername:
     Type: String
+  LambdaSourceSecurityGroupId:
+    Type: String
 
 Resources:
 
@@ -60,6 +62,11 @@ Resources:
           FromPort: 5432
           ToPort: 5432
           Description: ALB HTTP
+        - IpProtocol: tcp
+          SourceSecurityGroupId: !Ref LambdaSourceSecurityGroupId
+          FromPort: 5432
+          ToPort: 5432
+          Description: Lambda
   
   DBSubnetGroup:
     # https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-rds-dbsubnetgroup.html
