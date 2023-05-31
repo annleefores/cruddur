@@ -46,7 +46,7 @@ jobs:
           REACT_APP_AWS_USER_POOLS_ID: ${{ secrets.REACT_APP_AWS_USER_POOLS_ID }}
           REACT_APP_CLIENT_ID: ${{ secrets.REACT_APP_CLIENT_ID }}
           REACT_APP_API_GATEWAY_ENDPOINT_URL: ${{ secrets.REACT_APP_API_GATEWAY_ENDPOINT_URL }}
-      - run: ls
+      - run: ls build
 
       - name: Set up Ruby
         uses: ruby/setup-ruby@v1.150.0
@@ -56,9 +56,6 @@ jobs:
       - name: Install dependencies & Run Sync
         run: |
           cd ..
-          ls
-          ls /frontend-react-js/build/
-          ls /tmp/
           bundle install
           bundle exec rake sync
         env:
