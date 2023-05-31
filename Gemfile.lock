@@ -25,6 +25,7 @@ GEM
       aws-sdk-s3
     dotenv (2.8.1)
     jmespath (1.6.2)
+    ox (2.14.16)
     rake (13.0.6)
 
 PLATFORMS
@@ -33,6 +34,7 @@ PLATFORMS
 DEPENDENCIES
   aws_s3_website_sync
   dotenv
+  ox
   rake
 
 BUNDLED WITH
