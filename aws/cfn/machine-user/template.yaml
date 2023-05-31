@@ -1,4 +1,9 @@
 AWSTemplateFormatVersion: '2010-09-09'
+
+Parameters:
+  DistributionId:
+    Type: String
+
 Resources:
   CruddurMachineUser:
     Type: 'AWS::IAM::User'
@@ -24,7 +29,7 @@ Resources:
       Users:
         - !Ref CruddurMachineUser
         
-  S3FullAccessPolicy: 
+  S3AccessPolicy: 
     Type: 'AWS::IAM::Policy'
     Properties: 
       PolicyName: 'S3_Machine_User_AccessPolicy'
@@ -40,5 +45,19 @@ Resources:
             Resource:
               - arn:aws:s3:::annleefores.cloud/*
               - arn:aws:s3:::annleefores.cloud
+      Users:
+        - !Ref CruddurMachineUser
+  CloudFrontAccessPolicy: 
+    Type: 'AWS::IAM::Policy'
+    Properties: 
+      PolicyName: 'Cloudfront_Machine_User_AccessPolicy'
+      PolicyDocument:
+        Version: '2012-10-17'
+        Statement: 
+          - Effect: Allow
+            Action: 
+              - cloudfront:CreateInvalidation
+            Resource:
+              - !Sub arn:aws:cloudfront::${AWS::AccountId}:distribution/${DistributionId}
       Users:
         - !Ref CruddurMachineUser
