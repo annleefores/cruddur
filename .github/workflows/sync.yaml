@@ -14,12 +14,11 @@ on:
 
 jobs:
   build_and_deploy:
-    name: Statically Build Files
+    name: Statically build and deploy
+    runs-on: ubuntu-latest
     defaults:
       run:
-        shell: bash
         working-directory: frontend-react-js
-    runs-on: ubuntu-latest
     # These permissions are needed to interact with GitHub's OIDC Token endpoint.
     permissions:
       id-token: write # This is required for requesting the JWT
