@@ -1,6 +1,7 @@
 name: Sync-Prod-Frontend
 
 on:
+  workflow_dispatch:
   push:
     branches:
       - prod
@@ -19,10 +20,6 @@ jobs:
     defaults:
       run:
         working-directory: ./frontend-react-js/
-    # These permissions are needed to interact with GitHub's OIDC Token endpoint.
-    permissions:
-      id-token: write # This is required for requesting the JWT
-      contents: read # This is required for actions/checkout
     steps:
       - name: checkout branch
         uses: actions/checkout@v3
