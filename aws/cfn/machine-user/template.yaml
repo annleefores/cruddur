@@ -23,3 +23,17 @@ Resources:
             Resource: '*'
       Users:
         - !Ref CruddurMachineUser
+        
+  # S3FullAccessPolicy: 
+  #   Type: 'AWS::IAM::Policy'
+  #   Properties: 
+  #     PolicyName: 'S3_Machine_User_AccessPolicy'
+  #     PolicyDocument:
+  #       Version: '2012-10-17'
+  #       Statement: 
+  #         - Effect: Allow
+  #           Action: 
+  #             - s3:*
+  #           Resource: '*'
+  #     Users:
+  #       - !Ref CruddurMachineUser

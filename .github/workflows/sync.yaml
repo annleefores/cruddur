@@ -50,12 +50,13 @@ jobs:
       - name: Install dependencies & Run Sync
         run: |
           cd ..
+          env
           bundle install
           bundle exec rake sync --trace
         env:
           AWS_SECRET_ACCESS_KEY: ${{ env.AWS_SECRET_ACCESS_KEY }}
           AWS_ACCESS_KEY_ID: ${{ env.AWS_ACCESS_KEY_ID }}
-          AWS_REGION: ${{ env.AWS_REGION }}
+          AWS_REGION: ${{ secrets.REGION }}
           SYNC_S3_BUCKET: ${{ vars.SYNC_S3_BUCKET }}
           SYNC_CLOUDFRONT_DISTRUBTION_ID: ${{ vars.SYNC_CLOUDFRONT_DISTRUBTION_ID }}
           SYNC_BUILD_DIR: ${{ vars.SYNC_BUILD_DIR }}
