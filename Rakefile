@@ -2,9 +2,9 @@ require 'aws_s3_website_sync'
 require 'dotenv'
 
 task :sync do
-  puts "sync =="
-  puts ENV["BUILD_DIR"]
-  puts ENV["OUTPUT_CHANGESET_PATH"]
+  puts ">> sync <<"
+  puts "BUILD_DIR: #{BUILD_DIR}"
+  puts "OUTPUT_CHANGESET_PATH: #{OUTPUT_CHANGESET_PATH}"
 
   AwsS3WebsiteSync::Runner.run(
     aws_access_key_id:     ENV["AWS_ACCESS_KEY_ID"],
