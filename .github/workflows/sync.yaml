@@ -26,22 +26,27 @@ jobs:
     steps:
       - name: checkout branch
         uses: actions/checkout@v3
+
       - name: Setup Node
         uses: actions/setup-node@v3
         with:
           node-version: 18.x
           cache: "npm"
           cache-dependency-path: ./frontend-react-js/package-lock.json
-      - run: npm ci
-      - run: npm run build --if-present
+      - name: Install deps
+        run: npm ci
+      - name: Build
+        run: npm run build --if-present
         env:
           CI: false
+          REACT_APP_BACKEND_URL: ${{ secrets.REACT_APP_BACKEND_URL }}
+          REACT_APP_FRONTEND_URL: ${{ secrets.REACT_APP_FRONTEND_URL }}
+          REACT_APP_AWS_PROJECT_REGION: ${{ secrets.REGION }}
+          REACT_APP_AWS_COGNITO_REGION: ${{ secrets.REGION }}
+          REACT_APP_AWS_USER_POOLS_ID: ${{ secrets.REACT_APP_AWS_USER_POOLS_ID }}
+          REACT_APP_CLIENT_ID: ${{ secrets.REACT_APP_CLIENT_ID }}
+          REACT_APP_API_GATEWAY_ENDPOINT_URL: ${{ secrets.REACT_APP_API_GATEWAY_ENDPOINT_URL }}
 
-      - name: Configure AWS credentials
-        uses: aws-actions/configure-aws-credentials@v2
-        with:
-          role-to-assume: arn:aws:iam::${{ secrets.AWS_ACCOUNT_ID }}:role/CrdSyncRole-Role-15HSTGN6QSC9D
-          aws-region: ${{ secrets.REGION }}
       - name: Set up Ruby
         uses: ruby/setup-ruby@v1.150.0
         with:
@@ -50,10 +55,12 @@ jobs:
       - name: Install dependencies & Run Sync
         run: |
           cd ..
-          env
           bundle install
-          bundle exec rake sync --trace
+          bundle exec rake sync
         env:
+          AWS_REGION: ${{ secrets.REGION }}
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           SYNC_S3_BUCKET: ${{ vars.SYNC_S3_BUCKET }}
           SYNC_CLOUDFRONT_DISTRUBTION_ID: ${{ vars.SYNC_CLOUDFRONT_DISTRUBTION_ID }}
           SYNC_BUILD_DIR: ${{ vars.SYNC_BUILD_DIR }}
