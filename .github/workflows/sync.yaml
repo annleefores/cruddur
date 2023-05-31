@@ -2,15 +2,15 @@ name: Sync-Prod-Frontend
 
 on:
   push:
-    branches: 
-    - prod
-    paths: 
-    - "frontend-react-js/**"
+    branches:
+      - prod
+    paths:
+      - "frontend-react-js/**"
   pull_request:
     branches:
-        - prod
-    paths: 
-    - "frontend-react-js/**"
+      - prod
+    paths:
+      - "frontend-react-js/**"
 
 jobs:
   build_and_deploy:
@@ -18,24 +18,24 @@ jobs:
     defaults:
       run:
         shell: bash
-        working-directory: ./frontend-react-js
+        working-directory: frontend-react-js
     runs-on: ubuntu-latest
     # These permissions are needed to interact with GitHub's OIDC Token endpoint.
     permissions:
       id-token: write # This is required for requesting the JWT
-      contents: read  # This is required for actions/checkout
+      contents: read # This is required for actions/checkout
     steps:
       - name: checkout branch
         uses: actions/checkout@v3
       - name: Setup Node
         uses: actions/setup-node@v3
         with:
-          node-version: 18.x 
-          cache: 'npm'
+          node-version: 18.x
+          cache: "npm"
       - run: npm ci
       - run: npm run build --if-present
 
-      - name: Configure AWS credentials 
+      - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v2
         with:
           role-to-assume: arn:aws:iam::${{ secrets.AWS_ACCOUNT_ID }}:role/CrdSyncRole-Role-15HSTGN6QSC9D
