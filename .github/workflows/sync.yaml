@@ -47,8 +47,8 @@ jobs:
         with:
           ruby-version: "3.0"
           bundler-cache: true
-      - run: cd ..
-      - name: Install dependencies
-        run: bundle install
-      - name: Run tests
-        run: bundle exec rake sync
+      - name: Install dependencies & Run Sync
+        run: |
+          cd ..
+          bundle install
+          bundle exec rake sync
