@@ -56,7 +56,10 @@ jobs:
         run: |
           cd ..
           export SYNC_BUILD_DIR="$(pwd)/${{ vars.SYNC_BUILD_DIR }}"
-          export SYNC_BUILD_DIR="$(pwd)/${{ vars.SYNC_OUTPUT_CHANGESET_PATH }}"
+          export SYNC_OUTPUT_CHANGESET_PATH="$(pwd)/${{ vars.SYNC_OUTPUT_CHANGESET_PATH }}"
+          ls
+          echo $SYNC_BUILD_DIR
+          echo $SYNC_OUTPUT_CHANGESET_PATH
           bundle install
           bundle exec rake sync
         env:
