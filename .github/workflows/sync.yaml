@@ -51,4 +51,4 @@ jobs:
         run: |
           cd ..
           bundle install
-          ruby ./bin/frontend/sync
+          bundle exec rake sync --trace

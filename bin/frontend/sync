@@ -3,8 +3,8 @@
 require 'aws_s3_website_sync'
 require 'dotenv'
 
-# env_path = File.expand_path('../../../sync.env', __FILE__)
-# Dotenv.load(env_path)
+env_path = File.expand_path('../../../sync.env', __FILE__)
+Dotenv.load(env_path)
 
 puts ">>> configuration <<<"
 puts "aws_default_region:      #{ENV["AWS_DEFAULT_REGION"]}"
