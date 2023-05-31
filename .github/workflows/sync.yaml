@@ -37,6 +37,7 @@ jobs:
         run: npm ci
       - name: Build
         run: npm run build --if-present
+      - run: ls
         env:
           CI: false
           REACT_APP_BACKEND_URL: ${{ secrets.REACT_APP_BACKEND_URL }}
@@ -55,6 +56,9 @@ jobs:
       - name: Install dependencies & Run Sync
         run: |
           cd ..
+          ls
+          ls /frontend-react-js/build/
+          ls /tmp/
           bundle install
           bundle exec rake sync
         env:
