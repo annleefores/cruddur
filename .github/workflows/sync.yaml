@@ -51,4 +51,4 @@ jobs:
         run: |
           cd ..
           bundle install
-          bundle exec rake sync
+          ruby ./bin/frontend/sync
