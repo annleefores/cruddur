@@ -23,12 +23,12 @@ jobs:
     steps:
       - name: checkout branch
         uses: actions/checkout@v3
+      - run: cd frontend-react-js
       - name: Setup Node
         uses: actions/setup-node@v3
         with:
           node-version: 18.x
           cache: "npm"
-          working-directory: frontend-react-js
       - run: npm ci
       - run: npm run build --if-present
 
@@ -43,6 +43,7 @@ jobs:
         with:
           ruby-version: "3.0"
           bundler-cache: true
+      - run: cd ..
       - name: Install dependencies
         run: bundle install
       - name: Run tests
