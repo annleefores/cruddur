@@ -42,7 +42,6 @@ jobs:
         with:
           role-to-assume: arn:aws:iam::${{ secrets.AWS_ACCOUNT_ID }}:role/CrdSyncRole-Role-15HSTGN6QSC9D
           aws-region: ${{ secrets.REGION }}
-          role-duration-seconds: 600
       - name: Set up Ruby
         uses: ruby/setup-ruby@v1.150.0
         with:
