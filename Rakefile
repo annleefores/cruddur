@@ -10,6 +10,7 @@ task :sync do
   AwsS3WebsiteSync::Runner.run(
     aws_access_key_id:     ENV["AWS_ACCESS_KEY_ID"],
     aws_secret_access_key: ENV["AWS_SECRET_ACCESS_KEY"],
+    aws_session_token:     ENV["AWS_SESSION_TOKEN"],
     aws_default_region:    ENV["AWS_REGION"],
     s3_bucket:             ENV["SYNC_S3_BUCKET"],
     distribution_id:       ENV["SYNC_CLOUDFRONT_DISTRUBTION_ID"],
