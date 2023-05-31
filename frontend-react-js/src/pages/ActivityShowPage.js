@@ -76,7 +76,7 @@ export default function ActivityShowPage() {
                 <div className='activity_feed'>
                     <div className='activity_feed_heading flex'>
                         <div className="back" onClick={goBack}>&larr;</div>
-                        <div className='title'>Crud!</div>
+                        <div className='title'>Crud</div>
                     </div>
                     {el_activity}
                     <Replies
