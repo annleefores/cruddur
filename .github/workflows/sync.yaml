@@ -50,7 +50,7 @@ jobs:
       - name: Install dependencies & Run Sync
         run: |
           cd ..
-          echo >>>>SYNC<<<<<<
+          echo ">>>>SYNC<<<<<<"
           echo $SYNC_BUILD_DIR
           bundle install
           bundle exec rake sync --trace
