@@ -13,7 +13,7 @@ const LeftSidebar: React.FC<LeftSidebarProps> = ({ children }) => {
         <Navigation />
       </div>
       <div className="flex h-full w-full">{children}</div>
-      <div className="block sm:hidden sticky bottom-0 right-0 left-0">
+      <div className="block sm:hidden fixed bottom-0 w-full ">
         <Navigation />
       </div>
     </div>
