@@ -41,11 +41,11 @@ const Navigation = () => {
   ];
 
   return (
-    <div className="flex flex-col w-16 xl:w-80 bg-[#3D0D7B] p-2 ">
-      <div className="w-full max-h-[50px] max-w-[50px] mb-2 rounded-full xl:mx-2">
+    <div className="flex flex-row sm:flex-col justify-center sm:justify-start w-full sm:w-16 xl:w-80 bg-[#3D0D7B] p-2 ">
+      <div className="hidden sm:block w-full max-h-[50px] max-w-[50px] mb-2 rounded-full xl:mx-2">
         <Image src={logo} alt="cruddur-logo" className="object-cover" />
       </div>
-      <div className="flex flex-col justify-center">
+      <div className="flex flex-row w-full sm:flex-col justify-evenly sm:justify-center">
         {routes.map((item) => (
           <NavigationItems key={item.label} {...item} />
         ))}

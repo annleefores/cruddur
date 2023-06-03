@@ -8,9 +8,14 @@ interface LeftSidebarProps {
 
 const LeftSidebar: React.FC<LeftSidebarProps> = ({ children }) => {
   return (
-    <div className="flex flex-row sm:flex-row h-full w-full">
-      <Navigation />
+    <div className="flex flex-col sm:flex-row h-full w-full">
+      <div className="hidden sm:block">
+        <Navigation />
+      </div>
       <div className="flex h-full w-full">{children}</div>
+      <div className="block sm:hidden sticky bottom-0">
+        <Navigation />
+      </div>
     </div>
   );
 };

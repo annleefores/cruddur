@@ -26,7 +26,7 @@ const NavigationItems: React.FC<NavigationItemsProps> = ({
         pathname === href && "text-white"
       )}
     >
-      <div className="flex flex-row gap-x-4 items-center justify-center xl:justify-start text-md font-medium rounded-3xl p-1 xl:p-2 hover:bg-[#46108d]">
+      <div className="flex flex-col sm:flex-row  gap-x-4 items-center justify-center xl:justify-start text-md font-medium rounded-3xl p-1 xl:p-2 hover:bg-[#46108d]">
         <Icon size={32} />
         <p className="hidden xl:block w-100 text-xl">{label}</p>
       </div>
