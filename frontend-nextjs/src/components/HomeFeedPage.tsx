@@ -43,7 +43,7 @@ const HomeFeedPage = () => {
     "Item 2",
     "Item 3",
     "Item 4",
-    "Item 5",
+    "You have reached the end of page",
   ];
 
   return (
