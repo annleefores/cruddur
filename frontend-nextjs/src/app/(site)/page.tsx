@@ -4,14 +4,12 @@ import RightSidebar from "@/components/RightSidebar";
 export default function Home() {
   return (
     <>
-      <div>
-        <div className="flex flex-row w-full min-h-screen bg-black justify-between">
-          <div className="flex w-full">
-            <HomeFeedPage />
-          </div>
-          <div className="hidden md:block">
-            <RightSidebar />
-          </div>
+      <div className="flex flex-row h-full w-full">
+        <div className="bg-black max-w-[600px] h-full w-full">
+          <HomeFeedPage />
+        </div>
+        <div className="hidden lg:block h-full">
+          <RightSidebar />
         </div>
       </div>
     </>

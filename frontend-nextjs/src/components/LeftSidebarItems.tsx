@@ -22,12 +22,14 @@ const LeftSidebarItems: React.FC<LeftSidebarItemsProps> = ({
     <Link
       href={href}
       className={twMerge(
-        `flex flex-row h-auto items-center justify-center md:justify-start w-full gap-x-4 text-md font-medium cursor-pointer hover:text-white transition text-neutral-400 py-1 my-2`,
+        `h-auto cursor-pointer hover:text-white transition text-neutral-400 p-1 my-1 xl:my-0 `,
         pathname === href && "text-white"
       )}
     >
-      <Icon size={32} />
-      <p className="hidden md:block w-100">{label}</p>
+      <div className="flex flex-row gap-x-4 items-center justify-center xl:justify-start text-md font-medium rounded-3xl p-1 xl:p-2 hover:bg-[#46108d]">
+        <Icon size={32} />
+        <p className="hidden xl:block w-100 text-xl">{label}</p>
+      </div>
     </Link>
   );
 };
