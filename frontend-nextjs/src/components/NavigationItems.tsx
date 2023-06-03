@@ -5,13 +5,13 @@ import { IconType } from "react-icons";
 import { twMerge } from "tailwind-merge";
 import { usePathname } from "next/navigation";
 
-interface LeftSidebarItemsProps {
+interface NavigationItemsProps {
   icon: IconType;
   label: string;
   href: string;
 }
 
-const LeftSidebarItems: React.FC<LeftSidebarItemsProps> = ({
+const NavigationItems: React.FC<NavigationItemsProps> = ({
   icon: Icon,
   label,
   href,
@@ -34,4 +34,4 @@ const LeftSidebarItems: React.FC<LeftSidebarItemsProps> = ({
   );
 };
 
-export default LeftSidebarItems;
+export default NavigationItems;
