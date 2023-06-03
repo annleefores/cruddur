@@ -1,3 +1,7 @@
+import Image from "next/image";
+import logo from "../../public/logo.svg";
+import user from "../../public/user.png";
+
 const HomeFeedPage = () => {
   const items = [
     "Item 1",
@@ -44,8 +48,14 @@ const HomeFeedPage = () => {
 
   return (
     <div className="flex flex-col h-full w-full">
-      <div className="sticky top-0 left-0 w-full p-4 bg-black border-b border-neutral-700">
-        <h1 className="text-2xl font-bold">Home</h1>
+      <div className="flex flex-row justify-between items-center sticky top-0 left-0 w-full p-4 bg-black border-b border-neutral-700">
+        <h1 className="text-lg sm:text-2xl font-bold">Home</h1>
+        <div className="block sm:hidden w-full max-h-[36px] max-w-[30px] mb-2 rounded-full xl:mx-2">
+          <Image src={logo} alt="cruddur-logo" className="object-cover" />
+        </div>
+        <div className="block sm:hidden w-full max-h-[30px] max-w-[30px] mb-2 rounded-full xl:mx-2 bg-white">
+          <Image src={user} alt="user-profile" className="object-cover" />
+        </div>
       </div>
       <div className="flex flex-col w-full overflow-y-scroll no-scrollbar">
         {items.map((item, index) => (
