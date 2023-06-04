@@ -51,7 +51,7 @@ const Navigation = () => {
         {routes.map((item) => (
           <NavigationItems key={item.label} {...item} />
         ))}
-        <div className="sm:mt-8 xl:p-2 fixed bottom-24 right-5 sm:static sm:bottom-auto sm:right-auto ">
+        <div className="sm:mt-8 xl:p-2 fixed bottom-20 right-3 sm:static sm:bottom-auto sm:right-auto ">
           <CrudButton />
         </div>
         <div className="hidden sm:block mt-6 xl:mt-2 p-1 xl:p-2">
