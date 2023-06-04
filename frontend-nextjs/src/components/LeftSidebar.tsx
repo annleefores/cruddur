@@ -2,18 +2,14 @@
 
 import Navigation from "./Navigation";
 
-interface LeftSidebarProps {
-  children: React.ReactNode;
-}
+// interface LeftSidebarProps {
+//   children: React.ReactNode;
+// }
 
-const LeftSidebar: React.FC<LeftSidebarProps> = ({ children }) => {
+const LeftSidebar = () => {
   return (
     <div className="flex flex-col sm:flex-row h-full w-full">
-      <div className="hidden sm:block">
-        <Navigation />
-      </div>
-      <div className="flex h-full w-full">{children}</div>
-      <div className="block sm:hidden fixed bottom-0 w-full ">
+      <div className="fixed bottom-0 w-full sm:static">
         <Navigation />
       </div>
     </div>

@@ -5,7 +5,7 @@ import Trending from "./Trending";
 
 const RightSidebar = () => {
   return (
-    <>
+    <div className="py-3 px-2">
       <Search />
       <div className="mt-4">
         <Trending />
@@ -16,7 +16,7 @@ const RightSidebar = () => {
       <div className="mt-4">
         <About />
       </div>
-    </>
+    </div>
   );
 };
 
