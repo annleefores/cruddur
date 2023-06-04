@@ -6,10 +6,19 @@ import { HiOutlinePencilSquare } from "react-icons/hi2";
 import UserProfile from "./UserProfile";
 
 const CrudButton = () => {
-  let [isOpen, setIsOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
+  const [count, setCount] = useState(0);
+  const [inputVal, setInputVal] = useState("");
+
+  const handleInputChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
+    setInputVal(event.target.value);
+    setCount(event.target.value.length);
+  };
 
   function closeModal() {
     setIsOpen(false);
+    setCount(0);
+    setInputVal("");
   }
 
   function openModal() {
@@ -59,28 +68,37 @@ const CrudButton = () => {
                       </div>
                       <textarea
                         maxLength={240}
+                        value={inputVal}
+                        onChange={handleInputChange}
                         placeholder="What would you like to say?"
-                        className="w-full mt-4 h-44 md:h-52 text-lg md:text-xl bg-neutral-900 resize-none outline-none"
+                        className="w-full mt-4 h-52 text-lg md:text-xl bg-neutral-900 resize-none outline-none"
                       ></textarea>
                     </div>
 
-                    <div className="mt-4 flex flex-row justify-end">
-                      <button
-                        type="button"
-                        className="inline-flex font-bold hover:bg-[#8c06ec] transition bg-[#9500FF] justify-center rounded-l-lg border-r border-neutral-800  px-6 py-2 text-sm  text-while focus:outline-none "
-                        onClick={closeModal}
-                      >
-                        Crud
-                      </button>
-                      <select
-                        className=" text-sm hover:bg-[#8c06ec] transition bg-[#9500FF] rounded-r-lg px-3"
-                        name="ttl"
-                        id="ttls"
-                      >
-                        <option value="7 Days">7 Days</option>
-                        <option value="7 Days">7 Days</option>
-                        <option value="7 Days">7 Days</option>
-                      </select>
+                    <div className="mt-4 flex flex-row justify-between items-center">
+                      <p className="text-neutral-400 text-sm">{240 - count}</p>
+                      <div className="flex flex-row gap-x-4">
+                        <select
+                          className="h-full text-neutral-400 text-sm py-2 outline-none bg-neutral-900 rounded-r-lg px-3"
+                          name="ttl"
+                          id="ttl"
+                        >
+                          <option value="1 Hours">1 Hour</option>
+                          <option value="3 Hours">3 Hours</option>
+                          <option value="30 Hours">30 Hours</option>
+                          <option value="1 Days">1 Days</option>
+                          <option value="3 Days">3 Days</option>
+                          <option value="7 Days">7 Days</option>
+                          <option value="30 Days">30 Days</option>
+                        </select>
+                        <button
+                          type="button"
+                          className="inline-flex font-semibold hover:bg-[#8c06ec] transition bg-[#9500FF] justify-center rounded-lg border-neutral-800  px-6 py-2 text-sm focus:outline-none "
+                          onClick={closeModal}
+                        >
+                          Crud
+                        </button>
+                      </div>
                     </div>
                   </Dialog.Panel>
                 </Transition.Child>

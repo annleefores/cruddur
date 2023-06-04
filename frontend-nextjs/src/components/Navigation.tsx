@@ -33,7 +33,7 @@ const Navigation = () => {
     {
       icon: HiOutlineUser,
       label: "Profile",
-      href: `/@${username}`,
+      href: `/${username}`,
     },
     {
       icon: HiOutlineEllipsisHorizontalCircle,

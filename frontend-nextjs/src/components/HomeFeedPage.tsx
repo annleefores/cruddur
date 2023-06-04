@@ -1,7 +1,4 @@
-import Image from "next/image";
-import logo from "../../public/logo.svg";
-import user from "../../public/user.png";
-import ProfileSignOutButton from "./ProfileSignOutButton";
+import HeaderElem from "./HeaderElem";
 
 const HomeFeedPage = () => {
   const items = [
@@ -49,17 +46,7 @@ const HomeFeedPage = () => {
 
   return (
     <div className="flex flex-col h-full w-full">
-      <div className="flex flex-row justify-between sticky top-0 left-0 w-full py-3 px-4 bg-black border-b border-neutral-700">
-        <h1 className="hidden sm:block text-lg sm:text-xl font-bold h-fit">
-          Home
-        </h1>
-        <div className="block sm:hidden w-full max-h-[32px] max-w-[32px] mb-2 rounded-full xl:mx-2">
-          <Image src={logo} alt="cruddur-logo" className="object-cover" />
-        </div>
-        <div className="block sm:hidden w-full max-h-[32px] max-w-[32px] ">
-          <ProfileSignOutButton />
-        </div>
-      </div>
+      <HeaderElem page={"Home"} />
       <div className="flex flex-col w-full overflow-y-scroll no-scrollbar">
         {items.map((item, index) => (
           <div

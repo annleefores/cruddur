@@ -2,7 +2,7 @@ import SuggestedUsersItem from "./SuggestedUsersItem";
 
 const SuggestedUsers = () => {
   return (
-    <div className="w-[350px] h-[250px] rounded-lg bg-black">
+    <div className="w-full h-[250px] rounded-lg bg-black">
       <p className="p-4 border-b border-neutral-800 ">Suggested User</p>
       <div className="flex flex-col">
         <SuggestedUsersItem />
