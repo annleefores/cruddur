@@ -6,19 +6,24 @@ import { twMerge } from "tailwind-merge";
 
 interface UserProfileProps {
   SignOutProfile?: boolean;
+  ShowName?: boolean;
 }
 
-const UserProfile: React.FC<UserProfileProps> = ({ SignOutProfile }) => {
+const UserProfile: React.FC<UserProfileProps> = ({
+  SignOutProfile,
+  ShowName,
+}) => {
   return (
     <Link href="#">
       <div className="flex flex-row items-center gap-x-2 w-full">
-        <div className="w-full sm:max-h-[40px] sm:max-w-[40px] rounded-full bg-white">
+        <div className="w-full max-h-[40px] max-w-[40px] rounded-full bg-white">
           <Image src={user} alt="user-profile" className="object-cover" />
         </div>
         <div
           className={twMerge(
             `hidden  flex-col text-left w-36`,
-            SignOutProfile ? "xl:block" : "sm:block"
+            SignOutProfile ? "xl:block" : "sm:block",
+            ShowName && "block"
           )}
         >
           <p className="text-sm truncate hover:underline">Annlee Fores</p>
