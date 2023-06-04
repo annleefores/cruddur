@@ -28,7 +28,7 @@ const NavigationItems: React.FC<NavigationItemsProps> = ({
       )}
     >
       <div className="flex flex-col sm:flex-row  gap-x-4 items-center justify-center xl:justify-start text-md font-medium rounded-3xl p-1 xl:p-2 hover:bg-[#46108d]">
-        <Icon size={32} />
+        <Icon className="w-7 h-7 sm:w-8 sm:h-8" />
         <p className="hidden xl:block w-100 text-xl">{label}</p>
       </div>
     </Link>
