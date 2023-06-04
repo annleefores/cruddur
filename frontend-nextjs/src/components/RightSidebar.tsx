@@ -1,10 +1,22 @@
+import About from "./About";
+import Search from "./Search";
+import SuggestedUsers from "./SuggestedUsers";
+import Trending from "./Trending";
+
 const RightSidebar = () => {
   return (
-    <input
-      type="text"
-      placeholder="Search Cruddur"
-      className="w-[300px] h-12 p-3 rounded-md focus:outline-none focus:border focus:border-[#9500FF] bg-[#46108d]"
-    />
+    <>
+      <Search />
+      <div className="mt-4">
+        <Trending />
+      </div>
+      <div className="mt-4">
+        <SuggestedUsers />
+      </div>
+      <div className="mt-4">
+        <About />
+      </div>
+    </>
   );
 };
 
