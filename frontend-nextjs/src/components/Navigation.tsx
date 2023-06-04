@@ -54,7 +54,7 @@ const Navigation = () => {
         <div className="p-1 sm:mt-8 ">
           <CrudButton />
         </div>
-        <div className="hidden sm:block mt-6 xl:mt-2 p-1 xl:p-2">
+        <div className="hidden sm:block mt-6 xl:mt-2 p-1 xl:py-2">
           <ProfileSignOutButton />
         </div>
       </div>

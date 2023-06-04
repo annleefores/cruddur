@@ -27,7 +27,7 @@ const NavigationItems: React.FC<NavigationItemsProps> = ({
         href === "/more" ? "hidden sm:block" : "block"
       )}
     >
-      <div className="flex flex-col sm:flex-row  gap-x-4 items-center justify-center xl:justify-start text-md font-medium rounded-3xl p-1 xl:p-2 hover:bg-[#46108d]">
+      <div className="flex flex-col sm:flex-row  gap-x-4 items-center justify-center xl:justify-start text-md font-medium rounded-3xl p-1 xl:p-2 hover:bg-[#46108d] transition">
         <Icon className="w-7 h-7 sm:w-8 sm:h-8" />
         <p className="hidden xl:block w-100 text-xl">{label}</p>
       </div>
