@@ -51,7 +51,7 @@ const HomeFeedPage = () => {
         {items.map((item, index) => (
           <div
             key={index}
-            className="p-4 h-full w-full border-b border-neutral-700"
+            className="p-4 h-full w-full border-b border-neutral-800"
           >
             <div className="h-[100px]">
               <p>{item}</p>
