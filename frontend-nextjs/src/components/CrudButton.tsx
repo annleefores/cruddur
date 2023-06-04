@@ -1,14 +1,11 @@
-import { TbEdit } from "react-icons/tb";
+import { HiOutlinePencilSquare } from "react-icons/hi2";
+
 const CrudButton = () => {
   return (
-    <div>
-      <button className=" text-white font-bold p-3 xl:p-4 w-full rounded-full bg-[#9500FF]">
-        <p className="hidden xl:block">Crud</p>
-        <div className="block xl:hidden">
-          <TbEdit size={24} />
-        </div>
-      </button>
-    </div>
+    <button className=" text-neutral-400 text-center hover:text-white sm:text-white font-bold p-1 sm:p-2 xl:py-4 w-full rounded-full hover:bg-[#46108d] sm:hover:sm:bg-[#8c06ec] transition sm:bg-[#9500FF]">
+      <HiOutlinePencilSquare className="block xl:hidden w-7 h-7 sm:w-6 sm:h-6" />
+      <p className="hidden xl:block ">Crud</p>
+    </button>
   );
 };
 
