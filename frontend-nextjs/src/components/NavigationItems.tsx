@@ -24,7 +24,7 @@ const NavigationItems: React.FC<NavigationItemsProps> = ({
       className={twMerge(
         `h-auto cursor-pointer hover:text-white transition text-neutral-400 p-1 `,
         pathname === href && "text-white",
-        href === "/more" ? "hidden sm:block" : "block"
+        href === "#" ? "hidden sm:block" : "block"
       )}
     >
       <div className="flex flex-col sm:flex-row  gap-x-4 items-center justify-center xl:justify-start text-md font-medium rounded-3xl p-1 xl:p-2 hover:bg-[#46108d] transition">
