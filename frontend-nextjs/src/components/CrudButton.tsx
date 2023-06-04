@@ -1,4 +1,5 @@
 import { HiOutlinePencilSquare } from "react-icons/hi2";
+
 const CrudButton = () => {
   return (
     <button className=" text-neutral-400 text-center hover:text-white sm:text-white font-bold p-1 sm:p-2 xl:py-4 w-full rounded-full hover:bg-[#46108d] sm:hover:sm:bg-[#8c06ec] transition sm:bg-[#9500FF]">
