@@ -1,6 +1,7 @@
 import LeftSidebar from "@/components/LeftSidebar";
 import "./globals.css";
 import { Inter } from "next/font/google";
+import RightSidebar from "@/components/RightSidebar";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -17,8 +18,14 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${inter.className} flex justify-center w-full h-full `}>
-        <div className="max-w-[1265px] w-full h-full">
-          <LeftSidebar>{children}</LeftSidebar>
+        <div className="max-w-[600px] sm:max-w-[675px] lg:max-w-[1065px] xl:max-w-[1265px] flex flex-row sm:gap-x-3 w-full h-full">
+          <div className="xl:w-[275px] h-full">
+            <LeftSidebar />
+          </div>
+          <div className="w-[600px] h-full">{children}</div>
+          <div className="hidden lg:block w-[375px] h-full">
+            <RightSidebar />
+          </div>
         </div>
       </body>
     </html>

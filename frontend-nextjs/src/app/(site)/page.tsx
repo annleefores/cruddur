@@ -8,9 +8,6 @@ export default function Home() {
         <div className="bg-black max-w-[600px] h-full w-full">
           <HomeFeedPage />
         </div>
-        <div className="hidden lg:block h-full p-3 px-4">
-          <RightSidebar />
-        </div>
       </div>
     </>
   );
