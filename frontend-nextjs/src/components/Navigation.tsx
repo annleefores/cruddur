@@ -43,7 +43,7 @@ const Navigation = () => {
   ];
 
   return (
-    <div className="relative flex flex-row sm:flex-col justify-center sm:justify-start w-full sm:w-16 xl:w-[275px] bg-[#3D0D7B] p-2 ">
+    <div className=" flex flex-row sm:flex-col justify-center sm:justify-start w-full sm:w-16 xl:w-[275px] bg-[#3D0D7B] p-2">
       <div className="hidden sm:block w-full max-h-[50px] max-w-[50px] mb-2 rounded-full xl:mx-2">
         <Image src={logo} alt="cruddur-logo" className="object-cover" />
       </div>
@@ -51,7 +51,7 @@ const Navigation = () => {
         {routes.map((item) => (
           <NavigationItems key={item.label} {...item} />
         ))}
-        <div className="sm:mt-8 xl:p-2 fixed bottom-20 right-5 sm:static sm:bottom-auto sm:right-auto ">
+        <div className="sm:mt-8 xl:p-2  ">
           <CrudButton />
         </div>
         <div className="hidden sm:block mt-6 xl:mt-2 p-1 xl:p-2">
