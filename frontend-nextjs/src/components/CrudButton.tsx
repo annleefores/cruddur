@@ -6,7 +6,7 @@ import { HiOutlinePencilSquare } from "react-icons/hi2";
 import UserProfile from "./UserProfile";
 
 const CrudButton = () => {
-  let [isOpen, setIsOpen] = useState(true);
+  let [isOpen, setIsOpen] = useState(false);
 
   function closeModal() {
     setIsOpen(false);
