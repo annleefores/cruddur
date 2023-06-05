@@ -35,7 +35,7 @@ const Crud: React.FC<CrudProps> = ({ item }) => {
     },
   ];
   return (
-    <div className="flex flex-col gap-y-2 h-full ">
+    <div className="flex flex-col gap-y-2 h-full">
       <div className="flex flex-row justify-between items-center">
         <div>
           <UserProfile ShowName={true} />
