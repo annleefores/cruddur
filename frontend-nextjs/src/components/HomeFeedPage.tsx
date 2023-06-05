@@ -1,13 +1,9 @@
-"use client";
-
-import Link from "next/link";
 import Crud from "./Crud";
 import HeaderElem from "./HeaderElem";
 import { data } from "@/lib/data";
 
 const HomeFeedPage = () => {
   const items = data;
-  const username = "annleefores";
 
   return (
     <div className="flex flex-col h-full w-full">
@@ -19,11 +15,12 @@ const HomeFeedPage = () => {
             <div className="mb-16"> </div>
           </div>
           {items.map((item, index) => (
-            <Link key={index} href={`/annleefores/status/${item.uuid}`}>
-              <div className=" w-full p-3 sm:w-full h-full hover:bg-neutral-900 border-b border-neutral-800 transition cursor-pointer">
-                <Crud item={item.post} />
-              </div>
-            </Link>
+            <div
+              key={index}
+              className=" w-full p-3 sm:w-full h-full hover:bg-neutral-900 border-b border-neutral-800 transition cursor-pointer"
+            >
+              <Crud {...item} />
+            </div>
           ))}
           <div className="p-4 h-full w-full border-t border-neutral-800">
             <div className="h-[100px] text-center text-sm text-neutral-500">
