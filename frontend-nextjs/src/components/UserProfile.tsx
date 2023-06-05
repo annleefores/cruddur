@@ -21,7 +21,7 @@ const UserProfile: React.FC<UserProfileProps> = ({
         </div>
         <div
           className={twMerge(
-            `hidden  flex-col text-left w-36`,
+            `hidden  flex-col text-left `,
             SignOutProfile ? "xl:block" : "sm:block",
             ShowName && "block"
           )}

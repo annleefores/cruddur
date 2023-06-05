@@ -13,8 +13,11 @@ const HomeFeedPage = () => {
           <div className="h-[30px]"></div>
         </div>
         {items.map((item, index) => (
-          <div key={index} className="w-screen sm:w-full">
-            <Crud item={item} />
+          <div
+            key={index}
+            className=" sm:w-full hover:bg-neutral-900 transition cursor-pointer"
+          >
+            <Crud item={item.post} />
           </div>
         ))}
         <div className="p-4 h-full w-full border-t border-neutral-800">
