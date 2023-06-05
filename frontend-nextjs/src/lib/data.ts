@@ -1,4 +1,4 @@
-export const data = [{"post": "Just signed up for cruddur! Excited to see what everyone's posting about \ud83e\udd29", "uuid": "8e29be33-4e62-43fc-ad59-f6aaf2164018"},
+export const data = [{"post": "Just signed up for cruddur! Excited to see what everyone's posting about \ud83e\udd29 ssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss", "uuid": "8e29be33-4e62-43fc-ad59-f6aaf2164018"},
 {"post": "Can't believe how easy it is to post on cruddur! #gamechanger", "uuid": "4260bc57-a956-4dc1-b8cf-cd60e4fa417a"},
 {"post": "Feeling inspired today, so I'm sharing my favorite quote: 'The best way to predict the future is to invent it.' - Alan Kay", "uuid": "801c8b5c-245c-4b2b-9282-f3948f1266e7"},
 {"post": "Just discovered cruddur and already addicted \ud83d\ude0d", "uuid": "80a398cd-c171-4692-9aec-46296452c44b"},
