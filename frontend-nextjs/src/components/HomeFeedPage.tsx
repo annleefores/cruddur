@@ -13,7 +13,9 @@ const HomeFeedPage = () => {
           <div className="h-[30px]"></div>
         </div>
         {items.map((item, index) => (
-          <Crud key={index} item={item} />
+          <div key={index} className="w-screen sm:w-full">
+            <Crud item={item} />
+          </div>
         ))}
         <div className="p-4 h-full w-full border-t border-neutral-800">
           <div className="h-[100px] text-center text-sm text-neutral-500">

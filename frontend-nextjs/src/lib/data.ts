@@ -1,4 +1,4 @@
-export const data = [
+export const data = [ 
     "Just signed up for cruddur! Excited to see what everyone's posting about 🤩",
     "Can't believe how easy it is to post on cruddur! #gamechanger",
     "Feeling inspired today, so I'm sharing my favorite quote: 'The best way to predict the future is to invent it.' - Alan Kay",
