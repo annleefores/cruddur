@@ -41,8 +41,11 @@ const Crud: React.FC<CrudProps> = ({ post, uuid }) => {
   ];
   return (
     <>
-      <div className="flex flex-row w-full h-full gap-x-2">
-        <Link href={`/${username}`} className="max-h-[50px] max-w-[50px]">
+      <div className="flex flex-row w-full h-full gap-x-1">
+        <Link
+          href={`/${username}`}
+          className="max-h-[40px] max-w-[40px] md:max-h-[50px] md:max-w-[50px]"
+        >
           <UserPic />
         </Link>
         <Link href={`/${username}/status/${uuid}`}>
@@ -64,7 +67,7 @@ const Crud: React.FC<CrudProps> = ({ post, uuid }) => {
         </Link>
       </div>
       <div className="flex justify-center">
-        <div className="flex flex-row w-4/5 mt-2 justify-between text-neutral-500 my-1">
+        <div className="flex flex-row w-3/4 md:w-4/5 mt-2 justify-between text-neutral-500 my-1">
           {activities.map((activity, index) => (
             <CrudActivities key={index} {...activity} />
           ))}
