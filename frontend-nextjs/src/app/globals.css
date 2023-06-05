@@ -6,7 +6,7 @@ html,
 body,
 :root {
   height: 100%;
-  background-color: #3D0D7B;
+  background-color: rgb(61,13,123);
   color-scheme: dark;
 }
 

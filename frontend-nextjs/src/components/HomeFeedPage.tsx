@@ -1,63 +1,25 @@
+import Crud from "./Crud";
 import HeaderElem from "./HeaderElem";
+import { data } from "@/lib/data";
 
 const HomeFeedPage = () => {
-  const items = [
-    "Item 1",
-    "Item 2",
-    "Item 3",
-    "Item 4",
-    "Item 5",
-    "Item 1",
-    "Item 2",
-    "Item 3",
-    "Item 4",
-    "Item 5",
-    "Item 1",
-    "Item 2",
-    "Item 3",
-    "Item 4",
-    "Item 5",
-    "Item 1",
-    "Item 2",
-    "Item 3",
-    "Item 4",
-    "Item 5",
-    "Item 1",
-    "Item 2",
-    "Item 3",
-    "Item 4",
-    "Item 5",
-    "Item 1",
-    "Item 2",
-    "Item 3",
-    "Item 4",
-    "Item 5",
-    "Item 1",
-    "Item 2",
-    "Item 3",
-    "Item 4",
-    "Item 5",
-    "Item 1",
-    "Item 2",
-    "Item 3",
-    "Item 4",
-    "You have reached the end of page",
-  ];
+  const items = data;
 
   return (
     <div className="flex flex-col h-full w-full">
       <HeaderElem page={"Home"} />
       <div className="flex flex-col w-full overflow-y-scroll no-scrollbar">
+        <div className="block sm:hidden p-4 h-full w-full border-b border-neutral-800">
+          <div className="h-[30px]"></div>
+        </div>
         {items.map((item, index) => (
-          <div
-            key={index}
-            className="p-4 h-full w-full border-b border-neutral-800"
-          >
-            <div className="h-[100px]">
-              <p>{item}</p>
-            </div>
-          </div>
+          <Crud key={index} item={item} />
         ))}
+        <div className="p-4 h-full w-full border-t border-neutral-800">
+          <div className="h-[100px] text-center text-sm text-neutral-500">
+            <p>{`You're all caught up!`}</p>
+          </div>
+        </div>
       </div>
     </div>
   );
