@@ -24,6 +24,9 @@ const HeaderElem: React.FC<HeaderElemProps> = ({ page }) => {
           />
         </div>
       </Link>
+      <div className="block sm:hidden">
+        <h1 className=" text-lg sm:text-xl font-bold h-fit">{page}</h1>
+      </div>
       <div className="block sm:hidden w-full max-h-[32px] max-w-[32px] ">
         <ProfileSignOutButton />
       </div>
