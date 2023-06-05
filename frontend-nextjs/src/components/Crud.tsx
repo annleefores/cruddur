@@ -35,7 +35,14 @@ const Crud: React.FC<CrudProps> = ({ item }) => {
   ];
   return (
     <div className="flex flex-col gap-y-2 p-6 h-full w-full border-b border-neutral-800">
-      <UserProfile ShowName={true} />
+      <div className="inline-flex justify-between items-center">
+        <div>
+          <UserProfile ShowName={true} />
+        </div>
+        <div>
+          <p className="text-xs text-neutral-500">{`10d`}</p>
+        </div>
+      </div>
       <div className="flex flex-col gap-y-3 ml-12">
         <div>
           <p className="-1  text-sm md:text-base break-words line-clamp-4">
