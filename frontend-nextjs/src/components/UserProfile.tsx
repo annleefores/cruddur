@@ -17,7 +17,12 @@ const UserProfile: React.FC<UserProfileProps> = ({
     <Link href="#">
       <div className="flex flex-row items-center gap-x-2 w-full">
         <div className="w-full max-h-[40px] max-w-[40px] rounded-full bg-white">
-          <Image src={user} alt="user-profile" className="object-cover" />
+          <Image
+            src={user}
+            alt="user-profile"
+            priority
+            className="object-cover"
+          />
         </div>
         <div
           className={twMerge(

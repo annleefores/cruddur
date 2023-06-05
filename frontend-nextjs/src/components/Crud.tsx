@@ -34,8 +34,8 @@ const Crud: React.FC<CrudProps> = ({ item }) => {
     },
   ];
   return (
-    <div className="flex flex-col gap-y-2 p-6 h-full w-full border-b border-neutral-800">
-      <div className="inline-flex justify-between items-center">
+    <div className="flex flex-col gap-y-2 h-full ">
+      <div className="flex flex-row justify-between items-center">
         <div>
           <UserProfile ShowName={true} />
         </div>
@@ -43,13 +43,13 @@ const Crud: React.FC<CrudProps> = ({ item }) => {
           <p className="text-xs text-neutral-500">{`10d`}</p>
         </div>
       </div>
-      <div className="flex flex-col gap-y-3 ml-12">
+      <div className="flex flex-col ml-12 gap-y-2">
         <div>
-          <p className="-1  text-sm md:text-base break-words line-clamp-4">
+          <p className="text-sm md:text-base break-words line-clamp-4 my-2">
             {item}
           </p>
         </div>
-        <div className="flex flex-row w-full sm:w-4/5 justify-between text-neutral-500">
+        <div className="flex flex-row w-full sm:w-4/5 justify-between text-neutral-500 my-1">
           {activities.map((activity, index) => (
             <CrudActivities key={index} {...activity} />
           ))}
