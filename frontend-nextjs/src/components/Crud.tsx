@@ -1,6 +1,6 @@
 import React from "react";
 import UserProfile from "./UserProfile";
-import { IoShareOutline } from "react-icons/io5";
+import { RxShare2 } from "react-icons/rx";
 import {
   HiOutlineArrowPathRoundedSquare,
   HiOutlineChatBubbleOvalLeft,
@@ -35,7 +35,7 @@ const Crud: React.FC<CrudProps> = ({ post, uuid }) => {
       count: 10,
     },
     {
-      icon: IoShareOutline,
+      icon: RxShare2,
       label: "share",
     },
   ];
