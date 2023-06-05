@@ -23,7 +23,7 @@ export default function RootLayout({
             <LeftSidebar />
           </div>
           <div className="w-[600px] h-full">{children}</div>
-          <div className="hidden lg:block w-[375px] h-full">
+          <div className="hidden lg:block w-[370px] h-full">
             <RightSidebar />
           </div>
         </div>

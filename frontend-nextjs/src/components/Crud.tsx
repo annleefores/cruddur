@@ -38,7 +38,9 @@ const Crud: React.FC<CrudProps> = ({ item }) => {
       <UserProfile ShowName={true} />
       <div className="flex flex-col gap-y-3 ml-12">
         <div>
-          <p className="py-1 text-sm md:text-base">{item}</p>
+          <p className="-1  text-sm md:text-base break-words line-clamp-4">
+            {item}
+          </p>
         </div>
         <div className="flex flex-row w-full sm:w-4/5 justify-between text-neutral-500">
           {activities.map((activity, index) => (
