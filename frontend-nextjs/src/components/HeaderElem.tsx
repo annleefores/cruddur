@@ -14,8 +14,8 @@ const HeaderElem: React.FC<HeaderElemProps> = ({ page }) => {
       <h1 className="hidden sm:block text-lg sm:text-xl font-bold h-fit">
         {page}
       </h1>
-      <Link href="/">
-        <div className="block sm:hidden w-full max-h-[32px] max-w-[32px] mb-2 rounded-full xl:mx-2">
+      <Link href="/" className="block sm:hidden">
+        <div className=" w-full max-h-[32px] max-w-[32px] mb-2 rounded-full xl:mx-2">
           <Image
             src={logo}
             alt="cruddur-logo"
