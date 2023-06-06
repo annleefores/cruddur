@@ -10,7 +10,7 @@ interface HeaderElemProps {
 
 const HeaderElem: React.FC<HeaderElemProps> = ({ page }) => {
   return (
-    <div className="flex flex-row justify-between fixed sm:sticky top-0 left-0 z-50 w-full py-3 px-4 bg-gray-0 bg-clip-padding backdrop-filter backdrop-blur-sm bg-opacity-10 border-b border-neutral-800">
+    <div className="flex flex-row justify-between fixed sm:sticky top-0 left-0 z-50 w-full py-2 px-4 bg-gray-0 bg-clip-padding backdrop-filter backdrop-blur-sm bg-opacity-10 border-b border-neutral-800">
       <h1 className="hidden sm:block text-lg sm:text-xl font-bold h-fit">
         {page}
       </h1>
@@ -24,7 +24,7 @@ const HeaderElem: React.FC<HeaderElemProps> = ({ page }) => {
           />
         </div>
       </Link>
-      <div className="block sm:hidden">
+      <div className="block sm:hidden h-fit">
         <h1 className=" text-lg sm:text-xl font-bold h-fit">{page}</h1>
       </div>
       <div className="block sm:hidden w-full max-h-[32px] max-w-[32px] ">
