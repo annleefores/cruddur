@@ -1,5 +1,5 @@
 import LeftSidebar from "@/components/LeftSidebar";
-import "../globals.css";
+import "./globals.css";
 import { Inter } from "next/font/google";
 import RightSidebar from "@/components/RightSidebar";
 
