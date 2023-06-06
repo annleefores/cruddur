@@ -1,6 +1,6 @@
 import HeaderElem from "@/components/HeaderElem";
 import React from "react";
-import ChatPage from "../../components/ChatPage";
+import ChatPage from "./components/ChatPage";
 
 interface PageProps {
   params: {
