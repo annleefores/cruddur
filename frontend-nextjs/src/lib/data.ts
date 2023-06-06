@@ -50,3 +50,107 @@ export const data = [{"post": "Just signed up for cruddur! Excited to see what e
 {"post": "Feeling grateful for my pets today \ud83d\udc3e", "uuid": "3b063476-fd94-43e1-ba71-c83877be48ae"},
 
 ]
+
+export const notifications = [
+        {
+            "userhandle": "user123",
+            "notification": "JohnDoe followed you"
+        },
+        {
+            "userhandle": "user456",
+            "notification": "JaneSmith liked your post"
+        },
+        {
+            "userhandle": "user789",
+            "notification": "RandomUser reshareded your crud"
+        },
+        {
+            "userhandle": "user987",
+            "notification": "MaryJohnson mentioned you in a comment"
+        },
+        {
+            "userhandle": "user654",
+            "notification": "SarahJones replied to your message"
+        },
+        {
+            "userhandle": "user321",
+            "notification": "DavidWilliams shared a new photo"
+        },
+        {
+            "userhandle": "user876",
+            "notification": "AlexBrown added you to their favorites"
+        },
+        {
+            "userhandle": "user543",
+            "notification": "LisaTaylor started following you"
+        },
+        {
+            "userhandle": "user210",
+            "notification": "MaxAdams liked your video"
+        },
+        {
+            "userhandle": "user789",
+            "notification": "RandomUser mentioned you in a post"
+        },
+        {
+            "userhandle": "user123",
+            "notification": "JohnDoe commented on your status"
+        },
+        {
+            "userhandle": "user456",
+            "notification": "JaneSmith sent you a message"
+        },
+        {
+            "userhandle": "user321",
+            "notification": "DavidWilliams shared your article"
+        },
+        {
+            "userhandle": "user876",
+            "notification": "AlexBrown mentioned you in a crud"
+        },
+        {
+            "userhandle": "user987",
+            "notification": "MaryJohnson liked your photo"
+        },
+        {
+            "userhandle": "user654",
+            "notification": "SarahJones started following your playlist"
+        },
+        {
+            "userhandle": "user543",
+            "notification": "LisaTaylor added a comment to your post"
+        },
+        {
+            "userhandle": "user210",
+            "notification": "MaxAdams replied to your comment"
+        },
+        {
+            "userhandle": "user123",
+            "notification": "JohnDoe shared your story"
+        },
+        {
+            "userhandle": "user456",
+            "notification": "JaneSmith tagged you in a photo"
+        },
+        {
+            "userhandle": "user789",
+            "notification": "RandomUser posted on your timeline"
+        },
+        {
+            "userhandle": "user987",
+            "notification": "MaryJohnson sent you a friend request"
+        },
+        {
+            "userhandle": "user654",
+            "notification": "SarahJones mentioned you in a conversation"
+        },
+        {
+            "userhandle": "user543",
+            "notification": "LisaTaylor liked your comment"
+        },
+        {
+            "userhandle": "user210",
+            "notification": "MaxAdams started following your blog"
+        }
+    ]
+    
