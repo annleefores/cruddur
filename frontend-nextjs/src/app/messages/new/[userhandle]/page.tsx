@@ -14,6 +14,7 @@ interface PageProps {
 }
 
 const page: React.FC<PageProps> = ({ params }) => {
+  // eslint-disable-next-line react-hooks/rules-of-hooks
   const router = useRouter();
 
   return (
@@ -22,7 +23,7 @@ const page: React.FC<PageProps> = ({ params }) => {
       <div className="relative h-full w-full pt-14 sm:pt-0">
         <div
           onClick={() => router.back()}
-          className="fixed  top-15 z-50 p-1 rounded-full w-fit ml-3 mt-2 cursor-pointer bg-gray-0 bg-clip-padding backdrop-filter backdrop-blur-sm bg-opacity-10 border-b border-neutral-800 hover:bg-neutral-600/50"
+          className="fixed top-14 z-50 p-1 rounded-full w-fit ml-3 mt-2 cursor-pointer bg-neutral-800/50 hover:bg-neutral-600/50"
         >
           <HiOutlineArrowLeft className="w-6 h-6 sm:w-7 sm:h-7" />
         </div>
