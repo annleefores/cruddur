@@ -44,15 +44,15 @@ const EditForm = () => {
 
       <div className="flex flex-col gap-2 gap-x-4">
         <p className="text-xs w-fit text-neutral-500 mb-1">Profile Picture</p>
-        <div className="flex items-center justify-center p-2 w-full text-xs text-white border border-neutral-700 bg-neutral-800 truncate text-center rounded cursor-pointer">
-          <label htmlFor="fileUpload" className=" cursor-pointer">
+        <div className="flex items-center justify-center w-full text-xs text-white border border-neutral-700 bg-neutral-800 truncate text-center rounded cursor-pointer">
+          <label htmlFor="fileUpload" className=" cursor-pointer w-full p-2">
             {file ? file.name : "Choose a file"}
             <input
               type="file"
               id="fileUpload"
               name="fileUpload"
               onChange={handleFileChange}
-              className="hidden"
+              className="hidden "
               accept="image/png, image/jpeg"
             />
           </label>
