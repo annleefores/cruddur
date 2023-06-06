@@ -11,7 +11,7 @@ const Profile = () => {
           src={banner}
           alt="user-profile"
           priority
-          className="object-cover h-52"
+          className="object-cover h-36 md:h-52"
         />
         <div className="max-w-[120px] md:max-w-[140px] bg-black rounded-full p-1 absolute -bottom-3 left-3 sm:left-5 ">
           <UserPic />
