@@ -19,7 +19,7 @@ const EditForm = () => {
     <form onSubmit={handleSubmit} className="space-y-4">
       <div className="flex flex-col gap-y-4 my-6">
         <div>
-          <p className="text-xs mx-2 text-neutral-500 mb-1">Display Name</p>
+          <p className="text-xs  text-neutral-500 mb-1">Display Name</p>
           <input
             type="text"
             maxLength={50}
@@ -30,7 +30,7 @@ const EditForm = () => {
           />
         </div>
         <div>
-          <p className="text-xs mx-2 text-neutral-500 mb-1">Bio</p>
+          <p className="text-xs  text-neutral-500 mb-1">Bio</p>
           <input
             maxLength={160}
             type="text"
@@ -43,7 +43,7 @@ const EditForm = () => {
       </div>
 
       <div className="flex flex-col xs:flex-row xs:items-center gap-2 gap-x-4">
-        <p className="text-xs mx-2 text-neutral-500 mb-1">Profile Picture</p>
+        <p className="text-xs  text-neutral-500 mb-1">Profile Picture</p>
         <div className="bg-neutral-200 p-2 w-36 text-xs text-black truncate text-center rounded cursor-pointer">
           <label htmlFor="fileUpload" className=" cursor-pointer">
             {file ? file.name : "Choose a file"}
