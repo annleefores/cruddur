@@ -25,7 +25,7 @@ const EditForm = () => {
             maxLength={50}
             value={input1}
             onChange={(e) => setInput1(e.target.value)}
-            className="w-full bg-neutral-900 resize-none outline-none border rounded border-neutral-800 focus:border-neutral-700 p-2"
+            className="w-full bg-neutral-900 resize-none outline-none border rounded border-neutral-700 focus:border-neutral-500 transition p-2"
             placeholder="Display Name"
           />
         </div>
@@ -36,15 +36,15 @@ const EditForm = () => {
             type="text"
             value={input2}
             onChange={(e) => setInput2(e.target.value)}
-            className="w-full bg-neutral-900 resize-none outline-none border rounded border-neutral-800 focus:border-neutral-700 p-2"
+            className="w-full bg-neutral-900 resize-none outline-none border rounded border-neutral-700 focus:border-neutral-500  transition p-2"
             placeholder="Bio"
           />
         </div>
       </div>
 
       <div className="flex flex-col xs:flex-row xs:items-center gap-2 gap-x-4">
-        <p className="text-xs  text-neutral-500 mb-1">Profile Picture</p>
-        <div className="bg-neutral-200 p-2 w-36 text-xs text-black truncate text-center rounded cursor-pointer">
+        <p className="text-xs w-fit text-neutral-500 mb-1">Profile Picture</p>
+        <div className="flex items-center justify-center  p-2 w-full text-xs text-white border border-neutral-700 bg-neutral-800 truncate text-center rounded cursor-pointer">
           <label htmlFor="fileUpload" className=" cursor-pointer">
             {file ? file.name : "Choose a file"}
             <input
