@@ -8,7 +8,7 @@ const MessageUserList = () => {
       {users.map((user, index) => (
         <Link key={index} href={`/messages/new/${user.userhandle}`}>
           <div
-            className=" w-full px-3 py-4 md:px-8 sm:w-full h-full hover:bg-neutral-900
+            className=" w-full px-3 py-6 md:px-8 sm:w-full h-full hover:bg-neutral-900
           border-b border-neutral-800 transition cursor-pointer"
           >
             <UserListBox {...user} />
