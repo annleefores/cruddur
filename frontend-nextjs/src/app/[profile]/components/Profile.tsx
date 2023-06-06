@@ -6,6 +6,13 @@ import ProfileEdit from "./ProfileEdit";
 import { useState } from "react";
 
 const Profile = () => {
+  //variables
+  const username = "Annlee Fores";
+  const handle = "annleefores";
+  const followingcount = "1";
+  const followerscount = "10K";
+  const bio = "DevOps Engineer | Backend Developer | Electronics Hobbyist";
+
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
   function openModal() {
@@ -36,18 +43,19 @@ const Profile = () => {
       </div>
       <div className="flex flex-col gap-y-3 p-6 md:px-8">
         <div className=" flex flex-col">
-          <p className="text-lg md:text-xl font-bold">Annlee Fores</p>
-          <p className="text-sm text-neutral-500">@annleefores</p>
+          <p className="text-lg md:text-xl font-bold">{username}</p>
+          <p className="text-sm text-neutral-500">@{handle}</p>
         </div>
         <div className=" text-sm">
-          <p>DevOps Engineer | Backend Developer | Electronics Hobbyist</p>
+          <p>{bio}</p>
         </div>
         <div className="flex flex-col xs:flex-row gap-x-4 w-fit sm:gap-x-6 text-sm text-neutral-500 ">
           <p>
-            <span className=" text-white mr-1">{`1`}</span>Following
+            <span className=" text-white mr-1">{followingcount}</span>Following
           </p>
           <p>
-            <span className=" text-white mr-1">{`10K`}</span>Followers
+            <span className=" text-white mr-1">{followerscount}</span>
+            Followers
           </p>
         </div>
       </div>
