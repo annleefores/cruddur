@@ -1,9 +1,17 @@
+"use state";
 import Image from "next/image";
 import banner from "../../../../public/banner.jpg";
 import UserPic from "@/components/UserPic";
-import UserName from "@/components/UserName";
+import ProfileEdit from "./ProfileEdit";
+import { useState } from "react";
 
 const Profile = () => {
+  const [isOpen, setIsOpen] = useState<boolean>(false);
+
+  function openModal() {
+    setIsOpen(true);
+  }
+
   return (
     <>
       <div className="relative">
@@ -17,9 +25,13 @@ const Profile = () => {
           <UserPic />
         </div>
         <div className="flex justify-end mx-2 my-2">
-          <button className="p-1 px-4 rounded-full hover:bg-neutral-800  border border-neutral-500">
+          <button
+            onClick={openModal}
+            className="p-1 px-4 rounded-full hover:bg-neutral-800  border border-neutral-500"
+          >
             Edit Profile
           </button>
+          <ProfileEdit isOpen={isOpen} setIsOpen={setIsOpen} />
         </div>
       </div>
       <div className="flex flex-col gap-y-3 p-6 md:px-8">
