@@ -1,7 +1,7 @@
 import Image from "next/image";
 import React from "react";
 import { IoNotifications } from "react-icons/io5";
-import demouser from "../../../../public/demouser.png";
+import demouser from "../../../../../public/demouser.png";
 
 interface CrudNotificationProps {
   userhandle: string;

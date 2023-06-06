@@ -1,6 +1,6 @@
 "use state";
 import Image from "next/image";
-import banner from "../../../../public/banner.jpg";
+import banner from "../../../../../public/banner.jpg";
 import UserPic from "@/components/UserPic";
 import ProfileEdit from "./ProfileEdit";
 import { useState } from "react";
