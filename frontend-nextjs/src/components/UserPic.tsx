@@ -8,7 +8,7 @@ const UserPic = () => {
         src={user}
         alt="user-profile"
         priority
-        className="object-cover bg-white rounded-full"
+        className="object-cover  rounded-full"
       />
     </div>
   );
