@@ -154,3 +154,114 @@ export const notifications = [
         }
     ]
     
+export const users = [
+    {
+      "name": "Annlee Fores",
+      "userhandle": "annleefores"
+    },
+    {
+      "name": "John Smith",
+      "userhandle": "johnsmith"
+    },
+    {
+      "name": "Jane Doe",
+      "userhandle": "janedoe"
+    },
+    {
+      "name": "David Johnson",
+      "userhandle": "davidjohnson"
+    },
+    {
+      "name": "Emily Brown",
+      "userhandle": "emilybrown"
+    },
+    {
+      "name": "Michael Wilson",
+      "userhandle": "michaelwilson"
+    },
+    {
+      "name": "Olivia Taylor",
+      "userhandle": "oliviataylor"
+    },
+    {
+      "name": "Robert Anderson",
+      "userhandle": "robertanderson"
+    },
+    {
+      "name": "Sophia Martinez",
+      "userhandle": "sophiamartinez"
+    },
+    {
+      "name": "William Lopez",
+      "userhandle": "williamlopez"
+    },
+    {
+      "name": "Isabella Lee",
+      "userhandle": "isabellalee"
+    },
+    {
+      "name": "James Harris",
+      "userhandle": "jamesharris"
+    },
+    {
+      "name": "Ava Clark",
+      "userhandle": "avaclark"
+    },
+    {
+      "name": "Joseph Lewis",
+      "userhandle": "josephlewis"
+    },
+    {
+      "name": "Mia Hall",
+      "userhandle": "miahall"
+    },
+    {
+      "name": "Christopher Young",
+      "userhandle": "christopheryoung"
+    },
+    {
+      "name": "Abigail Walker",
+      "userhandle": "abigailwalker"
+    },
+    {
+      "name": "Daniel Wright",
+      "userhandle": "danielwright"
+    },
+    {
+      "name": "Elizabeth Martin",
+      "userhandle": "elizabethmartin"
+    },
+    {
+      "name": "Matthew Thompson",
+      "userhandle": "matthewthompson"
+    },
+    {
+      "name": "Samantha Turner",
+      "userhandle": "samanthaturner"
+    },
+    {
+      "name": "Andrew Parker",
+      "userhandle": "andrewparker"
+    },
+    {
+      "name": "Ella Collins",
+      "userhandle": "ellacollins"
+    },
+    {
+      "name": "Benjamin Cooper",
+      "userhandle": "benjamincooper"
+    },
+    {
+      "name": "Grace Rodriguez",
+      "userhandle": "gracerodriguez"
+    },
+    {
+      "name": "Jackson Stewart",
+      "userhandle": "jacksonstewart"
+    },
+    {
+      "name": "Lily Morgan",
+      "userhandle": "lilymorgan"
+    }
+  ]
+  
