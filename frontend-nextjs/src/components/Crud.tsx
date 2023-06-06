@@ -41,7 +41,7 @@ const Crud: React.FC<CrudProps> = ({ post, uuid }) => {
   ];
   return (
     <>
-      <div className="flex flex-row w-full h-full gap-x-1">
+      <div className="flex flex-row w-full h-full">
         <div className="flex flex-col max-w-[40px] md:max-w-[50px] w-full">
           <Link href={`/${username}`} className=" max-h-[40px] md:max-h-[50px]">
             <UserPic />
@@ -51,29 +51,31 @@ const Crud: React.FC<CrudProps> = ({ post, uuid }) => {
             className="min-h-full"
           ></Link>
         </div>
-        <Link href={`/${username}/status/${uuid}`}>
-          <div className="flex flex-col px-2 w-full">
-            <div className="flex flex-row justify-between items-center">
-              <div>
-                <UserName />
+        <div className="w-full">
+          <Link href={`/${username}/status/${uuid}`}>
+            <div className="flex flex-col px-2 w-full">
+              <div className="flex flex-row justify-between items-center">
+                <div>
+                  <UserName />
+                </div>
+                <div>
+                  <p className="text-xs text-neutral-500">{`10d`}</p>
+                </div>
               </div>
-              <div>
-                <p className="text-xs text-neutral-500">{`10d`}</p>
+              <div className="flex flex-col  gap-y-2">
+                <div className="text-sm md:text-base break-words line-clamp-4 my-2">
+                  <Hashtags text={post} />
+                </div>
               </div>
             </div>
-            <div className="flex flex-col  gap-y-2">
-              <div className="text-sm md:text-base break-words line-clamp-4 my-2">
-                <Hashtags text={post} />
-              </div>
+          </Link>
+          <div className="flex justify-center md:w-4/5 px-2">
+            <div className="flex flex-row w-full justify-between text-neutral-500 my-1">
+              {activities.map((activity, index) => (
+                <CrudActivities key={index} {...activity} />
+              ))}
             </div>
           </div>
-        </Link>
-      </div>
-      <div className="flex  justify-center">
-        <div className="flex flex-row w-3/4 md:w-4/5 mt-2 justify-between text-neutral-500 my-1">
-          {activities.map((activity, index) => (
-            <CrudActivities key={index} {...activity} />
-          ))}
         </div>
       </div>
     </>
