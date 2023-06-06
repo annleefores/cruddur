@@ -7,7 +7,7 @@ const NotificationPage = () => {
       {notifications.map((notification, index) => (
         <div
           key={index}
-          className=" w-full p-3 sm:w-full h-full hover:bg-neutral-900 border-b border-neutral-800 transition cursor-pointer"
+          className=" w-full p-3 md:px-8 sm:w-full h-full hover:bg-neutral-900 border-b border-neutral-800 transition cursor-pointer"
         >
           <CrudNotification {...notification} />
         </div>
