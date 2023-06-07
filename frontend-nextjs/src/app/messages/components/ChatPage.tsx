@@ -21,10 +21,7 @@ const ChatPage = () => {
   }, []);
 
   return (
-    <div
-      ref={chatContainerRef}
-      className="flex flex-col-reverse overflow-y-scroll no-scrollbar "
-    >
+    <div ref={chatContainerRef} className="overflow-y-scroll no-scrollbar ">
       <div className="h-full">
         {messages.map((message, index) => (
           <ChatBubble
@@ -34,8 +31,8 @@ const ChatPage = () => {
             previousIsUser={index > 0 ? messages[index - 1].isUser : false}
           />
         ))}
-        {/* <div ref={chatContainerRef} /> */}
       </div>
+      {/* <div ref={chatContainerRef} /> */}
       <div className="h-16"> </div>
     </div>
   );

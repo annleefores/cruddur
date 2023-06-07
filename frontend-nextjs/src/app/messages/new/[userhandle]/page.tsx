@@ -15,7 +15,7 @@ const page: React.FC<PageProps> = ({ params }) => {
     <div>
       <div className="bg-black w-full ">
         <HeaderElem page={params.userhandle} />
-        <div className="h-full w-full sm:pt-0 ">
+        <div className="h-full w-full pt-14 sm:pt-0 ">
           <ChatPage />
         </div>
       </div>
