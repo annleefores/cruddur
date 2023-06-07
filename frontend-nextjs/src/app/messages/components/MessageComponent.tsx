@@ -18,7 +18,6 @@ interface MessageComponent {
 }
 
 const MessageComponent: React.FC<MessageComponent> = ({ Msg, userhandle }) => {
-  //   const pathname = usePathname();
   const [selectedUser, setSelectedUser] = useState("");
 
   // eslint-disable-next-line react-hooks/rules-of-hooks
