@@ -5,10 +5,11 @@ import React, { useEffect, useRef } from "react";
 
 const ChatPage = () => {
   // eslint-disable-next-line react-hooks/rules-of-hooks
-  const chatContainerRef = useRef<HTMLDivElement>(null);
+  // const chatContainerRef = useRef<HTMLDivElement>(null);
+  // const chatContainerEndRef = useRef<HTMLDivElement>(null);
 
   // const scrollToBottom = () => {
-  //   chatContainerRef.current?.scrollIntoView({ behavior: "smooth" });
+  //   chatContainerEndRef.current?.scrollIntoView({ behavior: "smooth" });
   // };
 
   // // eslint-disable-next-line react-hooks/rules-of-hooks
@@ -16,12 +17,14 @@ const ChatPage = () => {
   //   scrollToBottom();
   // }, []);
 
-  useEffect(() => {
-    window.scrollTo(0, chatContainerRef.current?.scrollHeight || 0);
-  }, []);
+  // useEffect(() => {
+  //   console.log(chatContainerRef.current?.scrollHeight);
+  //   window.scrollTo(0, chatContainerRef.current?.scrollHeight || 0);
+  // }, []);
 
   return (
-    <div ref={chatContainerRef} className="overflow-y-scroll no-scrollbar ">
+    <>
+      <div className="h-14 block sm:hidden" />
       <div className="h-full">
         {messages.map((message, index) => (
           <ChatBubble
@@ -32,9 +35,9 @@ const ChatPage = () => {
           />
         ))}
       </div>
-      {/* <div ref={chatContainerRef} /> */}
-      <div className="h-16"> </div>
-    </div>
+      {/* <div ref={chatContainerEndRef} /> */}
+      <div id="scroll" className="h-16" />
+    </>
   );
 };
 
