@@ -1,6 +1,8 @@
+"use client";
 import HeaderElem from "@/components/HeaderElem";
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import ChatPage from "../../components/ChatPage";
+import ChatInput from "../../components/ChatInput";
 
 interface PageProps {
   params: {
@@ -10,10 +12,15 @@ interface PageProps {
 
 const page: React.FC<PageProps> = ({ params }) => {
   return (
-    <div className="bg-black w-full h-full overflow-y-scroll no-scrollbar">
-      <HeaderElem page={params.userhandle} />
-      <div className="h-full w-full pt-14 sm:pt-0">
-        <ChatPage />
+    <div>
+      <div className="bg-black w-full ">
+        <HeaderElem page={params.userhandle} />
+        <div className="h-full w-full sm:pt-0 ">
+          <ChatPage />
+        </div>
+      </div>
+      <div>
+        <ChatInput />
       </div>
     </div>
   );
