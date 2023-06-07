@@ -12,7 +12,7 @@ import { twMerge } from "tailwind-merge";
 
 interface MessageComponent {
   Msg: boolean;
-  userhandle: string;
+  userhandle?: string;
 }
 
 const MessageComponent: React.FC<MessageComponent> = ({ Msg, userhandle }) => {
@@ -20,7 +20,7 @@ const MessageComponent: React.FC<MessageComponent> = ({ Msg, userhandle }) => {
   const [selectedUser, setSelectedUser] = useState("");
 
   useEffect(() => {
-    setSelectedUser(userhandle);
+    setSelectedUser(userhandle || "");
   }, [userhandle]);
 
   return (
