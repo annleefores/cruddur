@@ -1,10 +1,30 @@
+"use client";
 import ChatBubble from "./ChatBubble";
 import { messages } from "@/lib/data";
-import ChatInput from "./ChatInput";
+import React, { useEffect, useRef } from "react";
 
 const ChatPage = () => {
+  // eslint-disable-next-line react-hooks/rules-of-hooks
+  const chatContainerRef = useRef<HTMLDivElement>(null);
+
+  // const scrollToBottom = () => {
+  //   chatContainerRef.current?.scrollIntoView({ behavior: "smooth" });
+  // };
+
+  // // eslint-disable-next-line react-hooks/rules-of-hooks
+  // useEffect(() => {
+  //   scrollToBottom();
+  // }, []);
+
+  useEffect(() => {
+    window.scrollTo(0, chatContainerRef.current?.scrollHeight || 0);
+  }, []);
+
   return (
-    <div className="mt-6">
+    <div
+      ref={chatContainerRef}
+      className="flex flex-col-reverse overflow-y-scroll no-scrollbar "
+    >
       <div className="h-full">
         {messages.map((message, index) => (
           <ChatBubble
@@ -14,9 +34,9 @@ const ChatPage = () => {
             previousIsUser={index > 0 ? messages[index - 1].isUser : false}
           />
         ))}
+        {/* <div ref={chatContainerRef} /> */}
       </div>
       <div className="h-16"> </div>
-      {/* <ChatInput /> */}
     </div>
   );
 };
