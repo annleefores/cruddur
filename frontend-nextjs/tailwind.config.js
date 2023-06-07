@@ -15,6 +15,7 @@ module.exports = {
       },
       screens: {
         'xs': '200px',
+        'hideRightBar': '1060px',
         ...defaultTheme.screens,
       },
     },
