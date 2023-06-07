@@ -21,7 +21,7 @@ const HeaderElem: React.FC<HeaderElemProps> = ({ page }) => {
   const pathname = usePathname();
 
   const ChatHeader = (
-    <div className="flex flex-row gap-x-4 font-bold text-lg items-center">
+    <div className="flex flex-row gap-x-4 font-bold text-lg items-center py-1">
       <div
         onClick={() => router.back()}
         className="p-1 rounded-full w-fit cursor-pointer bg-neutral-800/50 hover:bg-neutral-600/50"
