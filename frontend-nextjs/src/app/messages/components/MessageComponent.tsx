@@ -34,7 +34,7 @@ const MessageComponent: React.FC<MessageComponent> = ({ Msg, userhandle }) => {
 
   return (
     <div className="flex flex-row gap-1 h-full w-full">
-      {/* MessageList  */}
+      {/* Chat user list  */}
       <div
         className={twMerge(
           "bg-black w-screen sm:w-[360px] h-full overflow-y-scroll no-scrollbar  border-r border-neutral-800",
