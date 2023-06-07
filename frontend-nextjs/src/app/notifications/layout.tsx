@@ -6,11 +6,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <div className="flex flex-row gap-x-3 w-full h-full">
-      <div className="w-full md:w-max-[600px]">{children}</div>
-      {/* <div className="hidden lg:block w-[370px]">
+    <div className="flex flex-row gap-x-2 w-full h-full">
+      <div className="w-screen sm:w-[600px]">{children}</div>
+      <div className="hidden hideRightBar:block w-[370px]">
         <RightSidebar />
-      </div> */}
+      </div>
     </div>
   );
 }
