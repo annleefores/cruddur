@@ -1,12 +1,14 @@
 "use client";
+
 import HeaderElem from "@/components/HeaderElem";
 import { users } from "@/lib/data";
 import Link from "next/link";
 import UserListBox from "./UserListBox";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import ChatPage from "./ChatPage";
 import ChatInput from "./ChatInput";
 import { twMerge } from "tailwind-merge";
+
 // import { usePathname } from "next/navigation";
 // import { isChat } from "@/lib/isChat";
 
@@ -19,12 +21,21 @@ const MessageComponent: React.FC<MessageComponent> = ({ Msg, userhandle }) => {
   //   const pathname = usePathname();
   const [selectedUser, setSelectedUser] = useState("");
 
+  // eslint-disable-next-line react-hooks/rules-of-hooks
+  const chatContainerRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    console.log(chatContainerRef.current?.scrollHeight);
+    window.scrollTo(0, chatContainerRef.current?.scrollHeight || 0);
+  }, []);
+
   useEffect(() => {
     setSelectedUser(userhandle || "");
   }, [userhandle]);
 
   return (
     <div className="flex flex-row gap-1 h-full w-full">
+      {/* MessageList  */}
       <div
         className={twMerge(
           "bg-black w-screen sm:w-[360px] h-full overflow-y-scroll no-scrollbar  border-r border-neutral-800",
@@ -49,7 +60,9 @@ const MessageComponent: React.FC<MessageComponent> = ({ Msg, userhandle }) => {
           </div>
         </div>
       </div>
+      {/* Chat */}
       <div
+        ref={chatContainerRef}
         className={twMerge(
           "hidden sm:block flex-grow overflow-y-scroll no-scrollbar bg-black",
           !Msg && "block "
