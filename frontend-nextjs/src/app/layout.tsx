@@ -22,7 +22,7 @@ export default function RootLayout({
           <div className="h-full">
             <LeftSidebar />
           </div>
-          <div>{children}</div>
+          <div className="flex-1">{children}</div>
         </div>
       </body>
     </html>
