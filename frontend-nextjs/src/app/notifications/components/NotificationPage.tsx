@@ -3,7 +3,7 @@ import CrudNotification from "./CrudNotification";
 
 const NotificationPage = () => {
   return (
-    <div>
+    <div className="pt-14 sm:pt-0 w-full">
       {notifications.map((notification, index) => (
         <div
           key={index}

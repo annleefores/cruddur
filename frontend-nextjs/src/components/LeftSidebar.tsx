@@ -11,7 +11,7 @@ const LeftSidebar = () => {
   return (
     <div
       className={twMerge(
-        `block flex-col sm:flex-row h-full w-full`,
+        `block flex-col sm:flex-row h-full w-full xl:min-w-[275px]`,
         isChat(pathname) == "/messages/new" && "hidden"
       )}
     >
