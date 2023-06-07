@@ -69,7 +69,7 @@ const Crud: React.FC<CrudProps> = ({ post, uuid }) => {
               </div>
             </div>
           </Link>
-          <div className="flex justify-center md:w-4/5 px-2">
+          <div className="flex justify-center smallscreen:w-4/5 px-2">
             <div className="flex flex-row w-full justify-between text-neutral-500 my-1">
               {activities.map((activity, index) => (
                 <CrudActivities key={index} {...activity} />
