@@ -9,7 +9,7 @@ export default function ProfileLayout({
     <>
       <div className="flex flex-row gap-x-2 w-full h-full">
         <div className="w-screen sm:w-[600px]">{children}</div>
-        <div className="hidden hideRightBar:block w-[370px]">
+        <div className="hidden lg:block flex-grow">
           <RightSidebar />
         </div>
       </div>

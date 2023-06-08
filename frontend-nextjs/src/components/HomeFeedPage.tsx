@@ -4,7 +4,7 @@ import { data } from "@/lib/data";
 
 const HomeFeedPage = () => {
   return (
-    <div className="flex flex-col h-full w-full overflow-y-scroll no-scrollbar">
+    <div className="flex  flex-col h-full w-full overflow-y-scroll no-scrollbar">
       <HeaderElem page={"Home"} />
 
       <div className=" ">
