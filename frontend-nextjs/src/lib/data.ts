@@ -270,6 +270,62 @@ export const data = [{
 },
 ]
 
+export const userpost = [{
+    "post": "Just signed up for Cruddur! Excited to see what everyone's posting about 🤩 #Excited #Cruddur #Happy #Fun",
+    "uuid": "8e29be33-4e62-43fc-ad59-f6aaf2164018",
+    "name": "Annlee Fores",
+    "userhandle": "annleefores"
+  },
+  {
+    "post": "Movie Time - Spider-Man: Across the Spider-Verse !!!! #AcrossTheSpiderVerse",
+    "uuid": "4260bc57-a956-4dc7-b8cf-cd60e4fa417a",
+    "name": "Annlee Fores",
+    "userhandle": "annleefores"
+  },
+  {
+    "post": "Can't believe how easy it is to post on Cruddur! #gamechanger",
+    "uuid": "4260bc57-a956-4dc1-b8cf-cd60e4fa417a",
+    "name": "Annlee Fores",
+    "userhandle": "annleefores"
+  },
+  {
+    "post": "Feeling inspired today, so I'm sharing my favorite quote: 'The best way to predict the future is to invent it.' - Alan Kay",
+    "uuid": "801c8b5c-245c-4b2b-9282-f3948f1266e7",
+    "name": "Annlee Fores",
+    "userhandle": "annleefores"
+  },
+  {
+    "post": "Just discovered Cruddur and already addicted 😍",
+    "uuid": "80a398cd-c171-4692-9aec-46296452c44b",
+    "name": "Annlee Fores",
+    "userhandle": "annleefores"
+  },
+  {
+    "post": "Anyone else having trouble coming up with a post for Cruddur? 😅 #confused",
+    "uuid": "4d29d2c5-e546-4825-b6fb-43f014de80fe",
+    "name": "Annlee Fores",
+    "userhandle": "annleefores"
+  },
+  {
+    "post": "Just posted my first Cruddur post! Feels good to get my thoughts out there 💭",
+    "uuid": "ea4e17af-60c9-4241-a26c-dea6e9a5b6c7",
+    "name": "Annlee Fores",
+    "userhandle": "annleefores"
+  },
+  {
+    "post": "Happy Friday, Cruddur fam! What are your weekend plans? 🎉",
+    "uuid": "ea2ff266-de3b-46c5-9600-2ad850f594b7",
+    "name": "Annlee Fores",
+    "userhandle": "annleefores"
+  },
+  {
+    "post": "Trying to come up with a witty post for Cruddur... any ideas? 😔 #LookingForIdeas",
+    "uuid": "ce6e68e7-8706-4c2e-84bf-68c0feafe05d",
+    "name": "Annlee Fores",
+    "userhandle": "annleefores"
+  },
+]
+
 export const notifications = [
         {
             "userhandle": "user123",

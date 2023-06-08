@@ -1,6 +1,7 @@
 import Crud from "@/components/Crud";
 import Profile from "./Profile";
 import CrudPage from "@/components/CrudPage";
+import { userpost } from "@/lib/data";
 
 const ProfilePage = () => {
   const ifPosts = true;
@@ -11,7 +12,7 @@ const ProfilePage = () => {
       </div>
       <div>
         {ifPosts ? (
-          <CrudPage />
+          <CrudPage data={userpost} />
         ) : (
           <div className="w-full text-center">
             <p className="text-sm text-neutral-500 p-4">

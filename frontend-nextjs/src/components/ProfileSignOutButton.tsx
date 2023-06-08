@@ -27,7 +27,7 @@ const ProfileSignOutButton = () => {
             <Popover.Panel className="absolute right-0 sm:-right-5 top-8 xl:top-14 xl:right-0 z-50 mt-3 min-w-full text-center">
               <div className="overflow-hidden w-full rounded-lg ">
                 <div className="bg-neutral-800 p-2">
-                  <button className="text-sm">Logout</button>
+                  <button className="text-sm w-full">Logout</button>
                 </div>
               </div>
             </Popover.Panel>
