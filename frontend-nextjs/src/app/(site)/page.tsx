@@ -28,7 +28,7 @@ export default function Home() {
       </div>
 
       <div className="block fixed z-50 bg-[#3D0D7B] bottom-0 left-0 right-0 lg:hidden w-full py-4">
-        <div className="flex flex-row  w-full justify-around text-center">
+        <div className="flex flex-row  w-full justify-around items-center text-center">
           <Link
             href="/signin"
             className="p-1  rounded-full bg-[#9500FF] w-5/12"
