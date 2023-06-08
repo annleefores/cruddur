@@ -2,11 +2,9 @@ import Crud from "./Crud";
 import { data } from "@/lib/data";
 
 const CrudPage = () => {
-  const items = data;
-
   return (
     <div>
-      {items.map((item, index) => (
+      {data.map((item, index) => (
         <div
           key={index}
           className=" w-full p-3 sm:w-full h-full hover:bg-neutral-900 border-b border-neutral-800 transition cursor-pointer"
