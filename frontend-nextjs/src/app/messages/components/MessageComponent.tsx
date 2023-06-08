@@ -24,9 +24,18 @@ const MessageComponent: React.FC<MessageComponent> = ({ Msg, userhandle }) => {
   // eslint-disable-next-line react-hooks/rules-of-hooks
   const chatContainerRef = useRef<HTMLDivElement>(null);
 
+  // useEffect(() => {
+  //   console.log(chatContainerRef.current?.scrollHeight);
+  //   window.scrollTo(0, chatContainerRef.current?.scrollHeight || 0);
+  // }, []);
+
+  const scrollToBottom = () => {
+    chatContainerRef.current?.scrollIntoView({ behavior: "smooth" });
+  };
+
+  // eslint-disable-next-line react-hooks/rules-of-hooks
   useEffect(() => {
-    console.log(chatContainerRef.current?.scrollHeight);
-    window.scrollTo(0, chatContainerRef.current?.scrollHeight || 0);
+    scrollToBottom();
   }, []);
 
   useEffect(() => {
@@ -62,7 +71,6 @@ const MessageComponent: React.FC<MessageComponent> = ({ Msg, userhandle }) => {
       </div>
       {/* Chat */}
       <div
-        ref={chatContainerRef}
         className={twMerge(
           "hidden sm:block flex-grow overflow-y-scroll no-scrollbar bg-black",
           !Msg && "block "
@@ -81,6 +89,7 @@ const MessageComponent: React.FC<MessageComponent> = ({ Msg, userhandle }) => {
             <div>
               <ChatPage />
             </div>
+            <div ref={chatContainerRef} />
             <div className="fixed sm:sticky bottom-0 right-0 left-0">
               <ChatInput />
             </div>
