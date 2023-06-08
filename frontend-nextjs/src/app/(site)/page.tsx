@@ -31,13 +31,13 @@ export default function Home() {
         <div className="flex flex-row  w-full justify-around text-center">
           <Link
             href="/signin"
-            className="p-1 sm:py-2 rounded-full bg-[#9500FF] w-5/12"
+            className="p-1 py-3 rounded-full bg-[#9500FF] w-5/12"
           >
             <div>Signin</div>
           </Link>
           <Link
             href="/signup"
-            className="p-1 sm:py-2 rounded-full bg-white text-black  w-5/12"
+            className="p-1 py-3 rounded-full bg-white text-black  w-5/12"
           >
             <div>Signup</div>
           </Link>
