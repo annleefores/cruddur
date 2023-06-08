@@ -27,19 +27,19 @@ export default function Home() {
         </div>
       </div>
 
-      <div className="block fixed z-50 bg-[#3D0D7B] bottom-0 left-0 right-0 lg:hidden w-full py-[40px]">
+      <div className="block fixed z-50 bg-[#3D0D7B] bottom-0 left-0 right-0 lg:hidden w-full py-4">
         <div className="flex flex-row  w-full justify-around text-center">
           <Link
             href="/signin"
-            className="p-1 py-3 rounded-full bg-[#9500FF] w-5/12"
+            className="p-1  rounded-full bg-[#9500FF] w-5/12"
           >
-            <div>Signin</div>
+            <div>Sign in</div>
           </Link>
           <Link
             href="/signup"
-            className="p-1 py-3 rounded-full bg-white text-black  w-5/12"
+            className="p-1 py-1.5 rounded-full bg-white text-black  w-5/12"
           >
-            <div>Signup</div>
+            <div>Sign up</div>
           </Link>
         </div>
       </div>
