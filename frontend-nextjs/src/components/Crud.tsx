@@ -18,6 +18,7 @@ interface CrudProps {
   name: string;
   userhandle: string;
 }
+
 const Crud: React.FC<CrudProps> = ({ post, uuid, name, userhandle }) => {
   const username = "annleefores";
   const activities = [

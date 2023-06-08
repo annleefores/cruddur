@@ -1,7 +1,16 @@
+import React from "react";
 import Crud from "./Crud";
-import { data } from "@/lib/data";
 
-const CrudPage = () => {
+interface CrudpageProps {
+  data: Array<{
+    post: string;
+    uuid: string;
+    name: string;
+    userhandle: string;
+  }>;
+}
+
+const CrudPage: React.FC<CrudpageProps> = ({ data }) => {
   return (
     <div>
       {data.map((item, index) => (
