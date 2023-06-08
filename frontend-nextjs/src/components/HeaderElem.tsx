@@ -17,7 +17,7 @@ interface HeaderElemProps {
 const HeaderElem: React.FC<HeaderElemProps> = ({ page, selectedUser }) => {
   const router = useRouter();
   const ChatHeader = (
-    <div className="block sm:hidden flex flex-row gap-x-4 font-bold text-lg items-center py-1">
+    <div className="flex sm:hidden  flex-row gap-x-4 font-bold text-lg items-center py-1">
       <div
         onClick={() => router.back()}
         className="p-1 rounded-full w-fit cursor-pointer bg-neutral-800/50 hover:bg-neutral-600/50"

@@ -22,7 +22,7 @@ const NavigationItems: React.FC<NavigationItemsProps> = ({
     <Link
       href={href}
       className={twMerge(
-        `h-auto cursor-pointer hover:text-white transition text-neutral-400 p-1 `,
+        `h-auto cursor-pointer hover:text-white transition text-neutral-400 p-1 px-2 sm:px-1`,
         pathname === href && "text-white",
         href === "#" ? "hidden sm:block" : "block"
       )}
