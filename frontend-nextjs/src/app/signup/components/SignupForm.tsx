@@ -13,7 +13,7 @@ const SignupForm = () => {
             priority
             alt="Cruddur Logo"
           />
-          <h2 className="mt-4 text-center text-2xl font-bold leading-9 tracking-tight text-gray-200">
+          <h2 className="mt-3 text-center text-xl font-bold leading-9 tracking-tight text-gray-200">
             Sign up to create a Cruddur account
           </h2>
         </div>
