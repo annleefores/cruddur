@@ -20,6 +20,7 @@ interface MessageComponent {
 const MessageComponent: React.FC<MessageComponent> = ({ Msg, userhandle }) => {
   const [selectedUser, setSelectedUser] = useState("");
 
+  // auto scroll not working probably because there's another y scroll
   // eslint-disable-next-line react-hooks/rules-of-hooks
   const chatContainerRef = useRef<HTMLDivElement>(null);
 
