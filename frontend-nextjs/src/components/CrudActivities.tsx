@@ -20,7 +20,7 @@ const CrudActivities: React.FC<CrudActivitiesProps> = ({
         <Icon
           className={twMerge(
             "w-5 h-5 sm:w-6 sm:h-6 hover:text-[#9500FF]",
-            label == "like" && "hover:fill-red-500 hover:text-red-500",
+            label == "like" && " hover:text-red-500",
             liked && label == "like" && "fill-red-500 text-red-500"
           )}
         />
