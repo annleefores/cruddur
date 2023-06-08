@@ -85,7 +85,7 @@ const MessageComponent: React.FC<MessageComponent> = ({ Msg, userhandle }) => {
           </div>
         ) : (
           <>
-            <HeaderElem page={selectedUser} />
+            <HeaderElem page={"Chat"} selectedUser={selectedUser} />
             <div>
               <ChatPage />
             </div>
