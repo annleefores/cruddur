@@ -23,7 +23,7 @@ const SignupForm = () => {
             <div>
               <label
                 htmlFor="name"
-                className="block text-sm font-medium leading-6 text-gray-200"
+                className="block text-sm font-medium leading-6 text-neutral-400"
               >
                 Name
               </label>
@@ -34,14 +34,14 @@ const SignupForm = () => {
                   type="text"
                   autoComplete="name"
                   required
-                  className="block w-full rounded-md border-0 py-3 px-2 bg-neutral-800 text-gray-200 shadow-sm ring-1 ring-inset ring-neutral-600 outline-none placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-[#9500FF] sm:text-sm sm:leading-6"
+                  className="block w-full rounded border border-neutral-600 focus:border-[#9500FF] transition p-2 bg-neutral-800 text-gray-200 outline-none sm:leading-6"
                 />
               </div>
             </div>
             <div>
               <label
                 htmlFor="username"
-                className="block text-sm font-medium leading-6 text-gray-200"
+                className="block text-sm font-medium leading-6 text-neutral-400"
               >
                 Username
               </label>
@@ -52,14 +52,14 @@ const SignupForm = () => {
                   type="text"
                   autoComplete="username"
                   required
-                  className="block w-full rounded-md border-0 py-3 px-2 bg-neutral-800 text-gray-200 shadow-sm ring-1 ring-inset ring-neutral-600 outline-none placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-[#9500FF] sm:text-sm sm:leading-6"
+                  className="block w-full rounded border border-neutral-600 focus:border-[#9500FF] transition p-2 bg-neutral-800 text-gray-200 outline-none sm:leading-6"
                 />
               </div>
             </div>
             <div>
               <label
                 htmlFor="email"
-                className="block text-sm font-medium leading-6 text-gray-200"
+                className="block text-sm font-medium leading-6 text-neutral-400"
               >
                 Email address
               </label>
@@ -70,7 +70,7 @@ const SignupForm = () => {
                   type="email"
                   autoComplete="email"
                   required
-                  className="block w-full rounded-md border-0 py-3 px-2 bg-neutral-800 text-gray-200 shadow-sm ring-1 ring-inset ring-neutral-600 outline-none placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-[#9500FF] sm:text-sm sm:leading-6"
+                  className="block w-full rounded border border-neutral-600 focus:border-[#9500FF] transition p-2 bg-neutral-800 text-gray-200 outline-none sm:leading-6"
                 />
               </div>
             </div>
@@ -79,7 +79,7 @@ const SignupForm = () => {
               <div className="flex items-center justify-between">
                 <label
                   htmlFor="password"
-                  className="block text-sm font-medium leading-6 text-gray-200"
+                  className="block text-sm font-medium leading-6 text-neutral-400"
                 >
                   Password
                 </label>
@@ -91,7 +91,7 @@ const SignupForm = () => {
                   type="password"
                   autoComplete="current-password"
                   required
-                  className="block w-full rounded-md border-0 py-3 px-2 bg-neutral-800 text-gray-200 shadow-sm ring-1 ring-inset ring-neutral-600 outline-none placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-[#9500FF] sm:text-sm sm:leading-6"
+                  className="block w-full rounded border border-neutral-600 focus:border-[#9500FF] transition p-2 bg-neutral-800 text-gray-200 outline-none sm:leading-6"
                 />
               </div>
             </div>
