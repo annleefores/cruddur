@@ -78,8 +78,12 @@ const MessageComponent: React.FC<MessageComponent> = ({ Msg, userhandle }) => {
         ) : (
           <>
             <HeaderElem page={selectedUser} />
-            <ChatPage />
-            <ChatInput />
+            <div>
+              <ChatPage />
+            </div>
+            <div className="fixed sm:sticky bottom-0 right-0 left-0">
+              <ChatInput />
+            </div>
           </>
         )}
       </div>
