@@ -63,9 +63,15 @@ const HeaderElem: React.FC<HeaderElemProps> = ({ page, selectedUser }) => {
             <div className="block sm:hidden h-fit truncate">
               <h1 className=" text-lg sm:text-xl font-bold h-fit">{page}</h1>
             </div>
-            <div className="block sm:hidden w-full max-h-[32px] max-w-[32px] ">
-              <ProfileSignOutButton />
-            </div>
+            {page === "Explore" ? (
+              <></>
+            ) : (
+              <>
+                <div className="block sm:hidden w-full max-h-[32px] max-w-[32px] ">
+                  <ProfileSignOutButton />
+                </div>
+              </>
+            )}
           </>
         )}
       </div>
