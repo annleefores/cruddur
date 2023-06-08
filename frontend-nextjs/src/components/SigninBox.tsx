@@ -18,7 +18,7 @@ const SigninBox = () => {
           </Link>
         </div>
         <div className="w-full mt-1">
-          <Link href={`/signup`} className="flex justify-center ">
+          <Link href={`/signin`} className="flex justify-center ">
             <div className="p-3 text-center rounded-full text-[#9500FF] font-semibold m-2 w-10/12">
               Sign In
             </div>

@@ -22,12 +22,12 @@ export default function Home() {
             </div>
           </div>
         </div>
-        <div className="hidden hideRightBar:block w-[370px] h-full">
+        <div className="hidden lg:block flex-grow h-full">
           <RightSidebar />
         </div>
       </div>
 
-      <div className="block fixed z-50 bg-[#3D0D7B] bottom-0 left-0 right-0 hideRightBar:hidden w-full py-[40px]">
+      <div className="block fixed z-50 bg-[#3D0D7B] bottom-0 left-0 right-0 lg:hidden w-full py-[40px]">
         <div className="flex flex-row  w-full justify-around text-center">
           <Link
             href="/signin"
