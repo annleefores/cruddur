@@ -1,4 +1,3 @@
-import Crud from "./Crud";
 import CrudPage from "./CrudPage";
 import HeaderElem from "./HeaderElem";
 import { data } from "@/lib/data";
