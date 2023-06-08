@@ -28,7 +28,7 @@ const HeaderElem: React.FC<HeaderElemProps> = ({ page, selectedUser }) => {
         <div className="block sm:hidden w-full max-h-[32px] max-w-[32px] ">
           <ProfileSignOutButton />
         </div>
-        <div className="w-fit">
+        <div className="w-fit truncate">
           <p>@{selectedUser}</p>
         </div>
       </div>
@@ -58,7 +58,7 @@ const HeaderElem: React.FC<HeaderElemProps> = ({ page, selectedUser }) => {
                 />
               </div>
             </Link>
-            <div className="block sm:hidden h-fit">
+            <div className="block sm:hidden h-fit truncate">
               <h1 className=" text-lg sm:text-xl font-bold h-fit">{page}</h1>
             </div>
             <div className="block sm:hidden w-full max-h-[32px] max-w-[32px] ">
