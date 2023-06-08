@@ -30,10 +30,12 @@ const CrudButton = () => {
       <button
         type="button"
         onClick={openModal}
-        className=" text-neutral-400 text-center hover:text-white sm:text-white font-bold p-1 sm:p-2 xl:py-4 w-full rounded-full hover:bg-[#46108d] sm:hover:sm:bg-[#8c06ec] transition sm:bg-[#9500FF]"
+        className=" text-neutral-400 text-center hover:text-white sm:text-white font-bold p-1 sm:p-2 w-full rounded-full hover:bg-[#46108d] sm:hover:sm:bg-[#8c06ec] transition sm:bg-[#9500FF]"
       >
         <HiOutlinePencilSquare className="block xl:hidden w-7 h-7 sm:w-6 sm:h-6" />
-        <p className="hidden xl:block ">Crud</p>
+        <p className="hidden xl:block text-center leading-9 tracking-tight">
+          Crud
+        </p>
       </button>
       <>
         <Transition appear show={isOpen} as={Fragment}>
