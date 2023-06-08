@@ -8,7 +8,7 @@ const ProfileSignOutButton = () => {
       <div className="relative flex text-white w-full">
         <Popover className="w-full">
           <Popover.Button className="w-full outline-none">
-            <div className="flex flex-row justify-between items-center gap-x-2 rounded-full w-full transition  xl:py-3 xl:px-2 hover:bg-[#46108d]">
+            <div className="flex flex-row justify-between items-center gap-x-2 rounded-full w-full transition xl:py-2 xl:px-2 hover:bg-[#46108d]">
               <UserProfile SignOutProfile={true} />
               <div className="hidden xl:block text-neutral-400">
                 <HiOutlineDotsHorizontal size={26} />
@@ -26,8 +26,8 @@ const ProfileSignOutButton = () => {
           >
             <Popover.Panel className="absolute right-0 sm:-right-5 top-8 xl:top-14 xl:right-0 z-50 mt-3 min-w-full text-center">
               <div className="overflow-hidden w-full rounded-lg ">
-                <div className="bg-neutral-800 p-3">
-                  <button>Logout</button>
+                <div className="bg-neutral-800 p-2">
+                  <button className="text-sm">Logout</button>
                 </div>
               </div>
             </Popover.Panel>
