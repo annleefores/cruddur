@@ -1,4 +1,4 @@
-import React from "react";
+import React, { use } from "react";
 import UserProfile from "./UserProfile";
 import { RxShare2 } from "react-icons/rx";
 import {
@@ -15,8 +15,11 @@ import Link from "next/link";
 interface CrudProps {
   post: string;
   uuid: string;
+  name: string;
+  userhandle: string;
 }
-const Crud: React.FC<CrudProps> = ({ post, uuid }) => {
+
+const Crud: React.FC<CrudProps> = ({ post, uuid, name, userhandle }) => {
   const username = "annleefores";
   const activities = [
     {
@@ -56,7 +59,7 @@ const Crud: React.FC<CrudProps> = ({ post, uuid }) => {
             <div className="flex flex-col px-2 w-full">
               <div className="flex flex-row justify-between items-center">
                 <div>
-                  <UserName />
+                  <UserName name={name} userhandle={userhandle} />
                 </div>
                 <div>
                   <p className="text-xs text-neutral-500">{`10d`}</p>
@@ -69,7 +72,7 @@ const Crud: React.FC<CrudProps> = ({ post, uuid }) => {
               </div>
             </div>
           </Link>
-          <div className="flex justify-center md:w-4/5 px-2">
+          <div className="flex justify-center smallscreen:w-4/5 px-2">
             <div className="flex flex-row w-full justify-between text-neutral-500 my-1">
               {activities.map((activity, index) => (
                 <CrudActivities key={index} {...activity} />

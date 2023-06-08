@@ -15,7 +15,7 @@ const page: React.FC<PageProps> = ({ params }) => {
   return (
     <div className="bg-black w-full h-full overflow-y-scroll no-scrollbar">
       <HeaderElem page={"Profile"} />
-      <div className="h-full w-full">
+      <div className="w-full">
         <ProfilePage />
       </div>
     </div>

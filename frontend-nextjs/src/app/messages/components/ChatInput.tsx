@@ -14,7 +14,7 @@ const ChatInput = () => {
   };
 
   return (
-    <div className="fixed sm:sticky bottom-0 right-0 left-0  bg-black p-2">
+    <div className="  bg-black p-2">
       <div className="flex flex-row items-center gap-x-2 rounded-lg bg-gray-800">
         <textarea
           ref={textareaRef}
