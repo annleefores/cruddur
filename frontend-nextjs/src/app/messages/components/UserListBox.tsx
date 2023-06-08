@@ -15,11 +15,11 @@ const UserListBox: React.FC<CrudNotificationProps> = ({ name, userhandle }) => {
       </div>
       <div className="flex-grow flex-col gap-2 w-9/12">
         <div className="flex flex-row gap-x-2 items-center justify-between">
-          <div className="flex flex-row gap-x-2 items-center w-11/12 ">
+          <div className="flex flex-row gap-x-2 items-center w-9/12 ">
             <UserName name={name} userhandle={userhandle} />
           </div>
           <div>
-            <p className="text-xs text-neutral-500 w-1/12 ">{time}</p>
+            <p className="text-xs text-neutral-500 w-3/12 ">{time}</p>
           </div>
         </div>
         <div className="text-xs text-neutral-500 truncate mt-2">
