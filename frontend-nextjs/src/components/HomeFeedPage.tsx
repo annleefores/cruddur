@@ -10,7 +10,7 @@ const HomeFeedPage = () => {
       <div className=" ">
         <div className="flex flex-col w-full justify-center ">
           <div className="block sm:hidden h-full w-full border-b border-neutral-800">
-            <div className="mb-14"> </div>
+            <div className="mb-10"> </div>
           </div>
           <CrudPage />
         </div>
