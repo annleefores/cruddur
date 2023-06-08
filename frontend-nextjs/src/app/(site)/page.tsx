@@ -37,7 +37,7 @@ export default function Home() {
           </Link>
           <Link
             href="/signup"
-            className="p-1 py-1.5 rounded-full bg-white text-black  w-5/12"
+            className="p-1 rounded-full bg-white text-black  w-5/12"
           >
             <div>Sign up</div>
           </Link>
