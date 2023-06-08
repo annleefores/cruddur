@@ -22,7 +22,7 @@ export default function Home() {
             </div>
           </div>
         </div>
-        <div className="hidden lg:block flex-grow h-full">
+        <div className="hidden lg:block flex-grow h-full overflow-y-auto no-scrollbar">
           <RightSidebar />
         </div>
       </div>
