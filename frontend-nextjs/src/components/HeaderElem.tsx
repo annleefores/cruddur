@@ -40,7 +40,9 @@ const HeaderElem: React.FC<HeaderElemProps> = ({ page, selectedUser }) => {
       <div className="flex flex-row justify-between items-center h-6">
         {selectedUser ? (
           <>
-            <p className="hidden sm:block text-lg font-bold">@{selectedUser}</p>
+            <p className="hidden sm:block text-lg font-bold truncate">
+              @{selectedUser}
+            </p>
             {ChatHeader}
           </>
         ) : (
