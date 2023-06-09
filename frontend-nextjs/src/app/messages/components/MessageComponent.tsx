@@ -70,32 +70,45 @@ const MessageComponent: React.FC<MessageComponent> = ({ Msg, userhandle }) => {
         </div>
       </div>
       {/* Chat */}
-      <div
-        className={twMerge(
-          "hidden sm:block flex-grow overflow-y-scroll no-scrollbar bg-black",
-          !Msg && "block "
-        )}
-      >
+      <div className="flex-grow h-full">
         {Msg ? (
-          <div className="flex flex-col items-center justify-center h-full p-4">
-            <p className="text-center text-3xl font-bold leading-9 tracking-tight text-gray-200">
-              Select a message
-            </p>
-            <p className="text-center text-lg font-semibold leading-9 tracking-tight text-gray-500">
-              Choose from your existing conversations or start a new one
-            </p>
+          <div
+            className={twMerge(
+              "hidden sm:block bg-black w-full h-full p-4",
+              !Msg && "block"
+            )}
+          >
+            <div className="flex flex-col  items-center justify-center h-full w-full">
+              <p className="text-center text-3xl font-bold leading-9 tracking-tight text-gray-200">
+                Select a message
+              </p>
+              <p className="text-center text-lg font-semibold leading-9 tracking-tight text-gray-500">
+                Choose from your existing conversations or start a new one
+              </p>
+            </div>
           </div>
         ) : (
-          <>
-            <HeaderElem page={"Chat"} selectedUser={selectedUser} />
-            <div>
-              <ChatPage />
+          <div
+            className={twMerge(
+              "hidden sm:block h-full w-full bg-black",
+              !Msg && "block "
+            )}
+          >
+            <div className="flex flex-col h-full w-full">
+              <div className="overflow-y-scroll no-scrollbar h-full">
+                <div>
+                  <HeaderElem page={"Chat"} selectedUser={selectedUser} />
+                  <div>
+                    <ChatPage />
+                  </div>
+                  <div ref={chatContainerRef} />
+                </div>
+              </div>
+              <div>
+                <ChatInput />
+              </div>
             </div>
-            <div ref={chatContainerRef} />
-            <div className="fixed sm:sticky bottom-0 right-0 left-0">
-              <ChatInput />
-            </div>
-          </>
+          </div>
         )}
       </div>
     </div>

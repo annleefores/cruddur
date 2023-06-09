@@ -3,7 +3,7 @@ import NotificationPage from "./components/NotificationPage";
 
 const Home = () => {
   return (
-    <div className="bg-black w-full h-full overflow-y-scroll no-scrollbar">
+    <div className="flex-1 bg-black w-full h-full overflow-y-scroll no-scrollbar">
       <HeaderElem page={"Notification"} />
       <div className="w-full ">
         <NotificationPage />

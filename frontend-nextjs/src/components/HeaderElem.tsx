@@ -50,7 +50,7 @@ const HeaderElem: React.FC<HeaderElemProps> = ({ page, selectedUser }) => {
             <h1 className="hidden sm:block text-lg sm:text-xl font-bold h-fit">
               {page}
             </h1>
-            <Link href="/" className="block sm:hidden">
+            <Link href="/home" className="block sm:hidden">
               <div className=" w-full max-h-[32px] max-w-[32px]  rounded-full xl:mx-2">
                 <Image
                   src={logo}
