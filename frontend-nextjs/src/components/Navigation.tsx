@@ -48,7 +48,7 @@ const Navigation = () => {
   ];
 
   return (
-    <div className=" flex flex-row sm:flex-col justify-center sm:justify-start w-full sm:w-16 xl:w-full bg-[#3D0D7B] p-2 h-full">
+    <div className=" flex flex-row sm:flex-col justify-center sm:justify-start w-full sm:w-16 xl:w-full bg-[#3D0D7B] sm:bg-inherit p-2 h-full">
       <Link href="/home">
         <div className="hidden sm:block w-full max-h-[50px] max-w-[50px] mb-2 rounded-full xl:mx-2">
           <Image src={logo} alt="cruddur-logo" className="object-cover" />
