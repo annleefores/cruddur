@@ -15,14 +15,14 @@ module.exports = {
       },
       screens: {
         'xs': '200px',
+
         'smallscreen': '500px',
+
         'sm': '680px',
         // => @media (min-width: 680px) { ... }
 
         'md': '768px',
         // => @media (min-width: 768px) { ... }
-
-        'hideRightBar': '1060px',
 
         'lg': '1024px',
         // => @media (min-width: 1024px) { ... }

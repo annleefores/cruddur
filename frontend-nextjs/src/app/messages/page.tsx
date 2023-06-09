@@ -1,7 +1,7 @@
 import MessageComponent from "./components/MessageComponent";
 
-const page = () => {
+const Home = () => {
   return <MessageComponent Msg={true} />;
 };
 
-export default page;
+export default Home;

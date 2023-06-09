@@ -78,8 +78,10 @@ const MessageComponent: React.FC<MessageComponent> = ({ Msg, userhandle }) => {
       >
         {Msg ? (
           <div className="flex flex-col items-center justify-center h-full p-4">
-            <p className="text-3xl font-bold">Select a message</p>
-            <p className="text-neutral-500">
+            <p className="text-center text-3xl font-bold leading-9 tracking-tight text-gray-200">
+              Select a message
+            </p>
+            <p className="text-center text-lg font-semibold leading-9 tracking-tight text-gray-500">
               Choose from your existing conversations or start a new one
             </p>
           </div>
