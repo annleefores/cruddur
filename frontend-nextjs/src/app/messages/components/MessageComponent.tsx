@@ -36,7 +36,7 @@ const MessageComponent: React.FC<MessageComponent> = ({ Msg, userhandle }) => {
       {/* Chat user list  */}
       <div
         className={twMerge(
-          "bg-black w-screen sm:w-[360px] h-full overflow-y-scroll no-scrollbar  border-r border-neutral-800",
+          "bg-[#02060E] w-screen sm:w-[360px] h-full overflow-y-scroll no-scrollbar  border-r border-neutral-800",
           !Msg && "hidden sm:block"
         )}
       >
@@ -67,7 +67,7 @@ const MessageComponent: React.FC<MessageComponent> = ({ Msg, userhandle }) => {
         {Msg ? (
           <div
             className={twMerge(
-              "hidden sm:block bg-black w-full h-full p-4",
+              "hidden sm:block bg-[#02060E] w-full h-full p-4",
               !Msg && "block"
             )}
           >
@@ -83,7 +83,7 @@ const MessageComponent: React.FC<MessageComponent> = ({ Msg, userhandle }) => {
         ) : (
           <div
             className={twMerge(
-              "hidden sm:block h-full w-full bg-black",
+              "hidden sm:block h-full w-full bg-[#02060E]",
               !Msg && "block "
             )}
           >

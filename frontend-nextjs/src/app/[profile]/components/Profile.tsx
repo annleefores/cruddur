@@ -28,7 +28,7 @@ const Profile = () => {
           priority
           className="object-cover h-36 md:h-52"
         />
-        <div className="max-w-[120px] md:max-w-[140px] bg-black rounded-full p-1 absolute -bottom-3 left-3 sm:left-5 ">
+        <div className="max-w-[120px] md:max-w-[140px] bg-[#02060E] rounded-full p-1 absolute -bottom-3 left-3 sm:left-5 ">
           <UserPic />
         </div>
         <div className="flex justify-end mx-2 my-2">

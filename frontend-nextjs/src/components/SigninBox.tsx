@@ -3,7 +3,7 @@ import SignButton from "./SignButton";
 
 const SigninBox = () => {
   return (
-    <div className="w-full h-[350px] rounded-lg bg-black">
+    <div className="w-full h-[350px] rounded-lg bg-[#02060E]">
       <p className="p-2 px-4 border-b border-neutral-800 font-semibold leading-9 tracking-tight">
         Join The Party!
       </p>

@@ -27,7 +27,7 @@ const ProfileEdit: React.FC<ProfileEditProps> = ({ isOpen, setIsOpen }) => {
             leaveFrom="opacity-100"
             leaveTo="opacity-0"
           >
-            <div className="fixed inset-0 bg-black/40" />
+            <div className="fixed inset-0 bg-[#02060E]/40" />
           </Transition.Child>
 
           <div className="fixed inset-0 overflow-y-auto">

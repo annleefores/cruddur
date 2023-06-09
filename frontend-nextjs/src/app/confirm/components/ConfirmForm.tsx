@@ -56,7 +56,7 @@ const ConfirmForm = () => {
               <div className="mt-1">
                 <input
                   {...register("email")}
-                  className="block w-full rounded border border-neutral-600 focus:border-[#9500FF] transition p-2 bg-black text-gray-200 outline-none sm:leading-6"
+                  className="block w-full rounded border border-neutral-600 focus:border-[#9500FF] transition p-2 bg-[#02060E] text-gray-200 outline-none sm:leading-6"
                 />
                 {errors.email && (
                   <p className="text-xs text-red-600">{errors.email.message}</p>
@@ -76,7 +76,7 @@ const ConfirmForm = () => {
               <div className="mt-1">
                 <input
                   {...register("confirmcode")}
-                  className="block w-full rounded border border-neutral-600 focus:border-[#9500FF] transition p-2 bg-black text-gray-200 outline-none sm:leading-6"
+                  className="block w-full rounded border border-neutral-600 focus:border-[#9500FF] transition p-2 bg-[#02060E] text-gray-200 outline-none sm:leading-6"
                 />
                 {errors.confirmcode && (
                   <p className="text-xs text-red-600">
@@ -96,11 +96,13 @@ const ConfirmForm = () => {
             </div>
           </form>
 
-          <div className="text-sm mt-6 text-center cursor-pointer text-neutral-400 hover:text-neutral-200">
+          <div className="text-sm mt-6 text-center cursor-pointer text-neutral-400 ">
             {codeSent ? (
               <div>A new activation code has been sent to your email</div>
             ) : (
-              <div onClick={resend_code}>Resend Confirmation Code</div>
+              <div className="hover:text-neutral-200" onClick={resend_code}>
+                Resend Confirmation Code
+              </div>
             )}
           </div>
         </div>
