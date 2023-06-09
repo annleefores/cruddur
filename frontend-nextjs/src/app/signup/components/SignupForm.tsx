@@ -1,22 +1,11 @@
-import Image from "next/image";
-import logo from "../../../../public/logo.svg";
 import Link from "next/link";
+import SignPageHeader from "@/components/SignPageHeader";
 
 const SignupForm = () => {
   return (
     <>
       <div className="flex  flex-col justify-center px-6 py-8">
-        <div className="sm:mx-auto sm:w-full sm:max-w-sm">
-          <Image
-            className="mx-auto h-16 w-auto"
-            src={logo}
-            priority
-            alt="Cruddur Logo"
-          />
-          <h2 className="mt-3 text-center text-xl font-bold leading-9 tracking-tight text-gray-200">
-            Sign up to create a Cruddur account
-          </h2>
-        </div>
+        <SignPageHeader heading="Sign up to create a Cruddur account" />
 
         <div className="mt-4 sm:mx-auto sm:w-full sm:max-w-sm">
           <form className="space-y-3" action="#" method="POST">
@@ -96,7 +85,7 @@ const SignupForm = () => {
               </div>
             </div>
 
-            <div>
+            <div className="pt-4">
               <button
                 type="submit"
                 className="flex w-full justify-center rounded-md bg-[#9500FF] px-3 py-2 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-[#9a20f0]"
