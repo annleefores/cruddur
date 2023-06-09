@@ -1,4 +1,5 @@
 import Link from "next/link";
+import SignButton from "./SignButton";
 
 const SigninBox = () => {
   return (
@@ -12,20 +13,7 @@ const SigninBox = () => {
           <p>{`Don't think about it, just crud it!`}</p>
           <p>{`Regret it? No worries, We'll forget it...`}</p>
         </div>
-        <div className="w-full mt-2 ">
-          <Link href={`/signup`} className="flex justify-center ">
-            <div className="p-2 text-center rounded-full bg-[#9500FF] m-2 w-10/12 font-semibold leading-9 tracking-tight">
-              Join Now!
-            </div>
-          </Link>
-        </div>
-        <div className="w-full mt-1">
-          <Link href={`/signin`} className="flex justify-center ">
-            <div className="p-2 text-center rounded-full text-[#9500FF] m-2 w-10/12 font-semibold leading-9 tracking-tight">
-              Sign In
-            </div>
-          </Link>
-        </div>
+        <SignButton />
       </div>
     </div>
   );
