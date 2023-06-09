@@ -6,7 +6,7 @@ import { twMerge } from "tailwind-merge";
 
 const LeftSidebar = () => {
   const pathname = usePathname();
-  const skipPath = ["/signup", "/signin"];
+  const skipPath = ["/signup", "/signin", "/forgot"];
   return (
     <div
       className={twMerge(
