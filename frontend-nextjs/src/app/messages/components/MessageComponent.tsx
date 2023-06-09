@@ -8,6 +8,7 @@ import React, { useEffect, useState, useRef } from "react";
 import ChatPage from "./ChatPage";
 import ChatInput from "./ChatInput";
 import { twMerge } from "tailwind-merge";
+import useScrollPosition from "@/hooks/useScrollPosition";
 
 // import { usePathname } from "next/navigation";
 // import { isChat } from "@/lib/isChat";
@@ -19,23 +20,11 @@ interface MessageComponent {
 
 const MessageComponent: React.FC<MessageComponent> = ({ Msg, userhandle }) => {
   const [selectedUser, setSelectedUser] = useState("");
-
-  // auto scroll not working probably because there's another y scroll
-  // eslint-disable-next-line react-hooks/rules-of-hooks
+  // const scrollRef = useRef<HTMLDivElement | null>(null);
   const chatContainerRef = useRef<HTMLDivElement>(null);
 
-  // useEffect(() => {
-  //   console.log(chatContainerRef.current?.scrollHeight);
-  //   window.scrollTo(0, chatContainerRef.current?.scrollHeight || 0);
-  // }, []);
-
-  const scrollToBottom = () => {
-    chatContainerRef.current?.scrollIntoView({ behavior: "smooth" });
-  };
-
-  // eslint-disable-next-line react-hooks/rules-of-hooks
   useEffect(() => {
-    scrollToBottom();
+    chatContainerRef.current?.scrollIntoView();
   }, []);
 
   useEffect(() => {
@@ -56,7 +45,11 @@ const MessageComponent: React.FC<MessageComponent> = ({ Msg, userhandle }) => {
         <div className="h-full pt-14 sm:pt-0 ">
           <div className="w-full">
             {users.map((user, index) => (
-              <Link key={index} href={`/messages/new/${user.userhandle}`}>
+              <Link
+                scroll={false}
+                key={index}
+                href={`/messages/new/${user.userhandle}`}
+              >
                 <div
                   className="p-3 py-5  h-full hover:bg-neutral-900
           border-b border-neutral-800 transition cursor-pointer"

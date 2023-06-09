@@ -1,3 +1,4 @@
+import ConfirmForm from "@/app/confirm/components/ConfirmForm";
 import Recover from "@/app/forgot/components/Recover";
 import SigninForm from "@/app/signin/components/SigninForm";
 import SignupForm from "@/app/signup/components/SignupForm";
@@ -16,6 +17,8 @@ const SignPage: React.FC<SignPage> = ({ type }) => {
             <SigninForm />
           ) : type === "signup" ? (
             <SignupForm />
+          ) : type === "confirm" ? (
+            <ConfirmForm />
           ) : (
             <Recover />
           )}
