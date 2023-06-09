@@ -9,7 +9,7 @@ export default function Home() {
   return (
     <>
       <div className="flex flex-row justify-start gap-x-2 h-full w-full ">
-        <div className="bg-black h-full w-screen sm:w-[600px]">
+        <div className="bg-[#02060E] h-full w-screen sm:w-[600px]">
           <div className="flex flex-col h-full w-full overflow-y-scroll no-scrollbar">
             <HeaderElem page={"Explore"} />
 

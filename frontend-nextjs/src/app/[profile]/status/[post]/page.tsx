@@ -5,7 +5,7 @@ import React from "react";
 
 const page = () => {
   return (
-    <div className="bg-black h-full w-full">
+    <div className="bg-[#02060E] h-full w-full">
       <HeaderElem page={`Crud`} />
     </div>
   );

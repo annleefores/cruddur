@@ -2,7 +2,7 @@ import SuggestedUsersItem from "./SuggestedUsersItem";
 
 const SuggestedUsers = () => {
   return (
-    <div className="w-full h-[250px] rounded-lg bg-black">
+    <div className="w-full h-[250px] rounded-lg bg-[#02060E]">
       <p className="p-2 px-4 border-b border-neutral-800 font-semibold leading-9 tracking-tight">
         Suggested User
       </p>

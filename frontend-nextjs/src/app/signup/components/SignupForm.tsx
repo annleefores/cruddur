@@ -55,7 +55,7 @@ const SignupForm = () => {
               <div className="mt-1">
                 <input
                   {...register("name")}
-                  className="block w-full rounded border border-neutral-600 focus:border-[#9500FF] transition p-2 bg-black text-gray-200 outline-none sm:leading-6"
+                  className="block w-full rounded border border-neutral-600 focus:border-[#9500FF] transition p-2 bg-[#02060E] text-gray-200 outline-none sm:leading-6"
                 />
                 {errors.name && (
                   <p className="text-xs text-red-600">{errors.name.message}</p>
@@ -72,7 +72,7 @@ const SignupForm = () => {
               <div className="mt-1">
                 <input
                   {...register("username")}
-                  className="block w-full rounded border border-neutral-600 focus:border-[#9500FF] transition p-2 bg-black text-gray-200 outline-none sm:leading-6"
+                  className="block w-full rounded border border-neutral-600 focus:border-[#9500FF] transition p-2 bg-[#02060E] text-gray-200 outline-none sm:leading-6"
                 />
                 {errors.username && (
                   <p className="text-xs text-red-600">
@@ -92,7 +92,7 @@ const SignupForm = () => {
                 <input
                   type="email"
                   {...register("email")}
-                  className="block w-full rounded border border-neutral-600 focus:border-[#9500FF] transition p-2 bg-black text-gray-200 outline-none sm:leading-6"
+                  className="block w-full rounded border border-neutral-600 focus:border-[#9500FF] transition p-2 bg-[#02060E] text-gray-200 outline-none sm:leading-6"
                 />
                 {errors.email && (
                   <p className="text-xs text-red-600">{errors.email.message}</p>
@@ -113,7 +113,7 @@ const SignupForm = () => {
                 <input
                   type="password"
                   {...register("password")}
-                  className="block w-full rounded border border-neutral-600 focus:border-[#9500FF] transition p-2 bg-black text-gray-200 outline-none sm:leading-6"
+                  className="block w-full rounded border border-neutral-600 focus:border-[#9500FF] transition p-2 bg-[#02060E] text-gray-200 outline-none sm:leading-6"
                 />
                 {errors.password && (
                   <p className="text-xs text-red-600">

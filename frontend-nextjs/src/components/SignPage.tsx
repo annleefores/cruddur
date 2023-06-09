@@ -11,8 +11,8 @@ interface SignPage {
 const SignPage: React.FC<SignPage> = ({ type }) => {
   return (
     <>
-      <div className="flex bg-black md:bg-inherit h-full w-full justify-center md:items-center">
-        <div className="bg-black text-white max-w-[500px] w-full rounded-lg">
+      <div className="flex bg-[#02060E] md:bg-inherit h-full w-full justify-center md:items-center">
+        <div className="bg-[#02060E] text-white max-w-[500px] w-full rounded-lg">
           {type === "signin" ? (
             <SigninForm />
           ) : type === "signup" ? (

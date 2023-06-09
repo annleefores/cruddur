@@ -13,7 +13,7 @@ interface PageProps {
 
 const page: React.FC<PageProps> = ({ params }) => {
   return (
-    <div className="bg-black w-full h-full overflow-y-scroll no-scrollbar">
+    <div className="bg-[#02060E] w-full h-full overflow-y-scroll no-scrollbar">
       <HeaderElem page={"Profile"} />
       <div className="w-full">
         <ProfilePage />
