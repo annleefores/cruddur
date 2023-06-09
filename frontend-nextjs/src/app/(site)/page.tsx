@@ -1,6 +1,7 @@
 import CrudPage from "@/components/CrudPage";
 import HeaderElem from "@/components/HeaderElem";
 import RightSidebar from "@/components/RightSidebar";
+import SignButton from "@/components/SignButton";
 import { data } from "@/lib/data";
 import Link from "next/link";
 
@@ -29,18 +30,7 @@ export default function Home() {
 
       <div className="block fixed z-50 bg-[#3D0D7B] bottom-0 left-0 right-0 lg:hidden w-full py-4">
         <div className="flex flex-row  w-full justify-around items-center text-center">
-          <Link
-            href="/signin"
-            className="p-1  rounded-full bg-[#9500FF] w-5/12"
-          >
-            <div>Sign in</div>
-          </Link>
-          <Link
-            href="/signup"
-            className="p-1 rounded-full bg-white text-black  w-5/12"
-          >
-            <div>Sign up</div>
-          </Link>
+          <SignButton />
         </div>
       </div>
     </>
