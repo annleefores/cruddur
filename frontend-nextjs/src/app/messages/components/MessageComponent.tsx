@@ -43,7 +43,7 @@ const MessageComponent: React.FC<MessageComponent> = ({ Msg, userhandle }) => {
   }, [userhandle]);
 
   return (
-    <div className="flex flex-row gap-1 h-full w-full">
+    <div className="flex flex-row sm:gap-1 h-full w-full">
       {/* Chat user list  */}
       <div
         className={twMerge(
@@ -101,8 +101,8 @@ const MessageComponent: React.FC<MessageComponent> = ({ Msg, userhandle }) => {
                   <div>
                     <ChatPage />
                   </div>
-                  <div ref={chatContainerRef} />
                 </div>
+                <div ref={chatContainerRef} />
               </div>
               <div>
                 <ChatInput />

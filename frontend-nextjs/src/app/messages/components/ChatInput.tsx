@@ -14,8 +14,8 @@ const ChatInput = () => {
   };
 
   return (
-    <div className="  bg-black p-1">
-      <div className="flex flex-row items-center gap-x-2 rounded-lg bg-gray-800">
+    <div className=" bg-black p-1">
+      <div className="flex flex-row items-center gap-x-2 rounded-lg bg-gray-800 mx-1 my-2">
         <textarea
           ref={textareaRef}
           onInput={handleInput}
