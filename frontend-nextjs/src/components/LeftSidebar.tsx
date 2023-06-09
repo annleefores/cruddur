@@ -7,7 +7,7 @@ import { isChat } from "@/lib/isChat";
 
 const LeftSidebar = () => {
   const pathname = usePathname();
-  const skipPath = ["/signup", "/signin", "/forgot"];
+  const skipPath = ["/signup", "/signin", "/forgot", "/confirm"];
   return (
     <div
       className={twMerge(

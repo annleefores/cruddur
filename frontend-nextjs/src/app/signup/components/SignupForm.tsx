@@ -1,14 +1,50 @@
+"use client";
 import Link from "next/link";
 import SignPageHeader from "@/components/SignPageHeader";
+import { useRouter } from "next/navigation";
+
+import { z } from "zod";
+import { useForm, SubmitHandler } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+
+const formSchema = z.object({
+  name: z.string().min(1, "Name is required"),
+  username: z
+    .string()
+    .min(3, "Username must be at least 3 characters")
+    .max(20, "Username must not exceed 20 characters"),
+  email: z.string().email("Invalid email"),
+  password: z
+    .string()
+    .min(6, "Password must be at least 6 characters")
+    .max(40, "Password must not exceed 40 characters"),
+});
+
+type FormData = z.infer<typeof formSchema>;
 
 const SignupForm = () => {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<FormData>({
+    resolver: zodResolver(formSchema),
+  });
+
+  const router = useRouter();
+
+  const onSubmit: SubmitHandler<FormData> = (data) => {
+    console.log(data);
+    router.push(`/confirm?email=${data.email}`);
+  };
+
   return (
     <>
       <div className="flex  flex-col justify-center px-6 py-8">
         <SignPageHeader heading="Sign up to create a Cruddur account" />
 
         <div className="mt-4 sm:mx-auto sm:w-full sm:max-w-sm">
-          <form className="space-y-3" action="#" method="POST">
+          <form className="space-y-3" onSubmit={handleSubmit(onSubmit)}>
             <div>
               <label
                 htmlFor="name"
@@ -18,13 +54,12 @@ const SignupForm = () => {
               </label>
               <div className="mt-1">
                 <input
-                  id="name"
-                  name="name"
-                  type="text"
-                  autoComplete="name"
-                  required
+                  {...register("name")}
                   className="block w-full rounded border border-neutral-600 focus:border-[#9500FF] transition p-2 bg-black text-gray-200 outline-none sm:leading-6"
                 />
+                {errors.name && (
+                  <p className="text-xs text-red-600">{errors.name.message}</p>
+                )}
               </div>
             </div>
             <div>
@@ -36,13 +71,14 @@ const SignupForm = () => {
               </label>
               <div className="mt-1">
                 <input
-                  id="username"
-                  name="username"
-                  type="text"
-                  autoComplete="username"
-                  required
+                  {...register("username")}
                   className="block w-full rounded border border-neutral-600 focus:border-[#9500FF] transition p-2 bg-black text-gray-200 outline-none sm:leading-6"
                 />
+                {errors.username && (
+                  <p className="text-xs text-red-600">
+                    {errors.username.message}
+                  </p>
+                )}
               </div>
             </div>
             <div>
@@ -54,13 +90,13 @@ const SignupForm = () => {
               </label>
               <div className="mt-1">
                 <input
-                  id="email"
-                  name="email"
                   type="email"
-                  autoComplete="email"
-                  required
+                  {...register("email")}
                   className="block w-full rounded border border-neutral-600 focus:border-[#9500FF] transition p-2 bg-black text-gray-200 outline-none sm:leading-6"
                 />
+                {errors.email && (
+                  <p className="text-xs text-red-600">{errors.email.message}</p>
+                )}
               </div>
             </div>
 
@@ -75,13 +111,15 @@ const SignupForm = () => {
               </div>
               <div className="mt-1">
                 <input
-                  id="password"
-                  name="password"
                   type="password"
-                  autoComplete="current-password"
-                  required
+                  {...register("password")}
                   className="block w-full rounded border border-neutral-600 focus:border-[#9500FF] transition p-2 bg-black text-gray-200 outline-none sm:leading-6"
                 />
+                {errors.password && (
+                  <p className="text-xs text-red-600">
+                    {errors.password.message}
+                  </p>
+                )}
               </div>
             </div>
 
