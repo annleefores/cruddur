@@ -14,7 +14,7 @@ const ChatInput = () => {
   };
 
   return (
-    <div className="  bg-black p-2">
+    <div className="  bg-black p-1">
       <div className="flex flex-row items-center gap-x-2 rounded-lg bg-gray-800">
         <textarea
           ref={textareaRef}
@@ -22,8 +22,8 @@ const ChatInput = () => {
           // value={inputVal}
           // onChange={handleInputChange}
           rows={1}
-          placeholder="Start a new message"
-          className="w-full px-3 py-2 resize-none rounded-lg focus:outline-none focus:shadow-outline bg-gray-800 outline-none m-2 "
+          placeholder="Send a new message"
+          className="w-full px-2 py-1 resize-none rounded-lg focus:outline-none focus:shadow-outline bg-gray-800 outline-none m-1 "
         />
         <div className="mx-2">
           <IoSend size={26} />
