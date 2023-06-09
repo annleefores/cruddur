@@ -36,7 +36,7 @@ const ChatPage = () => {
         ))}
       </div>
       {/* <div ref={chatContainerEndRef} /> */}
-      <div id="scroll" className="h-16 sm:h-6" />
+      <div id="scroll" className="h-4" />
     </>
   );
 };

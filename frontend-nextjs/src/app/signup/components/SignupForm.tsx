@@ -23,7 +23,7 @@ const SignupForm = () => {
                   type="text"
                   autoComplete="name"
                   required
-                  className="block w-full rounded border border-neutral-600 focus:border-[#9500FF] transition p-2 bg-neutral-800 text-gray-200 outline-none sm:leading-6"
+                  className="block w-full rounded border border-neutral-600 focus:border-[#9500FF] transition p-2 bg-black text-gray-200 outline-none sm:leading-6"
                 />
               </div>
             </div>
@@ -41,7 +41,7 @@ const SignupForm = () => {
                   type="text"
                   autoComplete="username"
                   required
-                  className="block w-full rounded border border-neutral-600 focus:border-[#9500FF] transition p-2 bg-neutral-800 text-gray-200 outline-none sm:leading-6"
+                  className="block w-full rounded border border-neutral-600 focus:border-[#9500FF] transition p-2 bg-black text-gray-200 outline-none sm:leading-6"
                 />
               </div>
             </div>
@@ -59,7 +59,7 @@ const SignupForm = () => {
                   type="email"
                   autoComplete="email"
                   required
-                  className="block w-full rounded border border-neutral-600 focus:border-[#9500FF] transition p-2 bg-neutral-800 text-gray-200 outline-none sm:leading-6"
+                  className="block w-full rounded border border-neutral-600 focus:border-[#9500FF] transition p-2 bg-black text-gray-200 outline-none sm:leading-6"
                 />
               </div>
             </div>
@@ -80,7 +80,7 @@ const SignupForm = () => {
                   type="password"
                   autoComplete="current-password"
                   required
-                  className="block w-full rounded border border-neutral-600 focus:border-[#9500FF] transition p-2 bg-neutral-800 text-gray-200 outline-none sm:leading-6"
+                  className="block w-full rounded border border-neutral-600 focus:border-[#9500FF] transition p-2 bg-black text-gray-200 outline-none sm:leading-6"
                 />
               </div>
             </div>
