@@ -1,5 +1,3 @@
-"use client";
-
 import Link from "next/link";
 import SignPageHeader from "@/components/SignPageHeader";
 import { useAuth } from "@/hooks/useAuth";
@@ -8,6 +6,7 @@ import { useRouter } from "next/navigation";
 import { z } from "zod";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import LoadingSpinner from "@/components/LoadingSpinner";
 
 const SignInformSchema = z.object({
   email: z.string().email("Invalid email"),
@@ -36,6 +35,7 @@ const SigninForm = () => {
     const result = await auth.signIn(data.email, data.password);
     if (result.success) {
       router.push("/home");
+      auth.setIsLoading(false);
     } else {
       // error toast
       alert(result.message);
@@ -46,8 +46,11 @@ const SigninForm = () => {
     <>
       <div className="flex  flex-col justify-center px-6 py-8">
         <SignPageHeader heading="Sign into your Cruddur account" />
-
         <div className="mt-4 sm:mx-auto sm:w-full sm:max-w-sm">
+          <div className=" max-w-[380px] max-h-[250px]">
+            <div className="flex-grow justify-center items-center h-auto w-auto"></div>
+          </div>
+
           <form className="space-y-3" onSubmit={handleSubmit(onSubmit)}>
             <div>
               <label
@@ -103,16 +106,7 @@ const SigninForm = () => {
                 type="submit"
                 className="flex w-full justify-center rounded-md bg-[#9500FF] px-3 py-2 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-[#9a20f0]"
               >
-                {auth.isLoading ? (
-                  <>
-                    <div
-                      className="w-6 h-6 rounded-full animate-spin
-                            border-4 border-solid border-white border-t-transparent"
-                    ></div>
-                  </>
-                ) : (
-                  <>Sign in</>
-                )}
+                <>Sign in</>
               </button>
             </div>
           </form>

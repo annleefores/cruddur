@@ -1,5 +1,6 @@
 "use client";
 import { Amplify, Auth } from "aws-amplify";
+import { useRouter } from "next/navigation";
 import React, { createContext, useContext, useEffect, useState } from "react";
 
 Amplify.configure({
@@ -62,6 +63,8 @@ const useProvideAuth = (): UseAuth => {
   const [cognito_user_uuid, setcognito_user_uuid] = useState("");
   const [handle, sethandle] = useState("");
 
+  const router = useRouter();
+
   useEffect(() => {
     Auth.currentAuthenticatedUser()
       .then((result) => {
@@ -71,6 +74,7 @@ const useProvideAuth = (): UseAuth => {
         sethandle(result.attributes.preferred_username);
         setIsAuthenticated(true);
         setIsLoading(false);
+        router.push("/home");
       })
       .catch(() => {
         setdisplay_name("");
@@ -92,7 +96,7 @@ const useProvideAuth = (): UseAuth => {
       setcognito_user_uuid(result.attributes.sub);
       sethandle(result.attributes.preferred_username);
       setIsAuthenticated(true);
-      setIsLoading(false);
+
       return { success: true, message: "LOGIN SUCCESS" };
     } catch (error) {
       setIsLoading(false);
