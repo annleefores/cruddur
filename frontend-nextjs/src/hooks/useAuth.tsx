@@ -32,6 +32,7 @@ interface UseAuth {
   handle: string;
   signIn: (username: string, password: string) => Promise<Result>;
   signOut: () => Promise<Result>;
+  setIsLoading: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 interface Result {
@@ -81,8 +82,9 @@ const useProvideAuth = (): UseAuth => {
   }, []);
 
   const signIn = async (username: string, password: string) => {
+    setIsLoading(true);
+
     try {
-      setIsLoading(true);
       const result = await Auth.signIn(username, password);
 
       console.log("signin", result);
@@ -93,6 +95,7 @@ const useProvideAuth = (): UseAuth => {
       setIsLoading(false);
       return { success: true, message: "LOGIN SUCCESS" };
     } catch (error) {
+      setIsLoading(false);
       return {
         success: false,
         message: "LOGIN FAIL",
@@ -124,5 +127,6 @@ const useProvideAuth = (): UseAuth => {
     handle,
     signIn,
     signOut,
+    setIsLoading,
   };
 };
