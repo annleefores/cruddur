@@ -74,7 +74,6 @@ const useProvideAuth = (): UseAuth => {
         sethandle(result.attributes.preferred_username);
         setIsAuthenticated(true);
         setIsLoading(false);
-        router.push("/home");
       })
       .catch(() => {
         setdisplay_name("");
