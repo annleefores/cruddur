@@ -1,12 +1,13 @@
 "use client";
 
-import { useSearchParams } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import SignPageHeader from "@/components/SignPageHeader";
 
 import { z } from "zod";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useState } from "react";
+import { Auth } from "aws-amplify";
 
 const ConfirmformSchema = z.object({
   email: z.string().email("Invalid email"),
@@ -17,10 +18,6 @@ type ConfirmFormData = z.infer<typeof ConfirmformSchema>;
 
 const ConfirmForm = () => {
   const [codeSent, setCodeSent] = useState<boolean>(false);
-
-  const resend_code = async () => {
-    setCodeSent(true);
-  };
 
   const searchParams = useSearchParams();
 
@@ -35,8 +32,26 @@ const ConfirmForm = () => {
     resolver: zodResolver(ConfirmformSchema),
   });
 
-  const onSubmit: SubmitHandler<ConfirmFormData> = (data) => {
-    console.log(data);
+  const resend_code = async (email: string) => {
+    try {
+      await Auth.resendSignUp(email);
+      console.log("code resent successfully");
+      setCodeSent(true);
+    } catch (err) {
+      console.log("error resending code: ", err);
+    }
+  };
+
+  const router = useRouter();
+
+  const onSubmit: SubmitHandler<ConfirmFormData> = async (data) => {
+    try {
+      await Auth.confirmSignUp(data.email, data.confirmcode);
+      router.push("/home");
+    } catch (error) {
+      console.log("error confirming sign up", error);
+      // add toast
+    }
   };
 
   return (
@@ -100,7 +115,10 @@ const ConfirmForm = () => {
             {codeSent ? (
               <div>A new activation code has been sent to your email</div>
             ) : (
-              <div className="hover:text-neutral-200" onClick={resend_code}>
+              <div
+                className="hover:text-neutral-200"
+                onClick={() => resend_code(email || "")}
+              >
                 Resend Confirmation Code
               </div>
             )}

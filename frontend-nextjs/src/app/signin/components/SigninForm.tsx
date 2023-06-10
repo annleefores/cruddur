@@ -1,3 +1,5 @@
+"use client";
+
 import Link from "next/link";
 import SignPageHeader from "@/components/SignPageHeader";
 import { useAuth } from "@/hooks/useAuth";
@@ -6,7 +8,6 @@ import { useRouter } from "next/navigation";
 import { z } from "zod";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import LoadingSpinner from "@/components/LoadingSpinner";
 
 const SignInformSchema = z.object({
   email: z.string().email("Invalid email"),
@@ -31,7 +32,6 @@ const SigninForm = () => {
   const router = useRouter();
 
   const onSubmit: SubmitHandler<SignInform> = async (data) => {
-    console.log(data);
     const result = await auth.signIn(data.email, data.password);
     if (result.success) {
       router.push("/home");
@@ -103,10 +103,20 @@ const SigninForm = () => {
 
             <div className="pt-4">
               <button
+                disabled={auth.isLoading}
                 type="submit"
                 className="flex w-full justify-center rounded-md bg-[#9500FF] px-3 py-2 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-[#9a20f0]"
               >
-                <>Sign in</>
+                {auth.isLoading ? (
+                  <>
+                    <div
+                      className="w-6 h-6 rounded-full animate-spin
+              border-4 border-solid border-white border-t-transparent"
+                    ></div>
+                  </>
+                ) : (
+                  <>Sign in</>
+                )}
               </button>
             </div>
           </form>
