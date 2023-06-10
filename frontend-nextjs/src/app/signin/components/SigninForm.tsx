@@ -1,14 +1,54 @@
+"use client";
+
 import Link from "next/link";
 import SignPageHeader from "@/components/SignPageHeader";
+import { useAuth } from "@/hooks/useAuth";
+import { useRouter } from "next/navigation";
+
+import { z } from "zod";
+import { useForm, SubmitHandler } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+
+const SignInformSchema = z.object({
+  email: z.string().email("Invalid email"),
+  password: z
+    .string()
+    .min(6, "Password must be at least 6 characters")
+    .max(40, "Password must not exceed 40 characters"),
+});
+
+type SignInform = z.infer<typeof SignInformSchema>;
 
 const SigninForm = () => {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<SignInform>({
+    resolver: zodResolver(SignInformSchema),
+  });
+
+  const auth = useAuth();
+  const router = useRouter();
+
+  const onSubmit: SubmitHandler<SignInform> = async (data) => {
+    console.log(data);
+    const result = await auth.signIn(data.email, data.password);
+    if (result.success) {
+      router.push("/home");
+    } else {
+      // error toast
+      alert(result.message);
+    }
+  };
+
   return (
     <>
       <div className="flex  flex-col justify-center px-6 py-8">
         <SignPageHeader heading="Sign into your Cruddur account" />
 
         <div className="mt-4 sm:mx-auto sm:w-full sm:max-w-sm">
-          <form className="space-y-3" action="#" method="POST">
+          <form className="space-y-3" onSubmit={handleSubmit(onSubmit)}>
             <div>
               <label
                 htmlFor="email"
@@ -18,13 +58,12 @@ const SigninForm = () => {
               </label>
               <div className="mt-1">
                 <input
-                  id="email"
-                  name="email"
-                  type="email"
-                  autoComplete="email"
-                  required
+                  {...register("email")}
                   className="block w-full rounded border border-neutral-600 focus:border-[#9500FF] transition p-2 bg-[#02060E] text-gray-200 outline-none sm:leading-6"
                 />
+                {errors.email && (
+                  <p className="text-xs text-red-600">{errors.email.message}</p>
+                )}
               </div>
             </div>
 
@@ -47,13 +86,15 @@ const SigninForm = () => {
               </div>
               <div className="mt-1">
                 <input
-                  id="password"
-                  name="password"
                   type="password"
-                  autoComplete="current-password"
-                  required
+                  {...register("password")}
                   className="block w-full rounded border border-neutral-600 focus:border-[#9500FF] transition p-2 bg-[#02060E] text-gray-200 outline-none sm:leading-6"
                 />
+                {errors.password && (
+                  <p className="text-xs text-red-600">
+                    {errors.password.message}
+                  </p>
+                )}
               </div>
             </div>
 
@@ -62,7 +103,16 @@ const SigninForm = () => {
                 type="submit"
                 className="flex w-full justify-center rounded-md bg-[#9500FF] px-3 py-2 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-[#9a20f0]"
               >
-                Sign in
+                {auth.isLoading ? (
+                  <>
+                    <div
+                      className="w-6 h-6 rounded-full animate-spin
+                            border-4 border-solid border-white border-t-transparent"
+                    ></div>
+                  </>
+                ) : (
+                  <>Sign in</>
+                )}
               </button>
             </div>
           </form>

@@ -1,8 +1,25 @@
+"use client";
 import { HiOutlineDotsHorizontal } from "react-icons/hi";
 import UserProfile from "./UserProfile";
 import { Fragment } from "react";
 import { Popover, Transition } from "@headlessui/react";
+import { useAuth } from "@/hooks/useAuth";
+import { useRouter } from "next/navigation";
+
 const ProfileSignOutButton = () => {
+  const auth = useAuth();
+  const router = useRouter();
+
+  const OnClickSignOut = async () => {
+    const result = await auth.signOut();
+    if (result.success) {
+      router.push("/");
+    } else {
+      //error toast
+      alert(result.message);
+    }
+  };
+
   return (
     <>
       <div className="relative flex text-white w-full">
@@ -27,7 +44,9 @@ const ProfileSignOutButton = () => {
             <Popover.Panel className="absolute right-0 sm:-right-5 top-8 xl:top-14 xl:right-0 z-50 mt-3 min-w-full text-center">
               <div className="overflow-hidden w-full rounded-lg ">
                 <div className="bg-neutral-800 p-2">
-                  <button className="text-sm w-full">Logout</button>
+                  <button onClick={OnClickSignOut} className="text-sm w-full">
+                    Logout
+                  </button>
                 </div>
               </div>
             </Popover.Panel>
