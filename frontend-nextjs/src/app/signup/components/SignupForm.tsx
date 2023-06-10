@@ -7,7 +7,6 @@ import { useRouter } from "next/navigation";
 import { z } from "zod";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Auth } from "aws-amplify";
 
 const formSchema = z.object({
   name: z.string().min(1, "Name is required"),
@@ -36,26 +35,6 @@ const SignupForm = () => {
   const router = useRouter();
 
   const onSubmit: SubmitHandler<FormData> = async (data) => {
-    try {
-      const { user } = await Auth.signUp({
-        username: data.email,
-        password: data.password,
-        attributes: {
-          name: data.name,
-          email: data.email,
-          preferred_username: data.username,
-        },
-        autoSignIn: {
-          // optional - enables auto sign in after user is confirmed
-          enabled: true,
-        },
-      });
-      console.log(user);
-      router.push(`/confirm?email=${data.email}`);
-    } catch (error) {
-      console.log(error);
-      //add error toast here
-    }
     console.log(data);
   };
 
