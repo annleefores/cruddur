@@ -5,6 +5,7 @@ import { ProvideAuth } from "@/hooks/useAuth";
 import { Suspense } from "react";
 import Loading from "./loading";
 import { Amplify } from "aws-amplify";
+import { NavigationEvents } from "@/components/NavigationEvents";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -27,7 +28,12 @@ export default function RootLayout({
               <div className="h-full">
                 <LeftSidebar />
               </div>
-              <div className="flex-1 h-full">{children}</div>
+              <div className="flex-1 h-full">
+                {children}
+                <Suspense fallback={null}>
+                  <NavigationEvents />
+                </Suspense>
+              </div>
             </div>
           </Suspense>
         </ProvideAuth>
