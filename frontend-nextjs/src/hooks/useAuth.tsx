@@ -121,7 +121,7 @@ const useProvideAuth = (): UseAuth => {
 
   const signOut = async () => {
     try {
-      await Auth.signOut();
+      await Auth.signOut({ global: true });
       setdisplay_name("");
       setcognito_user_uuid("");
       sethandle("");
