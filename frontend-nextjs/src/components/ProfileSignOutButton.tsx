@@ -13,7 +13,7 @@ const ProfileSignOutButton = () => {
   const OnClickSignOut = async () => {
     const result = await auth.signOut();
     if (result.success) {
-      router.push("/");
+      console.log(result.message);
     } else {
       //error toast
       alert(result.message);

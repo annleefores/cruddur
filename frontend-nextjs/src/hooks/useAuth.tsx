@@ -108,6 +108,7 @@ const useProvideAuth = (): UseAuth => {
       setcognito_user_uuid(result.attributes.sub);
       sethandle(result.attributes.preferred_username);
       setIsAuthenticated(true);
+      router.push("/home");
 
       return { success: true, message: "LOGIN SUCCESS" };
     } catch (error) {
@@ -126,6 +127,7 @@ const useProvideAuth = (): UseAuth => {
       setcognito_user_uuid("");
       sethandle("");
       setIsAuthenticated(false);
+      router.push("/");
       return { success: true, message: "LOGOUT SUCCESS" };
     } catch (error) {
       return {
