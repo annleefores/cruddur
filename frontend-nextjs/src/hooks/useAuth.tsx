@@ -1,5 +1,5 @@
 "use client";
-import { Amplify, Auth } from "aws-amplify";
+import { Amplify, Auth, Hub } from "aws-amplify";
 import { useRouter } from "next/navigation";
 import React, { createContext, useContext, useEffect, useState } from "react";
 
@@ -33,6 +33,7 @@ interface UseAuth {
   handle: string;
   signIn: (username: string, password: string) => Promise<Result>;
   signOut: () => Promise<Result>;
+  autoSignin: () => Promise<Result>;
   setIsLoading: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
@@ -121,6 +122,30 @@ const useProvideAuth = (): UseAuth => {
       };
     }
   };
+  const autoSignin = async () => {
+    try {
+      Hub.listen("auth", ({ payload }) => {
+        const { event } = payload;
+        if (event === "autoSignIn") {
+          const result = payload.data;
+          setdisplay_name(result.attributes.name);
+          setcognito_user_uuid(result.attributes.sub);
+          sethandle(result.attributes.preferred_username);
+          setIsAuthenticated(true);
+          setIsLoading(false);
+          router.push("/home");
+        } else if (event === "autoSignIn_failure") {
+          router.push("/signin");
+        }
+      });
+      return { success: true, message: "AUTO SIGNIN SUCCESS" };
+    } catch (error) {
+      return {
+        success: false,
+        message: "AUTO SIGNIN FAIL",
+      };
+    }
+  };
 
   return {
     isLoading,
@@ -131,5 +156,6 @@ const useProvideAuth = (): UseAuth => {
     signIn,
     signOut,
     setIsLoading,
+    autoSignin,
   };
 };
