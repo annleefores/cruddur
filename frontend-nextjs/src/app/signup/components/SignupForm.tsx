@@ -54,7 +54,7 @@ const SignupForm = () => {
         },
       });
       console.log(user);
-      auth.setIsLoading(false);
+
       router.push(`/confirm?email=${data.email}`);
     } catch (error) {
       auth.setIsLoading(false);

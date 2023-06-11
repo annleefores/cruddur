@@ -17,10 +17,8 @@ const SignPage: React.FC<SignPage> = ({ type }) => {
             <SigninForm />
           ) : type === "signup" ? (
             <SignupForm />
-          ) : type === "confirm" ? (
-            <ConfirmForm />
           ) : (
-            <Recover />
+            <ConfirmForm />
           )}
         </div>
       </div>
