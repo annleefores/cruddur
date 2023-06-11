@@ -4,7 +4,7 @@ import { useEffect } from "react";
 import { usePathname, useSearchParams } from "next/navigation";
 import { useAuth } from "@/hooks/useAuth";
 
-const DisableLoading = ["/home"];
+const DisableLoading = ["/home", "/confirm", "/signin"];
 
 export function NavigationEvents() {
   const pathname = usePathname();
@@ -15,7 +15,7 @@ export function NavigationEvents() {
     const url = pathname + searchParams.toString();
     console.log("navevents", url);
 
-    if (DisableLoading.includes(url)) {
+    if (DisableLoading.includes(url) || DisableLoading.includes(pathname)) {
       setIsLoading(false);
     }
 

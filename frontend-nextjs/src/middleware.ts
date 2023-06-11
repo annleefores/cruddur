@@ -91,5 +91,5 @@ export async function middleware(req: NextRequest) {
 
 // See "Matching Paths" below to learn more
 export const config = {
-  matcher: "/home",
+  matcher: ["/home", "/messages/:path*", "/notifications"],
 };

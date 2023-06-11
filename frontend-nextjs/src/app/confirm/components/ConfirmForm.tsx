@@ -1,6 +1,6 @@
 "use client";
 
-import { useRouter, useSearchParams } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 import SignPageHeader from "@/components/SignPageHeader";
 
 import { z } from "zod";
@@ -50,7 +50,6 @@ const ConfirmForm = () => {
     try {
       await Auth.confirmSignUp(data.email, data.confirmcode);
       auth.autoSignin();
-      auth.setIsLoading(false);
     } catch (error) {
       console.log("error confirming sign up", error);
       auth.setIsLoading(false);
