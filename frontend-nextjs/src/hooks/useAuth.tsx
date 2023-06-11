@@ -23,6 +23,7 @@ Amplify.configure({
     userPoolId: process.env.NEXT_PUBLIC_AWS_USER_POOLS_ID, // OPTIONAL - Amazon Cognito User Pool ID
     userPoolWebClientId: process.env.NEXT_PUBLIC_CLIENT_ID, // OPTIONAL - Amazon Cognito Web Client ID (26-char alphanumeric string)
   },
+  ssr: true,
 });
 
 interface UseAuth {
@@ -31,6 +32,7 @@ interface UseAuth {
   display_name: string;
   cognito_user_uuid: string;
   handle: string;
+  AccessToken: string;
   signIn: (username: string, password: string) => Promise<Result>;
   signOut: () => Promise<Result>;
   autoSignin: () => Promise<Result>;
@@ -63,25 +65,35 @@ const useProvideAuth = (): UseAuth => {
   const [display_name, setdisplay_name] = useState("");
   const [cognito_user_uuid, setcognito_user_uuid] = useState("");
   const [handle, sethandle] = useState("");
+  const [AccessToken, setAccessToken] = useState("");
 
   const router = useRouter();
 
   useEffect(() => {
-    Auth.currentAuthenticatedUser()
-      .then((result) => {
-        console.log("currentAuthUser", result);
-        setdisplay_name(result.attributes.name);
-        setcognito_user_uuid(result.attributes.sub);
-        sethandle(result.attributes.preferred_username);
+    Auth.currentSession()
+      .then((data) => {
         setIsAuthenticated(true);
         setIsLoading(false);
+        const accessTok = data.getAccessToken().getJwtToken();
+        setAccessToken(accessTok);
+        console.log("currentSession", data);
       })
-      .catch(() => {
+      .catch((err) => console.log("currentSession", err));
+
+    Auth.currentAuthenticatedUser()
+      .then((result) => {
+        setcognito_user_uuid(result.attributes.sub);
+        setdisplay_name(result.attributes.name);
+        sethandle(result.attributes.preferred_username);
+        console.log("currentAuthUser", result);
+      })
+      .catch((err) => {
+        setIsAuthenticated(false);
+        setIsLoading(false);
         setdisplay_name("");
         setcognito_user_uuid("");
         sethandle("");
-        setIsAuthenticated(false);
-        setIsLoading(false);
+        console.log("currentAuthUser", err);
       });
   }, []);
 
@@ -153,6 +165,7 @@ const useProvideAuth = (): UseAuth => {
     display_name,
     cognito_user_uuid,
     handle,
+    AccessToken,
     signIn,
     signOut,
     setIsLoading,
