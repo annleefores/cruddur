@@ -78,14 +78,6 @@ const SigninForm = () => {
                 >
                   Password
                 </label>
-                <div className="text-sm">
-                  <Link
-                    href="/forgot"
-                    className=" leading-6 text-neutral-400 hover:text-neutral-200"
-                  >
-                    Forgot password?
-                  </Link>
-                </div>
               </div>
               <div className="mt-1">
                 <input
@@ -98,6 +90,14 @@ const SigninForm = () => {
                     {errors.password.message}
                   </p>
                 )}
+              </div>
+              <div className="text-sm text-right mt-2">
+                <Link
+                  href="/forgot"
+                  className=" leading-6 text-neutral-400 hover:text-neutral-200"
+                >
+                  Forgot password?
+                </Link>
               </div>
             </div>
 

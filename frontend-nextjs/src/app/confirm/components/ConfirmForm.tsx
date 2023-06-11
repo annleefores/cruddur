@@ -8,6 +8,7 @@ import { useForm, SubmitHandler } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useState } from "react";
 import { Auth } from "aws-amplify";
+import { useAuth } from "@/hooks/useAuth";
 
 const ConfirmformSchema = z.object({
   email: z.string().email("Invalid email"),
@@ -22,6 +23,8 @@ const ConfirmForm = () => {
   const searchParams = useSearchParams();
 
   const email = searchParams.get("email");
+
+  const auth = useAuth();
 
   const {
     register,
@@ -42,14 +45,16 @@ const ConfirmForm = () => {
     }
   };
 
-  const router = useRouter();
-
   const onSubmit: SubmitHandler<ConfirmFormData> = async (data) => {
+    auth.setIsLoading(true);
     try {
       await Auth.confirmSignUp(data.email, data.confirmcode);
-      router.push("/home");
+      auth.autoSignin();
+      auth.setIsLoading(false);
     } catch (error) {
       console.log("error confirming sign up", error);
+      auth.setIsLoading(false);
+
       // add toast
     }
   };
@@ -103,10 +108,20 @@ const ConfirmForm = () => {
 
             <div className="pt-4">
               <button
+                disabled={auth.isLoading}
                 type="submit"
                 className="flex w-full justify-center rounded-md bg-[#9500FF] px-3 py-2 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-[#9a20f0]"
               >
-                Confirm Email
+                {auth.isLoading ? (
+                  <>
+                    <div
+                      className="w-6 h-6 rounded-full animate-spin
+              border-4 border-solid border-white border-t-transparent"
+                    ></div>
+                  </>
+                ) : (
+                  <>Confirm Email</>
+                )}
               </button>
             </div>
           </form>

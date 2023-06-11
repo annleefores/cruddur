@@ -38,6 +38,7 @@ const SignupForm = () => {
   const auth = useAuth();
 
   const onSubmit: SubmitHandler<FormData> = async (data) => {
+    auth.setIsLoading(true);
     try {
       const { user } = await Auth.signUp({
         username: data.email,
@@ -53,8 +54,10 @@ const SignupForm = () => {
         },
       });
       console.log(user);
+      auth.setIsLoading(false);
       router.push(`/confirm?email=${data.email}`);
     } catch (error) {
+      auth.setIsLoading(false);
       console.log("error signing up:", error);
       // add error toast
     }
@@ -147,10 +150,20 @@ const SignupForm = () => {
 
             <div className="pt-4">
               <button
+                disabled={auth.isLoading}
                 type="submit"
                 className="flex w-full justify-center rounded-md bg-[#9500FF] px-3 py-2 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-[#9a20f0]"
               >
-                Sign up
+                {auth.isLoading ? (
+                  <>
+                    <div
+                      className="w-6 h-6 rounded-full animate-spin
+              border-4 border-solid border-white border-t-transparent"
+                    ></div>
+                  </>
+                ) : (
+                  <>Sign Up</>
+                )}
               </button>
             </div>
           </form>
