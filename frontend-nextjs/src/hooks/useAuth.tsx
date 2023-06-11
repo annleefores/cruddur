@@ -70,10 +70,6 @@ const useProvideAuth = (): UseAuth => {
   const router = useRouter();
 
   useEffect(() => {
-    GetUserDetails();
-  }, []);
-
-  const GetUserDetails = () => {
     Auth.currentSession()
       .then((data) => {
         setIsAuthenticated(true);
@@ -99,7 +95,7 @@ const useProvideAuth = (): UseAuth => {
         sethandle("");
         console.log("currentAuthUser", err);
       });
-  };
+  }, []);
 
   const signIn = async (username: string, password: string) => {
     setIsLoading(true);
@@ -112,8 +108,8 @@ const useProvideAuth = (): UseAuth => {
       setcognito_user_uuid(result.attributes.sub);
       sethandle(result.attributes.preferred_username);
       setIsAuthenticated(true);
-      GetUserDetails;
       router.push("/home");
+      setIsLoading(false);
 
       return { success: true, message: "LOGIN SUCCESS" };
     } catch (error) {
