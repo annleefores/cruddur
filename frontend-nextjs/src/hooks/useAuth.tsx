@@ -109,7 +109,6 @@ const useProvideAuth = (): UseAuth => {
       sethandle(result.attributes.preferred_username);
       setIsAuthenticated(true);
       router.push("/home");
-      setIsLoading(false);
 
       return { success: true, message: "LOGIN SUCCESS" };
     } catch (error) {
