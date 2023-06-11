@@ -34,7 +34,7 @@ const SigninForm = () => {
   const onSubmit: SubmitHandler<SignInform> = async (data) => {
     const result = await auth.signIn(data.email, data.password);
     if (result.success) {
-      router.push("/home");
+      console.log(result.message);
     } else {
       // error toast
       alert(result.message);
