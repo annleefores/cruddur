@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 import { decodeProtectedHeader, importJWK, jwtVerify } from "jose";
+import { cookies } from "next/dist/client/components/headers";
 
 type MapEntry = {
   name: string;
@@ -12,6 +13,8 @@ export async function middleware(req: NextRequest) {
   //
   // This is a temporary solution until the aws-amplify package is updated with support for NextJS middleware
   //
+
+  console.log(">>>>>>>>>>Middleware<<<<<<<<<<");
 
   const url = req.nextUrl.clone();
 
@@ -26,6 +29,7 @@ export async function middleware(req: NextRequest) {
     ];
     // Allow users to continue for pages that don't require authentication
     if (unauthenticatedPaths.includes(url.pathname)) {
+      console.log("next response");
       return NextResponse.next();
     } else {
       // Authenticate users for protected resources
@@ -44,6 +48,8 @@ export async function middleware(req: NextRequest) {
       const targetKey = Array.from(myMap.keys()).find((key) =>
         idTokenRegex.test(key)
       );
+
+      console.log("targetkey", targetKey);
 
       if (targetKey) {
         const token = myMap.get(targetKey)?.value;
@@ -69,13 +75,13 @@ export async function middleware(req: NextRequest) {
 
             // Verify the users JWT
             const jwtVerified = await jwtVerify(token, jwtImport)
-              .then((res) => res.payload.email_verified)
+              .then((res) => {
+                console.log(res.payload.email_verified);
+                // Allow verified users to continue
+                console.log("middleware go to home page");
+                return NextResponse.redirect(new URL("/home", req.url));
+              })
               .catch(() => console.log("verification failed"));
-
-            // Allow verified users to continue
-            if (jwtVerified) {
-              return NextResponse.next();
-            }
           }
         }
       } else {
@@ -86,7 +92,8 @@ export async function middleware(req: NextRequest) {
     console.log("err", err);
   }
 
-  return NextResponse.redirect(new URL("/", req.url));
+  console.log("middleware go to signin page");
+  return NextResponse.redirect(new URL("/signin", req.url));
 }
 
 // See "Matching Paths" below to learn more
