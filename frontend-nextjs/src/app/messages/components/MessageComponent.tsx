@@ -8,7 +8,6 @@ import React, { useEffect, useState, useRef } from "react";
 import ChatPage from "./ChatPage";
 import ChatInput from "./ChatInput";
 import { twMerge } from "tailwind-merge";
-import useScrollPosition from "@/hooks/useScrollPosition";
 
 // import { usePathname } from "next/navigation";
 // import { isChat } from "@/lib/isChat";
