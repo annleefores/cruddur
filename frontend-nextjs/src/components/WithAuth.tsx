@@ -1,29 +1,22 @@
-import { awsExportServer } from "@/lib/awsExportsServer";
-import { Amplify, withSSRContext } from "aws-amplify";
-import { headers } from "next/headers";
-import { redirect } from "next/navigation";
+"use client";
 
-Amplify.configure({ ...awsExportServer, ssr: true });
+import Loading from "@/app/loading";
+import { useAuth } from "@/hooks/useAuth";
+import { useRouter } from "next/navigation";
+import { useEffect } from "react";
 
 const withAuth = (WrappedComponent: React.ComponentType) => {
   const Wrapper = async (props: any) => {
-    // Construct a req object & prepare an SSR enabled version of Amplify
-    const req = {
-      headers: {
-        cookie: headers().get("cookie"),
-      },
-    };
-    const { Auth } = withSSRContext({ req });
+    const { isAuthenticated } = useAuth();
+    const router = useRouter();
 
-    try {
-      await Auth.currentAuthenticatedUser();
-      console.log("Auth Success");
-    } catch {
-      console.log("auth error");
-      redirect("/signin");
-    }
+    useEffect(() => {
+      if (!isAuthenticated) {
+        router.push("/signin");
+      }
+    }, []);
 
-    return <WrappedComponent {...props} />;
+    return isAuthenticated ? <WrappedComponent {...props} /> : <Loading />;
   };
 
   return Wrapper;
