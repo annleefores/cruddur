@@ -35,6 +35,7 @@ const SigninForm = () => {
     const result = await auth.signIn(data.email, data.password);
     if (result.success) {
       console.log(result.message);
+      router.push("/home");
     } else {
       // error toast
       alert(result.message);
