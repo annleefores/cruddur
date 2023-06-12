@@ -86,7 +86,7 @@ export async function middleware(req: NextRequest) {
     console.log("err", err);
   }
 
-  return NextResponse.redirect(new URL("/signin", req.url));
+  return NextResponse.redirect(new URL("/", req.url));
 }
 
 // See "Matching Paths" below to learn more
