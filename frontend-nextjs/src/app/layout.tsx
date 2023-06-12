@@ -4,7 +4,6 @@ import { Inter } from "next/font/google";
 import { ProvideAuth } from "@/hooks/useAuth";
 import { Suspense } from "react";
 import Loading from "./loading";
-import { Amplify } from "aws-amplify";
 import { NavigationEvents } from "@/components/NavigationEvents";
 
 const inter = Inter({ subsets: ["latin"] });
