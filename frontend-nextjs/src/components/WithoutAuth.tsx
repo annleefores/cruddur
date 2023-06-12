@@ -18,7 +18,7 @@ const WithoutAuth = <P extends {}>(
       }
     }, []);
 
-    return !isAuthenticated ? <WrappedComponent {...props} /> : <Loading />;
+    return !isAuthenticated ? <WrappedComponent {...props} /> : <></>;
   };
 
   return Wrapper;
