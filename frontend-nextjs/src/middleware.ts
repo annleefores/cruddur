@@ -14,7 +14,7 @@ export async function middleware(req: NextRequest) {
 
   const { pathname } = req.nextUrl;
 
-  // Define paths that don't require authentication
+  // Define paths that don't require auth
   const unauthenticatedPaths = [
     "/",
     "/signin",
@@ -23,51 +23,52 @@ export async function middleware(req: NextRequest) {
     "/forgot",
   ];
 
+  if (unauthenticatedPaths.includes(pathname)) {
+    console.log("next reponse");
+    return NextResponse.next();
+  }
+
+  // for paths that need auth
+
+  // Cognito data
+  const poolId = process.env.AWS_USER_POOLS_ID;
+  const clientId = process.env.CLIENT_ID;
+
   try {
-    if (unauthenticatedPaths.includes(pathname)) {
-      console.log("next reponse");
-      return NextResponse.next();
-    } else {
-      // Cognito data
-      const region = process.env.AWS_COGNITO_REGION;
-      const poolId = process.env.AWS_USER_POOLS_ID;
-      const clientId = process.env.CLIENT_ID;
+    // get token from req -- not the ideal solution
+    const myMap: Map<string, MapEntry> = Object.entries(req.cookies)[0][1];
 
-      // get token from req -- not the ideal solution
-      const myMap: Map<string, MapEntry> = Object.entries(req.cookies)[0][1];
+    const idTokenRegex = new RegExp(
+      `CognitoIdentityServiceProvider\\.${clientId}\\..+\\.accessToken`
+    );
 
-      const idTokenRegex = new RegExp(
-        `CognitoIdentityServiceProvider\\.${clientId}\\..+\\.accessToken`
-      );
+    const targetKey = Array.from(myMap.keys()).find((key) =>
+      idTokenRegex.test(key)
+    );
 
-      const targetKey = Array.from(myMap.keys()).find((key) =>
-        idTokenRegex.test(key)
-      );
+    if (targetKey) {
+      const token = myMap.get(targetKey)?.value;
+      console.log("Key found");
 
-      if (targetKey) {
-        const token = myMap.get(targetKey)?.value;
-        console.log("Key found", token);
+      if (token) {
+        // verify using aws-jwt-verify
 
-        if (token) {
-          // verify using aws-jwt-verify
+        const verifier = CognitoJwtVerifier.create({
+          userPoolId: poolId || "",
+          tokenUse: "access",
+          clientId: clientId || "",
+        });
 
-          const verifier = CognitoJwtVerifier.create({
-            userPoolId: poolId || "",
-            tokenUse: "access",
-            clientId: clientId || "",
-          });
-
-          try {
-            const payload = await verifier.verify(token);
-            console.log("Token is valid. Payload:", payload);
-            return NextResponse.next();
-          } catch (err) {
-            console.log("Token not valid!", err);
-          }
+        try {
+          const payload = await verifier.verify(token);
+          console.log("Token is valid");
+          return NextResponse.next();
+        } catch (err) {
+          console.log("Token not valid!", err);
         }
-      } else {
-        console.log("key not found");
       }
+    } else {
+      console.log("key not found");
     }
   } catch (err) {
     console.log("err", err);
@@ -77,7 +78,7 @@ export async function middleware(req: NextRequest) {
   return NextResponse.redirect(new URL("/signin", req.url));
 }
 
-// See "Matching Paths" below to learn more
-export const config = {
-  matcher: ["/home", "/messages/:path*", "/notifications"],
-};
+// // See "Matching Paths" below to learn more
+// export const config = {
+//   matcher: ["/home", "/messages/:path*", "/notifications"],
+// };
