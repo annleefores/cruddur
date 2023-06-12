@@ -126,7 +126,6 @@ const useProvideAuth = (): UseAuth => {
           sethandle(result.attributes.preferred_username);
           setIsAuthenticated(true);
           setIsLoading(false);
-          router.push("/home");
         } else if (event === "autoSignIn_failure") {
           router.push("/signin");
         }
