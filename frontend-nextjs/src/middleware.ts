@@ -37,7 +37,7 @@ export async function middleware(req: NextRequest) {
       const myMap: Map<string, MapEntry> = Object.entries(req.cookies)[0][1];
 
       const idTokenRegex = new RegExp(
-        `CognitoIdentityServiceProvider\\.${clientId}\\..+\\.idToken`
+        `CognitoIdentityServiceProvider\\.${clientId}\\..+\\.accessToken`
       );
 
       const targetKey = Array.from(myMap.keys()).find((key) =>
@@ -51,7 +51,6 @@ export async function middleware(req: NextRequest) {
         if (token) {
           // verify using aws-jwt-verify
 
-          // Verifier that expects valid access tokens:
           const verifier = CognitoJwtVerifier.create({
             userPoolId: poolId || "",
             tokenUse: "access",
