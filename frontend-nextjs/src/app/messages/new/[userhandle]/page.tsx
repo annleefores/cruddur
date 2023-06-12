@@ -4,6 +4,7 @@ import React, { useEffect, useRef } from "react";
 import ChatPage from "../../components/ChatPage";
 import ChatInput from "../../components/ChatInput";
 import MessageComponent from "../../components/MessageComponent";
+import withAuth from "@/components/WithAuth";
 
 interface PageProps {
   params: {
@@ -11,7 +12,8 @@ interface PageProps {
   };
 }
 
-const page: React.FC<PageProps> = ({ params }) => {
+const page: React.FC<PageProps> = (props: PageProps) => {
+  const { params } = props;
   return (
     <>
       <MessageComponent Msg={false} userhandle={params.userhandle} />
@@ -19,4 +21,4 @@ const page: React.FC<PageProps> = ({ params }) => {
   );
 };
 
-export default page;
+export default withAuth(page);

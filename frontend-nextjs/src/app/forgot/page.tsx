@@ -2,8 +2,9 @@
 import { useState } from "react";
 import Recover from "./components/Recover";
 import NewPassword from "./components/NewPassword";
+import WithoutAuth from "@/components/WithoutAuth";
 
-export default function Home() {
+const Home = () => {
   const [FormState, setFormState] = useState("");
   const [username, setusername] = useState("");
   return (
@@ -19,4 +20,5 @@ export default function Home() {
       </div>
     </>
   );
-}
+};
+export default WithoutAuth(Home);
