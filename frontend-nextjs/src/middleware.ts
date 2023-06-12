@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
-import { decodeProtectedHeader, importJWK, jwtVerify } from "jose";
+import { CognitoJwtVerifier } from "aws-jwt-verify";
 
 type MapEntry = {
   name: string;
@@ -9,35 +9,31 @@ type MapEntry = {
 
 // This function can be marked `async` if using `await` inside
 export async function middleware(req: NextRequest) {
-  //
-  // This is a temporary solution until the aws-amplify package is updated with support for NextJS middleware
-  //
-
+  //////////// This is a temporary solution until the aws-amplify package is updated with support for NextJS middleware///////////
   console.log(">>>>>>>>>>Middleware<<<<<<<<<<");
 
-  const url = req.nextUrl.clone();
+  const { pathname } = req.nextUrl;
+
+  // Define paths that don't require authentication
+  const unauthenticatedPaths = [
+    "/",
+    "/signin",
+    "/signup",
+    "/confirm",
+    "/forgot",
+  ];
 
   try {
-    // Define paths that don't require authentication
-    const unauthenticatedPaths = [
-      "/",
-      "/signin",
-      "/signup",
-      "/confirm",
-      "/forgot",
-    ];
-    // Allow users to continue for pages that don't require authentication
-    if (unauthenticatedPaths.includes(url.pathname)) {
-      console.log("next response");
+    if (unauthenticatedPaths.includes(pathname)) {
+      console.log("next reponse");
       return NextResponse.next();
     } else {
-      // Authenticate users for protected resources
-
       // Cognito data
       const region = process.env.AWS_COGNITO_REGION;
       const poolId = process.env.AWS_USER_POOLS_ID;
       const clientId = process.env.CLIENT_ID;
 
+      // get token from req -- not the ideal solution
       const myMap: Map<string, MapEntry> = Object.entries(req.cookies)[0][1];
 
       const idTokenRegex = new RegExp(
@@ -48,43 +44,30 @@ export async function middleware(req: NextRequest) {
         idTokenRegex.test(key)
       );
 
-      console.log("targetkey", targetKey);
-
       if (targetKey) {
         const token = myMap.get(targetKey)?.value;
         console.log("Key found", token);
 
         if (token) {
-          // Get keys from AWS
-          const { keys } = await fetch(
-            `https://cognito-idp.${region}.amazonaws.com/${poolId}/.well-known/jwks.json`
-          ).then((res) => res.json());
+          // verify using aws-jwt-verify
 
-          // Decode the user's token
-          const { kid } = decodeProtectedHeader(token);
+          // Verifier that expects valid access tokens:
+          const verifier = CognitoJwtVerifier.create({
+            userPoolId: poolId || "",
+            tokenUse: "access",
+            clientId: clientId || "",
+          });
 
-          // Find the user's decoded token in the Cognito keys
-          const jwk = keys.find(
-            (key: { kid: string | undefined }) => key.kid === kid
-          );
-
-          if (jwk) {
-            // Import JWT using the JWK
-            const jwtImport = await importJWK(jwk);
-
-            // Verify the users JWT
-            const jwtVerified = await jwtVerify(token, jwtImport)
-              .then((res) => {
-                console.log(res.payload.email_verified);
-                // Allow verified users to continue
-                console.log("middleware go to home page");
-                return NextResponse.redirect(new URL("/home", req.url));
-              })
-              .catch((err) => console.log("verification failed", err));
+          try {
+            const payload = await verifier.verify(token);
+            console.log("Token is valid. Payload:", payload);
+            return NextResponse.redirect(new URL("/home", req.url));
+          } catch (err) {
+            console.log("Token not valid!", err);
           }
         }
       } else {
-        console.log("Key not found");
+        console.log("key not found");
       }
     }
   } catch (err) {
