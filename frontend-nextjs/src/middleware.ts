@@ -80,7 +80,7 @@ export async function middleware(req: NextRequest) {
                 console.log("middleware go to home page");
                 return NextResponse.redirect(new URL("/home", req.url));
               })
-              .catch(() => console.log("verification failed"));
+              .catch((err) => console.log("verification failed", err));
           }
         }
       } else {
