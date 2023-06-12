@@ -1,7 +1,6 @@
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 import { decodeProtectedHeader, importJWK, jwtVerify } from "jose";
-import { cookies } from "next/dist/client/components/headers";
 
 type MapEntry = {
   name: string;
