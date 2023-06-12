@@ -109,6 +109,7 @@ const useProvideAuth = (): UseAuth => {
       router.push("/");
       return { success: true, message: "LOGOUT SUCCESS" };
     } catch (error) {
+      console.log(error);
       return {
         success: false,
         message: "LOGOUT FAIL",

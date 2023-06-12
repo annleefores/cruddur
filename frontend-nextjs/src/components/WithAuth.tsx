@@ -16,7 +16,7 @@ const withAuth = <P extends {}>(WrappedComponent: React.ComponentType<P>) => {
       }
     }, []);
 
-    return isAuthenticated ? <WrappedComponent {...props} /> : <Loading />;
+    return isAuthenticated ? <WrappedComponent {...props} /> : <></>;
   };
 
   return Wrapper;
