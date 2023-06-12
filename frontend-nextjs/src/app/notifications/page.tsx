@@ -1,8 +1,5 @@
-"use client";
-
 import HeaderElem from "@/components/HeaderElem";
 import NotificationPage from "./components/NotificationPage";
-import withAuth from "@/components/WithAuth";
 
 const Home = () => {
   return (
@@ -15,4 +12,4 @@ const Home = () => {
   );
 };
 
-export default withAuth(Home);
+export default Home;

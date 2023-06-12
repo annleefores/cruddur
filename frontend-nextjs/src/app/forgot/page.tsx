@@ -1,8 +1,6 @@
-"use client";
 import { useState } from "react";
 import Recover from "./components/Recover";
 import NewPassword from "./components/NewPassword";
-import WithoutAuth from "@/components/WithoutAuth";
 
 const Home = () => {
   const [FormState, setFormState] = useState("");
@@ -21,4 +19,4 @@ const Home = () => {
     </>
   );
 };
-export default WithoutAuth(Home);
+export default Home;

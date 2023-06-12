@@ -1,7 +1,4 @@
-"use client";
-
 import SignPage from "@/components/SignPage";
-import WithoutAuth from "@/components/WithoutAuth";
 
 const Home = () => {
   return (
@@ -10,4 +7,4 @@ const Home = () => {
     </>
   );
 };
-export default WithoutAuth(Home);
+export default Home;

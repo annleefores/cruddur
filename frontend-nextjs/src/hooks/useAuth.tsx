@@ -77,7 +77,6 @@ const useProvideAuth = (): UseAuth => {
 
   const signIn = async (username: string, password: string) => {
     setIsLoading(true);
-
     try {
       const result = await Auth.signIn(username, password);
 

@@ -1,10 +1,7 @@
-"use client";
-
 import CrudPage from "@/components/CrudPage";
 import HeaderElem from "@/components/HeaderElem";
 import RightSidebar from "@/components/RightSidebar";
 import SignButton from "@/components/SignButton";
-import WithoutAuth from "@/components/WithoutAuth";
 import { data } from "@/lib/data";
 
 const Home = () => {
@@ -38,4 +35,4 @@ const Home = () => {
     </>
   );
 };
-export default WithoutAuth(Home);
+export default Home;
