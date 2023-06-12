@@ -1,11 +1,13 @@
+"use client";
+
 import CrudPage from "@/components/CrudPage";
 import HeaderElem from "@/components/HeaderElem";
 import RightSidebar from "@/components/RightSidebar";
 import SignButton from "@/components/SignButton";
+import WithoutAuth from "@/components/WithoutAuth";
 import { data } from "@/lib/data";
-import Link from "next/link";
 
-export default function Home() {
+const Home = () => {
   return (
     <>
       <div className="flex flex-row justify-start gap-x-2 h-full w-full ">
@@ -35,4 +37,5 @@ export default function Home() {
       </div>
     </>
   );
-}
+};
+export default WithoutAuth(Home);
