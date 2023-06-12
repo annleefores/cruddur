@@ -40,7 +40,7 @@ export const useAuth = () => {
 };
 
 const useProvideAuth = (): UseAuth => {
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [display_name, setdisplay_name] = useState("");
   const [cognito_user_uuid, setcognito_user_uuid] = useState("");
@@ -53,7 +53,6 @@ const useProvideAuth = (): UseAuth => {
     Auth.currentSession()
       .then((data) => {
         setIsAuthenticated(true);
-        setIsLoading(false);
         const accessTok = data.getAccessToken().getJwtToken();
         setAccessToken(accessTok);
         console.log("currentSession", data);
@@ -69,7 +68,6 @@ const useProvideAuth = (): UseAuth => {
       })
       .catch((err) => {
         setIsAuthenticated(false);
-        setIsLoading(false);
         setdisplay_name("");
         setcognito_user_uuid("");
         sethandle("");
@@ -100,6 +98,7 @@ const useProvideAuth = (): UseAuth => {
   };
 
   const signOut = async () => {
+    setIsLoading(true);
     try {
       await Auth.signOut({ global: true });
       setdisplay_name("");
@@ -109,6 +108,7 @@ const useProvideAuth = (): UseAuth => {
       router.push("/");
       return { success: true, message: "LOGOUT SUCCESS" };
     } catch (error) {
+      setIsLoading(false);
       console.log(error);
       return {
         success: false,
@@ -126,14 +126,16 @@ const useProvideAuth = (): UseAuth => {
           setcognito_user_uuid(result.attributes.sub);
           sethandle(result.attributes.preferred_username);
           setIsAuthenticated(true);
-          setIsLoading(false);
+
           router.push("/signin");
         } else if (event === "autoSignIn_failure") {
           router.push("/signin");
         }
+        setIsLoading(false);
       });
       return { success: true, message: "AUTO SIGNIN SUCCESS" };
     } catch (error) {
+      setIsLoading(false);
       return {
         success: false,
         message: "AUTO SIGNIN FAIL",
