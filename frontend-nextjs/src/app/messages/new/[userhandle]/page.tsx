@@ -1,10 +1,5 @@
-"use client";
-import HeaderElem from "@/components/HeaderElem";
-import React, { useEffect, useRef } from "react";
-import ChatPage from "../../components/ChatPage";
-import ChatInput from "../../components/ChatInput";
+import React from "react";
 import MessageComponent from "../../components/MessageComponent";
-import withAuth from "@/components/WithAuth";
 
 interface PageProps {
   params: {
@@ -21,4 +16,4 @@ const page: React.FC<PageProps> = (props: PageProps) => {
   );
 };
 
-export default withAuth(page);
+export default page;

@@ -1,6 +1,4 @@
-"use client";
 import HomeFeedPage from "@/components/HomeFeedPage";
-import withAuth from "@/components/WithAuth";
 
 const Home = () => {
   return (
@@ -14,4 +12,4 @@ const Home = () => {
   );
 };
 
-export default withAuth(Home);
+export default Home;
