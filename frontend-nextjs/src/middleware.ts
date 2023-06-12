@@ -60,7 +60,7 @@ export async function middleware(req: NextRequest) {
           try {
             const payload = await verifier.verify(token);
             console.log("Token is valid. Payload:", payload);
-            return NextResponse.redirect(new URL("/home", req.url));
+            return NextResponse.next();
           } catch (err) {
             console.log("Token not valid!", err);
           }
