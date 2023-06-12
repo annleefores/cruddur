@@ -1,9 +1,13 @@
-import SignPage from "@/components/SignPage";
+"use client";
 
-export default function Home() {
+import SignPage from "@/components/SignPage";
+import WithoutAuth from "@/components/WithoutAuth";
+
+const Home = () => {
   return (
     <>
       <SignPage type={"confirm"} />
     </>
   );
-}
+};
+export default WithoutAuth(Home);

@@ -1,7 +1,8 @@
 "use client";
 import HomeFeedPage from "@/components/HomeFeedPage";
+import withAuth from "@/components/WithAuth";
 
-export default function Home() {
+const Home = () => {
   return (
     <>
       <div className="flex flex-row justify-start gap-x-2 h-full w-full">
@@ -11,4 +12,6 @@ export default function Home() {
       </div>
     </>
   );
-}
+};
+
+export default withAuth(Home);
