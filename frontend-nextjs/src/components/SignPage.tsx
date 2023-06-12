@@ -1,5 +1,5 @@
 import ConfirmForm from "@/app/confirm/components/ConfirmForm";
-import Recover from "@/app/forgot/components/Recover";
+
 import SigninForm from "@/app/signin/components/SigninForm";
 import SignupForm from "@/app/signup/components/SignupForm";
 import React from "react";
