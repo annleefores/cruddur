@@ -52,7 +52,7 @@ export async function middleware(req: NextRequest) {
 
       if (targetKey) {
         const token = myMap.get(targetKey)?.value;
-        console.log("Key found");
+        console.log("Key found", token);
 
         if (token) {
           // Get keys from AWS
