@@ -1,9 +1,9 @@
+import { awsExportServer } from "@/lib/awsExportsServer";
 import { Amplify, withSSRContext } from "aws-amplify";
 import { headers } from "next/headers";
-import { awsExport } from "@/lib/awsExports";
 import { useRouter } from "next/navigation";
 
-Amplify.configure({ ...awsExport, ssr: true });
+Amplify.configure({ ...awsExportServer, ssr: true });
 
 const withAuth = async (WrappedComponent: React.ComponentType) => {
   const Wrapper = async (props: any) => {
