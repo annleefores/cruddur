@@ -1,3 +1,4 @@
+"use client";
 import { useState } from "react";
 import Recover from "./components/Recover";
 import NewPassword from "./components/NewPassword";
