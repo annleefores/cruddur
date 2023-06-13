@@ -37,12 +37,14 @@ const SignupForm = () => {
 
   const [error, setError] = useState("");
   const [success, setSuccess] = useState(false);
+  const [IsLoading, setIsLoading] = useState(false);
 
   const router = useRouter();
   const auth = useAuth();
 
   const onSubmit: SubmitHandler<FormData> = async (data) => {
     setError("");
+    setIsLoading(true);
     try {
       await signUp(data.email, data.password, {
         name: data.name,
@@ -55,6 +57,7 @@ const SignupForm = () => {
       console.log(err);
       setError("error");
     }
+    setIsLoading(false);
   };
 
   return (
@@ -144,11 +147,11 @@ const SignupForm = () => {
 
             <div className="pt-4">
               <button
-                disabled={auth.isLoading}
+                disabled={IsLoading}
                 type="submit"
                 className="flex w-full justify-center rounded-md bg-[#9500FF] px-3 py-2 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-[#9a20f0]"
               >
-                {auth.isLoading ? (
+                {IsLoading ? (
                   <>
                     <div
                       className="w-6 h-6 rounded-full animate-spin

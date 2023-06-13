@@ -122,41 +122,45 @@ export function signIn(username: string, password: string) {
 
 ////------------------////
 
-// export function forgotPassword(username: string) {
-//   return new Promise((resolve, reject) => {
-//     const cognitoUser = new CognitoUser({
-//       Username: username,
-//       Pool: userPool,
-//     });
+export function forgotPassword(username: string) {
+  return new Promise<void>((resolve, reject) => {
+    const cognitoUser = new CognitoUser({
+      Username: username,
+      Pool: userPool,
+    });
 
-//     cognitoUser.forgotPassword({
-//       onSuccess: () => {
-//         resolve();
-//       },
-//       onFailure: (err) => {
-//         reject(err);
-//       },
-//     });
-//   });
-// }
+    cognitoUser.forgotPassword({
+      onSuccess: () => {
+        resolve();
+      },
+      onFailure: (err) => {
+        reject(err);
+      },
+    });
+  });
+}
 
-// export function confirmPassword(username, confirmationCode, newPassword) {
-//   return new Promise((resolve, reject) => {
-//     const cognitoUser = new CognitoUser({
-//       Username: username,
-//       Pool: userPool,
-//     });
+export function confirmPassword(
+  username: string,
+  confirmationCode: string,
+  newPassword: string
+) {
+  return new Promise<void>((resolve, reject) => {
+    const cognitoUser = new CognitoUser({
+      Username: username,
+      Pool: userPool,
+    });
 
-//     cognitoUser.confirmPassword(confirmationCode, newPassword, {
-//       onSuccess: () => {
-//         resolve();
-//       },
-//       onFailure: (err) => {
-//         reject(err);
-//       },
-//     });
-//   });
-// }
+    cognitoUser.confirmPassword(confirmationCode, newPassword, {
+      onSuccess: () => {
+        resolve();
+      },
+      onFailure: (err) => {
+        reject(err);
+      },
+    });
+  });
+}
 
 export function signOut() {
   const cognitoUser = userPool.getCurrentUser();

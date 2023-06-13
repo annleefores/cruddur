@@ -8,7 +8,6 @@ import { useRouter } from "next/navigation";
 import { z } from "zod";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { signIn } from "@/lib/Auth";
 import { useState } from "react";
 
 const SignInformSchema = z.object({
@@ -24,6 +23,7 @@ type SignInform = z.infer<typeof SignInformSchema>;
 const SigninForm = () => {
   const [error, setError] = useState("");
   const [success, setSuccess] = useState(false);
+  const [IsLoading, setIsLoading] = useState(false);
   const {
     register,
     handleSubmit,
@@ -32,11 +32,12 @@ const SigninForm = () => {
     resolver: zodResolver(SignInformSchema),
   });
 
-  const { signInContext, isLoading } = useAuth();
+  const { signInContext } = useAuth();
   const router = useRouter();
 
   const onSubmit: SubmitHandler<SignInform> = async (data) => {
     setError("");
+    setIsLoading(true);
 
     try {
       await signInContext(data.email, data.password);
@@ -46,6 +47,7 @@ const SigninForm = () => {
       console.log(err);
       setError("error");
     }
+    setIsLoading(false);
   };
 
   return (
@@ -109,11 +111,11 @@ const SigninForm = () => {
 
             <div className="pt-4">
               <button
-                disabled={isLoading}
+                disabled={IsLoading}
                 type="submit"
                 className="flex w-full justify-center rounded-md bg-[#9500FF] px-3 py-2 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-[#9a20f0]"
               >
-                {isLoading ? (
+                {IsLoading ? (
                   <>
                     <div
                       className="w-6 h-6 rounded-full animate-spin

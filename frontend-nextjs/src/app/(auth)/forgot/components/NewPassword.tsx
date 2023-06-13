@@ -1,12 +1,11 @@
 "use client";
-import SignPageHeader from "@/components/SignPageHeader";
 import { z } from "zod";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Auth } from "aws-amplify";
-import { useAuth } from "@/hooks/useAuth";
 import React, { useState } from "react";
+import { confirmPassword } from "@/lib/Auth";
 import Link from "next/link";
+import SignPageHeader from "@/components/SignPageHeader";
 
 const ConfirmCodeSchema = z
   .object({
@@ -37,7 +36,9 @@ const NewPassword: React.FC<NewPasswordProps> = ({
   username,
   setFormState,
 }) => {
-  const [successState, setsuccessState] = useState(false);
+  const [IsLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState("");
+  const [success, setSuccess] = useState(false);
   const {
     register,
     handleSubmit,
@@ -52,24 +53,21 @@ const NewPassword: React.FC<NewPasswordProps> = ({
     resolver: zodResolver(ConfirmCodeSchema),
   });
 
-  const auth = useAuth();
-
   const onSubmit: SubmitHandler<ConfirmCodeSchemaData> = async (data) => {
-    Auth.forgotPasswordSubmit(data.email, data.confirmcode, data.password)
-      .then((data) => {
-        setsuccessState(true);
-      })
-      .catch((err) => {
-        console.log(err);
-        setFormState("");
-      });
-
-    // add toast
+    try {
+      await confirmPassword(data.email, data.confirmcode, data.password);
+      setSuccess(true);
+    } catch (err) {
+      setError("error");
+      setFormState("");
+    }
   };
+
+  // add toast
 
   return (
     <>
-      {successState ? (
+      {success ? (
         <div className="flex justify-center items-center ">
           <div className="p-6 ">
             <p className="text-white font-semibold">
@@ -178,11 +176,11 @@ const NewPassword: React.FC<NewPasswordProps> = ({
 
               <div className="pt-4">
                 <button
-                  disabled={auth.isLoading}
+                  disabled={IsLoading}
                   type="submit"
                   className="flex w-full justify-center rounded-md bg-[#9500FF] px-3 py-2 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-[#9a20f0]"
                 >
-                  {auth.isLoading ? (
+                  {IsLoading ? (
                     <>
                       <div
                         className="w-6 h-6 rounded-full animate-spin

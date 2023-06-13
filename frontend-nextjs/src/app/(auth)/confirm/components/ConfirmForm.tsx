@@ -21,14 +21,13 @@ const ConfirmForm = () => {
   const [codeSent, setCodeSent] = useState<boolean>(false);
   const [error, setError] = useState("");
   const [success, setSuccess] = useState(false);
+  const [IsLoading, setIsLoading] = useState(false);
 
   const searchParams = useSearchParams();
 
   const email = searchParams.get("email");
 
   const router = useRouter();
-
-  const { isLoading, setIsLoading } = useAuth();
 
   const {
     register,
@@ -51,6 +50,7 @@ const ConfirmForm = () => {
 
   const onSubmit: SubmitHandler<ConfirmFormData> = async (data) => {
     setError("");
+    setIsLoading(true);
     try {
       await confirmSignUp(data.email, data.confirmcode);
       console.log("Confirm Success");
@@ -60,6 +60,7 @@ const ConfirmForm = () => {
       console.log(err);
       setError("error");
     }
+    setIsLoading(false);
   };
 
   return (
@@ -111,11 +112,11 @@ const ConfirmForm = () => {
 
             <div className="pt-4">
               <button
-                disabled={isLoading}
+                disabled={IsLoading}
                 type="submit"
                 className="flex w-full justify-center rounded-md bg-[#9500FF] px-3 py-2 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-[#9a20f0]"
               >
-                {isLoading ? (
+                {IsLoading ? (
                   <>
                     <div
                       className="w-6 h-6 rounded-full animate-spin
