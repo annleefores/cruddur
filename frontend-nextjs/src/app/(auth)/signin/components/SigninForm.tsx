@@ -32,8 +32,7 @@ const SigninForm = () => {
     resolver: zodResolver(SignInformSchema),
   });
 
-  const { signInContext, isAuthenticated } = useAuth();
-  const router = useRouter();
+  const { signInContext } = useAuth();
 
   const onSubmit: SubmitHandler<SignInform> = async (data) => {
     setError("");
@@ -48,10 +47,6 @@ const SigninForm = () => {
     }
     setIsLoading(false);
   };
-
-  if (isAuthenticated) {
-    router.push("/home");
-  }
 
   return (
     <>
