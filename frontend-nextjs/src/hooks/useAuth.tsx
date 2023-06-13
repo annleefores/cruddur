@@ -5,10 +5,10 @@ import { useRouter } from "next/navigation";
 import React, { createContext, useContext, useEffect, useState } from "react";
 
 interface UseAuth {
-  isLoading: boolean;
+  ContextisLoading: boolean;
   isAuthenticated: boolean;
   user: {};
-  setIsLoading: React.Dispatch<React.SetStateAction<boolean>>;
+  setContextisLoading: React.Dispatch<React.SetStateAction<boolean>>;
   signOutContext: () => Promise<void>;
   signInContext: (username: string, password: string) => Promise<void>;
 }
@@ -29,14 +29,16 @@ export const useAuth = () => {
 };
 
 const useProvideAuth = (): UseAuth => {
-  const [isLoading, setIsLoading] = useState(false);
+  const [ContextisLoading, setContextisLoading] = useState(true);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [user, setuser] = useState({});
 
   const router = useRouter();
 
   useEffect(() => {
-    fetchUser();
+    fetchUser()
+      .then(() => setContextisLoading(false))
+      .catch(() => setContextisLoading(false));
   }, []);
 
   const fetchUser = async () => {
@@ -61,15 +63,14 @@ const useProvideAuth = (): UseAuth => {
   const signInContext = async (username: string, password: string) => {
     await signIn(username, password);
     await fetchUser();
-    router.push("/home");
   };
 
   return {
-    isLoading,
+    ContextisLoading,
     isAuthenticated,
     user,
     signOutContext,
-    setIsLoading,
+    setContextisLoading,
     signInContext,
   };
 };

@@ -8,7 +8,7 @@ import { useRouter } from "next/navigation";
 import { z } from "zod";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const SignInformSchema = z.object({
   email: z.string().email("Invalid email"),
@@ -32,7 +32,7 @@ const SigninForm = () => {
     resolver: zodResolver(SignInformSchema),
   });
 
-  const { signInContext } = useAuth();
+  const { signInContext, isAuthenticated } = useAuth();
   const router = useRouter();
 
   const onSubmit: SubmitHandler<SignInform> = async (data) => {
@@ -49,6 +49,10 @@ const SigninForm = () => {
     }
     setIsLoading(false);
   };
+
+  if (isAuthenticated) {
+    router.push("/home");
+  }
 
   return (
     <>
