@@ -54,6 +54,7 @@ const useProvideAuth = (): UseAuth => {
   const signOutContext = async () => {
     await signOut();
     setIsAuthenticated(false);
+    setuser({});
     router.push("/signin");
   };
 
