@@ -1,7 +1,7 @@
-import ConfirmForm from "@/app/confirm/components/ConfirmForm";
+import ConfirmForm from "@/app/(auth)/confirm/components/ConfirmForm";
 
-import SigninForm from "@/app/signin/components/SigninForm";
-import SignupForm from "@/app/signup/components/SignupForm";
+import SigninForm from "@/app/(auth)/signin/components/SigninForm";
+import SignupForm from "@/app/(auth)/signup/components/SignupForm";
 import React from "react";
 
 interface SignPage {
