@@ -67,7 +67,6 @@ const useProvideAuth = (): UseAuth => {
     isLoading,
     isAuthenticated,
     user,
-    // signIn,
     signOutContext,
     setIsLoading,
     signInContext,

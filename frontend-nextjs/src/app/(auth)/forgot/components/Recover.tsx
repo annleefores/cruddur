@@ -3,8 +3,8 @@ import SignPageHeader from "@/components/SignPageHeader";
 import { z } from "zod";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Auth } from "aws-amplify";
-import React from "react";
+import React, { useState } from "react";
+import { forgotPassword } from "@/lib/Auth";
 
 interface RecoverProps {
   setFormState: React.Dispatch<React.SetStateAction<string>>;
@@ -18,6 +18,8 @@ const SendCodeSchema = z.object({
 type SendCodeSchemaData = z.infer<typeof SendCodeSchema>;
 
 const Recover: React.FC<RecoverProps> = ({ setFormState, setusername }) => {
+  const [error, setError] = useState("");
+  const [success, setSuccess] = useState(false);
   const {
     register,
     handleSubmit,
@@ -27,12 +29,14 @@ const Recover: React.FC<RecoverProps> = ({ setFormState, setusername }) => {
   });
 
   const onSubmit: SubmitHandler<SendCodeSchemaData> = async (data) => {
-    Auth.forgotPassword(data.email)
-      .then((result) => {
-        setFormState("newpassword");
-        setusername(data.email);
-      })
-      .catch((err) => console.log(err));
+    try {
+      await forgotPassword(data.email);
+      setFormState("newpassword");
+      setusername(data.email);
+      setSuccess(true);
+    } catch (err) {
+      setError("error");
+    }
 
     // // add toast
   };
