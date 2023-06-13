@@ -14,8 +14,6 @@ const LeftSidebar = () => {
   const authHidden = ["/home", "/notifications", "/messages"];
   const unauthHidden = ["/"];
 
-  const router = useRouter();
-
   const { isAuthenticated, ContextisLoading } = useAuth();
 
   if (ContextisLoading) {
