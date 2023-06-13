@@ -8,7 +8,8 @@ import { useAuth } from "@/hooks/useAuth";
 import { z } from "zod";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Auth } from "aws-amplify";
+import { signUp } from "@/lib/Auth";
+import { useState } from "react";
 
 const formSchema = z.object({
   name: z.string().min(1, "Name is required"),
@@ -34,32 +35,25 @@ const SignupForm = () => {
     resolver: zodResolver(formSchema),
   });
 
+  const [error, setError] = useState("");
+  const [success, setSuccess] = useState(false);
+
   const router = useRouter();
   const auth = useAuth();
 
   const onSubmit: SubmitHandler<FormData> = async (data) => {
-    auth.setIsLoading(true);
+    setError("");
     try {
-      const { user } = await Auth.signUp({
-        username: data.email,
-        password: data.password,
-        attributes: {
-          name: data.name,
-          email: data.email,
-          preferred_username: data.username,
-        },
-        autoSignIn: {
-          // optional - enables auto sign in after user is confirmed
-          enabled: true,
-        },
+      await signUp(data.email, data.password, {
+        name: data.name,
+        email: data.email,
+        preferred_username: data.username,
       });
-      console.log(user);
-
+      setSuccess(true);
       router.push(`/confirm?email=${data.email}`);
-    } catch (error) {
-      auth.setIsLoading(false);
-      console.log("error signing up:", error);
-      // add error toast
+    } catch (err) {
+      console.log(err);
+      setError("error");
     }
   };
 

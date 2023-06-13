@@ -1,14 +1,14 @@
 "use client";
 
-import { useSearchParams } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import SignPageHeader from "@/components/SignPageHeader";
 
 import { z } from "zod";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useState } from "react";
-import { Auth } from "aws-amplify";
 import { useAuth } from "@/hooks/useAuth";
+import { ResendConfirmCode, confirmSignUp } from "@/lib/Auth";
 
 const ConfirmformSchema = z.object({
   email: z.string().email("Invalid email"),
@@ -19,12 +19,16 @@ type ConfirmFormData = z.infer<typeof ConfirmformSchema>;
 
 const ConfirmForm = () => {
   const [codeSent, setCodeSent] = useState<boolean>(false);
+  const [error, setError] = useState("");
+  const [success, setSuccess] = useState(false);
 
   const searchParams = useSearchParams();
 
   const email = searchParams.get("email");
 
-  const auth = useAuth();
+  const router = useRouter();
+
+  const { isLoading, setIsLoading } = useAuth();
 
   const {
     register,
@@ -37,7 +41,7 @@ const ConfirmForm = () => {
 
   const resend_code = async (email: string) => {
     try {
-      await Auth.resendSignUp(email);
+      await ResendConfirmCode(email);
       console.log("code resent successfully");
       setCodeSent(true);
     } catch (err) {
@@ -46,15 +50,15 @@ const ConfirmForm = () => {
   };
 
   const onSubmit: SubmitHandler<ConfirmFormData> = async (data) => {
-    auth.setIsLoading(true);
+    setError("");
     try {
-      await Auth.confirmSignUp(data.email, data.confirmcode);
-      auth.autoSignin();
-    } catch (error) {
-      console.log("error confirming sign up", error);
-      auth.setIsLoading(false);
-
-      // add toast
+      await confirmSignUp(data.email, data.confirmcode);
+      console.log("Confirm Success");
+      setSuccess(true);
+      router.push("/signin");
+    } catch (err) {
+      console.log(err);
+      setError("error");
     }
   };
 
@@ -107,11 +111,11 @@ const ConfirmForm = () => {
 
             <div className="pt-4">
               <button
-                disabled={auth.isLoading}
+                disabled={isLoading}
                 type="submit"
                 className="flex w-full justify-center rounded-md bg-[#9500FF] px-3 py-2 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-[#9a20f0]"
               >
-                {auth.isLoading ? (
+                {isLoading ? (
                   <>
                     <div
                       className="w-6 h-6 rounded-full animate-spin

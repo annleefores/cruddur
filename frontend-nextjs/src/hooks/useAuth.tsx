@@ -1,27 +1,16 @@
 "use client";
-import { Amplify, Auth, Hub } from "aws-amplify";
+
+import { getCurrentUser, signIn, signOut } from "@/lib/Auth";
 import { useRouter } from "next/navigation";
 import React, { createContext, useContext, useEffect, useState } from "react";
-import { awsExport } from "@/lib/awsExports";
-
-Amplify.configure({ ...awsExport, ssr: true });
 
 interface UseAuth {
   isLoading: boolean;
   isAuthenticated: boolean;
-  display_name: string;
-  cognito_user_uuid: string;
-  handle: string;
-  AccessToken: string;
-  signIn: (username: string, password: string) => Promise<Result>;
-  signOut: () => Promise<Result>;
-  autoSignin: () => Promise<Result>;
+  user: {};
   setIsLoading: React.Dispatch<React.SetStateAction<boolean>>;
-}
-
-interface Result {
-  success: boolean;
-  message: string;
+  signOutContext: () => Promise<void>;
+  signInContext: (username: string, password: string) => Promise<void>;
 }
 
 type Props = {
@@ -42,116 +31,45 @@ export const useAuth = () => {
 const useProvideAuth = (): UseAuth => {
   const [isLoading, setIsLoading] = useState(false);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [display_name, setdisplay_name] = useState("");
-  const [cognito_user_uuid, setcognito_user_uuid] = useState("");
-  const [handle, sethandle] = useState("");
-  const [AccessToken, setAccessToken] = useState("");
+  const [user, setuser] = useState({});
 
   const router = useRouter();
 
   useEffect(() => {
-    Auth.currentSession()
-      .then((data) => {
-        setIsAuthenticated(true);
-        const accessTok = data.getAccessToken().getJwtToken();
-        setAccessToken(accessTok);
-        console.log("currentSession", data);
-      })
-      .catch((err) => console.log("currentSession", err));
-
-    Auth.currentAuthenticatedUser()
-      .then((result) => {
-        setcognito_user_uuid(result.attributes.sub);
-        setdisplay_name(result.attributes.name);
-        sethandle(result.attributes.preferred_username);
-        console.log("currentAuthUser", result);
-      })
-      .catch((err) => {
-        setIsAuthenticated(false);
-        setdisplay_name("");
-        setcognito_user_uuid("");
-        sethandle("");
-        console.log("currentAuthUser", err);
-      });
+    fetchUser();
   }, []);
 
-  const signIn = async (username: string, password: string) => {
-    setIsLoading(true);
+  const fetchUser = async () => {
     try {
-      const result = await Auth.signIn(username, password);
-
-      console.log("signin", result);
-      setdisplay_name(result.attributes.name);
-      setcognito_user_uuid(result.attributes.sub);
-      sethandle(result.attributes.preferred_username);
+      const user = await getCurrentUser();
       setIsAuthenticated(true);
-
-      return { success: true, message: "LOGIN SUCCESS" };
-    } catch (error) {
-      setIsLoading(false);
-      return {
-        success: false,
-        message: "LOGIN FAIL",
-      };
-    }
-  };
-
-  const signOut = async () => {
-    setIsLoading(true);
-    try {
-      await Auth.signOut({ global: true });
-      setdisplay_name("");
-      setcognito_user_uuid("");
-      sethandle("");
+      setuser(user);
+    } catch (err) {
+      console.error(err);
       setIsAuthenticated(false);
-      router.push("/");
-      return { success: true, message: "LOGOUT SUCCESS" };
-    } catch (error) {
-      setIsLoading(false);
-      console.log(error);
-      return {
-        success: false,
-        message: "LOGOUT FAIL",
-      };
+      setuser({});
     }
   };
-  const autoSignin = async () => {
-    try {
-      Hub.listen("auth", ({ payload }) => {
-        const { event } = payload;
-        if (event === "autoSignIn") {
-          const result = payload.data;
-          setdisplay_name(result.attributes.name);
-          setcognito_user_uuid(result.attributes.sub);
-          sethandle(result.attributes.preferred_username);
-          setIsAuthenticated(true);
 
-          router.push("/signin");
-        } else if (event === "autoSignIn_failure") {
-          router.push("/signin");
-        }
-        setIsLoading(false);
-      });
-      return { success: true, message: "AUTO SIGNIN SUCCESS" };
-    } catch (error) {
-      setIsLoading(false);
-      return {
-        success: false,
-        message: "AUTO SIGNIN FAIL",
-      };
-    }
+  const signOutContext = async () => {
+    await signOut();
+    setIsAuthenticated(false);
+    router.push("/signin");
+  };
+
+  const signInContext = async (username: string, password: string) => {
+    await signIn(username, password);
+    await fetchUser();
+    router.push("/home");
   };
 
   return {
     isLoading,
     isAuthenticated,
-    display_name,
-    cognito_user_uuid,
-    handle,
-    AccessToken,
-    signIn,
-    signOut,
+    user,
+    // signIn,
+    signOutContext,
     setIsLoading,
-    autoSignin,
+    signInContext,
   };
 };

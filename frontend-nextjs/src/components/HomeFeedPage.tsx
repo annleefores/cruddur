@@ -1,8 +1,17 @@
+"use client";
+import { useAuth } from "@/hooks/useAuth";
 import CrudPage from "./CrudPage";
 import HeaderElem from "./HeaderElem";
 import { data } from "@/lib/data";
+import { useEffect } from "react";
 
 const HomeFeedPage = () => {
+  const { user } = useAuth();
+
+  useEffect(() => {
+    console.log(user);
+  }, [user]);
+
   return (
     <div className="flex  flex-col h-full w-full overflow-y-scroll no-scrollbar">
       <HeaderElem page={"Home"} />
