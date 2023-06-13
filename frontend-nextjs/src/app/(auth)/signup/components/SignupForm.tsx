@@ -40,7 +40,6 @@ const SignupForm = () => {
   const [IsLoading, setIsLoading] = useState(false);
 
   const router = useRouter();
-  const auth = useAuth();
 
   const onSubmit: SubmitHandler<FormData> = async (data) => {
     setError("");
