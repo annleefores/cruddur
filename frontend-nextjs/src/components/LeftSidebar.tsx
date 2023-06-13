@@ -1,17 +1,35 @@
 "use client";
 
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import Navigation from "./Navigation";
 import { twMerge } from "tailwind-merge";
 import { isChat } from "@/lib/isChat";
 import { useAuth } from "@/hooks/useAuth";
+import LoadingSpinner from "./LoadingSpinner";
 
 const LeftSidebar = () => {
   const pathname = usePathname();
-  const { isAuthenticated } = useAuth();
 
   const skipPath = ["/signup", "/signin", "/forgot", "/confirm"];
   const authHidden = ["/home", "/notifications", "/messages"];
+  const unauthHidden = ["/"];
+
+  const router = useRouter();
+
+  const { isAuthenticated, ContextisLoading } = useAuth();
+
+  if (ContextisLoading) {
+    return <></>;
+  }
+
+  if (isAuthenticated && unauthHidden.includes(pathname)) {
+    return <></>;
+  }
+
+  if (!isAuthenticated && authHidden.includes(pathname)) {
+    return <></>;
+  }
+
   return (
     <div
       className={twMerge(

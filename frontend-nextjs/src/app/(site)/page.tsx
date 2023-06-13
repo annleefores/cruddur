@@ -1,10 +1,26 @@
+"use client";
 import CrudPage from "@/components/CrudPage";
 import HeaderElem from "@/components/HeaderElem";
+import LoadingSpinner from "@/components/LoadingSpinner";
 import RightSidebar from "@/components/RightSidebar";
 import SignButton from "@/components/SignButton";
+import { useAuth } from "@/hooks/useAuth";
 import { data } from "@/lib/data";
+import { useRouter } from "next/navigation";
 
 const Home = () => {
+  const { isAuthenticated, ContextisLoading } = useAuth();
+  const router = useRouter();
+
+  if (ContextisLoading) {
+    return <LoadingSpinner />;
+  }
+
+  if (isAuthenticated) {
+    router.push("/home");
+    return <LoadingSpinner />;
+  }
+
   return (
     <>
       <div className="flex flex-row justify-start gap-x-2 h-full w-full ">

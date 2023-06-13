@@ -1,21 +1,30 @@
 "use client";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import About from "./About";
 import Search from "./Search";
 import SuggestedUsers from "./SuggestedUsers";
 import Trending from "./Trending";
 import SigninBox from "./SigninBox";
 import { useAuth } from "@/hooks/useAuth";
+import LoadingSpinner from "./LoadingSpinner";
 
 const RightSidebar = () => {
   const pathname = usePathname();
-  const { isAuthenticated } = useAuth();
   const authHidden = ["/home", "/notifications", "/messages"];
+
+  // const { isAuthenticated, ContextisLoading } = useAuth();
+  // const router = useRouter();
+
+  // if (ContextisLoading) {
+  //   return <></>;
+  // }
+
+  // if (!isAuthenticated && authHidden.includes(pathname)) {
+  //   return <></>;
+  // }
 
   return (
     <>
-      {/* {isAuthenticated || !authHidden.includes(pathname) ? 
-      ( */}
       <div className="py-2 px-2">
         <Search />
         {pathname == "/" ? (

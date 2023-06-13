@@ -4,16 +4,24 @@ import Recover from "./components/Recover";
 import NewPassword from "./components/NewPassword";
 import { useAuth } from "@/hooks/useAuth";
 import { useRouter } from "next/navigation";
+import LoadingSpinner from "@/components/LoadingSpinner";
 
 const Home = () => {
   const [FormState, setFormState] = useState("");
   const [username, setusername] = useState("");
 
-  const { isAuthenticated } = useAuth();
+  const { isAuthenticated, ContextisLoading } = useAuth();
   const router = useRouter();
+
+  if (ContextisLoading) {
+    return <LoadingSpinner />;
+  }
+
   if (isAuthenticated) {
     router.push("/home");
+    return <LoadingSpinner />;
   }
+
   return (
     <>
       <div className="flex bg-[#02060E] md:bg-inherit h-full w-full justify-center md:items-center">

@@ -9,7 +9,6 @@ const HomeFeedPage = () => {
   const { user, isAuthenticated } = useAuth();
 
   useEffect(() => {
-    console.log("user", user);
     console.log("isAuthenticated", isAuthenticated);
   }, [user]);
 
