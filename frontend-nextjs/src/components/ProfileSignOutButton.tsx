@@ -3,22 +3,11 @@ import { HiOutlineDotsHorizontal } from "react-icons/hi";
 import UserProfile from "./UserProfile";
 import { Fragment } from "react";
 import { Popover, Transition } from "@headlessui/react";
-import { useAuth } from "@/hooks/useAuth";
 import { useRouter } from "next/navigation";
+import { useAuth } from "@/hooks/useAuth";
 
 const ProfileSignOutButton = () => {
-  const auth = useAuth();
-  const router = useRouter();
-
-  const OnClickSignOut = async () => {
-    const result = await auth.signOut();
-    if (result.success) {
-      console.log(result.message);
-    } else {
-      //error toast
-      alert(result.message);
-    }
-  };
+  const { signOutContext } = useAuth();
 
   return (
     <>
@@ -44,7 +33,7 @@ const ProfileSignOutButton = () => {
             <Popover.Panel className="absolute right-0 sm:-right-5 top-8 xl:top-14 xl:right-0 z-50 mt-3 min-w-full text-center">
               <div className="overflow-hidden w-full rounded-lg ">
                 <div className="bg-neutral-800 p-2">
-                  <button onClick={OnClickSignOut} className="text-sm w-full">
+                  <button onClick={signOutContext} className="text-sm w-full">
                     Logout
                   </button>
                 </div>
