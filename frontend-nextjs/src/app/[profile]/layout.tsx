@@ -1,10 +1,20 @@
+"use client";
+import LoadingSpinner from "@/components/LoadingSpinner";
 import RightSidebar from "@/components/RightSidebar";
+import { useAuth } from "@/hooks/useAuth";
+import { useRouter } from "next/navigation";
 
 export default function ProfileLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  const { ContextisLoading } = useAuth();
+  const router = useRouter();
+
+  if (ContextisLoading) {
+    return <LoadingSpinner />;
+  }
   return (
     <>
       <div className="flex flex-row gap-x-2 w-full h-full">
