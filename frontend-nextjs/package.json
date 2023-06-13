@@ -16,7 +16,6 @@
     "@types/react-dom": "18.2.4",
     "amazon-cognito-identity-js": "^6.2.0",
     "autoprefixer": "10.4.14",
-    "aws-jwt-verify": "^4.0.0",
     "eslint": "8.41.0",
     "eslint-config-next": "13.4.4",
     "next": "13.4.4",

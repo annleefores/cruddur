@@ -6,10 +6,11 @@ import { data } from "@/lib/data";
 import { useEffect } from "react";
 
 const HomeFeedPage = () => {
-  const { user } = useAuth();
+  const { user, isAuthenticated } = useAuth();
 
   useEffect(() => {
-    console.log(user);
+    console.log("user", user);
+    console.log("isAuthenticated", isAuthenticated);
   }, [user]);
 
   return (

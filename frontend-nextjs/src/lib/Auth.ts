@@ -212,26 +212,34 @@ export async function getCurrentUser(): Promise<User> {
         reject(err);
         return;
       }
-      cognitoUser.getUserAttributes((err, attributes) => {
-        if (err) {
-          reject(err);
-          return;
-        }
-        const userData = attributes?.reduce((acc: any, attribute: any) => {
-          acc[attribute.Name] = attribute.Value;
-          return acc;
-        }, {});
 
-        resolve({
-          ...userData,
-          accessToken: session.accessToken,
+      const refresh_token = session.getRefreshToken(); // receive session from calling cognitoUser.getSession()
+
+      cognitoUser.refreshSession(refresh_token, (err, session) => {
+        if (err) {
+          console.log(err);
+        }
+        cognitoUser.getUserAttributes((err, attributes) => {
+          if (err) {
+            reject(err);
+            return;
+          }
+          const userData = attributes?.reduce((acc: any, attribute: any) => {
+            acc[attribute.Name] = attribute.Value;
+            return acc;
+          }, {});
+
+          resolve({
+            ...userData,
+            accessToken: session.accessToken,
+          });
         });
       });
     });
   });
 }
 
-export function getSession() {
+export function Session() {
   const cognitoUser = userPool.getCurrentUser();
   return new Promise((resolve, reject) => {
     if (!cognitoUser) {
