@@ -42,7 +42,6 @@ const SigninForm = () => {
     try {
       await signInContext(data.email, data.password);
       setSuccess(true);
-      router.push("/home");
     } catch (err) {
       console.log(err);
       setError("error");

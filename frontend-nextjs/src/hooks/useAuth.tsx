@@ -47,7 +47,7 @@ const useProvideAuth = (): UseAuth => {
       setIsAuthenticated(true);
       setuser(user);
     } catch (err) {
-      console.error(err);
+      // console.log(err);
       setIsAuthenticated(false);
       setuser({});
     }
