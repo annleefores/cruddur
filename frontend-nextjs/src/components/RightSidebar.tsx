@@ -5,23 +5,9 @@ import Search from "./Search";
 import SuggestedUsers from "./SuggestedUsers";
 import Trending from "./Trending";
 import SigninBox from "./SigninBox";
-import { useAuth } from "@/hooks/useAuth";
-import LoadingSpinner from "./LoadingSpinner";
 
 const RightSidebar = () => {
   const pathname = usePathname();
-  const authHidden = ["/home", "/notifications", "/messages"];
-
-  // const { isAuthenticated, ContextisLoading } = useAuth();
-  // const router = useRouter();
-
-  // if (ContextisLoading) {
-  //   return <></>;
-  // }
-
-  // if (!isAuthenticated && authHidden.includes(pathname)) {
-  //   return <></>;
-  // }
 
   return (
     <>
