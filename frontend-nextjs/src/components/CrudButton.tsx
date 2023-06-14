@@ -4,13 +4,14 @@ import { Dialog, Transition } from "@headlessui/react";
 import { Fragment, useState } from "react";
 import { HiOutlinePencilSquare } from "react-icons/hi2";
 import UserProfile from "./UserProfile";
-import axios from "axios";
-import { useSWRConfig } from "swr";
+import axios, { AxiosResponse } from "axios";
 
 import { z } from "zod";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useAuth } from "@/hooks/useAuth";
+import { useFeed } from "@/hooks/useFeed";
+import { PostDataResponse } from "@/interfaces/type";
 
 const CrudButton = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -18,7 +19,6 @@ const CrudButton = () => {
   const [inputVal, setInputVal] = useState("");
 
   const { user } = useAuth();
-  const { mutate } = useSWRConfig();
 
   const handleInputChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
     setInputVal(event.target.value);
@@ -57,31 +57,33 @@ const CrudButton = () => {
   const PostData = async (
     url: string,
     requestBody: { message: string; ttl: string }
-  ) => {
-    const response = await axios.post(url, requestBody, {
-      headers: {
-        "Content-Type": "application/json",
-        Accept: "application/json",
-        Authorization: `Bearer ${user.accessToken}`,
-      },
-    });
+  ): Promise<PostDataResponse> => {
+    const response: AxiosResponse<PostDataResponse> =
+      await axios.post<PostDataResponse>(url, requestBody, {
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+          Authorization: `Bearer ${user.accessToken}`,
+        },
+      });
     return response.data;
   };
 
-  const onSubmit: SubmitHandler<ActivityForm> = async (data) => {
+  const { mut } = useFeed();
+
+  const onSubmit: SubmitHandler<ActivityForm> = async (Formdata) => {
     closeModal();
 
     const url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/activities`;
 
     const requestBody = {
-      message: data.message,
-      ttl: data.ttl,
+      message: Formdata.message,
+      ttl: Formdata.ttl,
     };
 
     try {
       const result = await PostData(url, requestBody);
-      console.log(result);
-      mutate(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/activities/home`);
+      mut();
     } catch (error) {
       // Handle the error as needed
       console.error("Error in POST request:", error);
