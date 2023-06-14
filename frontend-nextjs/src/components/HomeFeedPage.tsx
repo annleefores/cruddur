@@ -6,7 +6,7 @@ import HeaderElem from "./HeaderElem";
 import { Authfetcher } from "@/lib/fetcher";
 import { Post } from "../interfaces/type";
 import LoadingSpinner from "./LoadingSpinner";
-import { useFeed } from "@/hooks/useFeed";
+import { useFeed } from "@/hooks/useSWRhooks";
 
 const HomeFeedPage = () => {
   const { data, isLoading, isError } = useFeed();

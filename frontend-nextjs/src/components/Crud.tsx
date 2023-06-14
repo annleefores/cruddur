@@ -12,7 +12,7 @@ import UserPic from "./UserPic";
 import UserName from "./UserName";
 import Link from "next/link";
 import { Post } from "../interfaces/type";
-import { format_datetime, time_ago, time_future } from "../lib/DateTimeFormat";
+import { time_ago, time_future } from "../lib/DateTimeFormat";
 
 const Crud: React.FC<Post> = ({
   created_at,
