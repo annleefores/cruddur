@@ -10,6 +10,16 @@ export interface Post {
   uuid: string;
 }
 
+export interface PostDataResponse {
+  created_at: string;
+  display_name: string;
+  expires_at: string;
+  handle: string;
+  message: string;
+  reply_to_activity_uuid?: null | string;
+  uuid: string;
+}
+
 export interface User {
   sub: string;
   email_verified: string;
