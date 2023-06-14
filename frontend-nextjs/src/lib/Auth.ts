@@ -4,6 +4,7 @@ import {
   AuthenticationDetails,
   CognitoUserAttribute,
 } from "amazon-cognito-identity-js";
+import { User } from "@/interfaces/type";
 
 const userPool = new CognitoUserPool({
   UserPoolId: process.env.NEXT_PUBLIC_AWS_USER_POOLS_ID || "",
@@ -169,35 +170,6 @@ export function signOut() {
   }
 }
 
-interface AccessTokenPayload {
-  sub: string;
-  iss: string;
-  client_id: string;
-  origin_jti: string;
-  event_id: string;
-  token_use: string;
-  scope: string;
-  auth_time: number;
-  exp: number;
-  iat: number;
-  jti: string;
-  username: string;
-}
-
-interface AccessToken {
-  jwtToken: string;
-  payload: AccessTokenPayload;
-}
-
-interface User {
-  sub: string;
-  email_verified: string;
-  name: string;
-  preferred_username: string;
-  email: string;
-  accessToken: AccessToken;
-}
-
 export async function getCurrentUser(): Promise<User> {
   return new Promise((resolve, reject) => {
     const cognitoUser = userPool.getCurrentUser();
@@ -231,7 +203,7 @@ export async function getCurrentUser(): Promise<User> {
 
           resolve({
             ...userData,
-            accessToken: session.accessToken,
+            accessToken: session.accessToken.jwtToken,
           });
         });
       });

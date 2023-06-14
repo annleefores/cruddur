@@ -1,4 +1,3 @@
-import Link from "next/link";
 import React from "react";
 import { twMerge } from "tailwind-merge";
 import UserPic from "./UserPic";

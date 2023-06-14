@@ -1,19 +1,15 @@
 import React from "react";
 import Crud from "./Crud";
+import { Post } from "../interfaces/type";
 
-interface CrudpageProps {
-  data: Array<{
-    post: string;
-    uuid: string;
-    name: string;
-    userhandle: string;
-  }>;
+interface PostsProps {
+  data: Post[] | undefined;
 }
 
-const CrudPage: React.FC<CrudpageProps> = ({ data }) => {
+const CrudPage: React.FC<PostsProps> = ({ data }) => {
   return (
     <div>
-      {data.map((item, index) => (
+      {data?.map((item, index) => (
         <div
           key={index}
           className=" w-full p-3 sm:w-full h-full hover:bg-neutral-900 border-b border-neutral-800 transition cursor-pointer"

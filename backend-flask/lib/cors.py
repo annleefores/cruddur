@@ -5,7 +5,7 @@ import os
 def init_cors(app):
     frontend = os.getenv("FRONTEND_URL")
     backend = os.getenv("BACKEND_URL")
-    origins = [frontend, backend]
+    origins = [frontend, backend, "http://localhost:3001"]
     cors = CORS(
         app,
         resources={r"/api/*": {"origins": origins}},

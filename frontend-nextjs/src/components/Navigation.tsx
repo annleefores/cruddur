@@ -43,7 +43,7 @@ const Navigation = () => {
     {
       icon: HiOutlineEllipsisHorizontalCircle,
       label: "More",
-      href: "/home",
+      href: "/more",
     },
   ];
 

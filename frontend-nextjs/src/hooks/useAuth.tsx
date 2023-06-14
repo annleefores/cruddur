@@ -1,5 +1,6 @@
 "use client";
 
+import { User } from "@/interfaces/type";
 import { getCurrentUser, signIn, signOut } from "@/lib/Auth";
 import { useRouter } from "next/navigation";
 import React, { createContext, useContext, useEffect, useState } from "react";
@@ -7,7 +8,7 @@ import React, { createContext, useContext, useEffect, useState } from "react";
 interface UseAuth {
   ContextisLoading: boolean;
   isAuthenticated: boolean;
-  user: {};
+  user: User;
   setContextisLoading: React.Dispatch<React.SetStateAction<boolean>>;
   signOutContext: () => Promise<void>;
   signInContext: (username: string, password: string) => Promise<void>;
@@ -15,6 +16,15 @@ interface UseAuth {
 
 type Props = {
   children?: React.ReactNode;
+};
+
+const defaultUser: User = {
+  sub: "",
+  email_verified: "",
+  name: "",
+  preferred_username: "",
+  email: "",
+  accessToken: "",
 };
 
 const authContext = createContext({} as UseAuth);
@@ -31,7 +41,7 @@ export const useAuth = () => {
 const useProvideAuth = (): UseAuth => {
   const [ContextisLoading, setContextisLoading] = useState(true);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [user, setuser] = useState({});
+  const [user, setuser] = useState<User>(defaultUser);
 
   const router = useRouter();
 
@@ -43,20 +53,20 @@ const useProvideAuth = (): UseAuth => {
 
   const fetchUser = async () => {
     try {
-      const user = await getCurrentUser();
+      const userData = await getCurrentUser();
       setIsAuthenticated(true);
-      setuser(user);
+      setuser(userData);
     } catch (err) {
       // console.log(err);
       setIsAuthenticated(false);
-      setuser({});
+      setuser(defaultUser);
     }
   };
 
   const signOutContext = async () => {
     await signOut();
     setIsAuthenticated(false);
-    setuser({});
+    setuser(defaultUser);
     router.push("/signin");
   };
 
