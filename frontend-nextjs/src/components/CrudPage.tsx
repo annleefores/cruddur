@@ -4,9 +4,10 @@ import { Post } from "../interfaces/type";
 
 interface PostsProps {
   data: Post[] | undefined;
+  hiddenNoPostMessage?: boolean;
 }
 
-const CrudPage: React.FC<PostsProps> = ({ data }) => {
+const CrudPage: React.FC<PostsProps> = ({ data, hiddenNoPostMessage }) => {
   return (
     <div>
       {data?.map((item, index) => (
@@ -19,7 +20,7 @@ const CrudPage: React.FC<PostsProps> = ({ data }) => {
       ))}
       <div className="p-4 h-full w-full border-t border-neutral-800">
         <div className="h-[100px] text-center text-sm text-neutral-500">
-          <p>{`You're all caught up!`}</p>
+          {hiddenNoPostMessage ? <></> : <p>{`You're all caught up!`}</p>}
         </div>
       </div>
     </div>

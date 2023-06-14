@@ -1,12 +1,24 @@
 export interface Post {
   created_at: string;
   display_name: string;
-  expires_at: string;
+  expires_at?: string;
   handle: string;
   likes_count?: number;
   message: string;
   replies_count?: number;
   reposts_count?: number;
+  uuid: string;
+}
+
+export interface Reply {
+  created_at: string;
+  display_name: string;
+  handle: string;
+  likes_count: number;
+  message: string;
+  replies_count: number;
+  reply_to_activity_uuid: string;
+  reposts_count: number;
   uuid: string;
 }
 
@@ -50,4 +62,9 @@ export interface Activity {
 export interface ProfileObject {
   activities: Activity[];
   profile: Profile;
+}
+
+export interface PostData {
+  activity: Post;
+  replies: Reply[];
 }
