@@ -24,20 +24,18 @@ const ProfilePage = () => {
   if (error) console.log(error);
   if (isLoading)
     return (
-      <>
+      <div className="mt-10">
         <LoadingSpinner />
-      </>
+      </div>
     );
 
-  console.log(data);
-  const ifPosts = true;
   return (
     <div className="flex flex-col w-full pt-10 sm:pt-0 ">
       <div className="border-b border-neutral-800">
         <Profile data={data?.profile} />
       </div>
       <div>
-        {ifPosts ? (
+        {data?.activities.length !== 0 ? (
           <CrudPage data={data?.activities} />
         ) : (
           <div className="w-full text-center">

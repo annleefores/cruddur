@@ -7,12 +7,8 @@ interface UserNameProps {
 const UserName: React.FC<UserNameProps> = ({ name, userhandle }) => {
   return (
     <>
-      <p className="text-sm truncate hover:underline">
-        {name || "Annlee Fores"}
-      </p>
-      <p className="text-xs truncate text-neutral-400">
-        @{userhandle || "annleefores"}
-      </p>
+      <p className="text-sm truncate hover:underline">{name || ""}</p>
+      <p className="text-xs truncate text-neutral-400">@{userhandle || ""}</p>
     </>
   );
 };

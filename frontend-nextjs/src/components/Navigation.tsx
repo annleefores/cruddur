@@ -15,10 +15,12 @@ import CrudButton from "./CrudButton";
 import ProfileSignOutButton from "./ProfileSignOutButton";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { useAuth } from "@/hooks/useAuth";
 
 const Navigation = () => {
   const username = "annleefores";
   const pathname = usePathname();
+  const { user } = useAuth();
   const routes = [
     {
       icon: HiOutlineHome,
@@ -38,7 +40,7 @@ const Navigation = () => {
     {
       icon: HiOutlineUser,
       label: "Profile",
-      href: `/${username}`,
+      href: `/${user.preferred_username}`,
     },
     {
       icon: HiOutlineEllipsisHorizontalCircle,
