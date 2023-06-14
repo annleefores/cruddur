@@ -5,7 +5,7 @@ import { Fragment, useState } from "react";
 import { HiOutlinePencilSquare } from "react-icons/hi2";
 import UserProfile from "./UserProfile";
 import axios from "axios";
-import useSWR, { useSWRConfig } from "swr";
+import { useSWRConfig } from "swr";
 
 import { z } from "zod";
 import { useForm, SubmitHandler } from "react-hook-form";
@@ -18,7 +18,7 @@ const CrudButton = () => {
   const [inputVal, setInputVal] = useState("");
 
   const { user } = useAuth();
-  const { mutate } = useSWRConfig()
+  const { mutate } = useSWRConfig();
 
   const handleInputChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
     setInputVal(event.target.value);
@@ -54,10 +54,24 @@ const CrudButton = () => {
     resolver: zodResolver(ActivitySchema),
   });
 
+  const PostData = async (
+    url: string,
+    requestBody: { message: string; ttl: string }
+  ) => {
+    const response = await axios.post(url, requestBody, {
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+        Authorization: `Bearer ${user.accessToken}`,
+      },
+    });
+    return response.data;
+  };
+
   const onSubmit: SubmitHandler<ActivityForm> = async (data) => {
     closeModal();
+
     const url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/activities`;
-    console.log(data);
 
     const requestBody = {
       message: data.message,
@@ -65,16 +79,9 @@ const CrudButton = () => {
     };
 
     try {
-      const response = await axios.post(url, requestBody, {
-        headers: {
-          "Content-Type": "application/json",
-          Accept: "application/json",
-          Authorization: `Bearer ${user.accessToken}`,
-        },
-      });
-
-      // console.log(response.data);
-      mutate(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/activities/home`)
+      const result = await PostData(url, requestBody);
+      console.log(result);
+      mutate(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/activities/home`);
     } catch (error) {
       // Handle the error as needed
       console.error("Error in POST request:", error);

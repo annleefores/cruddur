@@ -31,7 +31,8 @@ services:
       # Rollbar
       ROLLBAR_ACCESS_TOKEN: "${ROLLBAR_ACCESS_TOKEN}"
 
-
+    image: "backend-flask"
+    container_name: backend-flask
     build: ./backend-flask
 
     # build:
@@ -68,7 +69,8 @@ services:
       REACT_APP_CLIENT_ID: "${CLIENT_ID}"
       REACT_APP_API_GATEWAY_ENDPOINT_URL: "${REACT_APP_API_GATEWAY_ENDPOINT_URL}"
       # ------------
-
+    image: "frontend-react-js"
+    container_name: frontend-react-js 
     build: ./frontend-react-js
 
     ports:
@@ -84,6 +86,26 @@ services:
     #   retries: 3
     volumes:
       - ./frontend-react-js:/frontend-react-js
+
+  # frontend-nextjs:
+  #   environment:
+  #     NEXT_PUBLIC_FRONTEND_URL: "${FRONTEND_URL}"
+  #     NEXT_PUBLIC_BACKEND_URL: "${BACKEND_URL}"
+  #     NEXT_PUBLIC_AWS_USER_POOLS_ID: "${AWS_USER_POOLS_ID}"
+  #     NEXT_PUBLIC_CLIENT_ID: "${CLIENT_ID}"
+  #     # ------------
+
+  #   image: "frontend-nextjs"
+  #   container_name: nextjs 
+  #   build: ./frontend-nextjs
+
+  #   ports:
+  #     - "3001:3001"
+  #   networks:
+  #     - cruddur-net
+
+  #   volumes:
+  #     - ./frontend-nextjs:/frontend-nextjs
 
   dynamodb-local:
     # https://stackoverflow.com/questions/67533058/persist-local-dynamodb-data-in-volumes-lack-permission-unable-to-open-databa

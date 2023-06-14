@@ -17,8 +17,7 @@ const HomeFeedPage = () => {
     [url, token],
     // @ts-ignore:next-line
     ([url, token]) => Authfetcher(url, token)
-    // ,
-    // { refreshInterval: 1000 }
+    // { refreshInterval: 100 }
   );
 
   if (error) console.log(error);
