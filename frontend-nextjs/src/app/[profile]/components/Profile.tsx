@@ -12,7 +12,7 @@ interface ProfileInfo {
 
 const Profile: React.FC<ProfileInfo> = ({ data }) => {
   //variables
-  const username = "Annlee Fores";
+  // const username = "Annlee Fores";
   // const handle = "annleefores";
   const followingcount = "1";
   const followerscount = "10K";

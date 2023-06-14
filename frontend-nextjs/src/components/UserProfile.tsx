@@ -2,6 +2,7 @@ import React from "react";
 import { twMerge } from "tailwind-merge";
 import UserPic from "./UserPic";
 import UserName from "./UserName";
+import { useAuth } from "@/hooks/useAuth";
 
 interface UserProfileProps {
   SignOutProfile?: boolean;
@@ -12,6 +13,7 @@ const UserProfile: React.FC<UserProfileProps> = ({
   SignOutProfile,
   ShowName,
 }) => {
+  const { user } = useAuth();
   return (
     // <Link href="#">
     <div className="flex flex-row items-center gap-x-2 w-full">
@@ -25,7 +27,7 @@ const UserProfile: React.FC<UserProfileProps> = ({
           ShowName && "block"
         )}
       >
-        <UserName />
+        <UserName name={user.name} userhandle={user.preferred_username} />
       </div>
     </div>
     // </Link>

@@ -2,8 +2,6 @@
 import { useAuth } from "@/hooks/useAuth";
 import CrudPage from "./CrudPage";
 import HeaderElem from "./HeaderElem";
-import { data } from "@/lib/data";
-import { useEffect } from "react";
 import useSWR from "swr";
 import { Authfetcher } from "@/lib/fetcher";
 import { Post } from "../interfaces/type";
@@ -18,8 +16,9 @@ const HomeFeedPage = () => {
   const { data, error, isLoading } = useSWR<Post[]>(
     [url, token],
     // @ts-ignore:next-line
-    ([url, token]) => Authfetcher(url, token),
-    { refreshInterval: 1000 }
+    ([url, token]) => Authfetcher(url, token)
+    // ,
+    // { refreshInterval: 1000 }
   );
 
   if (error) console.log(error);

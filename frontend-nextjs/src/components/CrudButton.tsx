@@ -4,11 +4,21 @@ import { Dialog, Transition } from "@headlessui/react";
 import { Fragment, useState } from "react";
 import { HiOutlinePencilSquare } from "react-icons/hi2";
 import UserProfile from "./UserProfile";
+import axios from "axios";
+import useSWR, { useSWRConfig } from "swr";
+
+import { z } from "zod";
+import { useForm, SubmitHandler } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useAuth } from "@/hooks/useAuth";
 
 const CrudButton = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [count, setCount] = useState(0);
   const [inputVal, setInputVal] = useState("");
+
+  const { user } = useAuth();
+  const { mutate } = useSWRConfig()
 
   const handleInputChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
     setInputVal(event.target.value);
@@ -24,6 +34,54 @@ const CrudButton = () => {
   function openModal() {
     setIsOpen(true);
   }
+
+  const ActivitySchema = z.object({
+    message: z.string().max(240),
+    ttl: z.string(),
+  });
+
+  type ActivityForm = z.infer<typeof ActivitySchema>;
+
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors },
+  } = useForm<ActivityForm>({
+    defaultValues: {
+      ttl: "7-days",
+    },
+    resolver: zodResolver(ActivitySchema),
+  });
+
+  const onSubmit: SubmitHandler<ActivityForm> = async (data) => {
+    closeModal();
+    const url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/activities`;
+    console.log(data);
+
+    const requestBody = {
+      message: data.message,
+      ttl: data.ttl,
+    };
+
+    try {
+      const response = await axios.post(url, requestBody, {
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+          Authorization: `Bearer ${user.accessToken}`,
+        },
+      });
+
+      // console.log(response.data);
+      mutate(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/activities/home`)
+    } catch (error) {
+      // Handle the error as needed
+      console.error("Error in POST request:", error);
+      // add error toast
+    }
+    reset();
+  };
 
   return (
     <>
@@ -68,40 +126,47 @@ const CrudButton = () => {
                       <div className="w-full h-10">
                         <UserProfile ShowName={true} />
                       </div>
+                    </div>
+                    <form onSubmit={handleSubmit(onSubmit)}>
                       <textarea
+                        {...register("message")}
                         maxLength={240}
                         value={inputVal}
                         onChange={handleInputChange}
                         placeholder="What would you like to say?"
                         className="w-full mt-4 h-52 text-lg md:text-xl bg-neutral-900 resize-none outline-none"
                       ></textarea>
-                    </div>
 
-                    <div className="mt-4 flex flex-row justify-between items-center">
-                      <p className="text-neutral-400 text-sm">{240 - count}</p>
-                      <div className="flex flex-row gap-x-4">
-                        <select
-                          className="h-full text-neutral-400 text-sm py-2 outline-none bg-neutral-900 rounded-r-lg px-3"
-                          name="ttl"
-                          id="ttl"
-                        >
-                          <option value="1 Hours">1 Hour</option>
-                          <option value="3 Hours">3 Hours</option>
-                          <option value="30 Hours">30 Hours</option>
-                          <option value="1 Days">1 Days</option>
-                          <option value="3 Days">3 Days</option>
-                          <option value="7 Days">7 Days</option>
-                          <option value="30 Days">30 Days</option>
-                        </select>
-                        <button
-                          type="button"
-                          className="inline-flex font-semibold hover:bg-[#8c06ec] transition bg-[#9500FF] justify-center rounded-lg border-neutral-800  px-6 py-2 text-sm focus:outline-none "
-                          onClick={closeModal}
-                        >
-                          Crud
-                        </button>
+                      <div className="mt-4 flex flex-row justify-between items-center">
+                        <p className="text-neutral-400 text-sm">
+                          {240 - count}
+                        </p>
+                        <div className="flex flex-row gap-x-4">
+                          <select
+                            {...register("ttl")}
+                            className="h-full text-neutral-400 text-sm py-2 outline-none bg-neutral-900 rounded-r-lg px-3"
+                            name="ttl"
+                            id="ttl"
+                          >
+                            <option value="1-hours">1 Hour</option>
+                            <option value="3-hours">3 Hours</option>
+                            <option value="30-hours">30 Hours</option>
+                            <option value="1-days">1 Days</option>
+                            <option value="3-days">3 Days</option>
+                            <option selected value="7-days">
+                              7 Days
+                            </option>
+                            <option value="30-days">30 Days</option>
+                          </select>
+                          <button
+                            type="submit"
+                            className="inline-flex font-semibold hover:bg-[#8c06ec] transition bg-[#9500FF] justify-center rounded-lg border-neutral-800  px-6 py-2 text-sm focus:outline-none "
+                          >
+                            Crud
+                          </button>
+                        </div>
                       </div>
-                    </div>
+                    </form>
                   </Dialog.Panel>
                 </Transition.Child>
               </div>
