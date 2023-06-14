@@ -3,15 +3,20 @@ import Image from "next/image";
 import banner from "../../../../public/banner.jpg";
 import UserPic from "@/components/UserPic";
 import ProfileEdit from "./ProfileEdit";
-import { useState } from "react";
+import React, { useState } from "react";
+import { Profile } from "@/interfaces/type";
 
-const Profile = () => {
+interface ProfileInfo {
+  data: Profile | undefined;
+}
+
+const Profile: React.FC<ProfileInfo> = ({ data }) => {
   //variables
   const username = "Annlee Fores";
-  const handle = "annleefores";
+  // const handle = "annleefores";
   const followingcount = "1";
   const followerscount = "10K";
-  const bio = "DevOps Engineer | Backend Developer | Electronics Hobbyist";
+  // const bio = "DevOps Engineer | Backend Developer | Electronics Hobbyist";
 
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
@@ -43,11 +48,11 @@ const Profile = () => {
       </div>
       <div className="flex flex-col gap-y-3 p-6 md:px-8">
         <div className=" flex flex-col">
-          <p className="text-lg md:text-xl font-bold">{username}</p>
-          <p className="text-sm text-neutral-500">@{handle}</p>
+          <p className="text-lg md:text-xl font-bold">{data?.display_name}</p>
+          <p className="text-sm text-neutral-500">@{data?.handle}</p>
         </div>
         <div className=" text-sm">
-          <p>{bio}</p>
+          <p>{data?.bio}</p>
         </div>
         <div className="flex flex-col xs:flex-row gap-x-4 w-fit sm:gap-x-6 text-sm text-neutral-500 ">
           <p>
