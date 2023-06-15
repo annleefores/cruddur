@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { RxShare2 } from "react-icons/rx";
 import {
   HiOutlineArrowPathRoundedSquare,
@@ -13,6 +13,7 @@ import UserName from "./UserName";
 import Link from "next/link";
 import { Post } from "../interfaces/type";
 import { time_ago, time_future } from "../lib/DateTimeFormat";
+import { useRouter } from "next/navigation";
 
 const Crud: React.FC<Post> = ({
   created_at,
@@ -25,25 +26,46 @@ const Crud: React.FC<Post> = ({
   reposts_count,
   uuid,
 }) => {
+  const [LikeState, SetLikeState] = useState(false);
+
+  const router = useRouter();
+
+  const Comment = async () => {
+    router.push(`/${handle}/status/${uuid}`);
+  };
+  const Like = async () => {
+    SetLikeState(!LikeState);
+  };
+  const Repost = async () => {
+    // Repost
+  };
+  const Share = async () => {
+    // Share
+  };
+
   const activities = [
     {
       icon: HiOutlineHeart,
       label: "like",
       count: likes_count,
+      func: Like,
     },
     {
       icon: HiOutlineChatBubbleOvalLeft,
       label: "comment",
       count: replies_count,
+      func: Comment,
     },
     {
       icon: HiOutlineArrowPathRoundedSquare,
       label: "reshare",
       count: reposts_count,
+      func: Repost,
     },
     {
       icon: RxShare2,
       label: "share",
+      func: Share,
     },
   ];
 
@@ -94,7 +116,11 @@ const Crud: React.FC<Post> = ({
           <div className="flex justify-center smallscreen:w-4/5 px-2">
             <div className="flex flex-row w-full justify-between text-neutral-500 my-1">
               {activities.map((activity, index) => (
-                <CrudActivities key={index} {...activity} />
+                <CrudActivities
+                  key={index}
+                  {...activity}
+                  LikeState={LikeState}
+                />
               ))}
             </div>
           </div>
