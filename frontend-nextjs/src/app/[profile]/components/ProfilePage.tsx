@@ -3,12 +3,25 @@
 import Profile from "./Profile";
 import CrudPage from "@/components/CrudPage";
 import LoadingSpinner from "@/components/LoadingSpinner";
-import { useProfile } from "@/hooks/useSWRhooks";
+import { ProfileObject } from "@/interfaces/type";
+import { usePathname } from "next/navigation";
+
+import useSWR from "swr";
+import { fetcher } from "@/lib/fetcher";
 
 const ProfilePage = () => {
-  const { data, isLoading, isError } = useProfile();
+  const pathname = usePathname();
 
-  if (isError) console.log(isError);
+  const url = `${
+    process.env.NEXT_PUBLIC_BACKEND_URL
+  }/api/activities/@${pathname.substring(1)}`;
+
+  const { data, error, isLoading, mutate } = useSWR<ProfileObject>(
+    url,
+    fetcher
+  );
+
+  if (error) console.log(error);
   if (isLoading)
     return (
       <div className="mt-10">
