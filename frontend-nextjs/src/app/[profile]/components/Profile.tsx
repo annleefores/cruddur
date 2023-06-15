@@ -43,7 +43,12 @@ const Profile: React.FC<ProfileInfo> = ({ data }) => {
           >
             Edit Profile
           </button>
-          <ProfileEdit isOpen={isOpen} setIsOpen={setIsOpen} />
+          <ProfileEdit
+            isOpen={isOpen}
+            setIsOpen={setIsOpen}
+            display_name={data?.display_name || ""}
+            bio={data?.bio || ""}
+          />
         </div>
       </div>
       <div className="flex flex-col gap-y-3 p-6 md:px-8">

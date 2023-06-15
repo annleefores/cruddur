@@ -80,8 +80,6 @@ const CrudExpandedReply: React.FC<CrudExpandedReplyProps> = ({ activity }) => {
   const onSubmit: SubmitHandler<ReplyForm> = async (Formdata) => {
     const url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/activities/${activity?.uuid}/reply`;
 
-    console.log(Formdata);
-
     const requestBody = {
       message: Formdata.message,
       activity_uuid: Formdata.activity_uuid,

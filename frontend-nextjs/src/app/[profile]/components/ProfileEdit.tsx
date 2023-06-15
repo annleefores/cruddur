@@ -2,14 +2,115 @@
 
 import { Dialog, Transition } from "@headlessui/react";
 import { Fragment, useState } from "react";
-import EditForm from "./EditForm";
+import { z } from "zod";
+import { useForm, SubmitHandler } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import axios from "axios";
+import { useAuth } from "@/hooks/useAuth";
+import { mutate } from "swr";
+import { usePathname } from "next/navigation";
 
 interface ProfileEditProps {
   isOpen: boolean;
   setIsOpen: (value: boolean) => void;
+  display_name: string;
+  bio: string;
 }
 
-const ProfileEdit: React.FC<ProfileEditProps> = ({ isOpen, setIsOpen }) => {
+const MAX_FILE_SIZE = 500000;
+const ACCEPTED_IMAGE_TYPES = ["image/jpg", "image/png"];
+
+const EditformSchema = z.object({
+  display_name: z.string().max(50, "Name can't be this long"),
+  bio: z.string().max(160, "Bio can't be this long"),
+  profileImage: z
+    .any()
+    .optional()
+    .refine((files) => !files || files?.length == 1, "Image is required.")
+    .refine(
+      (files) => !files || files?.[0]?.size <= MAX_FILE_SIZE,
+      `Max file size is 5MB.`
+    )
+    .refine(
+      (files) => !files || ACCEPTED_IMAGE_TYPES.includes(files?.[0]?.type),
+      ".jpg, .png files are accepted."
+    ),
+});
+
+type Editform = z.infer<typeof EditformSchema>;
+
+const ProfileEdit: React.FC<ProfileEditProps> = ({
+  isOpen,
+  setIsOpen,
+  display_name,
+  bio,
+}) => {
+  const [Iserror, setIsError] = useState("");
+  const [success, setSuccess] = useState(false);
+  const [IsLoading, setIsLoading] = useState(false);
+  const [file, setFile] = useState<File | null>(null);
+
+  const pathname = usePathname();
+
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors },
+  } = useForm<Editform>({
+    defaultValues: { display_name: display_name, bio: bio, profileImage: null },
+    resolver: zodResolver(EditformSchema),
+  });
+
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files) {
+      setFile(e.target.files[0]);
+    }
+  };
+
+  const { user } = useAuth();
+
+  const PostData = async (
+    url: string,
+    requestBody: { display_name: string; bio: string }
+  ) => {
+    const response = await axios.post(url, requestBody, {
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+        Authorization: `Bearer ${user.accessToken}`,
+      },
+    });
+    return response.data;
+  };
+
+  const onSubmit: SubmitHandler<Editform> = async (Formdata) => {
+    setIsError("");
+    setIsLoading(true);
+
+    const url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/profile/update`;
+    const requestBody = {
+      display_name: Formdata.display_name,
+      bio: Formdata.bio,
+    };
+
+    const Profileurl = `${
+      process.env.NEXT_PUBLIC_BACKEND_URL
+    }/api/activities/@${pathname.substring(1)}`;
+
+    try {
+      const result = await PostData(url, requestBody);
+      mutate(Profileurl);
+    } catch (err) {
+      console.log("Error in POST request:", err);
+      setIsError("error");
+    }
+    setIsLoading(false);
+    setFile(null);
+    closeModal();
+    reset();
+  };
+
   function closeModal() {
     setIsOpen(false);
   }
@@ -42,13 +143,89 @@ const ProfileEdit: React.FC<ProfileEditProps> = ({ isOpen, setIsOpen }) => {
                 leaveTo="opacity-0 scale-95"
               >
                 <Dialog.Panel className="w-full max-w-md transform overflow-hidden rounded-xl bg-neutral-900 p-6 text-left align-middle shadow-xl transition-all">
-                  <div className="flex flex-row justify-between items-center">
-                    <p className="font-semibold ">Edit Profile</p>
-                    <button className="px-4 font-semibold py-1 bg-white rounded-md text-black">
-                      Save
-                    </button>
-                  </div>
-                  <EditForm />
+                  <form className="space-y-3" onSubmit={handleSubmit(onSubmit)}>
+                    <div className="flex flex-row justify-between items-center">
+                      <p className="font-semibold ">Edit Profile</p>
+                      <button
+                        type="submit"
+                        className="px-4 font-semibold py-1 bg-white rounded-md text-black"
+                      >
+                        {IsLoading ? (
+                          <>
+                            <div
+                              className="w-6 h-6 rounded-full animate-spin
+              border-4 border-solid border-black border-t-transparent"
+                            ></div>
+                          </>
+                        ) : (
+                          <>Save</>
+                        )}
+                      </button>
+                    </div>
+                    <div className="flex flex-col gap-y-4 my-6">
+                      <div>
+                        <p className="text-xs  text-neutral-500 mb-1">
+                          Display Name
+                        </p>
+                        <input
+                          maxLength={50}
+                          {...register("display_name")}
+                          className="w-full bg-neutral-900 resize-none outline-none border rounded border-neutral-700 focus:border-neutral-500 transition p-2"
+                          placeholder="Display Name"
+                        />
+                        {errors.display_name && (
+                          <p className="text-xs text-red-600">
+                            {errors.display_name.message}
+                          </p>
+                        )}
+                      </div>
+                      <div>
+                        <p className="text-xs  text-neutral-500 mb-1">Bio</p>
+                        <input
+                          maxLength={160}
+                          type="text"
+                          {...register("bio")}
+                          className="w-full bg-neutral-900 resize-none outline-none border rounded border-neutral-700 focus:border-neutral-500  transition p-2"
+                          placeholder="Bio"
+                        />
+                        {errors.bio && (
+                          <p className="text-xs text-red-600">
+                            {errors.bio.message}
+                          </p>
+                        )}
+                      </div>
+                    </div>
+
+                    <div className="flex flex-col gap-2 gap-x-4">
+                      <p className="text-xs w-fit text-neutral-500 mb-1">
+                        Profile Picture
+                      </p>
+                      <div className="flex items-center justify-center w-full text-xs text-white border border-neutral-700 bg-neutral-800 truncate text-center rounded cursor-pointer">
+                        <label
+                          htmlFor="fileUpload"
+                          className=" cursor-pointer w-full p-2"
+                        >
+                          {file ? file.name : "Choose a file"}
+                          <input
+                            type="file"
+                            id="fileUpload"
+                            {...register("profileImage", {
+                              required: false,
+                              onChange: handleFileChange,
+                            })}
+                            className="hidden"
+                            accept="image/png, image/jpeg"
+                          />
+                          {errors.profileImage && (
+                            <p className="text-xs text-red-600">
+                              {/* @ts-ignore  */}
+                              {errors.profileImage.message}
+                            </p>
+                          )}
+                        </label>
+                      </div>
+                    </div>
+                  </form>
                 </Dialog.Panel>
               </Transition.Child>
             </div>
