@@ -3,7 +3,7 @@ import Image from "next/image";
 import banner from "../../../../public/banner.jpg";
 import UserPic from "@/components/UserPic";
 import ProfileEdit from "./ProfileEdit";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Profile } from "@/interfaces/type";
 
 interface ProfileInfo {
