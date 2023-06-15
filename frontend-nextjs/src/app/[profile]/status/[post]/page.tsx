@@ -24,8 +24,8 @@ const Home = () => {
       <div className="flex-grow">
         <PostExpanded activity={data?.activity} />
       </div>
-      <CrudExpandedReply />
-      <CrudPage data={data?.replies} hiddenNoPostMessage={true} />
+      <CrudExpandedReply activity={data?.activity} />
+      <CrudPage data={data?.replies.reverse()} hiddenNoPostMessage={true} />
     </div>
   );
 };
