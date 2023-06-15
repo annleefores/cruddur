@@ -4,9 +4,9 @@ import Hashtags from "@/components/Hashtags";
 import UserName from "@/components/UserName";
 import UserPic from "@/components/UserPic";
 import { Post } from "@/interfaces/type";
-import { format_datetime, time_ago, time_future } from "@/lib/DateTimeFormat";
+import { format_datetime, time_future } from "@/lib/DateTimeFormat";
 import Link from "next/link";
-import React from "react";
+import React, { useState } from "react";
 import { BiBomb } from "react-icons/bi";
 import {
   HiOutlineArrowPathRoundedSquare,
@@ -20,11 +20,26 @@ interface PostExpandedProps {
 }
 
 const PostExpanded: React.FC<PostExpandedProps> = ({ activity }) => {
+  const [LikeState, SetLikeState] = useState(false);
+
+  const Like = async () => {
+    SetLikeState(!LikeState);
+  };
+
+  const Repost = async () => {
+    // Repost
+  };
+
+  const Share = async () => {
+    // Share
+  };
+
   const activities = [
     {
       icon: HiOutlineHeart,
       label: "like",
       count: activity?.likes_count,
+      func: Like,
     },
     {
       icon: HiOutlineChatBubbleOvalLeft,
@@ -35,10 +50,12 @@ const PostExpanded: React.FC<PostExpandedProps> = ({ activity }) => {
       icon: HiOutlineArrowPathRoundedSquare,
       label: "reshare",
       count: activity?.reposts_count,
+      func: Repost,
     },
     {
       icon: RxShare2,
       label: "share",
+      func: Share,
     },
   ];
 
@@ -90,7 +107,7 @@ const PostExpanded: React.FC<PostExpandedProps> = ({ activity }) => {
         <div className="flex justify-center p-2">
           <div className="flex flex-row w-full justify-between text-neutral-500 my-1">
             {activities.map((activity, index) => (
-              <CrudActivities key={index} {...activity} />
+              <CrudActivities key={index} {...activity} LikeState={LikeState} />
             ))}
           </div>
         </div>
