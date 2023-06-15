@@ -10,8 +10,10 @@ import { z } from "zod";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useAuth } from "@/hooks/useAuth";
-import { useFeed, useProfile } from "@/hooks/useSWRhooks";
+import { useFeed } from "@/hooks/useSWRhooks";
 import { PostDataResponse } from "@/interfaces/type";
+import { mutate } from "swr";
+import { usePathname } from "next/navigation";
 
 const CrudButton = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -19,6 +21,7 @@ const CrudButton = () => {
   const [inputVal, setInputVal] = useState("");
 
   const { user } = useAuth();
+  const pathname = usePathname();
 
   const handleInputChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
     setInputVal(event.target.value);
@@ -70,7 +73,6 @@ const CrudButton = () => {
   };
 
   const { mut } = useFeed();
-  const { Profilemut } = useProfile();
 
   const onSubmit: SubmitHandler<ActivityForm> = async (Formdata) => {
     closeModal();
@@ -82,10 +84,14 @@ const CrudButton = () => {
       ttl: Formdata.ttl,
     };
 
+    const Profileurl = `${
+      process.env.NEXT_PUBLIC_BACKEND_URL
+    }/api/activities/@${pathname.substring(1)}`;
+
     try {
       const result = await PostData(url, requestBody);
       mut();
-      Profilemut();
+      mutate(Profileurl);
     } catch (error) {
       // Handle the error as needed
       console.error("Error in POST request:", error);
