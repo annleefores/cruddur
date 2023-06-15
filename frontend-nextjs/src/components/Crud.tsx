@@ -70,12 +70,18 @@ const Crud: React.FC<Post> = ({
                   <p className="text-xs text-right  text-neutral-500">
                     {time_ago(created_at)}
                   </p>
-                  <div className="inline-flex items-center gap-x-1">
-                    <BiBomb size={16} className="text-neutral-500" />
-                    <p className="text-xs text-neutral-500">
-                      {time_future(expires_at)}
-                    </p>
-                  </div>
+                  {expires_at ? (
+                    <>
+                      <div className="inline-flex items-center gap-x-1">
+                        <BiBomb size={16} className="text-neutral-500" />
+                        <p className="text-xs text-neutral-500">
+                          {time_future(expires_at)}
+                        </p>
+                      </div>
+                    </>
+                  ) : (
+                    <></>
+                  )}
                 </div>
               </div>
               <div className="flex flex-col  gap-y-2">
