@@ -2,26 +2,13 @@
 
 import Profile from "./Profile";
 import CrudPage from "@/components/CrudPage";
-import useSWR from "swr";
-import { Authfetcher, fetcher } from "@/lib/fetcher";
-import { ProfileObject } from "../../../interfaces/type";
 import LoadingSpinner from "@/components/LoadingSpinner";
-import { useAuth } from "@/hooks/useAuth";
-import { usePathname } from "next/navigation";
+import { useProfile } from "@/hooks/useSWRhooks";
 
 const ProfilePage = () => {
-  const { user, isAuthenticated } = useAuth();
+  const { data, isLoading, isError } = useProfile();
 
-  const pathname = usePathname();
-
-  const url = `${
-    process.env.NEXT_PUBLIC_BACKEND_URL
-  }/api/activities/@${pathname.substring(1)}`;
-  const token = user.accessToken;
-
-  const { data, error, isLoading } = useSWR<ProfileObject>(url, fetcher);
-
-  if (error) console.log(error);
+  if (isError) console.log(isError);
   if (isLoading)
     return (
       <div className="mt-10">

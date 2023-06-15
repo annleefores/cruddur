@@ -10,7 +10,7 @@ import { z } from "zod";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useAuth } from "@/hooks/useAuth";
-import { useFeed } from "@/hooks/useSWRhooks";
+import { useFeed, useProfile } from "@/hooks/useSWRhooks";
 import { PostDataResponse } from "@/interfaces/type";
 
 const CrudButton = () => {
@@ -70,6 +70,7 @@ const CrudButton = () => {
   };
 
   const { mut } = useFeed();
+  const { Profilemut } = useProfile();
 
   const onSubmit: SubmitHandler<ActivityForm> = async (Formdata) => {
     closeModal();
@@ -84,6 +85,7 @@ const CrudButton = () => {
     try {
       const result = await PostData(url, requestBody);
       mut();
+      Profilemut();
     } catch (error) {
       // Handle the error as needed
       console.error("Error in POST request:", error);

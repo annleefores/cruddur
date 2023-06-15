@@ -1,8 +1,8 @@
-import { Post, PostData } from "@/interfaces/type";
+import { Post, PostData, ProfileObject } from "@/interfaces/type";
 import { useAuth } from "./useAuth";
 import useSWR from "swr";
 import { Authfetcher, fetcher } from "@/lib/fetcher";
-import { useParams } from "next/navigation";
+import { useParams, usePathname } from "next/navigation";
 
 export function useFeed() {
   const { user, isAuthenticated } = useAuth();
@@ -38,5 +38,26 @@ export function useReply() {
     isLoading,
     isError: error,
     mut: mutate,
+  };
+}
+
+export function useProfile() {
+  const pathname = usePathname();
+
+  const url = `${
+    process.env.NEXT_PUBLIC_BACKEND_URL
+  }/api/activities/@${pathname.substring(1)}`;
+
+  const { data, error, isLoading, mutate } = useSWR<ProfileObject>(
+    url,
+    fetcher
+  );
+
+  return {
+    pathname: pathname,
+    data: data,
+    isLoading,
+    isError: error,
+    Profilemut: mutate,
   };
 }
