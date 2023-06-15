@@ -22,12 +22,6 @@ const ProfilePage = () => {
   );
 
   if (error) console.log(error);
-  if (isLoading)
-    return (
-      <div className="mt-10">
-        <LoadingSpinner />
-      </div>
-    );
 
   return (
     <div className="flex flex-col w-full pt-10 sm:pt-0 ">
@@ -36,7 +30,7 @@ const ProfilePage = () => {
       </div>
       <div>
         {data?.activities.length !== 0 ? (
-          <CrudPage data={data?.activities} />
+          <CrudPage data={data?.activities} isLoading={isLoading} />
         ) : (
           <div className="w-full text-center">
             <p className="text-sm text-neutral-500 p-4">

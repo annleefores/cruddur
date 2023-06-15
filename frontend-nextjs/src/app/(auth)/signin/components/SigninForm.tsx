@@ -3,12 +3,11 @@
 import Link from "next/link";
 import SignPageHeader from "@/components/SignPageHeader";
 import { useAuth } from "@/hooks/useAuth";
-import { useRouter } from "next/navigation";
 
 import { z } from "zod";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 const SignInformSchema = z.object({
   email: z.string().email("Invalid email"),

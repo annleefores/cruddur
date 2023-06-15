@@ -1,13 +1,26 @@
 import React from "react";
 import Crud from "./Crud";
 import { Post } from "../interfaces/type";
+import LoadingSpinner from "./LoadingSpinner";
 
 interface PostsProps {
   data: Post[] | undefined;
   hiddenNoPostMessage?: boolean;
+  isLoading?: boolean;
 }
 
-const CrudPage: React.FC<PostsProps> = ({ data, hiddenNoPostMessage }) => {
+const CrudPage: React.FC<PostsProps> = ({
+  data,
+  hiddenNoPostMessage,
+  isLoading,
+}) => {
+  if (isLoading)
+    return (
+      <div className="mt-10">
+        <LoadingSpinner />
+      </div>
+    );
+
   return (
     <div>
       {data?.map((item, index) => (
