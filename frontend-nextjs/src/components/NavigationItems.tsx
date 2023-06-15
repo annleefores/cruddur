@@ -26,7 +26,7 @@ const NavigationItems: React.FC<NavigationItemsProps> = ({
       className={twMerge(
         `h-auto cursor-pointer hover:text-white transition text-neutral-400 p-1 px-2 sm:px-1`,
         pathname === href && "text-white",
-        href === "#" ? "hidden sm:block" : "block",
+        href === "/more" ? "hidden sm:block" : "block",
         pathname === "/" && !authNav.includes(label) && "hidden"
       )}
     >
