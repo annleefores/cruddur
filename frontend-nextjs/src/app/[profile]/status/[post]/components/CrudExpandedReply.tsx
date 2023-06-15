@@ -116,7 +116,7 @@ const CrudExpandedReply: React.FC<CrudExpandedReplyProps> = ({ activity }) => {
               adjustTextareaHeight(e);
             }}
             placeholder="Crud your reply!"
-            className="w-full py-2 resize-none focus:outline-none focus:shadow-outline bg-black outline-none "
+            className="w-full py-2 resize-none no-scrollbar focus:outline-none focus:shadow-outline bg-black outline-none "
           />
 
           <div className="w-full">

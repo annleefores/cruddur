@@ -72,8 +72,8 @@ const Crud: React.FC<Post> = ({
   return (
     <>
       <div className="flex flex-row w-full h-full">
-        <div className="flex flex-col max-w-[40px] md:max-w-[50px] w-full">
-          <Link href={`/${handle}`} className=" max-h-[40px] md:max-h-[50px]">
+        <div className="flex flex-col w-2/12 max-w-[40px] ">
+          <Link href={`/${handle}`} className="max-h-[40px] max-w-[50px]">
             <UserPic />
           </Link>
           <Link
@@ -81,7 +81,7 @@ const Crud: React.FC<Post> = ({
             className="min-h-full"
           ></Link>
         </div>
-        <div className="w-full">
+        <div className="w-10/12 flex-grow">
           <Link href={`/${handle}/status/${uuid}`}>
             <div className="flex flex-col px-2 w-full">
               <div className="flex flex-row justify-between items-center">
