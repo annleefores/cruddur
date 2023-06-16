@@ -46,7 +46,9 @@ const ProfilePage = () => {
           !data && "block"
         )}
       >
-        <p className="text-neutral-500">Profile does not exist</p>
+        <p className="text-neutral-500 text-xl font-semibold">
+          This account doesn’t exist
+        </p>
       </div>
     </div>
   );
