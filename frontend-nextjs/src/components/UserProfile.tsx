@@ -18,7 +18,7 @@ const UserProfile: React.FC<UserProfileProps> = ({
     // <Link href="#">
     <div className="flex flex-row items-center gap-x-2 w-full">
       <div className="w-full max-h-[40px] max-w-[40px] ">
-        <UserPic />
+        <UserPic sub={user.sub} />
       </div>
       <div
         className={twMerge(

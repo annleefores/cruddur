@@ -19,10 +19,24 @@ const Profile: React.FC<ProfileInfo> = ({ data }) => {
   // const bio = "DevOps Engineer | Backend Developer | Electronics Hobbyist";
 
   const [isOpen, setIsOpen] = useState<boolean>(false);
+  const [display_name, setdisplay_name] = useState<string>("");
+  const [bio, setbio] = useState<string>("");
 
   function openModal() {
     setIsOpen(true);
   }
+
+  const UpdateDN = async (name: string) => {
+    setdisplay_name(name);
+  };
+  const UpdateBio = async (userbio: string) => {
+    setbio(userbio);
+  };
+
+  useEffect(() => {
+    setdisplay_name(data?.display_name || "");
+    setbio(data?.bio || "");
+  }, [data]);
 
   return (
     <>
@@ -33,8 +47,8 @@ const Profile: React.FC<ProfileInfo> = ({ data }) => {
           priority
           className="object-cover h-36 md:h-52"
         />
-        <div className="max-w-[120px] md:max-w-[140px] bg-[#02060E] rounded-full p-1 absolute -bottom-3 left-3 sm:left-5 ">
-          <UserPic />
+        <div className="max-w-[100px] bg-[#02060E] rounded-full p-1 absolute -bottom-3 left-3 sm:left-5 ">
+          <UserPic sub={data?.cognito_user_uuid} />
         </div>
         <div className="flex justify-end mx-2 my-2">
           <button
@@ -46,8 +60,10 @@ const Profile: React.FC<ProfileInfo> = ({ data }) => {
           <ProfileEdit
             isOpen={isOpen}
             setIsOpen={setIsOpen}
-            display_name={data?.display_name || ""}
-            bio={data?.bio || ""}
+            display_name={display_name}
+            bio={bio}
+            UpdateDN={UpdateDN}
+            UpdateBio={UpdateBio}
           />
         </div>
       </div>

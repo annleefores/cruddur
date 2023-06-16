@@ -9,16 +9,24 @@ import axios from "axios";
 import { useAuth } from "@/hooks/useAuth";
 import { mutate } from "swr";
 import { usePathname } from "next/navigation";
+import { S3Upload } from "@/lib/ProfileImageUpload";
 
 interface ProfileEditProps {
   isOpen: boolean;
   setIsOpen: (value: boolean) => void;
   display_name: string;
   bio: string;
+  UpdateDN: (name: string) => Promise<void>;
+  UpdateBio: (userbio: string) => Promise<void>;
 }
 
 const MAX_FILE_SIZE = 500000;
-const ACCEPTED_IMAGE_TYPES = ["image/jpg", "image/png"];
+const ACCEPTED_IMAGE_TYPES = [
+  "image/jpeg",
+  "image/jpg",
+  "image/png",
+  "image/webp",
+];
 
 const EditformSchema = z.object({
   display_name: z.string().max(50, "Name can't be this long"),
@@ -33,7 +41,7 @@ const EditformSchema = z.object({
     )
     .refine(
       (files) => !files || ACCEPTED_IMAGE_TYPES.includes(files?.[0]?.type),
-      ".jpg, .png files are accepted."
+      ".jpg, .jpeg, .png and .webp files are accepted."
     ),
 });
 
@@ -44,6 +52,8 @@ const ProfileEdit: React.FC<ProfileEditProps> = ({
   setIsOpen,
   display_name,
   bio,
+  UpdateDN,
+  UpdateBio,
 }) => {
   const [Iserror, setIsError] = useState("");
   const [success, setSuccess] = useState(false);
@@ -58,7 +68,7 @@ const ProfileEdit: React.FC<ProfileEditProps> = ({
     reset,
     formState: { errors },
   } = useForm<Editform>({
-    defaultValues: { display_name: display_name, bio: bio, profileImage: null },
+    defaultValues: { profileImage: null },
     resolver: zodResolver(EditformSchema),
   });
 
@@ -88,6 +98,9 @@ const ProfileEdit: React.FC<ProfileEditProps> = ({
     setIsError("");
     setIsLoading(true);
 
+    UpdateDN(Formdata.display_name);
+    UpdateBio(Formdata.bio);
+
     const url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/profile/update`;
     const requestBody = {
       display_name: Formdata.display_name,
@@ -98,13 +111,26 @@ const ProfileEdit: React.FC<ProfileEditProps> = ({
       process.env.NEXT_PUBLIC_BACKEND_URL
     }/api/activities/@${pathname.substring(1)}`;
 
+    // profile update
     try {
       const result = await PostData(url, requestBody);
       mutate(Profileurl);
     } catch (err) {
-      console.log("Error in POST request:", err);
+      console.log("Error in Profile POST request:", err);
       setIsError("error");
     }
+
+    if (file) {
+      // image upload
+      try {
+        const res = await S3Upload(file, user.accessToken);
+        console.log(res);
+      } catch (err) {
+        console.log("Error in Image POST request:", err);
+        setIsError("error");
+      }
+    }
+
     setIsLoading(false);
     setFile(null);
     closeModal();
@@ -147,6 +173,7 @@ const ProfileEdit: React.FC<ProfileEditProps> = ({
                     <div className="flex flex-row justify-between items-center">
                       <p className="font-semibold ">Edit Profile</p>
                       <button
+                        disabled={IsLoading}
                         type="submit"
                         className="px-4 font-semibold py-1 bg-white rounded-md text-black"
                       >
@@ -168,6 +195,8 @@ const ProfileEdit: React.FC<ProfileEditProps> = ({
                           Display Name
                         </p>
                         <input
+                          autoComplete="off"
+                          defaultValue={display_name}
                           maxLength={50}
                           {...register("display_name")}
                           className="w-full bg-neutral-900 resize-none outline-none border rounded border-neutral-700 focus:border-neutral-500 transition p-2"
@@ -182,6 +211,8 @@ const ProfileEdit: React.FC<ProfileEditProps> = ({
                       <div>
                         <p className="text-xs  text-neutral-500 mb-1">Bio</p>
                         <input
+                          defaultValue={bio}
+                          autoComplete="off"
                           maxLength={160}
                           type="text"
                           {...register("bio")}
