@@ -2,7 +2,6 @@ import React from "react";
 import { twMerge } from "tailwind-merge";
 import UserPic from "./UserPic";
 import UserName from "./UserName";
-import { useAuth } from "@/hooks/useAuth";
 
 interface OtherProfileProps {
   name: string;

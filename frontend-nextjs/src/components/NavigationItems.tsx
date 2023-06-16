@@ -4,6 +4,7 @@ import Link from "next/link";
 import { IconType } from "react-icons";
 import { twMerge } from "tailwind-merge";
 import { usePathname } from "next/navigation";
+import { useAuth } from "@/hooks/useAuth";
 
 interface NavigationItemsProps {
   icon: IconType;
@@ -17,6 +18,7 @@ const NavigationItems: React.FC<NavigationItemsProps> = ({
   href,
 }) => {
   const pathname = usePathname();
+  const { isAuthenticated } = useAuth();
 
   const authNav = ["Home", "More"];
 
@@ -27,7 +29,8 @@ const NavigationItems: React.FC<NavigationItemsProps> = ({
         `h-auto cursor-pointer hover:text-white transition text-neutral-400 p-1 px-2 sm:px-1`,
         pathname === href && "text-white",
         href === "/more" ? "hidden sm:block" : "block",
-        pathname === "/" && !authNav.includes(label) && "hidden"
+        pathname === "/" && !authNav.includes(label) && "hidden",
+        !isAuthenticated && !authNav.includes(label) && "hidden"
       )}
     >
       <div className="flex flex-col sm:flex-row  gap-x-4 items-center justify-center xl:justify-start text-md font-medium rounded-3xl p-1 xl:p-2 hover:bg-[#46108d] transition">

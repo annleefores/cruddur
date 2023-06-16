@@ -1,4 +1,5 @@
 import SuggestedUsersItem from "./SuggestedUsersItem";
+import { suggestedUsers } from "@/lib/data";
 
 const SuggestedUsers = () => {
   return (
@@ -7,8 +8,11 @@ const SuggestedUsers = () => {
         Suggested User
       </p>
       <div className="flex flex-col">
-        <SuggestedUsersItem />
-        <SuggestedUsersItem />
+        {suggestedUsers.map((item, index) => (
+          <div key={index}>
+            <SuggestedUsersItem item={item} />
+          </div>
+        ))}
       </div>
     </div>
   );

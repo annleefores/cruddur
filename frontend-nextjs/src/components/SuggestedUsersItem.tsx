@@ -1,13 +1,19 @@
+import React from "react";
 import FollowButton from "./FollowButton";
 import OtherProfile from "./OtherProfile";
 import UserProfile from "./UserProfile";
 
-const SuggestedUsersItem = () => {
-  const somethingname = "other";
-  const somethinghandle = "other";
+export interface SuggestedUsersItemProps {
+  item: {
+    name: string;
+    handle: string;
+  };
+}
+
+const SuggestedUsersItem: React.FC<SuggestedUsersItemProps> = ({ item }) => {
   return (
     <div className="px-3 py-4 flex flex-row justify-between items-center hover:bg-neutral-900 transition rounded">
-      <OtherProfile name={somethingname} handle={somethinghandle} />
+      <OtherProfile name={item.name} handle={item.handle} />
       <div className="hover:bg-[#ece8e8] bg-white text-sm font-semibold text-black rounded-2xl">
         <FollowButton />
       </div>
