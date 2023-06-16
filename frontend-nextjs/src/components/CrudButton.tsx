@@ -23,6 +23,8 @@ const CrudButton = () => {
   const { user } = useAuth();
   const pathname = usePathname();
 
+  console.log(user);
+
   const handleInputChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
     setInputVal(event.target.value);
     setCount(event.target.value.length);

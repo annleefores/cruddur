@@ -25,6 +25,7 @@ const Crud: React.FC<Post> = ({
   replies_count,
   reposts_count,
   uuid,
+  cognito_user_id,
 }) => {
   const [LikeState, SetLikeState] = useState(false);
 
@@ -74,7 +75,7 @@ const Crud: React.FC<Post> = ({
       <div className="flex flex-row w-full h-full">
         <div className="flex flex-col w-2/12 max-w-[40px] ">
           <Link href={`/${handle}`} className="max-h-[40px] max-w-[50px]">
-            <UserPic />
+            <UserPic key={uuid} sub={cognito_user_id} />
           </Link>
           <Link
             href={`/${handle}/status/${uuid}`}
