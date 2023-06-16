@@ -101,7 +101,7 @@ const CrudExpandedReply: React.FC<CrudExpandedReplyProps> = ({ activity }) => {
   return (
     <div className="flex gap-x-4 p-3 py-4  items-center w-full border border-neutral-800">
       <div className="max-w-[40px]">
-        <UserPic />
+        <UserPic sub={user.sub} />
       </div>
       <form onSubmit={handleSubmit(onSubmit)} className="flex gap-2 w-full">
         <div className=" flex flex-col justify-start items-center flex-grow ">

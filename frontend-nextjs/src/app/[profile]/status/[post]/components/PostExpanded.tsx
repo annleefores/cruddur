@@ -67,7 +67,7 @@ const PostExpanded: React.FC<PostExpandedProps> = ({ activity }) => {
         className=" max-h-[50px] md:max-h-[50px] w-fit"
       >
         <div className="flex flex-row max-w-[150px] md:max-w-[150px] gap-x-3 w-full">
-          <UserPic />
+          <UserPic sub={activity?.cognito_user_id} />
 
           <div className="flex flex-row justify-between items-center">
             <div>

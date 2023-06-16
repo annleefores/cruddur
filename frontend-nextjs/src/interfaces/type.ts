@@ -8,6 +8,7 @@ export interface Post {
   replies_count?: number;
   reposts_count?: number;
   uuid: string;
+  cognito_user_id?: string;
 }
 
 export interface Reply {

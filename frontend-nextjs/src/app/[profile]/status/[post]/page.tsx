@@ -6,9 +6,11 @@ import PostExpanded from "./components/PostExpanded";
 import { useReply } from "@/hooks/useSWRhooks";
 import CrudExpandedReply from "./components/CrudExpandedReply";
 import LoadingSpinner from "@/components/LoadingSpinner";
+import { useAuth } from "@/hooks/useAuth";
 
 const Home = () => {
   const { data, isLoading, isError, params } = useReply();
+  const { isAuthenticated } = useAuth();
 
   if (isError) console.log(isError);
   if (isLoading)
@@ -24,8 +26,14 @@ const Home = () => {
       <div className="flex-grow">
         <PostExpanded activity={data?.activity} />
       </div>
-      <CrudExpandedReply activity={data?.activity} />
-      <CrudPage data={data?.replies.reverse()} hiddenNoPostMessage={true} />
+      {isAuthenticated ? (
+        <>
+          <CrudExpandedReply activity={data?.activity} />
+        </>
+      ) : (
+        <></>
+      )}
+      <CrudPage data={data?.replies} hiddenNoPostMessage={true} />
     </div>
   );
 };
