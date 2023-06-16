@@ -3,7 +3,16 @@ require 'json'
 
 
 def handler(event:, context:)
+
+
   puts event
+
+  allowed_origins = [
+    "http://localhost:3000",
+    "http://localhost:3001",
+  ]
+
+  origin = event['headers']['origin'] || event['headers']['Origin']
 
   if event["routeKey"] == "OPTIONS /{proxy+}"
 
@@ -12,7 +21,7 @@ def handler(event:, context:)
     { 
       headers: {
         "Access-Control-Allow-Headers": "*, Authorization",
-        "Access-Control-Allow-Origin": "http://localhost:3000",
+        'Access-Control-Allow-Origin': allowed_origins.include?(origin) ? origin : ""
         "Access-Control-Allow-Methods": "OPTIONS,GET,POST"
       },
       statusCode: 200, 
@@ -37,12 +46,14 @@ def handler(event:, context:)
     obj = s3.bucket(bucket_name).object(object_key)
     url = obj.presigned_url(:put, expires_in: 60 * 5)
     url # this is the data that will be returned
-    
+
+  
     body = {url: url}.to_json
+    
     { 
       headers: {
         "Access-Control-Allow-Headers": "*, Authorization",
-        "Access-Control-Allow-Origin": "http://localhost:3000",
+        'Access-Control-Allow-Origin': allowed_origins.include?(origin) ? origin : ""
         "Access-Control-Allow-Methods": "OPTIONS,GET,POST"
       },
       statusCode: 200, 
