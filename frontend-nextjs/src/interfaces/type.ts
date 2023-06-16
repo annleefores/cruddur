@@ -69,3 +69,11 @@ export interface PostData {
   activity: Post;
   replies: Reply[];
 }
+
+export interface MsgGrp {
+  created_at: string;
+  display_name: string;
+  handle: string;
+  message: string;
+  uuid: string;
+}

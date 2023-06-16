@@ -1,12 +1,16 @@
 "use client";
 import HeaderElem from "@/components/HeaderElem";
-import { users } from "@/lib/data";
 import Link from "next/link";
 import UserListBox from "./UserListBox";
 import React, { useEffect, useState, useRef } from "react";
 import ChatPage from "./ChatPage";
 import ChatInput from "./ChatInput";
 import { twMerge } from "tailwind-merge";
+import LoadingSpinner from "@/components/LoadingSpinner";
+import { useAuth } from "@/hooks/useAuth";
+import { MsgGrp } from "@/interfaces/type";
+import useSWR from "swr";
+import { Authfetcher } from "@/lib/fetcher";
 
 // import { usePathname } from "next/navigation";
 // import { isChat } from "@/lib/isChat";
@@ -21,6 +25,10 @@ const MessageComponent: React.FC<MessageComponent> = ({ Msg, userhandle }) => {
   // const scrollRef = useRef<HTMLDivElement | null>(null);
   const chatContainerRef = useRef<HTMLDivElement>(null);
 
+  const { user } = useAuth();
+  const url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/message_groups`;
+  const token = user.accessToken;
+
   useEffect(() => {
     chatContainerRef.current?.scrollIntoView();
   }, []);
@@ -28,6 +36,21 @@ const MessageComponent: React.FC<MessageComponent> = ({ Msg, userhandle }) => {
   useEffect(() => {
     setSelectedUser(userhandle || "");
   }, [userhandle]);
+
+  const { data, error, isLoading, mutate } = useSWR<MsgGrp[]>(
+    [url, token],
+    // @ts-ignore:next-line
+    ([url, token]) => Authfetcher(url, token)
+    // { refreshInterval: 100 }
+  );
+
+  if (error) console.log(error);
+  if (isLoading)
+    return (
+      <>
+        <LoadingSpinner />
+      </>
+    );
 
   return (
     <div className="flex flex-row sm:gap-1 h-full w-full">
@@ -42,11 +65,11 @@ const MessageComponent: React.FC<MessageComponent> = ({ Msg, userhandle }) => {
 
         <div className="h-full pt-14 sm:pt-0 ">
           <div className="w-full">
-            {users.map((user, index) => (
+            {data?.map((user, index) => (
               <Link
                 scroll={false}
                 key={index}
-                href={`/messages/new/${user.userhandle}`}
+                href={`/messages/new/${user.handle}`}
               >
                 <div
                   className="p-3 py-5  h-full hover:bg-neutral-900

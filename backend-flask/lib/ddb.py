@@ -45,6 +45,7 @@ class Ddb:
                     "handle": item["user_handle"]["S"],
                     "message": item["message"]["S"],
                     "created_at": last_sent_at,
+                    "cognito_user_id": "findthisvalue",
                 }
             )
         return results
