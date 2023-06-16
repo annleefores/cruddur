@@ -8,6 +8,7 @@ import { usePathname } from "next/navigation";
 
 import useSWR from "swr";
 import { fetcher } from "@/lib/fetcher";
+import { twMerge } from "tailwind-merge";
 
 const ProfilePage = () => {
   const pathname = usePathname();
@@ -28,7 +29,7 @@ const ProfilePage = () => {
       <div className="border-b border-neutral-800">
         <Profile data={data?.profile} />
       </div>
-      <div>
+      <div className={twMerge("block", !data && "hidden")}>
         {data?.activities.length !== 0 ? (
           <CrudPage data={data?.activities} isLoading={isLoading} />
         ) : (
@@ -38,6 +39,14 @@ const ProfilePage = () => {
             </p>
           </div>
         )}
+      </div>
+      <div
+        className={twMerge(
+          "hidden p-1 mt-4 text-center w-full",
+          !data && "block"
+        )}
+      >
+        <p className="text-neutral-500">Profile does not exist</p>
       </div>
     </div>
   );

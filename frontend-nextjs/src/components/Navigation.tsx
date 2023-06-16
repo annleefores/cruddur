@@ -20,7 +20,7 @@ import { useAuth } from "@/hooks/useAuth";
 const Navigation = () => {
   const username = "annleefores";
   const pathname = usePathname();
-  const { user } = useAuth();
+  const { user, isAuthenticated } = useAuth();
   const routes = [
     {
       icon: HiOutlineHome,
@@ -60,7 +60,7 @@ const Navigation = () => {
         {routes.map((item) => (
           <NavigationItems key={item.label} {...item} />
         ))}
-        {pathname === "/" ? (
+        {pathname === "/" || !isAuthenticated ? (
           <></>
         ) : (
           <>

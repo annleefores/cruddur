@@ -3,9 +3,11 @@ import CrudActivities from "@/components/CrudActivities";
 import Hashtags from "@/components/Hashtags";
 import UserName from "@/components/UserName";
 import UserPic from "@/components/UserPic";
+import { useAuth } from "@/hooks/useAuth";
 import { Post } from "@/interfaces/type";
 import { format_datetime, time_future } from "@/lib/DateTimeFormat";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 import { BiBomb } from "react-icons/bi";
 import {
@@ -22,17 +24,26 @@ interface PostExpandedProps {
 const PostExpanded: React.FC<PostExpandedProps> = ({ activity }) => {
   const [LikeState, SetLikeState] = useState(false);
 
+  const { isAuthenticated } = useAuth();
+  const router = useRouter();
+
   const Like = async () => {
-    SetLikeState(!LikeState);
+    if (isAuthenticated) {
+      SetLikeState(!LikeState);
+    } else {
+      router.push("/signin");
+    }
   };
 
   const Repost = async () => {
-    // Repost
+    if (isAuthenticated) {
+      // do something
+    } else {
+      router.push("/signin");
+    }
   };
 
-  const Share = async () => {
-    // Share
-  };
+  const Share = async () => {};
 
   const activities = [
     {

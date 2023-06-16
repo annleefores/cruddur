@@ -5,6 +5,8 @@ import UserPic from "@/components/UserPic";
 import ProfileEdit from "./ProfileEdit";
 import React, { useEffect, useState } from "react";
 import { Profile } from "@/interfaces/type";
+import { useAuth } from "@/hooks/useAuth";
+import { twMerge } from "tailwind-merge";
 
 interface ProfileInfo {
   data: Profile | undefined;
@@ -19,12 +21,19 @@ const Profile: React.FC<ProfileInfo> = ({ data }) => {
   // const bio = "DevOps Engineer | Backend Developer | Electronics Hobbyist";
 
   const [isOpen, setIsOpen] = useState<boolean>(false);
+  const [isFollowing, setisFollowing] = useState<boolean>(false);
   const [display_name, setdisplay_name] = useState<string>("");
   const [bio, setbio] = useState<string>("");
+
+  const { isAuthenticated } = useAuth();
 
   function openModal() {
     setIsOpen(true);
   }
+
+  const followFunc = () => {
+    setisFollowing(!isFollowing);
+  };
 
   const UpdateDN = async (name: string) => {
     setdisplay_name(name);
@@ -50,32 +59,65 @@ const Profile: React.FC<ProfileInfo> = ({ data }) => {
         <div className="max-w-[100px] bg-[#02060E] rounded-full p-1 absolute -bottom-3 left-3 sm:left-5 ">
           <UserPic sub={data?.cognito_user_uuid} />
         </div>
-        <div className="flex justify-end mx-2 my-2">
-          <button
-            onClick={openModal}
-            className="p-1 px-4 rounded-full hover:bg-neutral-800  border border-neutral-500"
-          >
-            Edit Profile
-          </button>
-          <ProfileEdit
-            isOpen={isOpen}
-            setIsOpen={setIsOpen}
-            display_name={display_name}
-            bio={bio}
-            UpdateDN={UpdateDN}
-            UpdateBio={UpdateBio}
-          />
+        <div
+          className={twMerge("flex justify-end mx-4 my-4", !data && "hidden")}
+        >
+          {!isAuthenticated ? (
+            <>
+              <button
+                onClick={followFunc}
+                className={twMerge(
+                  "p-1 max-w-[100px] w-full  rounded-full hover:bg-neutral-200 font-semibold bg-white text-black  border border-neutral-500",
+                  isFollowing && "bg-inherit text-white hover:bg-neutral-800"
+                )}
+              >
+                {isFollowing ? <>Following</> : <>Follow</>}
+              </button>
+              <ProfileEdit
+                isOpen={isOpen}
+                setIsOpen={setIsOpen}
+                display_name={display_name}
+                bio={bio}
+                UpdateDN={UpdateDN}
+                UpdateBio={UpdateBio}
+              />
+            </>
+          ) : (
+            <>
+              <button
+                onClick={openModal}
+                className="p-1 px-4 rounded-full hover:bg-neutral-800  border border-neutral-500"
+              >
+                Edit Profile
+              </button>
+              <ProfileEdit
+                isOpen={isOpen}
+                setIsOpen={setIsOpen}
+                display_name={display_name}
+                bio={bio}
+                UpdateDN={UpdateDN}
+                UpdateBio={UpdateBio}
+              />
+            </>
+          )}
         </div>
       </div>
       <div className="flex flex-col gap-y-3 p-6 md:px-8">
         <div className=" flex flex-col">
           <p className="text-lg md:text-xl font-bold">{data?.display_name}</p>
-          <p className="text-sm text-neutral-500">@{data?.handle}</p>
+          <p className="text-sm text-neutral-500">
+            {data ? <>@{data?.handle}</> : ""}
+          </p>
         </div>
         <div className=" text-sm">
           <p>{data?.bio}</p>
         </div>
-        <div className="flex flex-col xs:flex-row gap-x-4 w-fit sm:gap-x-6 text-sm text-neutral-500 ">
+        <div
+          className={twMerge(
+            "flex flex-col xs:flex-row gap-x-4 w-fit sm:gap-x-6 text-sm text-neutral-500 ",
+            !data && "hidden"
+          )}
+        >
           <p>
             <span className=" text-white mr-1">{followingcount}</span>Following
           </p>
