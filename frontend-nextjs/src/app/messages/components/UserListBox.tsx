@@ -13,7 +13,7 @@ const UserListBox: React.FC<MsgGrp> = ({
 }) => {
   return (
     <div className="flex gap-x-2 w-full">
-      <div className=" max-w-[50px] max-h-[50px] md:max-w-[60px] md:max-h-[60px] w-3/12">
+      <div className=" max-w-[40px] max-h-[40px] md:max-w-[50px] md:max-h-[50px] w-3/12">
         <UserPic key={uuid} />
       </div>
       <div className="flex-grow flex-col gap-2 w-9/12">
