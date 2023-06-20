@@ -71,13 +71,14 @@ class Ddb:
         response = client.query(**query_params)
         items = response["Items"]
 
-        results = []
+        results = {}
+
         for item in items:
-            results.append(
-                {
-                    "msg_grp_uuid": item["message_group_uuid"]["S"],
-                }
-            )
+            results = {
+                "message_group_uuid": item["message_group_uuid"]["S"],
+                "display_name": item["user_display_name"]["S"],
+            }
+
         return results
 
     def list_messages(client, message_group_uuid):

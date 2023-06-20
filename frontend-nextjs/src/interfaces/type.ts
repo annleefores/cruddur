@@ -71,10 +71,11 @@ export interface PostData {
 }
 
 export interface MsgGrp {
-  created_at: string;
+  cognito_user_id?: string;
+  created_at?: string;
   display_name: string;
   handle: string;
-  message: string;
+  message?: string;
   uuid: string;
 }
 
