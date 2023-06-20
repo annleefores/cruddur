@@ -39,15 +39,6 @@ const Home: React.FC<PageProps> = (props: PageProps) => {
     ([url, token]) => Authfetcher(url, token)
   );
 
-  if (user_exists_data) {
-    if (user_exists_data.message_group_uuid) {
-      setUserhandlestate(user_exists_data.display_name);
-      router.push(`/messages/${user_exists_data.message_group_uuid}`);
-    } else {
-      router.push(`/messages`);
-    }
-  }
-
   const ShortUrl = `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/users/@${props.params.userhandle}/short`;
 
   const { data, error, isLoading, mutate } = useSWR<MsgGrp>(
@@ -55,6 +46,17 @@ const Home: React.FC<PageProps> = (props: PageProps) => {
     // @ts-ignore:next-line
     ([url, token]) => Authfetcher(url, token)
   );
+
+  if (user_exists_data) {
+    if (user_exists_data.message_group_uuid) {
+      setUserhandlestate(user_exists_data.display_name);
+      router.push(`/messages/${user_exists_data.message_group_uuid}`);
+    } else if (!data?.handle) {
+      router.push(`/messages`);
+    } else {
+      setUserhandlestate(data.display_name);
+    }
+  }
 
   if (error) console.log(error);
 
