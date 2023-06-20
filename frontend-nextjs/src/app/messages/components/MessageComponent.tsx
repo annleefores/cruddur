@@ -67,7 +67,7 @@ const MessageComponent: React.FC<MessageComponent> = ({
       {/* Chat user list  */}
       <div
         className={twMerge(
-          " w-screen sm:w-[360px] h-full overflow-y-scroll no-scrollbar  border-r border-neutral-800",
+          " w-screen sm:w-4/12  h-full overflow-y-scroll no-scrollbar  border-r border-neutral-800",
           !Msg && "hidden sm:block"
         )}
       >
@@ -112,7 +112,7 @@ const MessageComponent: React.FC<MessageComponent> = ({
         )}
       </div>
       {/* Chat */}
-      <div className="flex-grow h-full">
+      <div className="flex-grow h-full sm:w-8/12">
         {Msg ? (
           <div
             className={twMerge(
