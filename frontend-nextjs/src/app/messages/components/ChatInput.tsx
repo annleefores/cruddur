@@ -8,7 +8,8 @@ import { useAuth } from "@/context/useAuth";
 import axios from "axios";
 import { IoSend } from "react-icons/io5";
 import { useParams, useRouter } from "next/navigation";
-import { mutate } from "swr";
+import { KeyedMutator } from "swr";
+import { message } from "@/interfaces/type";
 
 interface RequestBody {
   message: string;
@@ -16,7 +17,11 @@ interface RequestBody {
   message_group_uuid?: string;
 }
 
-const ChatInput = () => {
+interface ChatInputProps {
+  messageMutate: KeyedMutator<message[]>;
+}
+
+const ChatInput: React.FC<ChatInputProps> = ({ messageMutate }) => {
   const { user } = useAuth();
 
   const params = useParams();
@@ -59,12 +64,16 @@ const ChatInput = () => {
     register,
     handleSubmit,
     reset,
-    formState: { errors },
+    formState: { errors, isSubmitting },
   } = useForm<ChatForm>({
     resolver: zodResolver(ChatSchema),
   });
 
   const handleKeyDown = (event: React.KeyboardEvent<HTMLTextAreaElement>) => {
+    if (isSubmitting) {
+      return;
+    }
+
     const { key, ctrlKey } = event;
 
     if (key === "Enter" && !ctrlKey) {
@@ -103,14 +112,12 @@ const ChatInput = () => {
 
     try {
       const result = await PostData(url, requestBody);
-      console.log(result);
       if (!(params.uuid === result.message_group_uuid)) {
         console.log("redirect to message group");
         router.push(`/messages/${result.message_group_uuid}`);
       }
 
-      const chatmutateurl = `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/messages/${result.message_group_uuid}`;
-      mutate(chatmutateurl);
+      messageMutate();
     } catch (error) {
       // Handle the error as needed
       console.error("Error in POST request:", error);
@@ -140,7 +147,7 @@ const ChatInput = () => {
             placeholder="Send a new message"
             className="w-full px-2 py-1 md:py-2 resize-none no-scrollbar rounded-lg focus:outline-none focus:shadow-outline bg-gray-800 outline-none m-1 "
           />
-          <button type="submit" className="mx-2">
+          <button disabled={isSubmitting} type="submit" className="mx-2">
             <IoSend size={26} />
           </button>
         </form>
