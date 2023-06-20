@@ -6,7 +6,7 @@ import { z } from "zod";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import axios from "axios";
-import { useAuth } from "@/hooks/useAuth";
+import { useAuth } from "@/context/useAuth";
 import { mutate } from "swr";
 import { usePathname } from "next/navigation";
 import { S3Upload } from "@/lib/ProfileImageUpload";

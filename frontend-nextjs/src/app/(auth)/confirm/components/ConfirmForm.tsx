@@ -7,7 +7,7 @@ import { z } from "zod";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useState } from "react";
-import { useAuth } from "@/hooks/useAuth";
+import { useAuth } from "@/context/useAuth";
 import { ResendConfirmCode, confirmSignUp } from "@/lib/Auth";
 
 const ConfirmformSchema = z.object({

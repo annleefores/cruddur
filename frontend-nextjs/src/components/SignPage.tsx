@@ -3,7 +3,7 @@ import ConfirmForm from "@/app/(auth)/confirm/components/ConfirmForm";
 
 import SigninForm from "@/app/(auth)/signin/components/SigninForm";
 import SignupForm from "@/app/(auth)/signup/components/SignupForm";
-import { useAuth } from "@/hooks/useAuth";
+import { useAuth } from "@/context/useAuth";
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 import LoadingSpinner from "./LoadingSpinner";

@@ -2,7 +2,7 @@ import React from "react";
 import { twMerge } from "tailwind-merge";
 import UserPic from "./UserPic";
 import UserName from "./UserName";
-import { useAuth } from "@/hooks/useAuth";
+import { useAuth } from "@/context/useAuth";
 
 interface UserProfileProps {
   SignOutProfile?: boolean;

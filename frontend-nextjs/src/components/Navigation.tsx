@@ -15,7 +15,7 @@ import CrudButton from "./CrudButton";
 import ProfileSignOutButton from "./ProfileSignOutButton";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useAuth } from "@/hooks/useAuth";
+import { useAuth } from "@/context/useAuth";
 
 const Navigation = () => {
   const username = "annleefores";

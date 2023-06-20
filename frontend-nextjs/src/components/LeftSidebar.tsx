@@ -4,7 +4,7 @@ import { usePathname, useRouter } from "next/navigation";
 import Navigation from "./Navigation";
 import { twMerge } from "tailwind-merge";
 import { isChat } from "@/lib/isChat";
-import { useAuth } from "@/hooks/useAuth";
+import { useAuth } from "@/context/useAuth";
 import LoadingSpinner from "./LoadingSpinner";
 
 const LeftSidebar = () => {
