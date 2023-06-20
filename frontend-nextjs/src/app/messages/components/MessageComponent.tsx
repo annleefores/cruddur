@@ -25,7 +25,6 @@ const MessageComponent: React.FC<MessageComponent> = ({
   Msg,
   uuid,
   newuser,
-  userhandle,
 }) => {
   // const scrollRef = useRef<HTMLDivElement | null>(null);
   const chatContainerRef = useRef<HTMLDivElement>(null);
@@ -62,6 +61,12 @@ const MessageComponent: React.FC<MessageComponent> = ({
   );
 
   if (error) console.log(error);
+
+  const chatOnlick = async (chatuser: MsgGrp) => {
+    setUserhandlestate(chatuser.display_name);
+    router.push(`/messages/${chatuser.uuid}`);
+  };
+
   return (
     <div className="flex flex-row sm:gap-1 h-full w-full">
       {/* Chat user list  */}
@@ -90,20 +95,15 @@ const MessageComponent: React.FC<MessageComponent> = ({
                 ) : (
                   <></>
                 )}
-                {data?.map((user, index) => (
-                  <Link
-                    scroll={false}
-                    key={index}
-                    href={`/messages/${user.uuid}`}
-                    onClick={() => setUserhandlestate(user.display_name)}
-                  >
+                {data?.map((chatuser, index) => (
+                  <div key={index} onClick={() => chatOnlick(chatuser)}>
                     <div
                       className="p-3 py-5  h-full hover:bg-neutral-900
           border-b border-neutral-800 transition cursor-pointer"
                     >
-                      <UserListBox {...user} />
+                      <UserListBox {...chatuser} />
                     </div>
-                  </Link>
+                  </div>
                 ))}
                 <div className="h-16"> </div>
               </div>

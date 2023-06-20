@@ -28,8 +28,6 @@ const LeftSidebar = () => {
     return <></>;
   }
 
-  console.log(pathname);
-
   return (
     <div
       className={twMerge(

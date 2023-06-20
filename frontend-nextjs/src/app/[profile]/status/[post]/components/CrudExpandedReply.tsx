@@ -13,8 +13,6 @@ interface CrudExpandedReplyProps {
 }
 
 const CrudExpandedReply: React.FC<CrudExpandedReplyProps> = ({ activity }) => {
-  const textareaRef = useRef<HTMLTextAreaElement>(null);
-
   const [count, setCount] = useState(0);
   const [inputVal, setInputVal] = useState("");
 
@@ -23,7 +21,7 @@ const CrudExpandedReply: React.FC<CrudExpandedReplyProps> = ({ activity }) => {
   const adjustTextareaHeight = useCallback(
     (textarea: HTMLTextAreaElement | null) => {
       if (textarea) {
-        textarea.style.height = "inherit";
+        textarea.style.height = "auto";
         textarea.style.height = `${textarea.scrollHeight}px`;
       }
     },
@@ -33,9 +31,31 @@ const CrudExpandedReply: React.FC<CrudExpandedReplyProps> = ({ activity }) => {
   useEffect(() => {
     const textarea = document.querySelector("textarea");
     if (textarea) {
+      const handleInput = () => {
+        adjustTextareaHeight(textarea as HTMLTextAreaElement);
+      };
+
+      textarea.addEventListener("input", handleInput);
       adjustTextareaHeight(textarea as HTMLTextAreaElement);
+
+      return () => {
+        textarea.removeEventListener("input", handleInput);
+      };
     }
   }, []);
+
+  const handleKeyDown = (event: React.KeyboardEvent<HTMLTextAreaElement>) => {
+    const { key, ctrlKey } = event;
+
+    if (key === "Enter" && !ctrlKey) {
+      event.preventDefault();
+      handleSubmit(onSubmit)();
+    }
+
+    if (key === "Enter" && ctrlKey) {
+      event.currentTarget.value += "\n";
+    }
+  };
 
   const handleInputChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
     setInputVal(event.target.value);
@@ -113,6 +133,7 @@ const CrudExpandedReply: React.FC<CrudExpandedReplyProps> = ({ activity }) => {
               ref(e);
               adjustTextareaHeight(e);
             }}
+            onKeyDown={handleKeyDown}
             placeholder="Crud your reply!"
             className="w-full py-2 resize-none no-scrollbar focus:outline-none focus:shadow-outline bg-black outline-none "
           />
