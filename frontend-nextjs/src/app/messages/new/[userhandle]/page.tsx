@@ -40,8 +40,12 @@ const Home: React.FC<PageProps> = (props: PageProps) => {
   );
 
   if (user_exists_data) {
-    setUserhandlestate(user_exists_data.display_name);
-    router.push(`messages/${user_exists_data.message_group_uuid}`);
+    if (user_exists_data.message_group_uuid) {
+      setUserhandlestate(user_exists_data.display_name);
+      router.push(`/messages/${user_exists_data.message_group_uuid}`);
+    } else {
+      router.push(`/messages`);
+    }
   }
 
   const ShortUrl = `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/users/@${props.params.userhandle}/short`;
@@ -53,20 +57,18 @@ const Home: React.FC<PageProps> = (props: PageProps) => {
   );
 
   if (error) console.log(error);
-  if (isLoading)
-    return (
-      <>
-        <LoadingSpinner />
-      </>
-    );
 
   return (
     <div className="bg-[#02060E] h-full w-full">
-      <MessageComponent
-        Msg={false}
-        newuser={data}
-        userhandle={props.params.userhandle}
-      />
+      {user_exists_loading || isLoading ? (
+        <LoadingSpinner />
+      ) : (
+        <MessageComponent
+          Msg={false}
+          newuser={data}
+          userhandle={props.params.userhandle}
+        />
+      )}
     </div>
   );
 };
