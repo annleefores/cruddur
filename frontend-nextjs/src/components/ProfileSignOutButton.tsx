@@ -4,7 +4,7 @@ import UserProfile from "./UserProfile";
 import { Fragment } from "react";
 import { Popover, Transition } from "@headlessui/react";
 import { useRouter } from "next/navigation";
-import { useAuth } from "@/hooks/useAuth";
+import { useAuth } from "@/context/useAuth";
 
 const ProfileSignOutButton = () => {
   const { signOutContext } = useAuth();

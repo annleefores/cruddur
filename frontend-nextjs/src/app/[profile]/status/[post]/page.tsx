@@ -6,7 +6,7 @@ import PostExpanded from "./components/PostExpanded";
 import { useReply } from "@/hooks/useSWRhooks";
 import CrudExpandedReply from "./components/CrudExpandedReply";
 import LoadingSpinner from "@/components/LoadingSpinner";
-import { useAuth } from "@/hooks/useAuth";
+import { useAuth } from "@/context/useAuth";
 
 const Home = () => {
   const { data, isLoading, isError, params } = useReply();

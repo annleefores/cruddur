@@ -1,5 +1,5 @@
-import { Post, PostData } from "@/interfaces/type";
-import { useAuth } from "./useAuth";
+import { Post, PostData, Short } from "@/interfaces/type";
+import { useAuth } from "../context/useAuth";
 import useSWR from "swr";
 import { Authfetcher, fetcher } from "@/lib/fetcher";
 import { useParams } from "next/navigation";

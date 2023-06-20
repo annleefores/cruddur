@@ -2,7 +2,7 @@
 import { useState } from "react";
 import Recover from "./components/Recover";
 import NewPassword from "./components/NewPassword";
-import { useAuth } from "@/hooks/useAuth";
+import { useAuth } from "@/context/useAuth";
 import { useRouter } from "next/navigation";
 import LoadingSpinner from "@/components/LoadingSpinner";
 

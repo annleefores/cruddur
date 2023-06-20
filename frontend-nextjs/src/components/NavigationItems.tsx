@@ -4,7 +4,7 @@ import Link from "next/link";
 import { IconType } from "react-icons";
 import { twMerge } from "tailwind-merge";
 import { usePathname } from "next/navigation";
-import { useAuth } from "@/hooks/useAuth";
+import { useAuth } from "@/context/useAuth";
 
 interface NavigationItemsProps {
   icon: IconType;

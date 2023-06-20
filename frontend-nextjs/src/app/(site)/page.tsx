@@ -3,7 +3,7 @@
 import LoadingSpinner from "@/components/LoadingSpinner";
 import RightSidebar from "@/components/RightSidebar";
 import SignButton from "@/components/SignButton";
-import { useAuth } from "@/hooks/useAuth";
+import { useAuth } from "@/context/useAuth";
 import { useRouter } from "next/navigation";
 
 import MainFeedPage from "./components/MainFeedPage";

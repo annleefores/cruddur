@@ -33,7 +33,7 @@ const HeaderElem: React.FC<HeaderElemProps> = ({
           <ProfileSignOutButton />
         </div>
         <div className="w-fit truncate">
-          <p>@{selectedUser}</p>
+          <p>{selectedUser}</p>
         </div>
       </div>
     </div>
@@ -65,7 +65,7 @@ const HeaderElem: React.FC<HeaderElemProps> = ({
             {selectedUser ? (
               <>
                 <p className="hidden sm:block text-lg font-bold truncate">
-                  @{selectedUser}
+                  {selectedUser}
                 </p>
                 {ChatHeader}
               </>

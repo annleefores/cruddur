@@ -7,41 +7,49 @@ import ChatPage from "./ChatPage";
 import ChatInput from "./ChatInput";
 import { twMerge } from "tailwind-merge";
 import LoadingSpinner from "@/components/LoadingSpinner";
-import { useAuth } from "@/hooks/useAuth";
-import { MsgGrp } from "@/interfaces/type";
+import { useAuth } from "@/context/useAuth";
+import { MsgGrp, message } from "@/interfaces/type";
 import useSWR from "swr";
 import { Authfetcher } from "@/lib/fetcher";
-
-// import { usePathname } from "next/navigation";
-// import { isChat } from "@/lib/isChat";
+import { useUserContext } from "@/context/userContext";
 
 interface MessageComponent {
   Msg: boolean;
-  userhandle?: string;
+  uuid?: string;
 }
 
-const MessageComponent: React.FC<MessageComponent> = ({ Msg, userhandle }) => {
-  const [selectedUser, setSelectedUser] = useState("");
+const MessageComponent: React.FC<MessageComponent> = ({ Msg, uuid }) => {
   // const scrollRef = useRef<HTMLDivElement | null>(null);
   const chatContainerRef = useRef<HTMLDivElement>(null);
 
   const { user } = useAuth();
-  const url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/message_groups`;
+
+  const { userhandlestate, setUserhandlestate } = useUserContext();
+
+  const MsgGrpUrl = `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/message_groups`;
   const token = user.accessToken;
 
   useEffect(() => {
     chatContainerRef.current?.scrollIntoView();
   }, []);
 
-  useEffect(() => {
-    setSelectedUser(userhandle || "");
-  }, [userhandle]);
-
   const { data, error, isLoading, mutate } = useSWR<MsgGrp[]>(
+    [MsgGrpUrl, token],
+    // @ts-ignore:next-line
+    ([url, token]) => Authfetcher(url, token)
+  );
+
+  const url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/messages/${uuid}`;
+
+  const {
+    data: message,
+    error: messageError,
+    isLoading: messageIsLoading,
+    mutate: messageMutate,
+  } = useSWR<message[]>(
     [url, token],
     // @ts-ignore:next-line
     ([url, token]) => Authfetcher(url, token)
-    // { refreshInterval: 100 }
   );
 
   if (error) console.log(error);
@@ -57,7 +65,7 @@ const MessageComponent: React.FC<MessageComponent> = ({ Msg, userhandle }) => {
       {/* Chat user list  */}
       <div
         className={twMerge(
-          "bg-[#02060E] w-screen sm:w-[360px] h-full overflow-y-scroll no-scrollbar  border-r border-neutral-800",
+          " w-screen sm:w-[360px] h-full overflow-y-scroll no-scrollbar  border-r border-neutral-800",
           !Msg && "hidden sm:block"
         )}
       >
@@ -69,7 +77,8 @@ const MessageComponent: React.FC<MessageComponent> = ({ Msg, userhandle }) => {
               <Link
                 scroll={false}
                 key={index}
-                href={`/messages/new/${user.handle}`}
+                href={`/messages/${user.uuid}`}
+                onClick={() => setUserhandlestate(user.display_name)}
               >
                 <div
                   className="p-3 py-5  h-full hover:bg-neutral-900
@@ -111,10 +120,16 @@ const MessageComponent: React.FC<MessageComponent> = ({ Msg, userhandle }) => {
             <div className="flex flex-col h-full w-full">
               <div className="overflow-y-scroll no-scrollbar h-full">
                 <div>
-                  <HeaderElem page={"Chat"} selectedUser={selectedUser} />
-                  <div>
-                    <ChatPage />
-                  </div>
+                  <HeaderElem page={"Chat"} selectedUser={userhandlestate} />
+                  {messageIsLoading ? (
+                    <div>
+                      <LoadingSpinner />
+                    </div>
+                  ) : (
+                    <div>
+                      <ChatPage messages={message} />
+                    </div>
+                  )}
                 </div>
                 <div ref={chatContainerRef} />
               </div>

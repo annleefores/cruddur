@@ -5,7 +5,7 @@ import UserPic from "@/components/UserPic";
 import ProfileEdit from "./ProfileEdit";
 import React, { useEffect, useState } from "react";
 import { Profile } from "@/interfaces/type";
-import { useAuth } from "@/hooks/useAuth";
+import { useAuth } from "@/context/useAuth";
 import { twMerge } from "tailwind-merge";
 import { usePathname, useRouter } from "next/navigation";
 import { HiOutlineMail } from "react-icons/hi";

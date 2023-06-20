@@ -9,7 +9,7 @@ import axios, { AxiosResponse } from "axios";
 import { z } from "zod";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useAuth } from "@/hooks/useAuth";
+import { useAuth } from "@/context/useAuth";
 import { useFeed } from "@/hooks/useSWRhooks";
 import { PostDataResponse } from "@/interfaces/type";
 import { mutate } from "swr";
@@ -22,8 +22,6 @@ const CrudButton = () => {
 
   const { user } = useAuth();
   const pathname = usePathname();
-
-  console.log(user);
 
   const handleInputChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
     setInputVal(event.target.value);

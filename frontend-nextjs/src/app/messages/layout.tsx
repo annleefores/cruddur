@@ -1,6 +1,6 @@
 "use client";
 import LoadingSpinner from "@/components/LoadingSpinner";
-import { useAuth } from "@/hooks/useAuth";
+import { useAuth } from "@/context/useAuth";
 import { useRouter } from "next/navigation";
 
 export default function RootLayout({
