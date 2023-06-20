@@ -153,7 +153,7 @@ const MessageComponent: React.FC<MessageComponent> = ({
                 <div ref={chatContainerRef} />
               </div>
               <div>
-                <ChatInput />
+                <ChatInput messageMutate={messageMutate} />
               </div>
             </div>
           </div>
