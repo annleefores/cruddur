@@ -10,6 +10,7 @@ from flask_cors import cross_origin
 from services.message_groups import MessageGroups
 from services.messages import Messages
 from services.create_message import CreateMessage
+from services.message_group_exists import MessageGroupExists
 
 # helpers
 from lib.helpers import model_json
@@ -20,6 +21,14 @@ def load(app):
     @jwt_required()
     def data_message_groups():
         model = MessageGroups.run(cognito_user_id=g.cognito_user_id)
+        return model_json(model)
+
+    @app.route("/api/message_groups/<string:userhandle>", methods=["GET"])
+    @jwt_required()
+    def data_message_chat_exists(userhandle):
+        model = MessageGroupExists.run(
+            cognito_user_id=g.cognito_user_id, userhandle=userhandle
+        )
         return model_json(model)
 
     @app.route("/api/messages/<string:message_group_uuid>", methods=["GET"])
