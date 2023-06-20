@@ -57,13 +57,13 @@ const MessageComponent: React.FC<MessageComponent> = ({ Msg, userhandle }) => {
       {/* Chat user list  */}
       <div
         className={twMerge(
-          "bg-[#02060E] w-screen sm:w-[360px] h-full overflow-y-scroll no-scrollbar  border-r border-neutral-800",
+          "bg-[#02060E] w-6/12 h-full overflow-y-scroll no-scrollbar  border-r border-neutral-800",
           !Msg && "hidden sm:block"
         )}
       >
         <HeaderElem page={"Messages"} />
 
-        <div className="h-full pt-14 sm:pt-0 ">
+        <div className="h-full  ">
           <div className="w-full">
             {data?.map((user, index) => (
               <Link
@@ -84,7 +84,7 @@ const MessageComponent: React.FC<MessageComponent> = ({ Msg, userhandle }) => {
         </div>
       </div>
       {/* Chat */}
-      <div className="flex-grow h-full">
+      <div className="flex-grow h-full w-9/12">
         {Msg ? (
           <div
             className={twMerge(
