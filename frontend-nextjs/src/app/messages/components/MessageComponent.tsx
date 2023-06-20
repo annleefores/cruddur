@@ -12,17 +12,26 @@ import { MsgGrp, message } from "@/interfaces/type";
 import useSWR from "swr";
 import { Authfetcher } from "@/lib/fetcher";
 import { useUserContext } from "@/context/userContext";
+import { useRouter } from "next/navigation";
 
 interface MessageComponent {
   Msg: boolean;
   uuid?: string;
+  newuser?: MsgGrp;
+  userhandle?: string;
 }
 
-const MessageComponent: React.FC<MessageComponent> = ({ Msg, uuid }) => {
+const MessageComponent: React.FC<MessageComponent> = ({
+  Msg,
+  uuid,
+  newuser,
+  userhandle,
+}) => {
   // const scrollRef = useRef<HTMLDivElement | null>(null);
   const chatContainerRef = useRef<HTMLDivElement>(null);
 
   const { user } = useAuth();
+  const router = useRouter();
 
   const { userhandlestate, setUserhandlestate } = useUserContext();
 
@@ -73,6 +82,16 @@ const MessageComponent: React.FC<MessageComponent> = ({ Msg, uuid }) => {
 
         <div className="h-full pt-14 sm:pt-0 ">
           <div className="w-full">
+            {newuser ? (
+              <div
+                className="p-3 py-5  h-full hover:bg-neutral-900
+      border-b border-neutral-800 transition cursor-pointer"
+              >
+                <UserListBox {...newuser} />
+              </div>
+            ) : (
+              <></>
+            )}
             {data?.map((user, index) => (
               <Link
                 scroll={false}
