@@ -62,13 +62,6 @@ const MessageComponent: React.FC<MessageComponent> = ({
   );
 
   if (error) console.log(error);
-  if (isLoading)
-    return (
-      <>
-        <LoadingSpinner />
-      </>
-    );
-
   return (
     <div className="flex flex-row sm:gap-1 h-full w-full">
       {/* Chat user list  */}
@@ -79,37 +72,44 @@ const MessageComponent: React.FC<MessageComponent> = ({
         )}
       >
         <HeaderElem page={"Messages"} />
-
-        <div className="h-full pt-14 sm:pt-0 ">
-          <div className="w-full">
-            {newuser ? (
-              <div
-                className="p-3 py-5  h-full hover:bg-neutral-900
+        {isLoading ? (
+          <>
+            <LoadingSpinner />
+          </>
+        ) : (
+          <>
+            <div className="h-full pt-14 sm:pt-0 ">
+              <div className="w-full">
+                {newuser ? (
+                  <div
+                    className="p-3 py-5  h-full hover:bg-neutral-900
       border-b border-neutral-800 transition cursor-pointer"
-              >
-                <UserListBox {...newuser} />
-              </div>
-            ) : (
-              <></>
-            )}
-            {data?.map((user, index) => (
-              <Link
-                scroll={false}
-                key={index}
-                href={`/messages/${user.uuid}`}
-                onClick={() => setUserhandlestate(user.display_name)}
-              >
-                <div
-                  className="p-3 py-5  h-full hover:bg-neutral-900
+                  >
+                    <UserListBox {...newuser} />
+                  </div>
+                ) : (
+                  <></>
+                )}
+                {data?.map((user, index) => (
+                  <Link
+                    scroll={false}
+                    key={index}
+                    href={`/messages/${user.uuid}`}
+                    onClick={() => setUserhandlestate(user.display_name)}
+                  >
+                    <div
+                      className="p-3 py-5  h-full hover:bg-neutral-900
           border-b border-neutral-800 transition cursor-pointer"
-                >
-                  <UserListBox {...user} />
-                </div>
-              </Link>
-            ))}
-            <div className="h-16"> </div>
-          </div>
-        </div>
+                    >
+                      <UserListBox {...user} />
+                    </div>
+                  </Link>
+                ))}
+                <div className="h-16"> </div>
+              </div>
+            </div>
+          </>
+        )}
       </div>
       {/* Chat */}
       <div className="flex-grow h-full">
