@@ -83,7 +83,7 @@ const MessageComponent: React.FC<MessageComponent> = ({
           </>
         ) : (
           <>
-            <div className="h-full  ">
+            <div className="h-full pt-14 sm:pt-0 ">
               <div className="w-full">
                 {newuser ? (
                   <div
