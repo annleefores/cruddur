@@ -16,6 +16,7 @@ import {
   HiOutlineHeart,
 } from "react-icons/hi2";
 import { RxShare2 } from "react-icons/rx";
+import { twMerge } from "tailwind-merge";
 
 interface PostExpandedProps {
   activity: Post | undefined;
@@ -78,9 +79,16 @@ const PostExpanded: React.FC<PostExpandedProps> = ({ activity }) => {
         className=" max-h-[50px] md:max-h-[50px] w-fit"
       >
         <div className="flex flex-row max-w-[150px] md:max-w-[150px] gap-x-3 w-full">
-          <UserPic sub={activity?.cognito_user_id} />
+          <div className="max-w-[50px]">
+            <UserPic sub={activity?.cognito_user_id} />
+          </div>
 
-          <div className="flex flex-row justify-between items-center">
+          <div
+            className={twMerge(
+              "flex flex-row justify-between items-center",
+              !activity?.handle && "hidden"
+            )}
+          >
             <div>
               <UserName
                 name={activity?.display_name}
@@ -98,9 +106,15 @@ const PostExpanded: React.FC<PostExpandedProps> = ({ activity }) => {
             </div>
           </div>
           <div className="flex flex-row gap-x-4 p-2 py-4 items-center border-b border-neutral-800">
-            <p className="text-sm  text-neutral-500">
-              {format_datetime(activity?.created_at)}
-            </p>
+            {activity?.created_at ? (
+              <>
+                <p className="text-sm  text-neutral-500">
+                  {format_datetime(activity?.created_at)}
+                </p>
+              </>
+            ) : (
+              <></>
+            )}
             {activity?.expires_at ? (
               <>
                 <div className="inline-flex items-center gap-x-1">

@@ -12,7 +12,8 @@ import { MsgGrp, message } from "@/interfaces/type";
 import useSWR from "swr";
 import { Authfetcher } from "@/lib/fetcher";
 import { useUserContext } from "@/context/userContext";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
+import { isChat } from "@/lib/isChat";
 
 interface MessageComponent {
   Msg: boolean;
@@ -31,6 +32,7 @@ const MessageComponent: React.FC<MessageComponent> = ({
 
   const { user } = useAuth();
   const router = useRouter();
+  const pathname = usePathname();
 
   const { userhandlestate, setUserhandlestate } = useUserContext();
 
@@ -51,7 +53,9 @@ const MessageComponent: React.FC<MessageComponent> = ({
     isLoading: messageIsLoading,
     mutate: messageMutate,
   } = useSWR<message[]>(
-    [url, token],
+    pathname === "/messages" || isChat(pathname) === "/messages/new"
+      ? null
+      : [url, token],
     // @ts-ignore:next-line
     ([url, token]) => Authfetcher(url, token)
   );
