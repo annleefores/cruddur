@@ -64,6 +64,9 @@ Parameters:
   EnvFrontendUrl:
     Type: String
 
+  EnvNewFrontendUrl:
+    Type: String
+
   EnvBackendUrl:
     Type: String
 
@@ -196,6 +199,8 @@ Resources:
                 Value: !Ref EnvOtelExporterOtlpEndpoint
               - Name: 'FRONTEND_URL'
                 Value: !Ref EnvFrontendUrl
+              - Name: 'NEW_FRONTEND_URL'
+                Value: !Ref EnvNewFrontendUrl
               - Name: 'BACKEND_URL'
                 Value: !Ref EnvBackendUrl
               - Name: 'AWS_DEFAULT_REGION'
