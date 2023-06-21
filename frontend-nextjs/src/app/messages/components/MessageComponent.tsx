@@ -7,84 +7,112 @@ import ChatPage from "./ChatPage";
 import ChatInput from "./ChatInput";
 import { twMerge } from "tailwind-merge";
 import LoadingSpinner from "@/components/LoadingSpinner";
-import { useAuth } from "@/hooks/useAuth";
-import { MsgGrp } from "@/interfaces/type";
+import { useAuth } from "@/context/useAuth";
+import { MsgGrp, message } from "@/interfaces/type";
 import useSWR from "swr";
 import { Authfetcher } from "@/lib/fetcher";
-
-// import { usePathname } from "next/navigation";
-// import { isChat } from "@/lib/isChat";
+import { useUserContext } from "@/context/userContext";
+import { useRouter } from "next/navigation";
 
 interface MessageComponent {
   Msg: boolean;
+  uuid?: string;
+  newuser?: MsgGrp;
   userhandle?: string;
 }
 
-const MessageComponent: React.FC<MessageComponent> = ({ Msg, userhandle }) => {
-  const [selectedUser, setSelectedUser] = useState("");
+const MessageComponent: React.FC<MessageComponent> = ({
+  Msg,
+  uuid,
+  newuser,
+}) => {
   // const scrollRef = useRef<HTMLDivElement | null>(null);
   const chatContainerRef = useRef<HTMLDivElement>(null);
 
   const { user } = useAuth();
-  const url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/message_groups`;
+  const router = useRouter();
+
+  const { userhandlestate, setUserhandlestate } = useUserContext();
+
+  const MsgGrpUrl = `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/message_groups`;
   const token = user.accessToken;
 
   useEffect(() => {
     chatContainerRef.current?.scrollIntoView();
   }, []);
 
-  useEffect(() => {
-    setSelectedUser(userhandle || "");
-  }, [userhandle]);
-
   const { data, error, isLoading, mutate } = useSWR<MsgGrp[]>(
+    [MsgGrpUrl, token],
+    // @ts-ignore:next-line
+    ([url, token]) => Authfetcher(url, token)
+  );
+
+  const url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/messages/${uuid}`;
+
+  const {
+    data: message,
+    error: messageError,
+    isLoading: messageIsLoading,
+    mutate: messageMutate,
+  } = useSWR<message[]>(
     [url, token],
     // @ts-ignore:next-line
     ([url, token]) => Authfetcher(url, token)
-    // { refreshInterval: 100 }
   );
 
   if (error) console.log(error);
-  if (isLoading)
-    return (
-      <>
-        <LoadingSpinner />
-      </>
-    );
+
+  const chatOnlick = async (chatuser: MsgGrp) => {
+    setUserhandlestate(chatuser.display_name);
+    router.push(`/messages/${chatuser.uuid}`);
+  };
 
   return (
     <div className="flex flex-row sm:gap-1 h-full w-full">
       {/* Chat user list  */}
       <div
         className={twMerge(
-          "bg-[#02060E] w-6/12 h-full overflow-y-scroll no-scrollbar  border-r border-neutral-800",
+          " w-screen sm:w-4/12  h-full overflow-y-scroll no-scrollbar  border-r border-neutral-800",
           !Msg && "hidden sm:block"
         )}
       >
         <HeaderElem page={"Messages"} />
-
-        <div className="h-full  ">
-          <div className="w-full">
-            {data?.map((user, index) => (
-              <Link
-                scroll={false}
-                key={index}
-                href={`/messages/new/${user.handle}`}
-              >
-                <div
-                  className="p-3 py-5  h-full hover:bg-neutral-900
+        {isLoading ? (
+          <>
+            <LoadingSpinner />
+          </>
+        ) : (
+          <>
+            <div className="h-full pt-14 sm:pt-0 ">
+              <div className="w-full">
+                {newuser ? (
+                  <div
+                    className="p-3 py-5  h-full hover:bg-neutral-900
+      border-b border-neutral-800 transition cursor-pointer"
+                  >
+                    <UserListBox {...newuser} />
+                  </div>
+                ) : (
+                  <></>
+                )}
+                {data?.map((chatuser, index) => (
+                  <div key={index} onClick={() => chatOnlick(chatuser)}>
+                    <div
+                      className="p-3 py-5  h-full hover:bg-neutral-900
           border-b border-neutral-800 transition cursor-pointer"
-                >
-                  <UserListBox {...user} />
-                </div>
-              </Link>
-            ))}
-            <div className="h-16"> </div>
-          </div>
-        </div>
+                    >
+                      <UserListBox {...chatuser} />
+                    </div>
+                  </div>
+                ))}
+                <div className="h-16"> </div>
+              </div>
+            </div>
+          </>
+        )}
       </div>
       {/* Chat */}
-      <div className="flex-grow h-full w-9/12">
+      <div className="flex-grow h-full sm:w-8/12">
         {Msg ? (
           <div
             className={twMerge(
@@ -111,15 +139,21 @@ const MessageComponent: React.FC<MessageComponent> = ({ Msg, userhandle }) => {
             <div className="flex flex-col h-full w-full">
               <div className="overflow-y-scroll no-scrollbar h-full">
                 <div>
-                  <HeaderElem page={"Chat"} selectedUser={selectedUser} />
-                  <div>
-                    <ChatPage />
-                  </div>
+                  <HeaderElem page={"Chat"} selectedUser={userhandlestate} />
+                  {messageIsLoading ? (
+                    <div>
+                      <LoadingSpinner />
+                    </div>
+                  ) : (
+                    <div>
+                      <ChatPage messages={message} />
+                    </div>
+                  )}
                 </div>
                 <div ref={chatContainerRef} />
               </div>
               <div>
-                <ChatInput />
+                <ChatInput messageMutate={messageMutate} />
               </div>
             </div>
           </div>

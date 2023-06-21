@@ -4,7 +4,7 @@ import { usePathname, useRouter } from "next/navigation";
 import Navigation from "./Navigation";
 import { twMerge } from "tailwind-merge";
 import { isChat } from "@/lib/isChat";
-import { useAuth } from "@/hooks/useAuth";
+import { useAuth } from "@/context/useAuth";
 import LoadingSpinner from "./LoadingSpinner";
 
 const LeftSidebar = () => {
@@ -33,8 +33,8 @@ const LeftSidebar = () => {
       className={twMerge(
         "flex-col sm:flex-row h-full w-full xl:min-w-[275px] lg:pr-1 lg:mr-1",
         skipPath.includes(pathname) && "hidden",
-        isChat(pathname) === "/messages/new" && "hidden sm:block"
-        // !isAuthenticated && authHidden.includes(pathname) && "hidden"
+        isChat(pathname) === "/messages/new" && "hidden sm:block",
+        isChat(pathname) === "/messages" && "hidden sm:block"
       )}
     >
       <div className="fixed bottom-0 w-full sm:static">

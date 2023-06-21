@@ -1,10 +1,7 @@
 "use client";
-import { useAuth } from "@/hooks/useAuth";
 import CrudPage from "./CrudPage";
 import HeaderElem from "./HeaderElem";
 
-import { Authfetcher } from "@/lib/fetcher";
-import { Post } from "../interfaces/type";
 import LoadingSpinner from "./LoadingSpinner";
 import { useFeed } from "@/hooks/useSWRhooks";
 

@@ -50,6 +50,37 @@ class Ddb:
             )
         return results
 
+    def message_group_exists(client, my_user_uuid, userhandle):
+        year = str(datetime.now().year)
+        table_name = os.getenv("DDB_MESSAGE_TABLE")
+        query_params = {
+            "TableName": table_name,
+            "KeyConditionExpression": "pk = :pk AND begins_with(sk,:year)",
+            "FilterExpression": "user_handle = :user_handle",
+            "ScanIndexForward": False,
+            "Limit": 5,
+            "ExpressionAttributeValues": {
+                ":year": {"S": year},
+                ":pk": {"S": f"GRP#{my_user_uuid}"},
+                ":user_handle": {"S": userhandle},
+            },
+        }
+        print("query-params:", query_params)
+        print(query_params)
+        # query the table
+        response = client.query(**query_params)
+        items = response["Items"]
+
+        results = {}
+
+        for item in items:
+            results = {
+                "message_group_uuid": item["message_group_uuid"]["S"],
+                "display_name": item["user_display_name"]["S"],
+            }
+
+        return results
+
     def list_messages(client, message_group_uuid):
         year = str(datetime.now().year)
         table_name = os.getenv("DDB_MESSAGE_TABLE")

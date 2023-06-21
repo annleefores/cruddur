@@ -3,7 +3,7 @@ import CrudActivities from "@/components/CrudActivities";
 import Hashtags from "@/components/Hashtags";
 import UserName from "@/components/UserName";
 import UserPic from "@/components/UserPic";
-import { useAuth } from "@/hooks/useAuth";
+import { useAuth } from "@/context/useAuth";
 import { Post } from "@/interfaces/type";
 import { format_datetime, time_future } from "@/lib/DateTimeFormat";
 import Link from "next/link";

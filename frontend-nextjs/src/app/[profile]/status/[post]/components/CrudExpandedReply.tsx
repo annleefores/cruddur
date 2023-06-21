@@ -3,7 +3,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { z } from "zod";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useAuth } from "@/hooks/useAuth";
+import { useAuth } from "@/context/useAuth";
 import { useReply } from "@/hooks/useSWRhooks";
 import { Post } from "@/interfaces/type";
 import axios from "axios";
@@ -13,8 +13,6 @@ interface CrudExpandedReplyProps {
 }
 
 const CrudExpandedReply: React.FC<CrudExpandedReplyProps> = ({ activity }) => {
-  const textareaRef = useRef<HTMLTextAreaElement>(null);
-
   const [count, setCount] = useState(0);
   const [inputVal, setInputVal] = useState("");
 
@@ -23,7 +21,7 @@ const CrudExpandedReply: React.FC<CrudExpandedReplyProps> = ({ activity }) => {
   const adjustTextareaHeight = useCallback(
     (textarea: HTMLTextAreaElement | null) => {
       if (textarea) {
-        textarea.style.height = "inherit";
+        textarea.style.height = "auto";
         textarea.style.height = `${textarea.scrollHeight}px`;
       }
     },
@@ -33,7 +31,16 @@ const CrudExpandedReply: React.FC<CrudExpandedReplyProps> = ({ activity }) => {
   useEffect(() => {
     const textarea = document.querySelector("textarea");
     if (textarea) {
+      const handleInput = () => {
+        adjustTextareaHeight(textarea as HTMLTextAreaElement);
+      };
+
+      textarea.addEventListener("input", handleInput);
       adjustTextareaHeight(textarea as HTMLTextAreaElement);
+
+      return () => {
+        textarea.removeEventListener("input", handleInput);
+      };
     }
   }, []);
 
@@ -53,13 +60,30 @@ const CrudExpandedReply: React.FC<CrudExpandedReplyProps> = ({ activity }) => {
     register,
     handleSubmit,
     reset,
-    formState: { errors },
+    formState: { errors, isSubmitting },
   } = useForm<ReplyForm>({
     defaultValues: {
       activity_uuid: activity?.uuid,
     },
     resolver: zodResolver(ReplySchema),
   });
+
+  const handleKeyDown = (event: React.KeyboardEvent<HTMLTextAreaElement>) => {
+    if (isSubmitting) {
+      return;
+    }
+
+    const { key, ctrlKey } = event;
+
+    if (key === "Enter" && !ctrlKey) {
+      event.preventDefault();
+      handleSubmit(onSubmit)();
+    }
+
+    if (key === "Enter" && ctrlKey) {
+      event.currentTarget.value += "\n";
+    }
+  };
 
   const PostData = async (
     url: string,
@@ -113,6 +137,7 @@ const CrudExpandedReply: React.FC<CrudExpandedReplyProps> = ({ activity }) => {
               ref(e);
               adjustTextareaHeight(e);
             }}
+            onKeyDown={handleKeyDown}
             placeholder="Crud your reply!"
             className="w-full py-2 resize-none no-scrollbar focus:outline-none focus:shadow-outline bg-black outline-none "
           />
@@ -126,7 +151,9 @@ const CrudExpandedReply: React.FC<CrudExpandedReplyProps> = ({ activity }) => {
 
         <div className="flex items-center">
           <div className="p-1 px-3 rounded-full bg-[#9500FF]">
-            <button type="submit">Reply</button>
+            <button disabled={isSubmitting} type="submit">
+              Reply
+            </button>
           </div>
         </div>
       </form>

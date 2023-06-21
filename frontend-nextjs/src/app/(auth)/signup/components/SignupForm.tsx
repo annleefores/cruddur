@@ -3,7 +3,7 @@
 import Link from "next/link";
 import SignPageHeader from "@/components/SignPageHeader";
 import { useRouter } from "next/navigation";
-import { useAuth } from "@/hooks/useAuth";
+import { useAuth } from "@/context/useAuth";
 
 import { z } from "zod";
 import { useForm, SubmitHandler } from "react-hook-form";

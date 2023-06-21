@@ -71,6 +71,21 @@ export interface PostData {
 }
 
 export interface MsgGrp {
+  cognito_user_id?: string;
+  created_at?: string;
+  display_name: string;
+  handle: string;
+  message?: string;
+  uuid: string;
+}
+
+export interface Short {
+  display_name: string;
+  handle: string;
+  uuid: string;
+}
+
+export interface message {
   created_at: string;
   display_name: string;
   handle: string;

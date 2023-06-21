@@ -9,7 +9,7 @@ import axios, { AxiosResponse } from "axios";
 import { z } from "zod";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useAuth } from "@/hooks/useAuth";
+import { useAuth } from "@/context/useAuth";
 import { useFeed } from "@/hooks/useSWRhooks";
 import { PostDataResponse } from "@/interfaces/type";
 import { mutate } from "swr";
@@ -22,8 +22,6 @@ const CrudButton = () => {
 
   const { user } = useAuth();
   const pathname = usePathname();
-
-  console.log(user);
 
   const handleInputChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
     setInputVal(event.target.value);
@@ -51,13 +49,30 @@ const CrudButton = () => {
     register,
     handleSubmit,
     reset,
-    formState: { errors },
+    formState: { errors, isSubmitting },
   } = useForm<ActivityForm>({
     defaultValues: {
       ttl: "7-days",
     },
     resolver: zodResolver(ActivitySchema),
   });
+
+  const handleKeyDown = (event: React.KeyboardEvent<HTMLTextAreaElement>) => {
+    if (isSubmitting) {
+      return;
+    }
+
+    const { key, ctrlKey } = event;
+
+    if (key === "Enter" && !ctrlKey) {
+      event.preventDefault();
+      handleSubmit(onSubmit)();
+    }
+
+    if (key === "Enter" && ctrlKey) {
+      event.currentTarget.value += "\n";
+    }
+  };
 
   const PostData = async (
     url: string,
@@ -152,6 +167,7 @@ const CrudButton = () => {
                         maxLength={240}
                         value={inputVal}
                         onChange={handleInputChange}
+                        onKeyDown={handleKeyDown}
                         placeholder="What would you like to say?"
                         className="w-full mt-4 h-52 text-lg md:text-xl bg-neutral-900 resize-none outline-none"
                       ></textarea>

@@ -12,6 +12,8 @@ interface UseAuth {
   setContextisLoading: React.Dispatch<React.SetStateAction<boolean>>;
   signOutContext: () => Promise<void>;
   signInContext: (username: string, password: string) => Promise<void>;
+  selectedUser: string;
+  setSelectedUser: React.Dispatch<React.SetStateAction<string>>;
 }
 
 type Props = {
@@ -42,6 +44,7 @@ const useProvideAuth = (): UseAuth => {
   const [ContextisLoading, setContextisLoading] = useState(true);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [user, setuser] = useState<User>(defaultUser);
+  const [selectedUser, setSelectedUser] = useState("");
 
   const router = useRouter();
 
@@ -82,5 +85,7 @@ const useProvideAuth = (): UseAuth => {
     signOutContext,
     setContextisLoading,
     signInContext,
+    setSelectedUser,
+    selectedUser,
   };
 };
