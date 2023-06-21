@@ -44,19 +44,6 @@ const CrudExpandedReply: React.FC<CrudExpandedReplyProps> = ({ activity }) => {
     }
   }, []);
 
-  const handleKeyDown = (event: React.KeyboardEvent<HTMLTextAreaElement>) => {
-    const { key, ctrlKey } = event;
-
-    if (key === "Enter" && !ctrlKey) {
-      event.preventDefault();
-      handleSubmit(onSubmit)();
-    }
-
-    if (key === "Enter" && ctrlKey) {
-      event.currentTarget.value += "\n";
-    }
-  };
-
   const handleInputChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
     setInputVal(event.target.value);
     setCount(event.target.value.length);
@@ -73,13 +60,30 @@ const CrudExpandedReply: React.FC<CrudExpandedReplyProps> = ({ activity }) => {
     register,
     handleSubmit,
     reset,
-    formState: { errors },
+    formState: { errors, isSubmitting },
   } = useForm<ReplyForm>({
     defaultValues: {
       activity_uuid: activity?.uuid,
     },
     resolver: zodResolver(ReplySchema),
   });
+
+  const handleKeyDown = (event: React.KeyboardEvent<HTMLTextAreaElement>) => {
+    if (isSubmitting) {
+      return;
+    }
+
+    const { key, ctrlKey } = event;
+
+    if (key === "Enter" && !ctrlKey) {
+      event.preventDefault();
+      handleSubmit(onSubmit)();
+    }
+
+    if (key === "Enter" && ctrlKey) {
+      event.currentTarget.value += "\n";
+    }
+  };
 
   const PostData = async (
     url: string,
@@ -147,7 +151,9 @@ const CrudExpandedReply: React.FC<CrudExpandedReplyProps> = ({ activity }) => {
 
         <div className="flex items-center">
           <div className="p-1 px-3 rounded-full bg-[#9500FF]">
-            <button type="submit">Reply</button>
+            <button disabled={isSubmitting} type="submit">
+              Reply
+            </button>
           </div>
         </div>
       </form>
