@@ -1,5 +1,5 @@
 export interface Post {
-  created_at: string;
+  created_at?: string;
   display_name: string;
   expires_at?: string;
   handle: string;
@@ -7,7 +7,7 @@ export interface Post {
   message: string;
   replies_count?: number;
   reposts_count?: number;
-  uuid: string;
+  uuid?: string;
   cognito_user_id?: string;
 }
 
@@ -86,9 +86,9 @@ export interface Short {
 }
 
 export interface message {
-  created_at: string;
+  created_at?: string;
   display_name: string;
   handle: string;
   message: string;
-  uuid: string;
+  uuid?: string;
 }
