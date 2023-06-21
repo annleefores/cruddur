@@ -141,7 +141,7 @@ const MessageComponent: React.FC<MessageComponent> = ({
                 <div>
                   <HeaderElem page={"Chat"} selectedUser={userhandlestate} />
                   {messageIsLoading ? (
-                    <div>
+                    <div className="mt-14">
                       <LoadingSpinner />
                     </div>
                   ) : (

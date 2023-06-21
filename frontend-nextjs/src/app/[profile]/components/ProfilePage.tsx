@@ -24,6 +24,10 @@ const ProfilePage = () => {
 
   if (error) console.log(error);
 
+  if (isLoading) {
+    return <LoadingSpinner />;
+  }
+
   return (
     <div className="flex flex-col w-full pt-10 sm:pt-0 ">
       <div className="border-b border-neutral-800">

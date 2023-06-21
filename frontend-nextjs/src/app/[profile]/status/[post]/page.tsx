@@ -13,27 +13,27 @@ const Home = () => {
   const { isAuthenticated } = useAuth();
 
   if (isError) console.log(isError);
-  if (isLoading)
-    return (
-      <>
-        <LoadingSpinner />
-      </>
-    );
 
   return (
     <div className="bg-[#02060E] h-full w-full overflow-y-scroll no-scrollbar">
-      <HeaderElem page={`Crud`} showHeaderWithArrow={true} />
-      <div className="flex-grow">
-        <PostExpanded activity={data?.activity} />
-      </div>
-      {isAuthenticated ? (
-        <>
-          <CrudExpandedReply activity={data?.activity} />
-        </>
+      {isLoading ? (
+        <LoadingSpinner />
       ) : (
-        <></>
+        <>
+          <HeaderElem page={`Crud`} showHeaderWithArrow={true} />
+          <div className="flex-grow">
+            <PostExpanded activity={data?.activity} />
+          </div>
+          {isAuthenticated ? (
+            <>
+              <CrudExpandedReply activity={data?.activity} />
+            </>
+          ) : (
+            <></>
+          )}
+          <CrudPage data={data?.replies} hiddenNoPostMessage={true} />
+        </>
       )}
-      <CrudPage data={data?.replies} hiddenNoPostMessage={true} />
     </div>
   );
 };

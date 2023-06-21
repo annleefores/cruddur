@@ -23,7 +23,7 @@ const HeaderElem: React.FC<HeaderElemProps> = ({
   const ChatHeader = (
     <div className="flex sm:hidden  flex-row gap-x-4 font-bold text-lg items-center py-1">
       <div
-        onClick={() => router.back()}
+        onClick={() => router.push("/messages")}
         className="p-1 rounded-full w-fit cursor-pointer bg-neutral-800/50 hover:bg-neutral-600/50"
       >
         <HiOutlineArrowLeft className="w-6 h-6 sm:w-7 sm:h-7" />

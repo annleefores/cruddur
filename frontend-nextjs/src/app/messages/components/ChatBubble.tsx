@@ -44,7 +44,7 @@ const ChatBubble: React.FC<ChatBubbleProps> = ({
       >
         <p className="text-xs text-neutral-500 ">
           {createdAt ? (
-            <div className="inline-flex gap-x-2">
+            <div className="inline-flex items-center gap-x-2">
               {message_time_ago(createdAt)}
               <IoCheckmarkDone className="text-neutral-500" size={14} />
             </div>
