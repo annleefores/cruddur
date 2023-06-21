@@ -1,6 +1,7 @@
 import { format_datetime, message_time_ago } from "@/lib/DateTimeFormat";
 import React from "react";
 import { twMerge } from "tailwind-merge";
+import { IoCheckmarkDone } from "react-icons/io5";
 
 interface ChatBubbleProps {
   text: string;
@@ -42,7 +43,14 @@ const ChatBubble: React.FC<ChatBubbleProps> = ({
         )}
       >
         <p className="text-xs text-neutral-500">
-          {message_time_ago(createdAt)}
+          {createdAt ? (
+            <div className="inline-flex gap-x-2">
+              {message_time_ago(createdAt)}
+              <IoCheckmarkDone className="text-neutral-500" size={14} />
+            </div>
+          ) : (
+            <></>
+          )}
         </p>
       </div>
     </div>

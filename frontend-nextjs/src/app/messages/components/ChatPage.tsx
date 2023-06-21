@@ -37,7 +37,7 @@ const ChatPage: React.FC<ChatPageProps> = ({ messages }) => {
           <ChatBubble
             key={index}
             text={message.message}
-            createdAt={message.created_at}
+            createdAt={message.created_at || ""}
             isUser={message.handle === user.preferred_username}
             previousIsUser={
               index > 0
