@@ -63,7 +63,10 @@
         },
         { "name": "FRONTEND_URL", "value": "https://annleefores.cloud" },
         { "name": "BACKEND_URL", "value": "https://api.annleefores.cloud" },
-
+        {
+          "name": "NEW_FRONTEND_URL",
+          "value": "https://new.annleefores.cloud"
+        },
         { "name": "AWS_DEFAULT_REGION", "value": "<AWS_REGION>" }
       ],
       "secrets": [

@@ -28,9 +28,9 @@ VALUES (
         'londo',
         'MOCK'
     ),(
-        'techno dude',
+        'Alternate Me',
         'technodudetrickster@gmail.com',
-        'technodude',
+        'alternate_me',
         'MOCK'
     );
 
@@ -49,7 +49,7 @@ VALUES ( (
             SELECT uuid
             from public.users
             WHERE
-                users.handle = 'technodude'
+                users.handle = 'alternate_me'
             LIMIT
                 1
         ), 'I am the other me! ', current_timestamp + interval '10 day'

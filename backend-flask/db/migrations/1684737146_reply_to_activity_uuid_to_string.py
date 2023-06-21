@@ -4,6 +4,7 @@ from lib.db import db
 class ReplyToActivityUuidToStringMigration:
     def migrate_sql():
         data = """
+    ALTER TABLE public.users ADD COLUMN bio text;
     ALTER TABLE activities DROP COLUMN reply_to_activity_uuid;
     ALTER TABLE activities ADD COLUMN reply_to_activity_uuid uuid;
     """

@@ -25,7 +25,7 @@ const ChatBubble: React.FC<ChatBubbleProps> = ({
     >
       <div
         className={twMerge(
-          `mx-2 py-3 px-4 max-w-xs break-words `,
+          `mx-2 py-3 px-4 w-fit max-w-xs break-words `,
           isUser
             ? "bg-violet-700 text-white ml-auto rounded-t-xl rounded-l-xl"
             : "bg-gray-800 rounded-t-xl rounded-r-xl"
@@ -42,7 +42,7 @@ const ChatBubble: React.FC<ChatBubbleProps> = ({
           isUser ? " text-white ml-auto " : ""
         )}
       >
-        <p className="text-xs text-neutral-500">
+        <p className="text-xs text-neutral-500 ">
           {createdAt ? (
             <div className="inline-flex gap-x-2">
               {message_time_ago(createdAt)}
