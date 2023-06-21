@@ -57,7 +57,6 @@ const ProfileEdit: React.FC<ProfileEditProps> = ({
 }) => {
   const [Iserror, setIsError] = useState("");
   const [success, setSuccess] = useState(false);
-  const [IsLoading, setIsLoading] = useState(false);
   const [file, setFile] = useState<File | null>(null);
 
   const pathname = usePathname();
@@ -66,7 +65,7 @@ const ProfileEdit: React.FC<ProfileEditProps> = ({
     register,
     handleSubmit,
     reset,
-    formState: { errors },
+    formState: { errors, isSubmitting },
   } = useForm<Editform>({
     defaultValues: { profileImage: null },
     resolver: zodResolver(EditformSchema),
@@ -96,7 +95,6 @@ const ProfileEdit: React.FC<ProfileEditProps> = ({
 
   const onSubmit: SubmitHandler<Editform> = async (Formdata) => {
     setIsError("");
-    setIsLoading(true);
 
     UpdateDN(Formdata.display_name);
     UpdateBio(Formdata.bio);
@@ -131,7 +129,6 @@ const ProfileEdit: React.FC<ProfileEditProps> = ({
       }
     }
 
-    setIsLoading(false);
     setFile(null);
     closeModal();
     reset();
@@ -173,11 +170,11 @@ const ProfileEdit: React.FC<ProfileEditProps> = ({
                     <div className="flex flex-row justify-between items-center">
                       <p className="font-semibold ">Edit Profile</p>
                       <button
-                        disabled={IsLoading}
+                        disabled={isSubmitting}
                         type="submit"
                         className="px-4 font-semibold py-1 bg-white rounded-md text-black"
                       >
-                        {IsLoading ? (
+                        {isSubmitting ? (
                           <>
                             <div
                               className="w-6 h-6 rounded-full animate-spin
