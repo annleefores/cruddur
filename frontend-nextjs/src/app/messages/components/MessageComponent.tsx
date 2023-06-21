@@ -37,10 +37,6 @@ const MessageComponent: React.FC<MessageComponent> = ({
   const MsgGrpUrl = `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/message_groups`;
   const token = user.accessToken;
 
-  useEffect(() => {
-    chatContainerRef.current?.scrollIntoView();
-  }, []);
-
   const { data, error, isLoading, mutate } = useSWR<MsgGrp[]>(
     [MsgGrpUrl, token],
     // @ts-ignore:next-line
@@ -66,6 +62,10 @@ const MessageComponent: React.FC<MessageComponent> = ({
     setUserhandlestate(chatuser.display_name);
     router.push(`/messages/${chatuser.uuid}`);
   };
+
+  useEffect(() => {
+    chatContainerRef.current?.scrollIntoView();
+  }, [message]);
 
   return (
     <div className="flex flex-row sm:gap-1 h-full w-full">
