@@ -19,9 +19,13 @@ interface RequestBody {
 
 interface ChatInputProps {
   messageMutate: KeyedMutator<message[]>;
+  messageData?: message[];
 }
 
-const ChatInput: React.FC<ChatInputProps> = ({ messageMutate }) => {
+const ChatInput: React.FC<ChatInputProps> = ({
+  messageMutate,
+  messageData,
+}) => {
   const { user } = useAuth();
 
   const params = useParams();
@@ -110,20 +114,41 @@ const ChatInput: React.FC<ChatInputProps> = ({ messageMutate }) => {
       requestBody.message_group_uuid = params.uuid;
     }
 
+    reset();
+
     try {
+      // optimistic update chat without createdAt and UUID
+
+      messageMutate(
+        Array.isArray(messageData)
+          ? [
+              ...messageData,
+              {
+                display_name: user.name,
+                handle: user.preferred_username,
+                message: Formdata.message,
+              },
+            ]
+          : [
+              {
+                display_name: user.name,
+                handle: user.preferred_username,
+                message: Formdata.message,
+              },
+            ],
+        false
+      );
       const result = await PostData(url, requestBody);
+      messageMutate();
       if (!(params.uuid === result.message_group_uuid)) {
         console.log("redirect to message group");
         router.push(`/messages/${result.message_group_uuid}`);
       }
-
-      messageMutate();
     } catch (error) {
       // Handle the error as needed
       console.error("Error in POST request:", error);
       // add error toast
     }
-    reset();
   };
 
   const { ref, ...rest } = register("message");

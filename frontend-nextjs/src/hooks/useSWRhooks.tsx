@@ -14,7 +14,6 @@ export function useFeed() {
     [url, token],
     // @ts-ignore:next-line
     ([url, token]) => Authfetcher(url, token)
-    // { refreshInterval: 100 }
   );
 
   return {
