@@ -49,13 +49,30 @@ const CrudButton = () => {
     register,
     handleSubmit,
     reset,
-    formState: { errors },
+    formState: { errors, isSubmitting },
   } = useForm<ActivityForm>({
     defaultValues: {
       ttl: "7-days",
     },
     resolver: zodResolver(ActivitySchema),
   });
+
+  const handleKeyDown = (event: React.KeyboardEvent<HTMLTextAreaElement>) => {
+    if (isSubmitting) {
+      return;
+    }
+
+    const { key, ctrlKey } = event;
+
+    if (key === "Enter" && !ctrlKey) {
+      event.preventDefault();
+      handleSubmit(onSubmit)();
+    }
+
+    if (key === "Enter" && ctrlKey) {
+      event.currentTarget.value += "\n";
+    }
+  };
 
   const PostData = async (
     url: string,
@@ -150,6 +167,7 @@ const CrudButton = () => {
                         maxLength={240}
                         value={inputVal}
                         onChange={handleInputChange}
+                        onKeyDown={handleKeyDown}
                         placeholder="What would you like to say?"
                         className="w-full mt-4 h-52 text-lg md:text-xl bg-neutral-900 resize-none outline-none"
                       ></textarea>
