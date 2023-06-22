@@ -1,7 +1,7 @@
 "use client";
 
 import { Dialog, Transition } from "@headlessui/react";
-import { Fragment, useState } from "react";
+import { Fragment, useRef, useState } from "react";
 import { HiOutlinePencilSquare } from "react-icons/hi2";
 import UserProfile from "./UserProfile";
 import axios, { AxiosResponse } from "axios";
@@ -49,6 +49,8 @@ const CrudButton = () => {
     register,
     handleSubmit,
     reset,
+    setValue,
+
     formState: { errors, isSubmitting },
   } = useForm<ActivityForm>({
     defaultValues: {
@@ -57,20 +59,22 @@ const CrudButton = () => {
     resolver: zodResolver(ActivitySchema),
   });
 
+  const formRef = useRef<HTMLFormElement>(null);
+
   const handleKeyDown = (event: React.KeyboardEvent<HTMLTextAreaElement>) => {
     if (isSubmitting) {
       return;
     }
 
-    const { key, ctrlKey } = event;
+    const textarea = event.target as HTMLTextAreaElement;
 
-    if (key === "Enter" && !ctrlKey) {
+    if (event.key === "Enter" && !event.ctrlKey) {
+      setValue("message", textarea.value);
       event.preventDefault();
       handleSubmit(onSubmit)();
-    }
-
-    if (key === "Enter" && ctrlKey) {
-      event.currentTarget.value += "\n";
+    } else if (event.key === "Enter" && event.ctrlKey) {
+      setValue("message", textarea.value + "\n");
+      event.preventDefault();
     }
   };
 
@@ -92,10 +96,8 @@ const CrudButton = () => {
   const { mut } = useFeed();
 
   const onSubmit: SubmitHandler<ActivityForm> = async (Formdata) => {
-    closeModal();
-
     const url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/activities`;
-
+    console.log(Formdata);
     const requestBody = {
       message: Formdata.message,
       ttl: Formdata.ttl,
@@ -104,6 +106,8 @@ const CrudButton = () => {
     const Profileurl = `${
       process.env.NEXT_PUBLIC_BACKEND_URL
     }/api/activities/@${pathname.substring(1)}`;
+
+    closeModal();
 
     try {
       const result = await PostData(url, requestBody);
@@ -161,7 +165,7 @@ const CrudButton = () => {
                         <UserProfile ShowName={true} />
                       </div>
                     </div>
-                    <form onSubmit={handleSubmit(onSubmit)}>
+                    <form ref={formRef} onSubmit={handleSubmit(onSubmit)}>
                       <textarea
                         {...register("message")}
                         maxLength={240}
@@ -193,11 +197,22 @@ const CrudButton = () => {
                             </option>
                             <option value="30-days">30 Days</option>
                           </select>
+
                           <button
+                            disabled={isSubmitting}
                             type="submit"
                             className="inline-flex font-semibold hover:bg-[#8c06ec] transition bg-[#9500FF] justify-center rounded-lg border-neutral-800  px-6 py-2 text-sm focus:outline-none "
                           >
-                            Crud
+                            {isSubmitting ? (
+                              <div className="px-1.5">
+                                <div
+                                  className="w-5 h-5 rounded-full animate-spin
+              border-4 border-solid border-white border-t-transparent"
+                                ></div>
+                              </div>
+                            ) : (
+                              <>Crud</>
+                            )}
                           </button>
                         </div>
                       </div>
