@@ -42,7 +42,7 @@ const ChatBubble: React.FC<ChatBubbleProps> = ({
           isUser ? " text-white ml-auto " : ""
         )}
       >
-        <p className="text-xs text-neutral-500 ">
+        <div className="text-xs text-neutral-500 mb-1 ">
           {createdAt ? (
             <div className="inline-flex items-center gap-x-2">
               {message_time_ago(createdAt)}
@@ -51,7 +51,7 @@ const ChatBubble: React.FC<ChatBubbleProps> = ({
           ) : (
             <></>
           )}
-        </p>
+        </div>
       </div>
     </div>
   );
