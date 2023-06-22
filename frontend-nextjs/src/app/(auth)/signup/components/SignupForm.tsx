@@ -11,6 +11,9 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { signUp } from "@/lib/Auth";
 import { useState } from "react";
 
+const passwordRegex =
+  /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*.-]).{8,}$/;
+
 const formSchema = z.object({
   name: z.string().min(1, "Name is required"),
   username: z
@@ -20,8 +23,12 @@ const formSchema = z.object({
   email: z.string().email("Invalid email"),
   password: z
     .string()
-    .min(6, "Password must be at least 6 characters")
-    .max(40, "Password must not exceed 40 characters"),
+    .min(8, "Password must be at least 8 characters")
+    .max(40, "Password must not exceed 40 characters")
+    .refine((value) => passwordRegex.test(value), {
+      message:
+        "Password must have at least 1 uppercase letter, 1 lowercase letter, 1 symbol, 1 number",
+    }),
 });
 
 type FormData = z.infer<typeof formSchema>;

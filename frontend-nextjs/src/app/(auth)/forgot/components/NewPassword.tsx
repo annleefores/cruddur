@@ -7,18 +7,29 @@ import { confirmPassword } from "@/lib/Auth";
 import Link from "next/link";
 import SignPageHeader from "@/components/SignPageHeader";
 
+const passwordRegex =
+  /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*.-]).{8,}$/;
+
 const ConfirmCodeSchema = z
   .object({
     email: z.string().email("Invalid email"),
     confirmcode: z.string().length(6, "Invalid Confirmation Code"),
     password: z
       .string()
-      .min(6, "Password must be at least 6 characters")
-      .max(40, "Password must not exceed 40 characters"),
+      .min(8, "Password must be at least 8 characters")
+      .max(40, "Password must not exceed 40 characters")
+      .refine((value) => passwordRegex.test(value), {
+        message:
+          "Password must have at least 1 uppercase letter, 1 lowercase letter, 1 symbol, 1 number",
+      }),
     confirmpassword: z
       .string()
-      .min(6, "Password must be at least 6 characters")
-      .max(40, "Password must not exceed 40 characters"),
+      .min(8, "Password must be at least 8 characters")
+      .max(40, "Password must not exceed 40 characters")
+      .refine((value) => passwordRegex.test(value), {
+        message:
+          "Password must have at least 1 uppercase letter, 1 lowercase letter, 1 symbol, 1 number",
+      }),
   })
   .refine((data) => data.password === data.confirmpassword, {
     message: "Passwords don't match",
