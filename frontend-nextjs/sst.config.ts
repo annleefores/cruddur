@@ -19,7 +19,7 @@ export default {
             certificate: Certificate.fromCertificateArn(
               stack,
               "MyCert",
-              process.env.CERT_ARN || ""
+              process.env.CERT_ARN
             ),
           },
         },
