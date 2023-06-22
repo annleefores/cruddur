@@ -10,11 +10,12 @@ const UserListBox: React.FC<MsgGrp> = ({
   handle,
   message,
   uuid,
+  cognito_user_id,
 }) => {
   return (
     <div className="flex gap-x-2 w-full">
       <div className=" max-w-[40px] max-h-[40px] md:max-w-[50px] md:max-h-[50px] w-3/12">
-        <UserPic key={uuid} />
+        <UserPic key={uuid} sub={cognito_user_id} />
       </div>
       <div className="flex-grow flex-col gap-2 w-9/12">
         <div className="flex flex-row gap-x-2 items-center justify-between">

@@ -35,9 +35,9 @@
   },
   "devDependencies": {
     "@types/luxon": "^3.3.0",
-    "encoding": "^0.1.13",
-    "sst": "^2.16.1",
     "aws-cdk-lib": "2.84.0",
-    "constructs": "10.1.156"
+    "constructs": "10.1.156",
+    "encoding": "^0.1.13",
+    "sst": "^2.16.1"
   }
 }

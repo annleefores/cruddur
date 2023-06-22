@@ -84,6 +84,7 @@ class CreateMessage:
                     other_user_uuid=other_user["uuid"],
                     other_user_display_name=other_user["display_name"],
                     other_user_handle=other_user["handle"],
+                    other_user_cognito_user_id=other_user["cognito_user_id"],
                 )
             model["data"] = data
         return model

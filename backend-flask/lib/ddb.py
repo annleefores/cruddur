@@ -45,7 +45,7 @@ class Ddb:
                     "handle": item["user_handle"]["S"],
                     "message": item["message"]["S"],
                     "created_at": last_sent_at,
-                    "cognito_user_id": "findthisvalue",
+                    "cognito_user_id": item["cognito_user_id"]["S"],
                 }
             )
         return results
@@ -155,6 +155,7 @@ class Ddb:
         other_user_uuid,
         other_user_display_name,
         other_user_handle,
+        other_user_cognito_user_id,
     ):
         table_name = os.getenv("DDB_MESSAGE_TABLE")
 
@@ -172,6 +173,7 @@ class Ddb:
             "user_uuid": {"S": other_user_uuid},
             "user_display_name": {"S": other_user_display_name},
             "user_handle": {"S": other_user_handle},
+            "cognito_user_id": {"S": other_user_cognito_user_id},
         }
 
         other_message_group = {
@@ -182,6 +184,7 @@ class Ddb:
             "user_uuid": {"S": my_user_uuid},
             "user_display_name": {"S": my_user_display_name},
             "user_handle": {"S": my_user_handle},
+            "cognito_user_id": {"S": "user_id"},
         }
 
         message = {

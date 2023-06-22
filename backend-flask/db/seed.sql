@@ -16,17 +16,17 @@ VALUES (
         'Andrew Brown',
         'andrewb@exampro.co',
         'andrewbrown',
-        'MOCK'
+        'andrewbrown_pic'
     ), (
         'Andrew Bayko',
         'bayko@exampro.co',
         'bayko',
-        'MOCK'
+        'bayko_pic'
     ), (
         'Londo Mollari',
         'lmollari@centari.com',
         'londo',
-        'MOCK'
+        'londo_pic'
     ),(
         'Alternate Me',
         'technodudetrickster@gmail.com',

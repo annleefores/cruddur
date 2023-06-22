@@ -330,12 +330,14 @@ export const userpost = [
 
 export const suggestedUsers = [
   {
-    handle: "JohnDoe",
-    name: "John Doe",
+    handle: "andrewbrown",
+    name: "Andrew Brown",
+    sub: "andrewbrown_pic",
   },
   {
-    handle: "JaneSmith",
-    name: "Jane Smith",
+    handle: "bayko",
+    name: "Andrew Bayko",
+    sub: "bayko_pic",
   },
 ];
 
@@ -343,102 +345,127 @@ export const notifications = [
   {
     userhandle: "user123",
     notification: "JohnDoe followed you",
+    seed: "https://api.dicebear.com/6.x/pixel-art/png?seed=JohnDoe",
   },
   {
     userhandle: "user456",
     notification: "JaneSmith liked your post",
+    seed: "https://api.dicebear.com/6.x/pixel-art/png?seed=JaneSmith",
   },
   {
     userhandle: "user789",
     notification: "RandomUser reshareded your crud",
+    seed: "https://api.dicebear.com/6.x/pixel-art/png?seed=RandomUser",
   },
   {
     userhandle: "user987",
     notification: "MaryJohnson mentioned you in a comment",
+    seed: "https://api.dicebear.com/6.x/pixel-art/png?seed=MaryJohnson",
   },
   {
     userhandle: "user654",
     notification: "SarahJones replied to your message",
+    seed: "https://api.dicebear.com/6.x/pixel-art/png?seed=SarahJones",
   },
   {
     userhandle: "user321",
     notification: "DavidWilliams shared a new photo",
+    seed: "https://api.dicebear.com/6.x/pixel-art/png?seed=DavidWilliams",
   },
   {
     userhandle: "user876",
     notification: "AlexBrown added you to their favorites",
+    seed: "https://api.dicebear.com/6.x/pixel-art/png?seed=AlexBrown",
   },
   {
     userhandle: "user543",
     notification: "LisaTaylor started following you",
+    seed: "https://api.dicebear.com/6.x/pixel-art/png?seed=LisaTaylor",
   },
   {
     userhandle: "user210",
     notification: "MaxAdams liked your video",
+    seed: "https://api.dicebear.com/6.x/pixel-art/png?seed=MaxAdams",
   },
   {
     userhandle: "user789",
     notification: "RandomUser mentioned you in a post",
+    seed: "https://api.dicebear.com/6.x/pixel-art/png?seed=RandomUser",
   },
   {
     userhandle: "user123",
     notification: "JohnDoe commented on your status",
+    seed: "https://api.dicebear.com/6.x/pixel-art/png?seed=JohnDoe",
   },
   {
     userhandle: "user456",
     notification: "JaneSmith sent you a message",
+    seed: "https://api.dicebear.com/6.x/pixel-art/png?seed=JaneSmith",
   },
   {
     userhandle: "user321",
     notification: "DavidWilliams shared your article",
+    seed: "https://api.dicebear.com/6.x/pixel-art/png?seed=DavidWilliams",
   },
   {
     userhandle: "user876",
     notification: "AlexBrown mentioned you in a crud",
+    seed: "https://api.dicebear.com/6.x/pixel-art/png?seed=AlexBrown",
   },
   {
     userhandle: "user987",
     notification: "MaryJohnson liked your photo",
+    seed: "https://api.dicebear.com/6.x/pixel-art/png?seed=MaryJohnson",
   },
   {
     userhandle: "user654",
     notification: "SarahJones started following your playlist",
+    seed: "https://api.dicebear.com/6.x/pixel-art/png?seed=SarahJones",
   },
   {
     userhandle: "user543",
     notification: "LisaTaylor added a comment to your post",
+    seed: "https://api.dicebear.com/6.x/pixel-art/png?seed=LisaTaylor",
   },
   {
     userhandle: "user210",
     notification: "MaxAdams replied to your comment",
+    seed: "https://api.dicebear.com/6.x/pixel-art/png?seed=MaxAdams",
   },
   {
     userhandle: "user123",
     notification: "JohnDoe shared your story",
+    seed: "https://api.dicebear.com/6.x/pixel-art/png?seed=JohnDoe",
   },
   {
     userhandle: "user456",
     notification: "JaneSmith tagged you in a photo",
+    seed: "https://api.dicebear.com/6.x/pixel-art/png?seed=JaneSmith",
   },
   {
     userhandle: "user789",
     notification: "RandomUser posted on your timeline",
+    seed: "https://api.dicebear.com/6.x/pixel-art/png?seed=RandomUser",
   },
   {
     userhandle: "user987",
     notification: "MaryJohnson sent you a friend request",
+    seed: "https://api.dicebear.com/6.x/pixel-art/png?seed=MaryJohnson",
   },
   {
     userhandle: "user654",
     notification: "SarahJones mentioned you in a conversation",
+    seed: "https://api.dicebear.com/6.x/pixel-art/png?seed=SarahJones",
   },
   {
     userhandle: "user543",
     notification: "LisaTaylor liked your comment",
+    seed: "https://api.dicebear.com/6.x/pixel-art/png?seed=LisaTaylor",
   },
   {
     userhandle: "user210",
     notification: "MaxAdams started following your blog",
+    seed: "https://api.dicebear.com/6.x/pixel-art/png?seed=MaxAdams",
   },
 ];
 

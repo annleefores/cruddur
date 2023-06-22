@@ -1,3 +1,5 @@
+const { hostname } = require('os')
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
     images: {
@@ -8,6 +10,12 @@ const nextConfig = {
                 port: '',
                 pathname: '/avatars/**',
             },
+            {
+                protocol: 'https',
+                hostname: 'api.dicebear.com',
+                port: '',
+            },
+
         ],
     },
 }

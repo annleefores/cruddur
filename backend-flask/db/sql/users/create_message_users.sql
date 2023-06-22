@@ -2,6 +2,7 @@ SELECT
   users.uuid,
   users.display_name,
   users.handle,
+  users.cognito_user_id,
   CASE users.cognito_user_id = %(cognito_user_id)s
   WHEN TRUE THEN
     'sender'

@@ -1,3 +1,4 @@
+import Link from "next/link";
 import SuggestedUsersItem from "./SuggestedUsersItem";
 import { suggestedUsers } from "@/lib/data";
 
@@ -10,7 +11,9 @@ const SuggestedUsers = () => {
       <div className="flex flex-col">
         {suggestedUsers.map((item, index) => (
           <div key={index}>
-            <SuggestedUsersItem item={item} />
+            <Link href={item.handle}>
+              <SuggestedUsersItem item={item} />
+            </Link>
           </div>
         ))}
       </div>
