@@ -65,15 +65,15 @@ const Profile: React.FC<ProfileInfo> = ({ data }) => {
           priority
           className="object-cover h-36 md:h-52"
         />
-        <div
-          className={twMerge(
-            "max-w-[100px] bg-[#02060E] rounded-full p-1 absolute -bottom-0 left-3 sm:left-5 ",
-            !(user.preferred_username === pathname.substring(1)) &&
-              "-bottom-12 left-3 sm:left-5"
-          )}
-        >
-          <UserPic sub={data?.cognito_user_uuid} />
-        </div>
+        {data ? (
+          <div className="max-w-[100px] bg-[#02060E] rounded-full p-1 absolute -bottom-0 left-3 sm:left-5">
+            <UserPic sub={data?.cognito_user_uuid} />
+          </div>
+        ) : (
+          <div className="max-w-[100px] bg-[#02060E] rounded-full p-1 absolute -bottom-12 left-3 sm:left-5 ">
+            <UserPic />
+          </div>
+        )}
         <div
           className={twMerge("flex justify-end mx-4 my-4", !data && "hidden")}
         >
