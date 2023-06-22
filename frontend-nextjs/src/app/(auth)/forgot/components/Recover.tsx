@@ -3,8 +3,10 @@ import SignPageHeader from "@/components/SignPageHeader";
 import { z } from "zod";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { forgotPassword } from "@/lib/Auth";
+import toast, { Toaster } from "react-hot-toast";
+import ErrorToast from "@/components/ErrorToast";
 
 interface RecoverProps {
   setFormState: React.Dispatch<React.SetStateAction<string>>;
@@ -35,11 +37,18 @@ const Recover: React.FC<RecoverProps> = ({ setFormState, setusername }) => {
       setusername(data.email);
       setSuccess(true);
     } catch (err) {
-      setError("error");
+      if (err?.toString()) setError(err?.toString());
     }
-
-    // // add toast
   };
+
+  useEffect(() => {
+    if (error) {
+      notify(error);
+    }
+  }, [error]);
+
+  const notify = (error?: string) =>
+    toast.custom((t) => <ErrorToast t={t} error={error} />);
 
   return (
     <>

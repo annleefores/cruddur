@@ -3,11 +3,13 @@
 import Link from "next/link";
 import SignPageHeader from "@/components/SignPageHeader";
 import { useAuth } from "@/context/useAuth";
+import toast, { Toaster } from "react-hot-toast";
 
 import { z } from "zod";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import ErrorToast from "@/components/ErrorToast";
 
 const SignInformSchema = z.object({
   email: z.string().email("Invalid email"),
@@ -20,7 +22,6 @@ const SignInformSchema = z.object({
 type SignInform = z.infer<typeof SignInformSchema>;
 
 const SigninForm = () => {
-  const [error, setError] = useState("");
   const [success, setSuccess] = useState(false);
   const [IsLoading, setIsLoading] = useState(false);
   const {
@@ -34,22 +35,26 @@ const SigninForm = () => {
   const { signInContext } = useAuth();
 
   const onSubmit: SubmitHandler<SignInform> = async (data) => {
-    setError("");
     setIsLoading(true);
 
     try {
       await signInContext(data.email, data.password);
       setSuccess(true);
     } catch (err) {
-      console.log(err);
-      setError("error");
+      if (err?.toString()) {
+        notify(err?.toString());
+      }
     }
     setIsLoading(false);
   };
 
+  const notify = (error?: string) =>
+    toast.custom((t) => <ErrorToast t={t} error={error} />);
+
   return (
     <>
       <div className="flex  flex-col justify-center px-6 py-8">
+        <Toaster />
         <SignPageHeader heading="Sign into your Cruddur account" />
         <div className="mt-4 sm:mx-auto sm:w-full sm:max-w-sm">
           <div className=" max-w-[380px] max-h-[250px]">

@@ -3,13 +3,14 @@
 import Link from "next/link";
 import SignPageHeader from "@/components/SignPageHeader";
 import { useRouter } from "next/navigation";
-import { useAuth } from "@/context/useAuth";
+import toast, { Toaster } from "react-hot-toast";
 
 import { z } from "zod";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { signUp } from "@/lib/Auth";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import ErrorToast from "@/components/ErrorToast";
 
 const passwordRegex =
   /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*.-]).{8,}$/;
@@ -60,15 +61,25 @@ const SignupForm = () => {
       setSuccess(true);
       router.push(`/confirm?email=${data.email}`);
     } catch (err) {
-      console.log(err);
-      setError("error");
+      if (err?.toString()) setError(err?.toString());
     }
     setIsLoading(false);
   };
 
+  useEffect(() => {
+    if (error) {
+      notify(error);
+    }
+  }, [error]);
+
+  const notify = (error?: string) =>
+    toast.custom((t) => <ErrorToast t={t} error={error} />);
+
   return (
     <>
       <div className="flex  flex-col justify-center px-6 py-8">
+        <Toaster />
+
         <SignPageHeader heading="Sign up to create a Cruddur account" />
 
         <div className="mt-4 sm:mx-auto sm:w-full sm:max-w-sm">

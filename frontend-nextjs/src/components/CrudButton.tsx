@@ -97,7 +97,6 @@ const CrudButton = () => {
 
   const onSubmit: SubmitHandler<ActivityForm> = async (Formdata) => {
     const url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/activities`;
-    console.log(Formdata);
     const requestBody = {
       message: Formdata.message,
       ttl: Formdata.ttl,
