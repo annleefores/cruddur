@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev --turbo",
+    "dev": "sst bind next dev",
     "build": "next build",
     "start": "next start",
     "lint": "next lint"
@@ -35,6 +35,9 @@
   },
   "devDependencies": {
     "@types/luxon": "^3.3.0",
-    "encoding": "^0.1.13"
+    "encoding": "^0.1.13",
+    "sst": "^2.16.1",
+    "aws-cdk-lib": "2.84.0",
+    "constructs": "10.1.156"
   }
 }
