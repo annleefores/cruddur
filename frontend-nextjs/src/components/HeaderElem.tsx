@@ -29,9 +29,6 @@ const HeaderElem: React.FC<HeaderElemProps> = ({
         <HiOutlineArrowLeft className="w-6 h-6 sm:w-7 sm:h-7" />
       </div>
       <div className="inline-flex gap-x-4">
-        <div className="block sm:hidden w-full max-h-[32px] max-w-[32px] ">
-          <ProfileSignOutButton />
-        </div>
         <div className="w-fit truncate">
           <p>{selectedUser}</p>
         </div>
