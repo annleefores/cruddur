@@ -38,4 +38,4 @@ next-env.d.ts
 .open-next
 
 
-.cdk.context.json
+cdk.context.json
