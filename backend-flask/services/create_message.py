@@ -81,6 +81,7 @@ class CreateMessage:
                     my_user_uuid=my_user["uuid"],
                     my_user_display_name=my_user["display_name"],
                     my_user_handle=my_user["handle"],
+                    my_user_cognito_user_id=my_user["cognito_user_id"],
                     other_user_uuid=other_user["uuid"],
                     other_user_display_name=other_user["display_name"],
                     other_user_handle=other_user["handle"],

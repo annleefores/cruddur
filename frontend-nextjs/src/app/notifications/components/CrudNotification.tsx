@@ -15,11 +15,11 @@ const CrudNotification: React.FC<CrudNotificationProps> = ({
 }) => {
   return (
     <div className="flex flex-row gap-x-6 items-center p-2    h-full">
-      <div className="rounded-full max-w-[40px] max-h-[40px] h-full w-full">
+      <div className="rounded-full bg-neutral-800 max-w-[30px] max-h-[30px] h-full w-full">
         <Image
           src={seed}
           alt={userhandle}
-          className="object-cover "
+          className="object-cover rounded-full"
           width={256}
           height={256}
         />

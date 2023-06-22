@@ -152,6 +152,7 @@ class Ddb:
         my_user_uuid,
         my_user_display_name,
         my_user_handle,
+        my_user_cognito_user_id,
         other_user_uuid,
         other_user_display_name,
         other_user_handle,
@@ -184,7 +185,7 @@ class Ddb:
             "user_uuid": {"S": my_user_uuid},
             "user_display_name": {"S": my_user_display_name},
             "user_handle": {"S": my_user_handle},
-            "cognito_user_id": {"S": "user_id"},
+            "cognito_user_id": {"S": my_user_cognito_user_id},
         }
 
         message = {
