@@ -7,12 +7,16 @@ interface PostsProps {
   data: Post[] | undefined;
   hiddenNoPostMessage?: boolean;
   isLoading?: boolean;
+  postHandle?: string;
+  postUUID?: string;
 }
 
 const CrudPage: React.FC<PostsProps> = ({
   data,
   hiddenNoPostMessage,
   isLoading,
+  postHandle,
+  postUUID,
 }) => {
   if (isLoading)
     return (
@@ -28,7 +32,7 @@ const CrudPage: React.FC<PostsProps> = ({
           key={index}
           className=" w-full p-3 sm:w-full h-full hover:bg-neutral-900 border-b border-neutral-800 transition cursor-pointer"
         >
-          <Crud item={item} />
+          <Crud item={item} postHandle={postHandle} postUUID={postUUID} />
         </div>
       ))}
       <div className="p-4 h-full w-full border-t border-neutral-800">

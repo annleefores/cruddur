@@ -93,3 +93,17 @@ export interface message {
   message: string;
   uuid?: string;
 }
+
+export const defaultPost: Post = {
+  current_user_has_liked: false,
+  likes_count: 0,
+  display_name: "",
+  handle: "",
+  message: "",
+  created_at: "",
+  expires_at: "",
+  replies_count: 0,
+  reposts_count: 0,
+  uuid: "",
+  cognito_user_id: "",
+};

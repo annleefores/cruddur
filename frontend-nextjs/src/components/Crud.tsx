@@ -17,12 +17,15 @@ import { useRouter } from "next/navigation";
 import axios from "axios";
 import { useAuth } from "@/context/useAuth";
 import { useFeed } from "@/hooks/useSWRhooks";
+import { mutate } from "swr";
 
 interface CrudProps {
   item: Post;
+  postHandle?: string;
+  postUUID?: string;
 }
 
-const Crud: React.FC<CrudProps> = ({ item }) => {
+const Crud: React.FC<CrudProps> = ({ item, postHandle, postUUID }) => {
   const router = useRouter();
   const { user, isAuthenticated } = useAuth();
   const { data, isLoading, isError, mut } = useFeed();
@@ -60,10 +63,12 @@ const Crud: React.FC<CrudProps> = ({ item }) => {
       mut(updatedPosts, false);
 
       const url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/activities/${item.uuid}/like`;
+      const Replyurl = `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/activities/@${postHandle}/status/${postUUID}`;
 
       try {
         const result = await PutData(url);
         mut();
+        mutate(Replyurl);
         // mutate(Profileurl);
       } catch (err) {
         console.log(err);

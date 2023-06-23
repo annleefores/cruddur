@@ -31,7 +31,12 @@ const Home = () => {
           ) : (
             <></>
           )}
-          <CrudPage data={data?.replies} hiddenNoPostMessage={true} />
+          <CrudPage
+            data={data?.replies}
+            hiddenNoPostMessage={true}
+            postHandle={data?.activity.handle}
+            postUUID={data?.activity.uuid}
+          />
         </>
       )}
     </div>
