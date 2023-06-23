@@ -28,7 +28,7 @@ const CrudPage: React.FC<PostsProps> = ({
           key={index}
           className=" w-full p-3 sm:w-full h-full hover:bg-neutral-900 border-b border-neutral-800 transition cursor-pointer"
         >
-          <Crud {...item} />
+          <Crud item={item} />
         </div>
       ))}
       <div className="p-4 h-full w-full border-t border-neutral-800">

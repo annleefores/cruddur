@@ -7,7 +7,7 @@ interface CrudActivitiesProps {
   label: string;
   count?: number;
   func?: () => Promise<void>;
-  LikeState?: boolean;
+  current_user_liked?: boolean;
 }
 
 const CrudActivities: React.FC<CrudActivitiesProps> = ({
@@ -15,7 +15,7 @@ const CrudActivities: React.FC<CrudActivitiesProps> = ({
   label,
   count,
   func,
-  LikeState,
+  current_user_liked,
 }) => {
   return (
     <div
@@ -27,13 +27,13 @@ const CrudActivities: React.FC<CrudActivitiesProps> = ({
           className={twMerge(
             "w-5 h-5 sm:w-6 sm:h-6 hover:text-[#9500FF]",
             label == "like" && " hover:text-red-500 hover:scale-105",
-            LikeState && label == "like" && "fill-red-500 text-red-500"
+            current_user_liked && label == "like" && "fill-red-500 text-red-500"
           )}
         />
       </div>
       <div className="truncate">
         <p className={twMerge(`text-xs`, label == "share" && "hidden")}>
-          {label === "like" ? count : count ? count : <></>}
+          {label === "like" ? count ? count : <></> : count ? count : <></>}
         </p>
       </div>
     </div>
