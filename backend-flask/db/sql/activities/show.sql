@@ -8,7 +8,20 @@ SELECT
       activities.message,
       activities.replies_count,
       activities.reposts_count,
-      activities.likes_count,
+      (SELECT COUNT(*) FROM public.likes WHERE activity_id = activities.uuid) AS likes_count,
+      CASE
+      WHEN %(cognito_user_id)s::text IS NOT NULL THEN (
+        EXISTS (
+          SELECT 1
+          FROM public.likes
+          WHERE activity_id = activities.uuid AND user_id = (SELECT uuid 
+      FROM public.users 
+      WHERE users.cognito_user_id = %(cognito_user_id)s
+      LIMIT 1)
+        )
+      )
+      ELSE NULL
+    END AS current_user_has_liked,
       activities.expires_at,
       activities.created_at
   ) object_row) as activity,
@@ -21,7 +34,20 @@ SELECT
     replies.message,
     replies.replies_count,
     replies.reposts_count,
-    replies.likes_count,
+    (SELECT COUNT(*) FROM public.likes WHERE activity_id = replies.uuid) AS likes_count,
+      CASE
+      WHEN %(cognito_user_id)s::text IS NOT NULL THEN (
+        EXISTS (
+          SELECT 1
+          FROM public.likes
+          WHERE activity_id = replies.uuid AND user_id = (SELECT uuid 
+      FROM public.users 
+      WHERE users.cognito_user_id = %(cognito_user_id)s
+      LIMIT 1)
+        )
+      )
+      ELSE NULL
+    END AS current_user_has_liked,
     replies.reply_to_activity_uuid,
     replies.created_at
   FROM public.activities replies

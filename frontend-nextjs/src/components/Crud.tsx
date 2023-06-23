@@ -24,7 +24,7 @@ interface CrudProps {
 
 const Crud: React.FC<CrudProps> = ({ item }) => {
   const router = useRouter();
-  const { user } = useAuth();
+  const { user, isAuthenticated } = useAuth();
   const { data, isLoading, isError, mut } = useFeed();
 
   const PutData = async (url: string, requestBody?: undefined) => {
@@ -43,29 +43,31 @@ const Crud: React.FC<CrudProps> = ({ item }) => {
   };
 
   const Like = async () => {
-    const newLikeStatus = !item.current_user_has_liked;
+    if (isAuthenticated) {
+      const newLikeStatus = !item.current_user_has_liked;
 
-    // Update the UI optimistically
-    const updatedPosts = data?.map((content) =>
-      content.uuid === item.uuid
-        ? {
-            ...content,
-            current_user_has_liked: newLikeStatus,
-            likes_count: content.likes_count || 0 + (newLikeStatus ? 1 : -1),
-          }
-        : content
-    );
+      // Update the UI optimistically
+      const updatedPosts = data?.map((content) =>
+        content.uuid === item.uuid
+          ? {
+              ...content,
+              current_user_has_liked: newLikeStatus,
+              likes_count: content.likes_count || 0 + (newLikeStatus ? 1 : -1),
+            }
+          : content
+      );
 
-    mut(updatedPosts, false);
+      mut(updatedPosts, false);
 
-    const url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/activities/${item.uuid}/like`;
+      const url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/activities/${item.uuid}/like`;
 
-    try {
-      const result = await PutData(url);
-      mut();
-      // mutate(Profileurl);
-    } catch (err) {
-      console.log(err);
+      try {
+        const result = await PutData(url);
+        mut();
+        // mutate(Profileurl);
+      } catch (err) {
+        console.log(err);
+      }
     }
   };
 

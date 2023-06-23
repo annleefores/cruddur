@@ -17,6 +17,12 @@ from lib.helpers import model_json
 
 
 def load(app):
+    def default_data_show_activity(e, handle, activity_uuid):
+        app.logger.debug(e)
+        app.logger.debug("unauthenicated")
+        data = ShowActivity.run(activity_uuid)
+        return data, 200
+
     @app.route("/api/activities/@<string:handle>", methods=["GET"])
     # @xray_recorder.capture('activities_users')
     def data_users_activities(handle):
@@ -27,8 +33,9 @@ def load(app):
         "/api/activities/@<string:handle>/status/<string:activity_uuid>",
         methods=["GET"],
     )
+    @jwt_required(on_error=default_data_show_activity)
     def data_show_activity(handle, activity_uuid):
-        data = ShowActivity.run(activity_uuid)
+        data = ShowActivity.run(activity_uuid, cognito_user_id=g.cognito_user_id)
         return data, 200
 
     @app.route("/api/users/@<string:handle>/short", methods=["GET"])

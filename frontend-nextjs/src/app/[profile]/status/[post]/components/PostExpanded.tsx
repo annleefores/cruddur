@@ -4,8 +4,10 @@ import Hashtags from "@/components/Hashtags";
 import UserName from "@/components/UserName";
 import UserPic from "@/components/UserPic";
 import { useAuth } from "@/context/useAuth";
-import { Post } from "@/interfaces/type";
+import { useReply } from "@/hooks/useSWRhooks";
+import { Post, PostData } from "@/interfaces/type";
 import { format_datetime, time_future } from "@/lib/DateTimeFormat";
+import axios from "axios";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
@@ -23,16 +25,62 @@ interface PostExpandedProps {
 }
 
 const PostExpanded: React.FC<PostExpandedProps> = ({ activity }) => {
-  const [LikeState, SetLikeState] = useState(false);
-
-  const { isAuthenticated } = useAuth();
+  const { user, isAuthenticated } = useAuth();
   const router = useRouter();
+  const { data, isLoading, isError, mut } = useReply();
+
+  const PutData = async (url: string, requestBody?: undefined) => {
+    const response = await axios.put(url, undefined, {
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+        Authorization: `Bearer ${user.accessToken}`,
+      },
+    });
+    return response.data;
+  };
+
+  const updatedData = (
+    data: PostData | undefined,
+    newLikeStatus: boolean
+  ): PostData => {
+    const updatedActivity = {
+      ...data?.activity,
+      current_user_has_liked: newLikeStatus,
+      likes_count: data?.activity.likes_count || 0 + (newLikeStatus ? 1 : -1),
+
+      display_name: data?.activity.display_name!,
+      handle: data?.activity.handle!,
+      message: data?.activity.message!,
+    };
+
+    const updatedData = {
+      activity: updatedActivity,
+      replies: data?.replies ?? [],
+    };
+
+    return updatedData;
+  };
 
   const Like = async () => {
     if (isAuthenticated) {
-      SetLikeState(!LikeState);
-    } else {
-      router.push("/signin");
+      const newLikeStatus = !data?.activity.current_user_has_liked;
+
+      // Update the UI optimistically
+
+      const updateData = updatedData(data, newLikeStatus);
+
+      mut(updateData, false);
+
+      const url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/activities/${activity?.uuid}/like`;
+
+      try {
+        const result = await PutData(url);
+        mut();
+        // mutate(Profileurl);
+      } catch (err) {
+        console.log(err);
+      }
     }
   };
 
@@ -131,8 +179,12 @@ const PostExpanded: React.FC<PostExpandedProps> = ({ activity }) => {
         </Link>
         <div className="flex justify-center p-2">
           <div className="flex flex-row w-full justify-between text-neutral-500 my-1">
-            {activities.map((activity, index) => (
-              <CrudActivities key={index} {...activity} LikeState={LikeState} />
+            {activities.map((activitiesitem, index) => (
+              <CrudActivities
+                key={index}
+                {...activitiesitem}
+                current_user_liked={activity?.current_user_has_liked}
+              />
             ))}
           </div>
         </div>

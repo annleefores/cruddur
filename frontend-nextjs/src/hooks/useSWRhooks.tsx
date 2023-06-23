@@ -26,10 +26,16 @@ export function useFeed() {
 
 export function useReply() {
   const params = useParams();
+  const { user, isAuthenticated } = useAuth();
+  const token = user.accessToken || "";
 
   const url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/activities/@${params.profile}/status/${params.post}`;
 
-  const { data, error, isLoading, mutate } = useSWR<PostData>(url, fetcher);
+  const { data, error, isLoading, mutate } = useSWR<PostData>(
+    [url, token],
+    // @ts-ignore:next-line
+    ([url, token]) => Authfetcher(url, token)
+  );
 
   return {
     params: params,

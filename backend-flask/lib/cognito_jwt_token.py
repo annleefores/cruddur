@@ -141,7 +141,7 @@ def jwt_required(f=None, on_error=None):
             # unauthenticated request
             app.logger.debug(e)
             if on_error:
-                return on_error(e)
+                return on_error(e, *args, **kwargs)
             return {}, 401
         return f(*args, **kwargs)
 
