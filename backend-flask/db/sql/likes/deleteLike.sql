@@ -1,10 +1,7 @@
-INSERT INTO public.likes (user_id, activity_id)
-VALUES (
-     (
+DELETE FROM public.likes WHERE user_id = (
     SELECT uuid
     FROM public.users
     WHERE users.cognito_user_id = %(cognito_user_id)s
     LIMIT 1
-),
-    %(activity_uuid)s
-    );
+)
+    AND activity_id = %(activity_uuid)s

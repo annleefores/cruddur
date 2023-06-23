@@ -24,11 +24,34 @@ class CreateLikes:
         return model
 
     def create_like(cognito_user_id, activity_uuid):
-        sql = db.template("likes", "insertLike")
-        db.query_commit(
+        exists = CreateLikes.like_exists(cognito_user_id, activity_uuid)
+
+        if exists:
+            sql = db.template("likes", "deleteLike")
+            db.query_commit(
+                sql,
+                {
+                    "cognito_user_id": cognito_user_id,
+                    "activity_uuid": activity_uuid,
+                },
+            )
+        else:
+            sql = db.template("likes", "insertLike")
+            db.query_commit(
+                sql,
+                {
+                    "cognito_user_id": cognito_user_id,
+                    "activity_uuid": activity_uuid,
+                },
+            )
+
+    def like_exists(cognito_user_id, activity_uuid):
+        sql = db.template("likes", "checkLike")
+        user_uuid = db.query_value(
             sql,
             {
                 "cognito_user_id": cognito_user_id,
                 "activity_uuid": activity_uuid,
             },
         )
+        return user_uuid

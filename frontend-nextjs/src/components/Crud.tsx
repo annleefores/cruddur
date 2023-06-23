@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { RxShare2 } from "react-icons/rx";
 import {
   HiOutlineArrowPathRoundedSquare,
@@ -54,14 +54,12 @@ const Crud: React.FC<Post> = ({
 
     const url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/activities/${uuid}/like`;
 
-    if (!LikeState) {
-      try {
-        const result = await PutData(url);
-        // mut();
-        // mutate(Profileurl);
-      } catch (err) {
-        console.log(err);
-      }
+    try {
+      const result = await PutData(url);
+      // mut();
+      // mutate(Profileurl);
+    } catch (err) {
+      console.log(err);
     }
   };
 
@@ -71,6 +69,10 @@ const Crud: React.FC<Post> = ({
   const Share = async () => {
     // Share
   };
+
+  useEffect(() => {
+    SetLikeState(current_user_has_liked);
+  }, [current_user_has_liked]);
 
   const activities = [
     {

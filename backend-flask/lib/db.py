@@ -106,7 +106,7 @@ class Db:
                 try:
                     return json[0]
                 except:
-                    return []
+                    return None
 
     def query_wrap_object(self, template):
         sql = f"""
