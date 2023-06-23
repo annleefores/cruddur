@@ -14,6 +14,8 @@ import Link from "next/link";
 import { Post } from "../interfaces/type";
 import { time_ago, time_future } from "../lib/DateTimeFormat";
 import { useRouter } from "next/navigation";
+import axios from "axios";
+import { useAuth } from "@/context/useAuth";
 
 const Crud: React.FC<Post> = ({
   created_at,
@@ -26,17 +28,43 @@ const Crud: React.FC<Post> = ({
   reposts_count,
   uuid,
   cognito_user_id,
+  current_user_has_liked,
 }) => {
-  const [LikeState, SetLikeState] = useState(false);
+  const [LikeState, SetLikeState] = useState(current_user_has_liked);
 
   const router = useRouter();
+  const { user } = useAuth();
+
+  const PutData = async (url: string, requestBody?: undefined) => {
+    const response = await axios.put(url, undefined, {
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+        Authorization: `Bearer ${user.accessToken}`,
+      },
+    });
+    return response.data;
+  };
 
   const Comment = async () => {
     router.push(`/${handle}/status/${uuid}`);
   };
   const Like = async () => {
     SetLikeState(!LikeState);
+
+    const url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/activities/${uuid}/like`;
+
+    if (!LikeState) {
+      try {
+        const result = await PutData(url);
+        // mut();
+        // mutate(Profileurl);
+      } catch (err) {
+        console.log(err);
+      }
+    }
   };
+
   const Repost = async () => {
     // Repost
   };

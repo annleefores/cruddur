@@ -12,6 +12,7 @@ from services.notification_activities import *
 from services.create_activity import *
 from services.search_activities import *
 from services.create_reply import *
+from services.create_likes import *
 
 # helpers
 from lib.helpers import model_json
@@ -59,4 +60,14 @@ def load(app):
     def data_activities_reply(activity_uuid):
         message = request.json["message"]
         model = CreateReply.run(message, g.cognito_user_id, activity_uuid)
+        return model_json(model)
+
+    @app.route(
+        "/api/activities/<string:activity_uuid>/like",
+        methods=["OPTIONS", "PUT"],
+    )
+    @cross_origin()
+    @jwt_required()
+    def data_activities_like(activity_uuid):
+        model = CreateLikes.run(g.cognito_user_id, activity_uuid)
         return model_json(model)

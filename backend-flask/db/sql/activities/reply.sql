@@ -1,8 +1,10 @@
+
 INSERT INTO public.activities (
   user_uuid,
   message,
   reply_to_activity_uuid
 )
+
 VALUES (
   (SELECT uuid 
     FROM public.users 

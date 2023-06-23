@@ -9,6 +9,7 @@ export interface Post {
   reposts_count?: number;
   uuid?: string;
   cognito_user_id?: string;
+  current_user_has_liked?: boolean;
 }
 
 export interface Reply {

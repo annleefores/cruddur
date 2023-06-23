@@ -33,7 +33,11 @@ const CrudActivities: React.FC<CrudActivitiesProps> = ({
       </div>
       <div className="truncate">
         <p className={twMerge(`text-xs`, label == "share" && "hidden")}>
-          {LikeState && label == "like" ? <>{count || 0 + 1}</> : <>{count}</>}
+          {LikeState && label == "like" ? (
+            <>{count || 0 + 1}</>
+          ) : (
+            <>{count || 0 > 0 ? count : <></>}</>
+          )}
         </p>
       </div>
     </div>

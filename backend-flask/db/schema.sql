@@ -4,6 +4,8 @@ DROP TABLE IF EXISTS public.users;
 
 DROP TABLE IF EXISTS public.activities;
 
+DROP TABLE IF EXISTS public.likes;
+
 CREATE TABLE IF NOT EXISTS public.schema_information (
   id integer UNIQUE,
   last_successful_run text
@@ -34,3 +36,12 @@ CREATE TABLE
         expires_at TIMESTAMP,
         created_at TIMESTAMP default current_timestamp NOT NULL
     );
+
+CREATE TABLE public.likes (
+  uuid UUID DEFAULT uuid_generate_v4() PRIMARY KEY,
+  created_at TIMESTAMP default current_timestamp NOT NULL,
+  user_id UUID,
+  activity_id UUID,
+  FOREIGN KEY (user_id) REFERENCES users(uuid),
+  FOREIGN KEY (activity_id) REFERENCES activities(uuid)
+);

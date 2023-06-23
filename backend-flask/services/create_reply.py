@@ -31,6 +31,15 @@ class CreateReply:
         return model
 
     def create_reply(cognito_user_id, activity_uuid, message):
+        sql = db.template("activities", "replycount")
+        uuid = db.query_commit(
+            sql,
+            {
+                "cognito_user_id": cognito_user_id,
+                "reply_to_activity_uuid": activity_uuid,
+                "message": message,
+            },
+        )
         sql = db.template("activities", "reply")
         uuid = db.query_commit(
             sql,

@@ -41,7 +41,7 @@ class CreateMessage:
         else:
             sql = db.template("users", "create_message_users")
 
-            if user_receiver_handle == None:
+            if user_receiver_handle is None:
                 rev_handle = ""
             else:
                 rev_handle = user_receiver_handle
