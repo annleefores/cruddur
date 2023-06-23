@@ -60,7 +60,6 @@ const useProvideAuth = (): UseAuth => {
       setIsAuthenticated(true);
       setuser(userData);
     } catch (err) {
-      // console.log(err);
       setIsAuthenticated(false);
       setuser(defaultUser);
     }

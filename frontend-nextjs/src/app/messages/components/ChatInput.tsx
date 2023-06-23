@@ -10,6 +10,8 @@ import { IoSend } from "react-icons/io5";
 import { useParams, useRouter } from "next/navigation";
 import { KeyedMutator } from "swr";
 import { message } from "@/interfaces/type";
+import ErrorToast from "@/components/ErrorToast";
+import toast, { Toaster } from "react-hot-toast";
 
 interface RequestBody {
   message: string;
@@ -144,17 +146,21 @@ const ChatInput: React.FC<ChatInputProps> = ({
         console.log("redirect to message group");
         router.push(`/messages/${result.message_group_uuid}`);
       }
-    } catch (error) {
-      // Handle the error as needed
-      console.error("Error in POST request:", error);
-      // add error toast
+    } catch (err) {
+      if (err?.toString()) {
+        notify(err?.toString());
+      }
     }
   };
 
   const { ref, ...rest } = register("message");
 
+  const notify = (error?: string) =>
+    toast.custom((t) => <ErrorToast t={t} error={error} />);
+
   return (
     <div className=" bg-[#02060E] p-1">
+      <Toaster />
       <div className="flex items-center gap-x-2 rounded-lg bg-gray-800 mx-1 my-2">
         <form
           onSubmit={handleSubmit(onSubmit)}

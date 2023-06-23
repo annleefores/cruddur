@@ -3,7 +3,7 @@ import SignPageHeader from "@/components/SignPageHeader";
 import { z } from "zod";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { forgotPassword } from "@/lib/Auth";
 import toast, { Toaster } from "react-hot-toast";
 import ErrorToast from "@/components/ErrorToast";
@@ -20,7 +20,6 @@ const SendCodeSchema = z.object({
 type SendCodeSchemaData = z.infer<typeof SendCodeSchema>;
 
 const Recover: React.FC<RecoverProps> = ({ setFormState, setusername }) => {
-  const [error, setError] = useState("");
   const [success, setSuccess] = useState(false);
   const {
     register,
@@ -37,15 +36,11 @@ const Recover: React.FC<RecoverProps> = ({ setFormState, setusername }) => {
       setusername(data.email);
       setSuccess(true);
     } catch (err) {
-      if (err?.toString()) setError(err?.toString());
+      if (err?.toString()) {
+        notify(err?.toString());
+      }
     }
   };
-
-  useEffect(() => {
-    if (error) {
-      notify(error);
-    }
-  }, [error]);
 
   const notify = (error?: string) =>
     toast.custom((t) => <ErrorToast t={t} error={error} />);
@@ -53,6 +48,8 @@ const Recover: React.FC<RecoverProps> = ({ setFormState, setusername }) => {
   return (
     <>
       <div className="flex  flex-col justify-center px-6 py-8">
+        <Toaster />
+
         <SignPageHeader heading="Recover your password" />
 
         <div className="mt-4 sm:mx-auto sm:w-full sm:max-w-sm">

@@ -8,7 +8,7 @@ import toast, { Toaster } from "react-hot-toast";
 import { z } from "zod";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import ErrorToast from "@/components/ErrorToast";
 
 const SignInformSchema = z.object({

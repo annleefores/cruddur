@@ -103,7 +103,10 @@ class Db:
             with conn.cursor() as cur:
                 cur.execute(sql, params)
                 json = cur.fetchone()
-                return json[0]
+                try:
+                    return json[0]
+                except:
+                    return []
 
     def query_wrap_object(self, template):
         sql = f"""

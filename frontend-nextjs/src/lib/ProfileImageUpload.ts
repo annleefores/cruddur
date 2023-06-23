@@ -45,8 +45,6 @@ const S3UploadKey = async (extension: string, token: string) => {
     const data = await res.data;
     if (res.status === 200) {
       return data.url;
-    } else {
-      console.log(res);
     }
   } catch (err) {
     console.log(err);

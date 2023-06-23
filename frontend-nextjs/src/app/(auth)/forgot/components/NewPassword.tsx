@@ -6,6 +6,8 @@ import React, { useState } from "react";
 import { confirmPassword } from "@/lib/Auth";
 import Link from "next/link";
 import SignPageHeader from "@/components/SignPageHeader";
+import ErrorToast from "@/components/ErrorToast";
+import toast, { Toaster } from "react-hot-toast";
 
 const passwordRegex =
   /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*.-]).{8,}$/;
@@ -48,7 +50,6 @@ const NewPassword: React.FC<NewPasswordProps> = ({
   setFormState,
 }) => {
   const [IsLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState("");
   const [success, setSuccess] = useState(false);
   const {
     register,
@@ -69,12 +70,14 @@ const NewPassword: React.FC<NewPasswordProps> = ({
       await confirmPassword(data.email, data.confirmcode, data.password);
       setSuccess(true);
     } catch (err) {
-      setError("error");
-      setFormState("");
+      if (err?.toString()) {
+        notify(err?.toString());
+      }
     }
   };
 
-  // add toast
+  const notify = (error?: string) =>
+    toast.custom((t) => <ErrorToast t={t} error={error} />);
 
   return (
     <>
@@ -95,6 +98,8 @@ const NewPassword: React.FC<NewPasswordProps> = ({
         </div>
       ) : (
         <div className="flex  flex-col justify-center px-6 py-8">
+          <Toaster />
+
           <SignPageHeader heading="Set a new password" />
 
           <div className="mt-4 sm:mx-auto sm:w-full sm:max-w-sm">

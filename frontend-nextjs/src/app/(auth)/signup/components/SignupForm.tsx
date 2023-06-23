@@ -9,7 +9,7 @@ import { z } from "zod";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { signUp } from "@/lib/Auth";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import ErrorToast from "@/components/ErrorToast";
 
 const passwordRegex =
@@ -43,14 +43,12 @@ const SignupForm = () => {
     resolver: zodResolver(formSchema),
   });
 
-  const [error, setError] = useState("");
   const [success, setSuccess] = useState(false);
   const [IsLoading, setIsLoading] = useState(false);
 
   const router = useRouter();
 
   const onSubmit: SubmitHandler<FormData> = async (data) => {
-    setError("");
     setIsLoading(true);
     try {
       await signUp(data.email, data.password, {
@@ -61,17 +59,12 @@ const SignupForm = () => {
       setSuccess(true);
       router.push(`/confirm?email=${data.email}`);
     } catch (err) {
-      if (err?.toString()) setError(err?.toString());
+      if (err?.toString()) {
+        notify(err?.toString());
+      }
     }
     setIsLoading(false);
   };
-
-  useEffect(() => {
-    if (error) {
-      notify(error);
-    }
-  }, [error]);
-
   const notify = (error?: string) =>
     toast.custom((t) => <ErrorToast t={t} error={error} />);
 

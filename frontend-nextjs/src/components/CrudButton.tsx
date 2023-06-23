@@ -14,6 +14,8 @@ import { useFeed } from "@/hooks/useSWRhooks";
 import { PostDataResponse } from "@/interfaces/type";
 import { mutate } from "swr";
 import { usePathname } from "next/navigation";
+import ErrorToast from "@/components/ErrorToast";
+import toast, { Toaster } from "react-hot-toast";
 
 const CrudButton = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -112,16 +114,18 @@ const CrudButton = () => {
       const result = await PostData(url, requestBody);
       mut();
       mutate(Profileurl);
-    } catch (error) {
-      // Handle the error as needed
-      console.error("Error in POST request:", error);
-      // add error toast
+    } catch (err) {
+      if (err?.toString()) {
+        notify(err?.toString());
+      }
     }
     reset();
   };
-
+  const notify = (error?: string) =>
+    toast.custom((t) => <ErrorToast t={t} error={error} />);
   return (
     <>
+      <Toaster />
       <button
         type="button"
         onClick={openModal}

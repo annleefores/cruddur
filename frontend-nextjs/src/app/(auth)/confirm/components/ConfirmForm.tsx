@@ -7,8 +7,9 @@ import { z } from "zod";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useState } from "react";
-import { useAuth } from "@/context/useAuth";
 import { ResendConfirmCode, confirmSignUp } from "@/lib/Auth";
+import ErrorToast from "@/components/ErrorToast";
+import toast, { Toaster } from "react-hot-toast";
 
 const ConfirmformSchema = z.object({
   email: z.string().email("Invalid email"),
@@ -44,7 +45,9 @@ const ConfirmForm = () => {
       console.log("code resent successfully");
       setCodeSent(true);
     } catch (err) {
-      console.log("error resending code: ", err);
+      if (err?.toString()) {
+        notify(err?.toString());
+      }
     }
   };
 
@@ -57,15 +60,21 @@ const ConfirmForm = () => {
       setSuccess(true);
       router.push("/signin");
     } catch (err) {
-      console.log(err);
-      setError("error");
+      if (err?.toString()) {
+        notify(err?.toString());
+      }
     }
     setIsLoading(false);
   };
 
+  const notify = (error?: string) =>
+    toast.custom((t) => <ErrorToast t={t} error={error} />);
+
   return (
     <>
       <div className="flex  flex-col justify-center px-6 py-8">
+        <Toaster />
+
         <SignPageHeader heading="Confirm your Email" />
 
         <div className="mt-4 sm:mx-auto sm:w-full sm:max-w-sm">

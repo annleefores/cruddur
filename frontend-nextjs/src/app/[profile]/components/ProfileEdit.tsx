@@ -11,6 +11,9 @@ import { mutate } from "swr";
 import { usePathname } from "next/navigation";
 import { S3Upload } from "@/lib/ProfileImageUpload";
 
+import ErrorToast from "@/components/ErrorToast";
+import toast, { Toaster } from "react-hot-toast";
+
 interface ProfileEditProps {
   isOpen: boolean;
   setIsOpen: (value: boolean) => void;
@@ -55,7 +58,6 @@ const ProfileEdit: React.FC<ProfileEditProps> = ({
   UpdateDN,
   UpdateBio,
 }) => {
-  const [Iserror, setIsError] = useState("");
   const [success, setSuccess] = useState(false);
   const [file, setFile] = useState<File | null>(null);
 
@@ -94,8 +96,6 @@ const ProfileEdit: React.FC<ProfileEditProps> = ({
   };
 
   const onSubmit: SubmitHandler<Editform> = async (Formdata) => {
-    setIsError("");
-
     UpdateDN(Formdata.display_name);
     UpdateBio(Formdata.bio);
 
@@ -114,18 +114,19 @@ const ProfileEdit: React.FC<ProfileEditProps> = ({
       const result = await PostData(url, requestBody);
       mutate(Profileurl);
     } catch (err) {
-      console.log("Error in Profile POST request:", err);
-      setIsError("error");
+      if (err?.toString()) {
+        notify(err?.toString());
+      }
     }
 
     if (file) {
       // image upload
       try {
         const res = await S3Upload(file, user.accessToken);
-        console.log(res);
       } catch (err) {
-        console.log("Error in Image POST request:", err);
-        setIsError("error");
+        if (err?.toString()) {
+          notify(err?.toString());
+        }
       }
     }
 
@@ -138,8 +139,13 @@ const ProfileEdit: React.FC<ProfileEditProps> = ({
     setIsOpen(false);
   }
 
+  const notify = (error?: string) =>
+    toast.custom((t) => <ErrorToast t={t} error={error} />);
+
   return (
     <>
+      <Toaster />
+
       <Transition appear show={isOpen} as={Fragment}>
         <Dialog as="div" className="relative z-10" onClose={closeModal}>
           <Transition.Child

@@ -7,6 +7,8 @@ import { useAuth } from "@/context/useAuth";
 import { useReply } from "@/hooks/useSWRhooks";
 import { Post } from "@/interfaces/type";
 import axios from "axios";
+import ErrorToast from "@/components/ErrorToast";
+import toast, { Toaster } from "react-hot-toast";
 
 interface CrudExpandedReplyProps {
   activity: Post | undefined;
@@ -112,18 +114,23 @@ const CrudExpandedReply: React.FC<CrudExpandedReplyProps> = ({ activity }) => {
     try {
       const result = await PostData(url, requestBody);
       mut();
-    } catch (error) {
-      // Handle the error as needed
-      console.error("Error in POST request:", error);
-      // add error toast
+    } catch (err) {
+      if (err?.toString()) {
+        notify(err?.toString());
+      }
     }
     reset();
   };
+
   const { ref, ...rest } = register("message", {
     onChange: handleInputChange,
   });
+
+  const notify = (error?: string) =>
+    toast.custom((t) => <ErrorToast t={t} error={error} />);
   return (
     <div className="flex gap-x-4 p-3 py-4  items-center w-full border border-neutral-800">
+      <Toaster />
       <div className="max-w-[40px]">
         <UserPic sub={user.sub} />
       </div>
