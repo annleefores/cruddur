@@ -36,6 +36,7 @@ SELECT
     END AS current_user_has_liked,
       activities.message,
       activities.created_at,
+      activities.replies_count,
       activities.expires_at
     FROM public.activities
     WHERE
