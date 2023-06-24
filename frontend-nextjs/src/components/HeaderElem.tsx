@@ -7,6 +7,7 @@ import React from "react";
 import Link from "next/link";
 import { HiOutlineArrowLeft } from "react-icons/hi2";
 import { useRouter } from "next/navigation";
+import { useAuth } from "@/context/useAuth";
 
 interface HeaderElemProps {
   page?: string;
@@ -19,6 +20,7 @@ const HeaderElem: React.FC<HeaderElemProps> = ({
   selectedUser,
   showHeaderWithArrow,
 }) => {
+  const { isAuthenticated } = useAuth();
   const router = useRouter();
   const ChatHeader = (
     <div className="flex sm:hidden  flex-row gap-x-4 font-bold text-lg items-center py-1">
@@ -47,9 +49,13 @@ const HeaderElem: React.FC<HeaderElemProps> = ({
         <div className="w-fit truncate">
           <p>Crud</p>
         </div>
-        <div className="block sm:hidden w-full max-h-[32px] max-w-[32px] ">
-          <ProfileSignOutButton />
-        </div>
+        {isAuthenticated ? (
+          <div className="block sm:hidden w-full max-h-[32px] max-w-[32px] ">
+            <ProfileSignOutButton />
+          </div>
+        ) : (
+          <></>
+        )}
       </div>
     </div>
   );
@@ -92,9 +98,13 @@ const HeaderElem: React.FC<HeaderElemProps> = ({
               <></>
             ) : (
               <>
-                <div className="block sm:hidden w-full max-h-[32px] max-w-[32px] ">
-                  <ProfileSignOutButton />
-                </div>
+                {isAuthenticated ? (
+                  <div className="block sm:hidden w-full max-h-[32px] max-w-[32px] ">
+                    <ProfileSignOutButton />
+                  </div>
+                ) : (
+                  <></>
+                )}
               </>
             )}
           </>
