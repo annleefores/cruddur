@@ -12,18 +12,33 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useAuth } from "@/context/useAuth";
 import { useFeed } from "@/hooks/useSWRhooks";
 import { PostDataResponse } from "@/interfaces/type";
-import { mutate } from "swr";
-import { usePathname } from "next/navigation";
+import useSWRMutation from "swr/mutation";
+import { useParams, usePathname } from "next/navigation";
 import ErrorToast from "@/components/ErrorToast";
 import toast, { Toaster } from "react-hot-toast";
+import { Authfetcher } from "@/lib/fetcher";
 
 const CrudButton = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [count, setCount] = useState(0);
   const [inputVal, setInputVal] = useState("");
 
-  const { user } = useAuth();
   const pathname = usePathname();
+  const params = useParams();
+
+  const { user, isAuthenticated } = useAuth();
+
+  const token = user.accessToken;
+
+  const Profileurl = `${
+    process.env.NEXT_PUBLIC_BACKEND_URL
+  }/api/activities/@${pathname.substring(1)}`;
+
+  const { trigger } = useSWRMutation(
+    [Profileurl, token],
+    // @ts-ignore:next-line
+    ([Profileurl, token]) => Authfetcher(Profileurl, token)
+  );
 
   const handleInputChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
     setInputVal(event.target.value);
@@ -112,8 +127,12 @@ const CrudButton = () => {
 
     try {
       const result = await PostData(url, requestBody);
-      mut();
-      mutate(Profileurl);
+
+      if (params.profile) {
+        trigger();
+      } else {
+        mut();
+      }
     } catch (err) {
       if (err?.toString()) {
         notify(err?.toString());
