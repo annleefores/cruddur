@@ -1,22 +1,27 @@
 import React from "react";
 import Crud from "./Crud";
-import { Post } from "../interfaces/type";
+import { Post, ProfileObject } from "../interfaces/type";
 import LoadingSpinner from "./LoadingSpinner";
+import { KeyedMutator } from "swr";
 
 interface PostsProps {
   data: Post[] | undefined;
   hiddenNoPostMessage?: boolean;
   isLoading?: boolean;
-  postHandle?: string;
-  postUUID?: string;
+
+  isPostExpanded?: boolean;
+  ProfileMutate?: (newLikeStatus: boolean, uuid: string) => Promise<void>;
+  profilemut?: KeyedMutator<ProfileObject>;
 }
 
 const CrudPage: React.FC<PostsProps> = ({
   data,
   hiddenNoPostMessage,
   isLoading,
-  postHandle,
-  postUUID,
+
+  isPostExpanded,
+  ProfileMutate,
+  profilemut,
 }) => {
   if (isLoading)
     return (
@@ -32,7 +37,12 @@ const CrudPage: React.FC<PostsProps> = ({
           key={index}
           className=" w-full p-3 sm:w-full h-full hover:bg-neutral-900 border-b border-neutral-800 transition cursor-pointer"
         >
-          <Crud item={item} postHandle={postHandle} postUUID={postUUID} />
+          <Crud
+            item={item}
+            isPostExpanded={isPostExpanded}
+            ProfileMutate={ProfileMutate}
+            profilemut={profilemut}
+          />
         </div>
       ))}
       <div className="p-4 h-full w-full border-t border-neutral-800">

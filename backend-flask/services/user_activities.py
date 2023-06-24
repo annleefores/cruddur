@@ -4,14 +4,20 @@ from lib.db import db
 
 
 class UserActivities:
-    def run(user_handle):
+    def run(user_handle, cognito_user_id=None):
         model = {"errors": None, "data": None}
 
-        if user_handle == None or len(user_handle) < 1:
+        if user_handle is None or len(user_handle) < 1:
             model["errors"] = ["blank_user_handle"]
         else:
             sql = db.template("users", "show")
-            results = db.query_object_json(sql, {"handle": user_handle})
+            results = db.query_object_json(
+                sql,
+                {
+                    "handle": user_handle,
+                    "cognito_user_id": cognito_user_id,
+                },
+            )
             model["data"] = results
 
         # # x-ray subsegment

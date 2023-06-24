@@ -62,7 +62,7 @@ export interface Activity {
 }
 
 export interface ProfileObject {
-  activities: Activity[];
+  activities: Post[];
   profile: Profile;
 }
 
@@ -106,4 +106,13 @@ export const defaultPost: Post = {
   reposts_count: 0,
   uuid: "",
   cognito_user_id: "",
+};
+
+export const defaultProfile: Profile = {
+  bio: "",
+  cognito_user_uuid: "",
+  cruds_count: 0,
+  display_name: "",
+  handle: "",
+  uuid: "",
 };

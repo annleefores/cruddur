@@ -3,24 +3,58 @@
 import Profile from "./Profile";
 import CrudPage from "@/components/CrudPage";
 import LoadingSpinner from "@/components/LoadingSpinner";
-import { ProfileObject } from "@/interfaces/type";
+import { ProfileObject, defaultProfile } from "@/interfaces/type";
 import { usePathname } from "next/navigation";
 
 import useSWR from "swr";
-import { fetcher } from "@/lib/fetcher";
+import { Authfetcher, fetcher } from "@/lib/fetcher";
 import { twMerge } from "tailwind-merge";
+import { useAuth } from "@/context/useAuth";
 
 const ProfilePage = () => {
   const pathname = usePathname();
+
+  const { user, isAuthenticated } = useAuth();
+
+  const token = user.accessToken;
 
   const url = `${
     process.env.NEXT_PUBLIC_BACKEND_URL
   }/api/activities/@${pathname.substring(1)}`;
 
-  const { data, error, isLoading, mutate } = useSWR<ProfileObject>(
-    url,
-    fetcher
+  const {
+    data,
+    error,
+    isLoading,
+    mutate: profilemut,
+  } = useSWR<ProfileObject>(
+    [url, token],
+    // @ts-ignore:next-line
+    ([url, token]) => Authfetcher(url, token)
   );
+
+  const ProfileMutate = async (newLikeStatusChild: boolean, uuid: string) => {
+    if (isAuthenticated) {
+      const newLikeStatus = newLikeStatusChild;
+
+      const updatedActivities = data?.activities.map((activity) =>
+        activity.uuid === uuid
+          ? {
+              ...activity,
+              current_user_has_liked: newLikeStatus,
+              likes_count: activity.likes_count || 0 + (newLikeStatus ? 1 : -1),
+            }
+          : activity
+      );
+
+      const updatedData: ProfileObject = {
+        profile: data?.profile || defaultProfile,
+        activities: updatedActivities ?? [],
+      };
+
+      profilemut(updatedData, false);
+    }
+  };
 
   if (error) console.log(error);
 
@@ -37,7 +71,12 @@ const ProfilePage = () => {
           </div>
           <div className={twMerge("block", !data && "hidden")}>
             {data?.activities.length !== 0 ? (
-              <CrudPage data={data?.activities} isLoading={isLoading} />
+              <CrudPage
+                ProfileMutate={ProfileMutate}
+                data={data?.activities}
+                isLoading={isLoading}
+                profilemut={profilemut}
+              />
             ) : (
               <div className="w-full text-center">
                 <p className="text-sm text-neutral-500 p-4">

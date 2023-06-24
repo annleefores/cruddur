@@ -11,24 +11,36 @@ import Hashtags from "./Hashtags";
 import UserPic from "./UserPic";
 import UserName from "./UserName";
 import Link from "next/link";
-import { Post } from "../interfaces/type";
+import { Post, PostData, ProfileObject, defaultPost } from "../interfaces/type";
 import { time_ago, time_future } from "../lib/DateTimeFormat";
 import { useRouter } from "next/navigation";
 import axios from "axios";
 import { useAuth } from "@/context/useAuth";
-import { useFeed } from "@/hooks/useSWRhooks";
-import { mutate } from "swr";
+import { useFeed, useReply } from "@/hooks/useSWRhooks";
+import { KeyedMutator } from "swr";
+// import useSWRMutation from "swr/mutation";
+// import { Authfetcher } from "@/lib/fetcher";
 
 interface CrudProps {
   item: Post;
   postHandle?: string;
   postUUID?: string;
+  isPostExpanded?: boolean;
+  ProfileMutate?: (newLikeStatus: boolean, uuid: string) => Promise<void>;
+  profilemut?: KeyedMutator<ProfileObject>;
 }
 
-const Crud: React.FC<CrudProps> = ({ item, postHandle, postUUID }) => {
+const Crud: React.FC<CrudProps> = ({
+  item,
+
+  isPostExpanded,
+  ProfileMutate,
+  profilemut,
+}) => {
   const router = useRouter();
   const { user, isAuthenticated } = useAuth();
   const { data, isLoading, isError, mut } = useFeed();
+  const { data: replydata, mut: replymut } = useReply();
 
   const PutData = async (url: string, requestBody?: undefined) => {
     const response = await axios.put(url, undefined, {
@@ -43,6 +55,23 @@ const Crud: React.FC<CrudProps> = ({ item, postHandle, postUUID }) => {
 
   const Comment = async () => {
     router.push(`/${item.handle}/status/${item.uuid}`);
+  };
+
+  const updateReplyLikes = (newLikeStatus: boolean): PostData => {
+    const updatedReplies = replydata?.replies.map((reply) =>
+      reply.uuid === item.uuid
+        ? {
+            ...reply,
+            current_user_has_liked: newLikeStatus,
+            likes_count: reply.likes_count || 0 + (newLikeStatus ? 1 : -1),
+          }
+        : reply
+    );
+
+    return {
+      activity: replydata?.activity || defaultPost,
+      replies: updatedReplies ?? [],
+    };
   };
 
   const Like = async () => {
@@ -60,15 +89,26 @@ const Crud: React.FC<CrudProps> = ({ item, postHandle, postUUID }) => {
           : content
       );
 
-      mut(updatedPosts, false);
+      if (isPostExpanded) {
+        replymut(updateReplyLikes(newLikeStatus), false);
+      } else if (ProfileMutate) {
+        ProfileMutate(newLikeStatus, item.uuid || "");
+      } else {
+        mut(updatedPosts, false);
+      }
 
       const url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/activities/${item.uuid}/like`;
-      const Replyurl = `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/activities/@${postHandle}/status/${postUUID}`;
 
       try {
         const result = await PutData(url);
-        mut();
-        mutate(Replyurl);
+
+        if (isPostExpanded) {
+          replymut();
+        } else if (profilemut) {
+          profilemut();
+        } else {
+          mut();
+        }
         // mutate(Profileurl);
       } catch (err) {
         console.log(err);

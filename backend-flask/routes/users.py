@@ -23,10 +23,17 @@ def load(app):
         data = ShowActivity.run(activity_uuid)
         return data, 200
 
+    def default_data_users_activities(e, handle):
+        app.logger.debug(e)
+        app.logger.debug("unauthenicated")
+        model = UserActivities.run(handle)
+        return model_json(model)
+
     @app.route("/api/activities/@<string:handle>", methods=["GET"])
     # @xray_recorder.capture('activities_users')
+    @jwt_required(on_error=default_data_users_activities)
     def data_users_activities(handle):
-        model = UserActivities.run(handle)
+        model = UserActivities.run(handle, cognito_user_id=g.cognito_user_id)
         return model_json(model)
 
     @app.route(

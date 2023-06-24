@@ -32,7 +32,7 @@ export function useReply() {
   const url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/activities/@${params.profile}/status/${params.post}`;
 
   const { data, error, isLoading, mutate } = useSWR<PostData>(
-    [url, token],
+    params.profile && params.post ? [url, token] : null,
     // @ts-ignore:next-line
     ([url, token]) => Authfetcher(url, token)
   );
