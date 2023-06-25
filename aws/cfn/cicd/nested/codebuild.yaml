@@ -44,7 +44,6 @@ Resources:
       QueuedTimeoutInMinutes: !Ref CodeBuildQueueTimeoutMins
       TimeoutInMinutes: !Ref CodeBuildTimeoutMins
       ServiceRole: !GetAtt CodeBuildRole.Arn
-      BadgeEnabled: true
       # PrivilegedMode is needed to build Docker images
       # even though we have No Artifacts, CodePipeline Demands both to be set as CODEPIPLINE
       Artifacts:
