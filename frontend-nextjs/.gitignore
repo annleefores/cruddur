@@ -40,3 +40,5 @@ next-env.d.ts
 
 
 cdk.context.json
+
+artifacts
