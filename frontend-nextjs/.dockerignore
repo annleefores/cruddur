@@ -33,3 +33,14 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+
+.vscode
+.next
+.git
+.gitignore
+
+
+# aws sam
+.aws-sam
+samconfig.tomla

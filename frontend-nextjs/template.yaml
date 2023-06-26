@@ -1,0 +1,31 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Transform: AWS::Serverless-2016-10-31
+Description: "Lambda for nextjs app"
+
+Globals:
+  Function:
+    Timeout: 60
+
+Resources:
+  NextjsFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      MemorySize: 512
+      PackageType: Image
+      Architectures:
+        - x86_64
+      Events:
+        HttpEvent:
+          Type: HttpApi
+      # Environment:
+      #   Variables:
+
+    Metadata:
+      DockerTag: v1
+      DockerContext: ./
+      Dockerfile: Dockerfile
+
+Outputs:
+  NextjsFunctionURL:
+    Description: "API Gateway endpoint URL for Next.js"
+    Value: !Sub "https://${ServerlessHttpApi}.execute-api.${AWS::Region}.${AWS::URLSuffix}/"
