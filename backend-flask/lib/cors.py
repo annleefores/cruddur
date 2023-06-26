@@ -6,7 +6,8 @@ def init_cors(app):
     frontend = os.getenv("FRONTEND_URL")
     backend = os.getenv("BACKEND_URL")
     newfrontend = os.getenv("NEW_FRONTEND_URL")
-    origins = [frontend, backend, newfrontend]
+    testfrontend = os.getenv("TEST_FRONTEND_URL")
+    origins = [frontend, backend, newfrontend, testfrontend]
     cors = CORS(
         app,
         resources={r"/api/*": {"origins": origins}},
