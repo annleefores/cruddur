@@ -1,4 +1,5 @@
-"use state";
+"use client";
+
 import Image from "next/image";
 import banner from "../../../../public/banner.jpg";
 import UserPic from "@/components/UserPic";

@@ -1,0 +1,84 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Description: |
+ - Cloudfront Distribution
+ - S3 bucket for  domain
+ - Bucket Policy
+
+Parameters:
+  HostedZoneDomain:
+    Type: String
+
+  DomainBucketName:
+    Type: String
+
+  CertificateArn:
+    Type: String
+
+Resources:
+      
+  DomainBucket:
+  # https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-s3-bucket.html#aws-properties-s3-bucket--examples
+    Type: 'AWS::S3::Bucket'
+    # DeletionPolicy: Retain
+    Properties:
+      BucketName: !Ref DomainBucketName
+      PublicAccessBlockConfiguration:
+        BlockPublicPolicy: false
+      WebsiteConfiguration:
+        IndexDocument: index.html
+        ErrorDocument: error.html
+  
+  DomainBucketPolicy:
+    # https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-s3-bucket.html
+    Type: AWS::S3::BucketPolicy
+    Properties:
+      Bucket: !Ref DomainBucket
+      PolicyDocument:
+        Statement:
+          - Action:
+              - 's3:GetObject'
+            Effect: Allow
+            Resource: !Sub 'arn:aws:s3:::${DomainBucket}/*'
+            Principal: '*'
+  
+  DomainBucketDomain:
+    # https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-route53-recordset.html
+    Type: AWS::Route53::RecordSet
+    Properties:
+      HostedZoneName: !Sub ${HostedZoneDomain}.
+      Name: !Sub ${DomainBucketName}.
+      Type: A
+      AliasTarget:
+        # https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-route53-aliastarget.html#cfn-route53-aliastarget-hostedzoneid
+        # Specify Z2FDTNDATAQYW2. This is always the hosted zone ID when you create an alias record that routes traffic to a CloudFront distribution.
+        DNSName: !GetAtt Distribution.DomainName
+        HostedZoneId: Z2FDTNDATAQYW2
+  
+  Distribution:
+    Type: AWS::CloudFront::Distribution
+    Properties:
+      DistributionConfig:
+        Aliases:
+          - new.annleefores.cloud
+        Comment: Frontend NextJS for Cruddur
+        Enabled: true
+        HttpVersion: http2and3 
+        DefaultRootObject: index.html
+        Origins:
+          - DomainName: !GetAtt DomainBucket.DomainName
+            Id: DomainBucketOrigin
+            S3OriginConfig: {}
+        DefaultCacheBehavior:
+          TargetOriginId: DomainBucketOrigin
+          ForwardedValues:
+            QueryString: false
+            Cookies:
+              Forward: none
+          ViewerProtocolPolicy: redirect-to-https
+        ViewerCertificate:
+          AcmCertificateArn: !Ref CertificateArn
+          SslSupportMethod: sni-only
+        CustomErrorResponses:
+          - ErrorCode: 403
+            ResponseCode: 200
+            ResponsePagePath: /index.html
