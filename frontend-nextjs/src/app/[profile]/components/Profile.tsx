@@ -1,7 +1,6 @@
 "use client";
 
 import Image from "next/image";
-import banner from "../../../../public/banner.jpg";
 import UserPic from "@/components/UserPic";
 import ProfileEdit from "./ProfileEdit";
 import React, { useEffect, useState } from "react";
@@ -61,8 +60,10 @@ const Profile: React.FC<ProfileInfo> = ({ data }) => {
     <>
       <div className="relative">
         <Image
-          src={banner}
+          src={`https://assets.annleefores.cloud/banners/banner.jpg`}
           alt="user-profile"
+          width={640}
+          height={360}
           priority
           className="object-cover h-36 md:h-52"
         />
