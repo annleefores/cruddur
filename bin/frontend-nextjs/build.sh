@@ -1,9 +1,13 @@
 #!/bin/bash
 
-# Variables
-BUILD_DIR=${PWD}
-
 ARTIFACTS_DIR="artifacts"
+
+
+ABS_FILEPATH="$ABS_PATH/frontend-nextjs/"
+DIR=$(realpath --relative-base="$PWD" "$ABS_FILEPATH")
+
+
+cd $DIR
 
 # Functions
 
