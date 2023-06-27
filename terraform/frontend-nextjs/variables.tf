@@ -46,3 +46,13 @@ variable "domainName" {
   type = string
 
 }
+
+variable "CertificateARN" {
+  type = string
+
+}
+
+variable "HostedZoneDomain" {
+  type = string
+
+}
