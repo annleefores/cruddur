@@ -20,8 +20,9 @@ build() {
 }
 
 sync_static() {
+
     # sync static files to S3 + Cloudfront
-    cp -r .next/static/. .next/standalone/.next/static
+    aws s3 cp .next/static/ s3://cdn.annleefores.cloud/_next/static/ --recursive
 }
 
 artifacts() {
@@ -36,5 +37,5 @@ artifacts() {
 # Call functions
 install
 build
-# sync_static
+sync_static
 artifacts

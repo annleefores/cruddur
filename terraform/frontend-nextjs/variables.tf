@@ -1,42 +1,43 @@
-variable "S3_BUCKET" {
-  type = string
-
-}
-
-variable "deletion_protection_enabled" {
-  type    = bool
-  default = false
-}
 
 variable "memory_size" {
   type    = number
-  default = 128
+  default = 512
 
 }
 
-variable "PythonRuntime" {
+variable "NodeRuntime" {
   type    = string
-  default = "python3.9"
+  default = "nodejs18.x"
 
 }
 
 variable "timeout" {
   type    = number
-  default = 3
+  default = 10
 
-}
-variable "AWS_ACCOUNT_ID" {
-  type      = string
-  sensitive = true
-}
-variable "REGION" {
-  type      = string
-  sensitive = true
 }
 
 variable "lambda_function_name" {
 
   type    = string
-  default = "ProcessDynamoDBStreamTF"
+  default = "frontend-nextjs"
+
+}
+
+variable "AWS_LAMBDA_EXEC_WRAPPER" {
+  type    = string
+  default = "/opt/bootstrap"
+
+}
+
+variable "PORT" {
+  type    = number
+  default = 8000
+
+}
+
+variable "REGION" {
+  type      = string
+  sensitive = true
 
 }

@@ -1,0 +1,13 @@
+#! /usr/bin/bash
+
+set -e # stop execution if anything fails
+
+abs_filepath="$ABS_PATH/terraform/frontend-nextjs"
+FilePath=$(realpath --relative-base="$PWD" "$abs_filepath")
+
+cd $FilePath
+
+terraform validate
+tflint
+terraform apply -auto-approve
+

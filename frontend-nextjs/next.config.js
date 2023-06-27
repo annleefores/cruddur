@@ -3,7 +3,7 @@ const { hostname } = require('os')
 /** @type {import('next').NextConfig} */
 const nextConfig = {
     output: 'standalone',
-    // assetPrefix: 'https://static.annleefores.cloud',
+    assetPrefix: 'https://cdn.annleefores.cloud',
     images: {
         remotePatterns: [
             {
