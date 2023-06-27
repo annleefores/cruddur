@@ -1,7 +1,14 @@
 
+# tflint-ignore: terraform_unused_declarations
+data "archive_file" "lambda" {
+  type        = "zip"
+  source_dir  = "${path.module}/../../frontend-nextjs/function/"
+  output_path = "lambda_function_payload.zip"
+}
+
 resource "aws_lambda_function" "frontend-nextjs" {
   # Create with dummy zip file and upload files later
-  filename      = "dummy.zip"
+  filename      = "lambda_function_payload.zip"
   function_name = var.lambda_function_name
   role          = aws_iam_role.iam_for_lambda.arn
   handler       = "run.sh"

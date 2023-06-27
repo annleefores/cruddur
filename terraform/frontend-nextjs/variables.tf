@@ -41,3 +41,8 @@ variable "REGION" {
   sensitive = true
 
 }
+
+variable "domainName" {
+  type = string
+
+}
