@@ -1,6 +1,8 @@
 #!/bin/bash
 
-ARTIFACTS_DIR="artifacts"
+set -e # stop execution if anything fails
+
+ARTIFACTS_DIR="function"
 
 
 ABS_FILEPATH="$ABS_PATH/frontend-nextjs/"
@@ -34,8 +36,12 @@ artifacts() {
   cp run.sh $ARTIFACTS_DIR
 }
 
-# Call functions
-install
-build
-sync_static
-artifacts
+
+# Run functions if called directly
+
+if [ "\$0" = "${BASH_SOURCE[0]}" ]; then
+  install
+  build
+  sync_static
+  artifacts
+fi
