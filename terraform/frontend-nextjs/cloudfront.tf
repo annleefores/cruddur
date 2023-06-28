@@ -10,8 +10,8 @@ data "aws_cloudfront_cache_policy" "CachingOptimized" {
   name = "Managed-CachingOptimized"
 }
 
-data "aws_cloudfront_response_headers_policy" "SimpleCORS" {
-  name = "Managed-SimpleCORS"
+data "aws_cloudfront_response_headers_policy" "CORS_With_Preflight" {
+  name = "Managed-CORS-With-Preflight"
 }
 
 resource "aws_cloudfront_distribution" "s3_distribution" {
@@ -43,7 +43,7 @@ resource "aws_cloudfront_distribution" "s3_distribution" {
     cache_policy_id  = data.aws_cloudfront_cache_policy.CachingOptimized.id
 
     viewer_protocol_policy     = "redirect-to-https"
-    response_headers_policy_id = data.aws_cloudfront_response_headers_policy.SimpleCORS.id
+    response_headers_policy_id = data.aws_cloudfront_response_headers_policy.CORS_With_Preflight.id
     compress                   = true
   }
 
