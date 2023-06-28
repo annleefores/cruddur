@@ -56,3 +56,8 @@ variable "HostedZoneDomain" {
   type = string
 
 }
+
+variable "S3_BUCKET" {
+  type = string
+
+}

@@ -6,7 +6,7 @@ set -e # stop execution if anything fails
 buildFilepath="$ABS_PATH/bin/frontend-nextjs/build"
 source $buildFilepath
 
-# don't run the static sync 
+# Create function files
 install
 build
 artifacts
@@ -20,3 +20,7 @@ terraform validate
 tflint
 terraform apply -auto-approve
 
+# sync after cloudfront is created/updated
+buildFilepath="$ABS_PATH/bin/frontend-nextjs/build"
+source $buildFilepath
+sync_static
