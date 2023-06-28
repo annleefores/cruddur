@@ -42,7 +42,7 @@ jobs:
           NEXT_PUBLIC_CLIENT_ID: ${{ secrets.NEXT_PUBLIC_CLIENT_ID }}
           NEXT_PUBLIC_API_GATEWAY_ENDPOINT_URL: ${{ secrets.NEXT_PUBLIC_API_GATEWAY_ENDPOINT_URL }}
       - name: sync static files to S3
-        run: aws s3 cp .next/static/ s3://${{ vars.CDN_NAME }}/_next/static/ --recursive
+        run: aws s3 sync .next/static/ s3://${{ vars.CDN_NAME }}/_next/static/
         env:
           AWS_REGION: ${{ secrets.REGION }}
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
