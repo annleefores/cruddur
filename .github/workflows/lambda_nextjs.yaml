@@ -53,8 +53,9 @@ jobs:
           cp -r public/. .next/standalone/public
           cp -r .next/standalone/. $ARTIFACTS_DIR
           cp run.sh $ARTIFACTS_DIR
-          cd $ARTIFACTS_DIR
       - name: zip package files
-        run: zip -r lambda_function_payload.zip .
+        working-directory: ./function
+        run: zip -r -q lambda_function_payload.zip .
       - name: deploy files to lambda
+        working-directory: ./function
         run: aws lambda update-function-code --function-name ${{ vars.FUNC_NAME }} --zip-file fileb://lambda_function_payload.zip
