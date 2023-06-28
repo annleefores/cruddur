@@ -38,7 +38,7 @@ next-env.d.ts
 .sst
 .open-next
 
-
 cdk.context.json
 
-function
+function/*
+!function/.keep
