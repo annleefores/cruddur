@@ -1,5 +1,7 @@
 resource "aws_s3_bucket" "cdn_bucket" {
-  bucket = var.S3_BUCKET
+  bucket        = var.S3_BUCKET
+  force_destroy = true
+
 
   tags = {
     Name = "Frontend Nextjs CDN Bucket"
