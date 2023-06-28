@@ -59,3 +59,7 @@ jobs:
       - name: deploy files to lambda
         working-directory: ./frontend-nextjs/function
         run: aws lambda update-function-code --function-name ${{ vars.FUNC_NAME }} --zip-file fileb://lambda_function_payload.zip
+        env:
+          AWS_REGION: ${{ secrets.REGION }}
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}

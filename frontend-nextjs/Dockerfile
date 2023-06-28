@@ -8,7 +8,7 @@ FROM public.ecr.aws/lambda/nodejs:18.2023.06.12.16 as runner
 COPY --from=public.ecr.aws/awsguru/aws-lambda-adapter:0.7.0 /lambda-adapter /opt/extensions/lambda-adapter
 
 ENV PORT=3000 NODE_ENV=production
-#
+
 WORKDIR ${LAMBDA_TASK_ROOT}
 COPY --from=builder /app/.next ./.next
 COPY --from=builder /app/node_modules ./node_modules
