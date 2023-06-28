@@ -45,4 +45,5 @@ next-env.d.ts
 .aws-sam
 samconfig.tomla
 
-artifacts
+function/* 
+!function/.keep
