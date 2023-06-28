@@ -1,0 +1,4 @@
+REGION           = ""
+domainName       = ""
+CertificateARN   = ""
+HostedZoneDomain = ""

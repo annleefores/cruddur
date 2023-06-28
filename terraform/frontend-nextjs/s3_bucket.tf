@@ -44,10 +44,10 @@ data "aws_iam_policy_document" "s3_bucket_policy" {
       "${aws_s3_bucket.cdn_bucket.arn}/*",
     ]
 
-    # condition {
-    #   test     = "ForAnyValue:StringEquals"
-    #   variable = "AWS:SourceArn"
-    #   values   = ["CLOUDFRONT_DIST_ARN"]
-    # }
+    condition {
+      test     = "ForAnyValue:StringEquals"
+      variable = "AWS:SourceArn"
+      values   = [aws_cloudfront_distribution.s3_distribution.arn]
+    }
   }
 }

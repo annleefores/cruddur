@@ -47,6 +47,8 @@ variable "domainName" {
 
 }
 
+
+
 variable "CertificateARN" {
   type = string
 
@@ -61,3 +63,4 @@ variable "S3_BUCKET" {
   type = string
 
 }
+

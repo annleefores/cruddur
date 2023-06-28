@@ -2,25 +2,54 @@
 
 set -e # stop execution if anything fails
 
-# build frontend files by sourcing build file and running functions
-buildFilepath="$ABS_PATH/bin/frontend-nextjs/build"
-source $buildFilepath
+# change this for different cdn domain address
+CDN_NAME="cdn.annleefores.cloud"
 
-# Create function files
+ARTIFACTS_DIR="function"
+
+BUILDFILEPATH="$ABS_PATH/frontend-nextjs/"
+DIR=$(realpath --relative-base="$PWD" "$BUILDFILEPATH")
+
+install() {
+  npm ci
+}
+
+build() {
+  npm run build
+}
+
+sync_static() {
+    # sync static files to S3 + Cloudfront
+    aws s3 cp .next/static/ s3://$CDN_NAME/_next/static/ --recursive
+}
+
+artifacts() {
+  # Copy artifacts for deployment
+  cp -r public/. .next/standalone/public
+
+  cp -r .next/standalone/. $ARTIFACTS_DIR
+
+  cp run.sh $ARTIFACTS_DIR
+}
+
+# move to nextjs folder and build application
+cd $DIR
+
 install
 build
 artifacts
 
-abs_filepath="$ABS_PATH/terraform/frontend-nextjs"
-FilePath=$(realpath --relative-base="$PWD" "$abs_filepath")
+# terrform create cloud infrastructure
+ABS_TF_FILEPATH="$ABS_PATH/terraform/frontend-nextjs"
+TF_FILEPATH=$(realpath --relative-base="$PWD" "$ABS_TF_FILEPATH")
 
-cd $FilePath
+cd $TF_FILEPATH
 
 terraform validate
 tflint
-terraform apply -auto-approve
+terraform apply -auto-approve -var="S3_BUCKET=$CDN_NAME"
 
-# sync after cloudfront is created/updated
-buildFilepath="$ABS_PATH/bin/frontend-nextjs/build"
-source $buildFilepath
+# move to nextjs folder and sync static files to CDN
+DIR=$(realpath --relative-base="$PWD" "$BUILDFILEPATH")
+cd $DIR
 sync_static

@@ -1,44 +1,56 @@
+resource "aws_cloudfront_origin_access_control" "s3_bucket_oac" {
+  name                              = "${var.S3_BUCKET}_oac"
+  description                       = "OAC policy for ${var.S3_BUCKET}"
+  origin_access_control_origin_type = "s3"
+  signing_behavior                  = "always"
+  signing_protocol                  = "sigv4"
+}
 
-locals {
-  s3_origin_id = "frontend-nextjs-origin"
+data "aws_cloudfront_cache_policy" "CachingOptimized" {
+  name = "Managed-CachingOptimized"
+}
+
+data "aws_cloudfront_response_headers_policy" "SimpleCORS" {
+  name = "Managed-SimpleCORS"
 }
 
 resource "aws_cloudfront_distribution" "s3_distribution" {
   origin {
-    domain_name              = aws_s3_bucket.b.bucket_regional_domain_name
-    origin_access_control_id = aws_cloudfront_origin_access_control.default.id
-    origin_id                = local.s3_origin_id
+    domain_name              = aws_s3_bucket.cdn_bucket.bucket_domain_name
+    origin_access_control_id = aws_cloudfront_origin_access_control.s3_bucket_oac.id
+    origin_id                = var.S3_BUCKET
   }
 
   enabled             = true
   is_ipv6_enabled     = true
-  comment             = "Some comment"
-  default_root_object = "index.html"
+  comment             = "frontend-nextjs-cdn"
+  price_class         = "PriceClass_All"
+  wait_for_deployment = false
 
-  logging_config {
-    include_cookies = false
-    bucket          = "mylogs.s3.amazonaws.com"
-    prefix          = "myprefix"
+
+  aliases = [var.S3_BUCKET]
+
+  viewer_certificate {
+    acm_certificate_arn      = var.CertificateARN
+    minimum_protocol_version = "TLSv1.2_2021"
+    ssl_support_method       = "sni-only"
   }
 
-  aliases = ["mysite.example.com", "yoursite.example.com"]
-
   default_cache_behavior {
-    allowed_methods  = ["DELETE", "GET", "HEAD", "OPTIONS", "PATCH", "POST", "PUT"]
+    allowed_methods  = ["GET", "HEAD", "OPTIONS"]
     cached_methods   = ["GET", "HEAD"]
-    target_origin_id = local.s3_origin_id
+    target_origin_id = var.S3_BUCKET
+    cache_policy_id  = data.aws_cloudfront_cache_policy.CachingOptimized.id
 
-    forwarded_values {
-      query_string = false
+    viewer_protocol_policy     = "redirect-to-https"
+    response_headers_policy_id = data.aws_cloudfront_response_headers_policy.SimpleCORS.id
+    compress                   = true
+  }
 
-      cookies {
-        forward = "none"
-      }
+  restrictions {
+    geo_restriction {
+      restriction_type = "none"
+      locations        = []
     }
-
-    viewer_protocol_policy = "allow-all"
-    min_ttl                = 0
-    default_ttl            = 3600
-    max_ttl                = 86400
   }
 }
