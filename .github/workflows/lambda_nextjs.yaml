@@ -55,8 +55,6 @@ jobs:
           cp run.sh $ARTIFACTS_DIR
           cd $ARTIFACTS_DIR
       - name: zip package files
-        uses: montudor/action-zip@v1.0.0
-        with:
-          args: zip -r lambda_function_payload.zip function/
+        run: zip -r lambda_function_payload.zip .
       - name: deploy files to lambda
         run: aws lambda update-function-code --function-name ${{ vars.FUNC_NAME }} --zip-file fileb://lambda_function_payload.zip
