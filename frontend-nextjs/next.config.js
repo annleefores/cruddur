@@ -10,7 +10,7 @@ const nextConfig = {
                 protocol: 'https',
                 hostname: 'assets.annleefores.cloud',
                 port: '',
-                pathname: '/avatars/**',
+                pathname: '/**',
             },
             {
                 protocol: 'https',

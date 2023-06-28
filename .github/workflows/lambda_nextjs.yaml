@@ -32,8 +32,8 @@ jobs:
           cache-dependency-path: ./frontend-nextjs/package-lock.json
       - name: Install deps
         run: npm ci
-      - name: Build & Deploy using SST
-        run: npx sst deploy --stage prod
+      - name: Build
+        run: npm run build
         env:
           CI: false
           NEXT_PUBLIC_FRONTEND_URL: ${{ secrets.NEXT_PUBLIC_FRONTEND_URL }}
@@ -41,7 +41,22 @@ jobs:
           NEXT_PUBLIC_AWS_USER_POOLS_ID: ${{ secrets.NEXT_PUBLIC_AWS_USER_POOLS_ID }}
           NEXT_PUBLIC_CLIENT_ID: ${{ secrets.NEXT_PUBLIC_CLIENT_ID }}
           NEXT_PUBLIC_API_GATEWAY_ENDPOINT_URL: ${{ secrets.NEXT_PUBLIC_API_GATEWAY_ENDPOINT_URL }}
-          CERT_ARN: ${{ secrets.CERT_ARN }}
+      - name: sync static files to S3
+        run: aws s3 cp .next/static/ s3://${{ vars.CDN_NAME }}/_next/static/ --recursive
+        env:
           AWS_REGION: ${{ secrets.REGION }}
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      - name: package function files
+        run: |
+          ARTIFACTS_DIR="function"
+          cp -r public/. .next/standalone/public
+          cp -r .next/standalone/. $ARTIFACTS_DIR
+          cp run.sh $ARTIFACTS_DIR
+          cd $ARTIFACTS_DIR
+      - name: zip package files
+        uses: montudor/action-zip@v1.0.0
+        with:
+          args: zip -r lambda_function_payload.zip function/
+      - name: deploy files to lambda
+        run: aws lambda update-function-code --function-name ${{ vars.FUNC_NAME }} --zip-file fileb://lambda_function_payload.zip
