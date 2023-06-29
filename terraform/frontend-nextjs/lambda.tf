@@ -2,7 +2,7 @@
 # tflint-ignore: terraform_unused_declarations
 data "archive_file" "lambda" {
   type        = "zip"
-  source_dir  = "${path.module}/../../frontend-nextjs/function/"
+  source_dir  = "${path.module}/../../frontend-nextjs/.next/standalone/"
   output_path = "lambda_function_payload.zip"
 }
 

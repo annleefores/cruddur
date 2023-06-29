@@ -5,7 +5,6 @@ set -e # stop execution if anything fails
 # change this for different cdn domain address
 CDN_NAME="cdn.annleefores.cloud"
 
-ARTIFACTS_DIR="function"
 
 BUILDFILEPATH="$ABS_PATH/frontend-nextjs/"
 DIR=$(realpath --relative-base="$PWD" "$BUILDFILEPATH")
@@ -24,15 +23,12 @@ sync_static() {
 }
 
 artifacts() {
-  # Copy artifacts for deployment
+  # Package files for deployment
   cp -r public/. .next/standalone/public
-
-  cp -r .next/standalone/. $ARTIFACTS_DIR
-
-  cp run.sh $ARTIFACTS_DIR
+  cp run.sh .next/standalone/
 }
 
-# move to nextjs folder and build application
+# move to application folder. Build & package  application
 cd $DIR
 
 install

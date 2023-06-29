@@ -49,15 +49,13 @@ jobs:
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
       - name: package function files
         run: |
-          ARTIFACTS_DIR="function"
           cp -r public/. .next/standalone/public
-          cp -r .next/standalone/. $ARTIFACTS_DIR
-          cp run.sh $ARTIFACTS_DIR
+          cp run.sh .next/standalone/
       - name: zip package files
-        working-directory: ./frontend-nextjs/function
+        working-directory: ./frontend-nextjs/.next/standalone/
         run: zip -r -q lambda_function_payload.zip .
       - name: deploy files to lambda
-        working-directory: ./frontend-nextjs/function
+        working-directory: ./frontend-nextjs/.next/standalone/
         run: aws lambda update-function-code --function-name ${{ vars.FUNC_NAME }} --zip-file fileb://lambda_function_payload.zip
         env:
           AWS_REGION: ${{ secrets.REGION }}
