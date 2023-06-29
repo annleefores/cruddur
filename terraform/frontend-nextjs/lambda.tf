@@ -6,10 +6,10 @@ data "archive_file" "lambda" {
   output_path = "lambda_function_payload.zip"
 }
 
-resource "aws_lambda_function" "frontend-nextjs" {
+resource "aws_lambda_function" "nextjs" {
   # Create with dummy zip file and upload files later
   filename      = "lambda_function_payload.zip"
-  function_name = var.lambda_function_name
+  function_name = var.LAMBDA_FUNCTION_NAME
   role          = aws_iam_role.iam_for_lambda.arn
   handler       = "run.sh"
   memory_size   = var.memory_size
@@ -48,8 +48,8 @@ resource "aws_iam_role" "iam_for_lambda" {
 }
 
 
-resource "aws_cloudwatch_log_group" "frontend_nextjs_log" {
-  name              = "/aws/lambda/${var.lambda_function_name}"
+resource "aws_cloudwatch_log_group" "nextjs_log" {
+  name              = "/aws/lambda/${var.LAMBDA_FUNCTION_NAME}"
   retention_in_days = 7
 }
 

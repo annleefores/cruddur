@@ -1,12 +1,12 @@
 resource "aws_apigatewayv2_api" "httpAPI" {
-  name          = var.domainName
+  name          = var.DOMAIN_NAME
   protocol_type = "HTTP"
-  target        = aws_lambda_function.frontend-nextjs.arn
+  target        = aws_lambda_function.nextjs.arn
 }
 
 resource "aws_lambda_permission" "apigw" {
   action        = "lambda:InvokeFunction"
-  function_name = aws_lambda_function.frontend-nextjs.arn
+  function_name = aws_lambda_function.nextjs.arn
   principal     = "apigateway.amazonaws.com"
 
   # The /* part allows invocation from any stage, method and resource path

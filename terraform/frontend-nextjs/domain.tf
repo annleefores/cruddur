@@ -1,16 +1,16 @@
 
 resource "aws_apigatewayv2_domain_name" "api_gw_domain" {
-  domain_name = var.domainName
+  domain_name = var.DOMAIN_NAME
 
   domain_name_configuration {
-    certificate_arn = var.CertificateARN
+    certificate_arn = var.CERTIFICATE_ARN
     endpoint_type   = "REGIONAL"
     security_policy = "TLS_1_2"
   }
 }
 
 data "aws_route53_zone" "HostedZoneID" {
-  name         = var.HostedZoneDomain
+  name         = var.HOSTED_ZONE_DOMAIN
   private_zone = false
 }
 
