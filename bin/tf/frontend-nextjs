@@ -43,7 +43,7 @@ cd $TF_FILEPATH
 
 terraform validate
 tflint
-terraform apply -auto-approve -var="S3_BUCKET=$CDN_NAME"
+terraform apply -auto-approve
 
 # move to nextjs folder and sync static files to CDN
 DIR=$(realpath --relative-base="$PWD" "$BUILDFILEPATH")
