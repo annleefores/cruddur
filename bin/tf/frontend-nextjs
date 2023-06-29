@@ -45,7 +45,7 @@ terraform validate
 tflint
 terraform apply -auto-approve
 
-# move to nextjs folder and sync static files to CDN
+# move to application folder and sync static files to CDN
 DIR=$(realpath --relative-base="$PWD" "$BUILDFILEPATH")
 cd $DIR
 sync_static

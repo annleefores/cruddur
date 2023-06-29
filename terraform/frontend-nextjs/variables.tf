@@ -17,10 +17,10 @@ variable "timeout" {
 
 }
 
-variable "lambda_function_name" {
+variable "LAMBDA_FUNCTION_NAME" {
 
   type    = string
-  default = "frontend-nextjs"
+  default = "Nextjs-app"
 
 }
 
@@ -42,19 +42,18 @@ variable "REGION" {
 
 }
 
-variable "domainName" {
+variable "DOMAIN_NAME" {
   type = string
 
 }
 
 
-
-variable "CertificateARN" {
+variable "CERTIFICATE_ARN" {
   type = string
 
 }
 
-variable "HostedZoneDomain" {
+variable "HOSTED_ZONE_DOMAIN" {
   type = string
 
 }

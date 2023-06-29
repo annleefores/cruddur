@@ -23,7 +23,7 @@ resource "aws_cloudfront_distribution" "s3_distribution" {
 
   enabled             = true
   is_ipv6_enabled     = true
-  comment             = "frontend-nextjs-cdn"
+  comment             = "nextjs-cdn"
   price_class         = "PriceClass_All"
   wait_for_deployment = false
 
@@ -31,7 +31,7 @@ resource "aws_cloudfront_distribution" "s3_distribution" {
   aliases = [var.S3_BUCKET]
 
   viewer_certificate {
-    acm_certificate_arn      = var.CertificateARN
+    acm_certificate_arn      = var.CERTIFICATE_ARN
     minimum_protocol_version = "TLSv1.2_2021"
     ssl_support_method       = "sni-only"
   }
