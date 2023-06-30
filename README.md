@@ -1,7 +1,5 @@
 # FREE AWS Cloud Project Bootcamp
 
-![codebuild badge](https://codebuild.us-east-1.amazonaws.com/badges?uuid=eyJlbmNyeXB0ZWREYXRhIjoiZHRXMEVkU2RMM3BuMlg3Z2ZLOFR1eGg5ZWtmK2dxZTVLYXlralNHTFRNSVo4dmR4alY5MUgydThmUFRuS0xka095LzBhZkJKeE1ac0JCUkJsTThQWlEwPSIsIml2UGFyYW1ldGVyU3BlYyI6Im14TjdyTFkyYlAzTnlmODIiLCJtYXRlcmlhbFNldFNlcmlhbCI6MX0%3D&branch=main)
-
 ![GitHub Action](https://github.com/annleefores/aws-bootcamp-cruddur-2023/actions/workflows/lambda_nextjs.yaml/badge.svg)
 
 - Application: Cruddur
