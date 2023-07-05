@@ -5,6 +5,26 @@ import rollbar
 import rollbar.contrib.flask
 
 
+#  hack to make request data work with pyrollbar <= 0.16.3
+def _get_flask_request():
+    print("Getting flask request")
+    from flask import request
+
+    print("request:", request)
+    return request
+
+
+rollbar._get_flask_request = _get_flask_request
+
+
+def _build_request_data(request):
+    return rollbar._build_werkzeug_request_data(request)
+
+
+rollbar._build_request_data = _build_request_data
+# end hack
+
+
 def init_rollbar(app):
     rollbar_access_token = os.getenv("ROLLBAR_ACCESS_TOKEN")
     rollbar.init(
