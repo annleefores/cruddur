@@ -87,25 +87,25 @@ services:
     # volumes:
     #   - ./frontend-react-js:/frontend-react-js
 
-  # frontend-nextjs:
-  #   environment:
-  #     NEXT_PUBLIC_FRONTEND_URL: "${NEW_FRONTEND_URL}"
-  #     NEXT_PUBLIC_BACKEND_URL: "${BACKEND_URL}"
-  #     NEXT_PUBLIC_AWS_USER_POOLS_ID: "${AWS_USER_POOLS_ID}"
-  #     NEXT_PUBLIC_CLIENT_ID: "${CLIENT_ID}"
-  #     # ------------
+  frontend-nextjs:
+    environment:
+      NEXT_PUBLIC_FRONTEND_URL: "${NEW_FRONTEND_URL}"
+      NEXT_PUBLIC_BACKEND_URL: "${BACKEND_URL}"
+      NEXT_PUBLIC_AWS_USER_POOLS_ID: "${AWS_USER_POOLS_ID}"
+      NEXT_PUBLIC_CLIENT_ID: "${CLIENT_ID}"
+      # ------------
 
-  #   image: "frontend-nextjs"
-  #   container_name: nextjs 
-  #   build: ./frontend-nextjs
+    image: "frontend-nextjs"
+    container_name: nextjs 
+    build: ./frontend-nextjs
 
-  #   ports:
-  #     - "3001:3001"
-  #   networks:
-  #     - cruddur-net
+    ports:
+      - "3000:3000"
+    networks:
+      - cruddur-net
 
-  #   volumes:
-  #     - ./frontend-nextjs:/frontend-nextjs
+    volumes:
+      - ./frontend-nextjs:/frontend-nextjs
 
   dynamodb-local:
     # https://stackoverflow.com/questions/67533058/persist-local-dynamodb-data-in-volumes-lack-permission-unable-to-open-databa
