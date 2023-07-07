@@ -1,9 +1,11 @@
 const { hostname } = require('os')
 
+const isProd = process.env.NODE_ENV === 'production'
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
     output: 'standalone',
-    assetPrefix: 'https://cdn.annleefores.cloud',
+    assetPrefix: isProd ? 'https://cdn.annleefores.cloud' : undefined,
     images: {
         remotePatterns: [
             {
