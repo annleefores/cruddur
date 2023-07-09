@@ -159,4 +159,4 @@ CloudFrontAccessPolicy:
 
 Save the `machine_user` access credentials to GitHub repository secrets. These credentials will be used to configure services via GitHub Actions.
 
-### Cruddur Frontend 2.0  - NextJS, Tailwind, Typescript
+### Cruddur Frontend 2.0  -- NextJS, Tailwind, Typescript
