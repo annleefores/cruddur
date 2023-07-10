@@ -2,6 +2,32 @@
 
 ## Required Homework
 
+### Sync tool for static website hosting
+
+#### Setting up frontend build
+
+Create a static build bash script for frontend and chmod it
+
+```bash
+#! /usr/bin/bash
+
+ABS_FILEPATH="$ABS_PATH/frontend-react-js/"
+DIR=$(realpath --relative-base="$PWD" "$ABS_FILEPATH")
+
+cd $DIR
+
+npm run build
+```
+
+Create `.env.production` inside frontend and add all frontend env vars
+
+Run this script to create production build of react app with env variables embedded
+
+#### Upload Build files to Cloudfront S3 bucket
+
+- Upload build files to root domain bucket
+- Visit domain to view the static frontend website
+
 ## Homework Challenges
 
 ### GitHub Actions Frontend Sync
@@ -159,4 +185,4 @@ CloudFrontAccessPolicy:
 
 Save the `machine_user` access credentials to GitHub repository secrets. These credentials will be used to configure services via GitHub Actions.
 
-### Cruddur Frontend 2.0  -- NextJS, Tailwind, Typescript
+### Cruddur Frontend 2.0 - NextJS, Tailwind, Typescript
