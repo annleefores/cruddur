@@ -2,6 +2,12 @@
 
 ## Required Homework
 
+## Homework Challenges
+
+---
+
+## Required Homework
+
 ### Sync tool for static website hosting
 
 #### Setting up frontend build
