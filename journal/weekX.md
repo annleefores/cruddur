@@ -2,8 +2,11 @@
 
 ## Required Homework
 
+- []()
+
 ## Homework Challenges
 
+- []()
 ---
 
 ## Required Homework
