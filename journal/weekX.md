@@ -2,11 +2,11 @@
 
 ## Required Homework
 
-- []()
+- [Sync tool for static website hosting](#sync-tool-for-static-website-hosting)
 
 ## Homework Challenges
 
-- []()
+- [GitHub Actions Frontend Sync](#github-actions-frontend-sync)
 ---
 
 ## Required Homework
