@@ -3,10 +3,12 @@
 ## Required Homework
 
 - [Sync tool for static website hosting](#sync-tool-for-static-website-hosting)
+- [Reconnect Database and Post Confirmation Lambda](#reconnect-database-and-post-confirmation-lambda)
 
 ## Homework Challenges
 
 - [GitHub Actions Frontend Sync](#github-actions-frontend-sync)
+- [Cruddur Frontend 2.0 - NextJS, Tailwind, Typescript](#cruddur-frontend-20---nextjs-tailwind-typescript)
 ---
 
 ## Required Homework
