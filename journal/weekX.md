@@ -9,6 +9,7 @@
 
 - [GitHub Actions Frontend Sync](#github-actions-frontend-sync)
 - [Cruddur Frontend 2.0 - NextJS, Tailwind, Typescript](#cruddur-frontend-20---nextjs-tailwind-typescript)
+
 ---
 
 ## Required Homework
@@ -34,12 +35,12 @@ Create a file named `.env.production` within the frontend directory and include 
 
 Execute the build script to generate a production build of the React app with the embedded environment variables.
 
-### Upload Build Files to CloudFront S3 Bucket
+#### Upload Build Files to CloudFront S3 Bucket
 
 - Upload the build files to the bucket associated with the root domain.
 - Visit the domain to access and view the static frontend website.
 
-### S3 Sync Tool
+#### S3 Sync Tool
 
 Create a file named `sync` within the `bin/frontend` directory.
 
@@ -117,7 +118,7 @@ Run the script to generate the `sync.env` file in the root directory.
 
 Execute the static-build script, followed by the sync script. Confirm the upload of the contents to S3 and the invalidation of the CloudFront cache.
 
-### GitHub Action CICD - Frontend
+#### GitHub Action CICD - Frontend
 
 Create two files, Gemfile and Rakefile, in the root of the project.
 
