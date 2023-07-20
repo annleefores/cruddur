@@ -392,11 +392,807 @@ CustomErrorResponses:
     - Wait for the update to finish
 - Login and try posting a crud
 
-### Use CORS for Service
+## Use CORS for Service
 
 Update the service template backend and frontend URLs in `config.toml` to use the exact values with `https://` instead of `*`. Use parameters to specify these values.
 
 Ensure to update the deploy script to include the necessary parameters.
+
+## CICD Pipeline and Create Activity
+
+### Fix Activities user_handle
+
+Update data_activities route
+
+```python
+@app.route("/api/activities", methods=["POST", "OPTIONS"])
+@cross_origin()
+def data_activities():
+    claims = request.environ["claims"]
+    cognito_user_id = claims["sub"]
+
+    message = request.json["message"]
+    ttl = request.json["ttl"]
+    model = CreateActivity.run(message, cognito_user_id, ttl)
+    if model["errors"] is not None:
+        return model["errors"], 422
+    else:
+        return model["data"], 200
+```
+
+Update create_activity service to use cognito_user_id instead of user_handle
+
+```python
+from datetime import datetime, timedelta, timezone
+
+from lib.db import db
+
+class CreateActivity:
+    def run(message, cognito_user_id, ttl):
+        model = {"errors": None, "data": None}
+
+        now = datetime.now(timezone.utc).astimezone()
+
+        if ttl == "30-days":
+            ttl_offset = timedelta(days=30)
+        elif ttl == "7-days":
+            ttl_offset = timedelta(days=7)
+        elif ttl == "3-days":
+            ttl_offset = timedelta(days=3)
+        elif ttl == "1-day":
+            ttl_offset = timedelta(days=1)
+        elif ttl == "12-hours":
+            ttl_offset = timedelta(hours=12)
+        elif ttl == "3-hours":
+            ttl_offset = timedelta(hours=3)
+        elif ttl == "1-hour":
+            ttl_offset = timedelta(hours=1)
+        else:
+            model["errors"] = ["ttl_blank"]
+
+        if cognito_user_id == None or len(cognito_user_id) < 1:
+            model["errors"] = ["cognito_user_id_blank"]
+
+        if message == None or len(message) < 1:
+            model["errors"] = ["message_blank"]
+        elif len(message) > 280:
+            model["errors"] = ["message_exceed_max_chars"]
+
+        if model["errors"]:
+            model["data"] = {"cognito_user_id": cognito_user_id, "message": message}
+        else:
+            expires_at = now + ttl_offset
+            uuid = CreateActivity.create_activity(cognito_user_id, message, expires_at)
+
+            object_json = CreateActivity.query_object_activity(uuid)
+            model["data"] = object_json
+        return model
+
+    def create_activity(cognito_user_id, message, expires_at):
+        sql = db.template("activities", "create")
+        uuid = db.query_commit(
+            sql,
+            {
+                "cognito_user_id": cognito_user_id,
+                "message": message,
+                "expires_at": expires_at,
+            },
+        )
+        return uuid
+
+    def query_object_activity(uuid):
+        sql = db.template("activities", "object")
+        return db.query_object_json(sql, {"uuid": uuid})
+```
+
+Update `backend-flask/db/sql/activities/create.sql` also to use `cognito_user_id` instead of user_handle
+
+Do a `./bin/db/setup` to update changes in DB
+
+In real we should have different cognito user pool for prod and dev
+
+### Fix CFN CICD Template
+
+Delete old pipeline implementation
+
+Update codebuild nested stack output
+
+```yaml
+Outputs:
+  CodeBuildProjectName:
+    Description: "CodeBuildProjectName"
+    Value: !Ref CodeBuild
+```
+
+Add `codebuild:BatchGetBuilds` to codebuild permissions in template.yaml
+
+Add this permission to both pipeline template and codebuild template
+
+```yaml
+- PolicyName: !Sub ${AWS::StackName}S3ArtifactsAccess
+	  PolicyDocument:
+	    Version: '2012-10-17'
+	    Statement:
+	      - Action:
+	        - s3:*
+	        Effect: Allow
+	        Resource:
+	        - !Sub arn:aws:s3:::${ArtifactBucketName}
+	        - !Sub arn:aws:s3:::${ArtifactBucketName}/*
+```
+
+Pass parameter from main template to codebuild template by adding this in properties referencing nested stack
+
+```yaml
+Parameters:
+  ArtifactBucketName: !Ref ArtifactBucketName
+```
+
+Add this parameter in codebuild template
+
+```yaml
+ArtifactBucketName:
+   Type: String
+```
+
+Specify buildspec file like this `backend-flask/buildspec.yml`
+
+## Refactor JWT to use a decorator
+
+### Reply Closing
+
+To enable closing reply form add this function to `frontend-react-js/src/components/ReplyForm.js`
+
+```jsx
+const close = (event) => {
+    if (event.target.classList.contains("reply_popup")) {
+      props.setPopped(false);
+    }
+  };
+```
+
+Add close function to the html
+
+```jsx
+<div className="popup_form_wrap reply_popup" onClick={close}>
+```
+
+### JWT Auth decorator
+
+Add this to the end of `backend-flask/lib/cognito_jwt_token.py`
+
+```python
+from functools import wraps, partial
+from flask import request, g
+
+def jwt_required(f=None, on_error=None):
+    if f is None:
+        return partial(jwt_required, on_error=on_error)
+
+    @wraps(f)
+    def decorated_function(*args, **kwargs):
+        cognito_jwt_token = CognitoJwtToken(
+            user_pool_id=os.getenv("AWS_COGNITO_USER_POOL_ID"), 
+            user_pool_client_id=os.getenv("AWS_COGNITO_USER_POOL_CLIENT_ID"),
+            region=os.getenv("AWS_DEFAULT_REGION")
+        )
+        access_token = extract_access_token(request.headers)
+        try:
+            claims = cognito_jwt_token.verify(access_token)
+            # is this a bad idea using a global?
+            g.cognito_user_id = claims['sub']  # storing the user_id in the global g object
+        except TokenVerifyError as e:
+            # unauthenticated request
+            app.logger.debug(e)
+            if on_error:
+                return on_error(e)
+            return {}, 401
+        return f(*args, **kwargs)
+    return decorated_function
+```
+
+In app.py
+
+```python
+from lib.cognito_jwt_token import jwt_required
+from flask import request, g
+```
+
+Update home route like this
+
+```python
+@app.route("/api/activities/home", methods=["GET"])
+@jwt_required(on_error=default_home_feed)
+def data_home():
+    data = HomeActivities.run(cognito_user_id=g.cognito_user_id)
+    return data, 200
+```
+
+Similarly replace all jwt call in other routes with decorator
+
+## Refactor AppPy
+
+Use this function to refactor model error checking
+
+```python
+def model_json(model):
+    if model["errors"] is not None:
+        return model["errors"], 422
+    else:
+        return model["data"], 200
+```
+
+Refactor rollbar specific files into this file `backend-flask/lib/rollbar.py`
+
+```python
+from flask import got_request_exception
+from time import strftime
+import os
+import rollbar
+import rollbar.contrib.flask
+
+def init_rollbar(app):
+  rollbar_access_token = os.getenv('ROLLBAR_ACCESS_TOKEN')
+  rollbar.init(
+      # access token
+      rollbar_access_token,
+      # environment name
+      'production',
+      # server root directory, makes tracebacks prettier
+      root=os.path.dirname(os.path.realpath(__file__)),
+      # flask already sets up logging
+      allow_logging_basic_config=False)
+  # send exceptions from `app` to rollbar, using flask's signal system.
+  got_request_exception.connect(rollbar.contrib.flask.report_exception, app)
+  return rollbar
+```
+
+For xray specific code `backend-flask/lib/xray.py`
+
+```python
+import os
+from aws_xray_sdk.core import xray_recorder
+from aws_xray_sdk.ext.flask.middleware import XRayMiddleware
+
+def init_xray(app):
+    xray_url = os.getenv("AWS_XRAY_URL")
+    xray_recorder.configure(service="backend-flask", dynamic_naming=xray_url)
+    XRayMiddleware(app, xray_recorder)
+```
+
+## Refactor Flask Routes
+
+Create `backend-flask/routes`
+
+Create `activities.py`
+
+```python
+## flask
+from flask import request, g
+
+## decorators
+from aws_xray_sdk.core import xray_recorder
+from lib.cognito_jwt_token import jwt_required
+from flask_cors import cross_origin
+
+## services
+from services.home_activities import *
+from services.notifications_activities import *
+from services.create_activity import *
+from services.search_activities import *
+from services.show_activity import *
+from services.create_reply import *
+
+## helpers
+from lib.helpers import model_json
+
+def load(app):
+  def default_home_feed(e):
+    app.logger.debug(e)
+    app.logger.debug("unauthenicated")
+    data = HomeActivities.run()
+    return data, 200
+
+  @app.route("/api/activities/home", methods=['GET'])
+  #@xray_recorder.capture('activities_home')
+  @jwt_required(on_error=default_home_feed)
+  def data_home():
+    data = HomeActivities.run(cognito_user_id=g.cognito_user_id)
+    return data, 200
+
+  @app.route("/api/activities/notifications", methods=['GET'])
+  def data_notifications():
+    data = NotificationsActivities.run()
+    return data, 200
+
+  @app.route("/api/activities/search", methods=['GET'])
+  def data_search():
+    term = request.args.get('term')
+    model = SearchActivities.run(term)
+    return model_json(model)
+
+  @app.route("/api/activities", methods=['POST','OPTIONS'])
+  @cross_origin()
+  @jwt_required()
+  def data_activities():
+    message = request.json['message']
+    ttl = request.json['ttl']
+    model = CreateActivity.run(message, g.cognito_user_id, ttl)
+    return model_json(model)
+
+  @app.route("/api/activities/<string:activity_uuid>", methods=['GET'])
+  @xray_recorder.capture('activities_show')
+  def data_show_activity(activity_uuid):
+    data = ShowActivity.run(activity_uuid=activity_uuid)
+    return data, 200
+
+  @app.route("/api/activities/<string:activity_uuid>/reply", methods=['POST','OPTIONS'])
+  @cross_origin()
+  def data_activities_reply(activity_uuid):
+    user_handle  = 'andrewbrown'
+    message = request.json['message']
+    model = CreateReply.run(message, user_handle, activity_uuid)
+    return model_json(model)
+```
+
+## Replies Work In Progress
+
+Add  Auth token to `ReplyForm.js`
+
+Update message body
+
+```jsx
+body: JSON.stringify({
+   
+```
+
+Convert activity to use cognito_user_id instead of user_handle
+
+Add this create and query function to the end of `backend-flask/services/create_reply.py`
+
+```python
+def create_activity(cognito_user_id, activity_uuid, message):
+    sql = db.template("activities", "reply")
+    uuid = db.query_commit(
+        sql,
+        {
+            "cognito_user_id": cognito_user_id,
+            "reply_to_activity_uuid": activity_uuid,
+            "message": message,
+        },
+    )
+    return uuid
+
+def query_object_activity(uuid):
+    sql = db.template("activities", "object")
+    return db.query_object_json(sql, {"uuid": uuid})
+```
+
+Update the else statement
+
+```python
+else:
+    uuid = CreateReply.create_reply(cognito_user_id, message)
+    object_json = CreateReply.query_object_activity(uuid)
+    model["data"] = object_json
+return model
+```
+
+Create `backend-flask/db/sql/activities/reply.sql`
+
+```sql
+INSERT INTO public.activities (
+  user_uuid,
+  message,
+  reply_to_activity_uuid
+)
+VALUES (
+  (SELECT uuid 
+    FROM public.users 
+    WHERE users.cognito_user_id = %(cognito_user_id)s
+    LIMIT 1
+  ),
+  %(message)s,
+  %(reply_to_activity_uuid)s
+) RETURNING uuid;
+```
+
+Add this to SELECT in `object.sql`
+
+```sql
+activities.reply_to_activity_uuid
+```
+
+Create a new migration by running `./bin/generate/migration reply_to_activity_uuid_to_string` and update it
+
+```sql
+from lib.db import db
+
+class ReplyToActivityUuidToStringMigration:
+    def migrate_sql():
+        data = """
+    ALTER TABLE activities
+    ALTER COLUMN reply_to_activity_uuid TYPE uuid USING reply_to_activity_uuid::uuid;
+    """
+        return data
+
+    def rollback_sql():
+        data = """
+    ALTER TABLE activities
+    ALTER COLUMN reply_to_activity_uuid TYPE integer USING (reply_to_activity_uuid::integer);
+    """
+        return data
+
+    def migrate():
+        db.query_commit(ReplyToActivityUuidToStringMigration.migrate_sql(), {})
+
+    def rollback():
+        db.query_commit(ReplyToActivityUuidToStringMigration.rollback_sql(), {})
+
+migration = ReplyToActivityUuidToStringMigration
+```
+
+Run the migration `./bin/db/migrate`
+
+Add this to SELECT in `home.sql`
+
+```sql
+(SELECT COALESCE(array_to_json(array_agg(row_to_json(array_row))),'[]'::json) FROM (
+  SELECT
+    replies.uuid,
+    reply_users.display_name,
+    reply_users.handle,
+    replies.message,
+    replies.replies_count,
+    replies.reposts_count,
+    replies.likes_count,
+    replies.reply_to_activity_uuid,
+    replies.created_at
+  FROM public.activities replies
+  LEFT JOIN public.users reply_users ON reply_users.uuid = replies.user_uuid
+  WHERE
+    replies.reply_to_activity_uuid = activities.uuid
+  ORDER BY  activities.created_at ASC
+  ) array_row) as replies
+```
+
+![reply_frontend.png](media/weekx/reply_frontend.png)
+
+## Refactor Error Handling and Fetch Requests
+
+![error_msg](media/weekx/error_msg.png)
+
+## Activity Show Page
+
+### Fix Migration
+
+Update `migrations/<datetime>_reply_to_activity_uuid_to_string.py`
+
+```python
+def migrate_sql():
+    data = """
+ALTER TABLE activities DROP COLUMN reply_to_activity_uuid;
+ALTER TABLE activities ADD COLUMN reply_to_activity_uuid uuid;
+"""
+    return data
+
+def rollback_sql():
+    data = """
+ALTER TABLE activities DROP COLUMN reply_to_activity_uuid;
+ALTER TABLE activities ADD COLUMN reply_to_activity_uuid integer;
+"""
+    return data
+```
+
+### Activity Show Page
+
+![clickable_username](media/weekx/clickable_username.png)
+
+## Week-X Cleanup
+
+Add an additional crud seed data to `seed.sql` 
+
+```sql
+( (
+        SELECT uuid
+        from public.users
+        WHERE
+            users.handle = 'technodude'
+        LIMIT
+            1
+    ), 'I am the other me! ', current_timestamp + interval '10 day'
+)
+```
+
+Update `db.query_array_json` to `db.query_object_json` in `show_activitiy.py`
+
+Replace `Link` with `useNavigate` in `frontend-react-js/src/components/ActivityItem.js`
+
+```jsx
+import './ActivityItem.css';
+
+import { useNavigate  } from "react-router-dom";
+
+export default function ActivityItem(props) {
+  const navigate = useNavigate()
+
+  const click = (event) => {
+    event.preventDefault()
+    const url = `/@${props.activity.handle}/status/${props.activity.uuid}`
+    navigate(url)
+    return false;
+  }
+
+  let expanded_meta;
+  if (props.expanded === true) {
+    1:56 PM · May 23, 2023
+  }
+
+  const attrs = {}
+  let item
+  if (props.expanded === true) {
+    attrs.className = 'activity_item expanded'
+  } else {
+    attrs.className = 'activity_item clickable'
+    attrs.onClick = click
+  }
+  return (
+    <div {...attrs}>
+      <div className="acitivty_main">
+        <ActivityContent activity={props.activity} />
+        {expanded_meta}
+        <div className="activity_actions">
+          <ActivityActionReply setReplyActivity={props.setReplyActivity} activity={props.activity} setPopped={props.setPopped} activity_uuid={props.activity.uuid} count={props.activity.replies_count}/>
+          <ActivityActionRepost activity_uuid={props.activity.uuid} count={props.activity.reposts_count}/>
+          <ActivityActionLike activity_uuid={props.activity.uuid} count={props.activity.likes_count}/>
+          <ActivityActionShare activity_uuid={props.activity.uuid} />
+        </div>
+      </div>
+    </div>
+  )
+}
+```
+
+Remove unwanted console logs from frontend
+
+Add this `expanded={true}` to `ActivityItem` component in `frontend-react-js/src/pages/ActivityShowPage.js`
+
+Update  `ActivityContent.js`  to 
+
+```jsx
+import './ActivityContent.css';
+
+import { Link } from "react-router-dom";
+import { format_datetime, time_ago } from '../lib/DateTimeFormats';
+import {ReactComponent as BombIcon} from './svg/bomb.svg';
+
+export default function ActivityContent(props) {
+
+  let expires_at;
+  if (props.activity.expires_at) {
+    expires_at =  <div className="expires_at" title={format_datetime(props.activity.expires_at)}>
+                    <BombIcon className='icon' />
+                    <span className='ago'>{time_ago(props.activity.expires_at)}</span>
+                  </div>
+
+  }
+
+  return (
+    <div className='activity_content_wrap'>
+      <Link className='activity_avatar'to={`/@`+props.activity.handle} ></Link>
+      <div className='activity_content'>
+        <div className='activity_meta'>
+          <div className='activity_identity' >
+            <Link className='display_name' to={`/@`+props.activity.handle}>{props.activity.display_name}</Link>
+            <Link className="handle" to={`/@`+props.activity.handle}>@{props.activity.handle}</Link>
+          </div>{/* activity_identity */}
+          <div className='activity_times'>
+            <div className="created_at" title={format_datetime(props.activity.created_at)}>
+              <span className='ago'>{time_ago(props.activity.created_at)}</span> 
+            </div>
+            {expires_at}
+          </div>{/* activity_times */}
+        </div>{/* activity_meta */}
+        <div className="message">{props.activity.message}</div>
+      </div>{/* activity_content */}
+    </div>
+  );
+}
+```
+
+Update `MessageGroupItem.js`
+
+```jsx
+import './MessageGroupItem.css';
+import { Link } from "react-router-dom";
+import { format_datetime, message_time_ago } from '../lib/DateTimeFormats';
+import { useParams } from 'react-router-dom';
+
+export default function MessageGroupItem(props) {
+  const params = useParams();
+
+  const classes = () => {
+    let classes = ["message_group_item"];
+    if (params.message_group_uuid === props.message_group.uuid){
+      classes.push('active')
+    }
+    return classes.join(' ');
+  }
+
+  return (
+    <Link className={classes()} to={`/messages/`+props.message_group.uuid}>
+      <div className='message_group_avatar'></div>
+      <div className='message_content'>
+        <div classsName='message_group_meta'>
+          <div className='message_group_identity'>
+            <div className='display_name'>{props.message_group.display_name}</div>
+            <div className="handle">@{props.message_group.handle}</div>
+          </div>{/* activity_identity */}
+        </div>{/* message_meta */}
+        <div className="message">{props.message_group.message}</div>
+        <div className="created_at" title={format_datetime(props.message_group.created_at)}>
+          <span className='ago'>{format_time_created_at(props.message_group.created_at)}</span> 
+        </div>{/* created_at */}
+      </div>{/* message_content */}
+    </Link>
+  );
+}
+```
+
+Update `MessageItem.js`
+
+```jsx
+import './MessageItem.css';
+import { Link } from "react-router-dom";
+import { format_datetime, message_time_ago } from '../lib/DateTimeFormats';
+
+export default function MessageItem(props) {
+  return (
+    <div className='message_item'>
+      <Link className='message_avatar' to={`/messages/@`+props.message.handle}></Link>
+      <div className='message_content'>
+        <div classsName='message_meta'>
+          <div className='message_identity'>
+            <div className='display_name'>{props.message.display_name}</div>
+            <div className="handle">@{props.message.handle}</div>
+          </div>{/* activity_identity */}
+        </div>{/* message_meta */}
+        <div className="message">{props.message.message}</div>
+        <div className="created_at" title={format_datetime(props.message.created_at)}>
+          <span className='ago'>{message_time_ago(props.message.created_at)}</span> 
+        </div>{/* created_at */}
+      </div>{/* message_content */}
+    </div>
+  );
+}
+```
+
+![crud_page](media/weekx/crud_page.png)
+
+## Cleanup Part 2
+
+- Run migration on production DB
+- Build and sync frontend to S3 backend
+- Pull Request merge to prod branch to trigger a new backend build
+
+### Prod DynamoDB
+
+Update `ddb.py`  env vars to use the new DDB
+
+```python
+table_name = os.getenv("DDB_MESSAGE_TABLE")
+```
+
+Add this to backend env file
+
+```
+DDB_MESSAGE_TABLE=cruddur-messages
+```
+
+Add this env var to service template
+
+```yaml
+DDBMessageTable:
+    Type: String
+    Default: cruddur-messages
+
+............
+............
+Environment:
+    - Name: DDB_MESSAGE_TABLE
+      Value: !Ref DDBMessageTable
+```
+
+Include table name in service config.toml
+
+```toml
+DDBMessageTable = '<DDB_TABLE_NAME>'
+```
+
+Create a new deployment for stack using CFN
+
+### Create Machine User for DDB
+
+The user that we deploy the application that use AWS creds should never have admin access cause of security concerns. So always make a separate machine user for deployment.
+
+Create `aws/cfn/machine-user/template.yaml`
+
+```yaml
+AWSTemplateFormatVersion: '2010-09-09'
+Resources:
+  CruddurMachineUser:
+    Type: 'AWS::IAM::User'
+    Properties: 
+      UserName: 'cruddur_machine_user'
+  DynamoDBFullAccessPolicy: 
+    Type: 'AWS::IAM::Policy'
+    Properties: 
+      PolicyName: 'DynamoDBFullAccessPolicy'
+      PolicyDocument:
+        Version: '2012-10-17'
+        Statement: 
+          - Effect: Allow
+            Action: 
+              - dynamodb:PutItem
+              - dynamodb:GetItem
+              - dynamodb:Scan
+              - dynamodb:Query
+              - dynamodb:UpdateItem
+              - dynamodb:DeleteItem
+              - dynamodb:BatchWriteItem
+            Resource: '*'
+      Users:
+        - !Ref CruddurMachineUser
+```
+
+`config.toml`
+
+```toml
+[deploy]
+bucket = 'cfn-artifacts-annlee'
+region = 'us-east-1'
+stack_name = 'CrdMachineUser'
+```
+
+Create `bin/cfn/machineuser`
+
+```bash
+#! /usr/bin/bash
+
+set -e # stop execution if anything fails
+
+abs_template_filepath="$ABS_PATH/aws/cfn/machine-user/template.yaml"
+TemplateFilePath=$(realpath --relative-base="$PWD" "$abs_template_filepath")
+
+abs_config_filepath="$ABS_PATH/aws/cfn/machine-user/config.toml"
+ConfigFilePath=$(realpath --relative-base="$PWD" "$abs_config_filepath")
+
+BUCKET=$(cfn-toml key deploy.bucket -t $ConfigFilePath)
+REGION=$(cfn-toml key deploy.region -t $ConfigFilePath)
+STACK_NAME=$(cfn-toml key deploy.stack_name -t $ConfigFilePath)
+
+cfn-lint $TemplateFilePath
+
+echo ">>> Deploy CFN <<<"
+
+aws cloudformation deploy \
+  --stack-name "$STACK_NAME" \
+  --s3-bucket "$BUCKET" \
+  --s3-prefix db \
+  --region $REGION \
+  --template-file $TemplateFilePath \
+  --no-execute-changeset \
+  --tags group=cruddur-machine-user \
+  --capabilities CAPABILITY_NAMED_IAM
+```
+
+Create new Access Key for this user via console
+
+Go to parameter store and update Access Key and ID with new creds
+
+Make a new codepipeline deployment
+
+![messages_in_prod](media/weekx/messages_in_prod.png)
 
 ## Homework Challenges
 
@@ -556,3 +1352,5 @@ CloudFrontAccessPolicy:
 Save the `machine_user` access credentials to GitHub repository secrets. These credentials will be used to configure services via GitHub Actions.
 
 ### Cruddur Frontend 2.0 - NextJS, Tailwind, Typescript
+
+<video src="media/weekx/frontend-2-video.mp4" controls title="Title"></video>
