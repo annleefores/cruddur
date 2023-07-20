@@ -4,6 +4,16 @@
 
 - [Sync tool for static website hosting](#sync-tool-for-static-website-hosting)
 - [Reconnect Database and Post Confirmation Lambda](#reconnect-database-and-post-confirmation-lambda)
+- [Use CORS for Service](#use-cors-for-service)
+- [CICD Pipeline and Create Activity](#cicd-pipeline-and-create-activity)
+- [Refactor JWT to use a decorator](#refactor-jwt-to-use-a-decorator)
+- [Refactor AppPy](#refactor-apppy)
+- [Refactor Flask Routes](#refactor-flask-routes)
+- [Replies Work In Progress](#replies-work-in-progress)
+- [Refactor Error Handling and Fetch Requests](#refactor-error-handling-and-fetch-requests)
+- [Activity Show Page](#activity-show-page)
+- [Week-X Cleanup](#week-x-cleanup)
+- [Cleanup Part 2](#cleanup-part-2)
 
 ## Homework Challenges
 
