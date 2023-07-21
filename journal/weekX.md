@@ -1364,3 +1364,35 @@ Save the `machine_user` access credentials to GitHub repository secrets. These c
 ### Cruddur Frontend 2.0 - NextJS, Tailwind, Typescript
 
 <video src="media/weekx/frontend-2-video.mp4" controls title="Title"></video>
+
+Cruddur is an application that required a revamped UI with additional features like commenting, liking posts, and fetching data from the backend. I created this new UI for Cruddur with the intention of learning the new NextJS app router and improving my skills in TypeScript.
+
+To achieve this, I used various technologies and tools, which are described below.
+
+**Technologies and Libraries Used**
+
+1. **NextJS**: I chose NextJS to take advantage of its app router and server-side rendering capabilities, which improve performance and SEO.
+2. **TypeScript**: I used TypeScript to add static typing to my JavaScript codebase, enhancing code quality and maintainability.
+3. **TailwindCSS**: TailwindCSS enabled me to quickly style the UI, making it responsive and resembling the design of Twitter.
+4. **Axios**: I utilized Axios for making HTTP requests to the backend, enabling smooth data communication between the front-end and server.
+5. **State Context**: React context was used to manage global state for user authentication, allowing easy access to user information throughout the app.
+6. **Zod Form Validation**: I implemented Zod for form validation, ensuring data integrity and improving the overall user experience.
+7. **SWR**: To optimize data fetching, caching, and revalidation, I integrated SWR into the app, which helped reduce unnecessary requests to the backend.
+
+**UI Development**
+
+I started the UI development from scratch, taking inspiration from the original design but making several updates to ensure a responsive and user-friendly interface. My goal was to create a UI that feels similar to Twitter but tailored to Cruddur's specific requirements.
+
+**Backend Modifications**
+
+To accommodate new features like commenting and liking posts, I made changes to the RDS schema and DynamoDB in the backend. Additionally, I added/updated backend routes to handle data retrieval for the new functionalities.
+
+**Deployment Process**
+
+Initially, I attempted to deploy the application using AWS Amplify. However, due to certain limitations and the discovery of inclusivity issues with another service provider, I opted for an alternative solution. Upon Andrew's suggestion, I decided to deploy the app on AWS Lambda and CloudFront using aws-lambda-web-adapter.
+
+**Automating Deployment with Terraform and GitHub Actions**
+
+To streamline the deployment process and ensure consistency, I created a Terraform module that automated the deployment of the NextJS app on Lambda and CloudFront. Additionally, I implemented GitHub Actions for continuous integration and continuous deployment (CICD).
+
+For further insights into the Terraform module and deployment process, I have also written a blog article available here: https://annleefores.com/blog/run-nextjs-on-lambda
