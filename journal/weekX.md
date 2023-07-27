@@ -1376,7 +1376,7 @@ To achieve this, I used various technologies and tools, which are described belo
 3. **TailwindCSS**: TailwindCSS enabled me to quickly style the UI, making it responsive and resembling the design of Twitter.
 4. **Axios**: I utilized Axios for making HTTP requests to the backend, enabling smooth data communication between the front-end and server.
 5. **State Context**: React context was used to manage global state for user authentication, allowing easy access to user information throughout the app.
-6. **Zod Form Validation**: I implemented Zod for form validation, ensuring data integrity and improving the overall user experience.
+6. **React Hook Form and Zod Validation**: I implemented Zod for form validation, ensuring data integrity and improving the overall user experience.
 7. **SWR**: To optimize data fetching, caching, and revalidation, I integrated SWR into the app, which helped reduce unnecessary requests to the backend.
 
 **UI Development**
