@@ -520,15 +520,15 @@ Add this permission to both pipeline template and codebuild template
 
 ```yaml
 - PolicyName: !Sub ${AWS::StackName}S3ArtifactsAccess
-	  PolicyDocument:
-	    Version: '2012-10-17'
-	    Statement:
-	      - Action:
-	        - s3:*
-	        Effect: Allow
-	        Resource:
-	        - !Sub arn:aws:s3:::${ArtifactBucketName}
-	        - !Sub arn:aws:s3:::${ArtifactBucketName}/*
+  PolicyDocument:
+    Version: '2012-10-17'
+    Statement:
+      - Action:
+	- s3:*
+	Effect: Allow
+	Resource:
+	- !Sub arn:aws:s3:::${ArtifactBucketName}
+	- !Sub arn:aws:s3:::${ArtifactBucketName}/*
 ```
 
 Pass parameter from main template to codebuild template by adding this in properties referencing nested stack
