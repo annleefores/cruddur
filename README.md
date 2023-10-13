@@ -6,7 +6,7 @@
 
 ## Introduction
 
-**Cruddur** is a project designed to provide hands-on experience with cloud computing, DevOps practices, and operations management while building a real-world, Twitter-inspired ephemeral social media platform. In Cruddur, users can post, view, and interact with messages, all of which have a limited lifespan and disappear after a specified time.
+**Cruddur** is a project designed to provide hands-on experience with cloud and DevOps practices while building a real-world, Twitter-inspired ephemeral social media platform. In Cruddur, users can post, view, and interact with messages, all of which have a limited lifespan and disappear after a specified time.
 
 https://github.com/annleefores/cruddur/assets/10363107/c1dfd913-9372-401b-a57e-9a2363f86bd7
 
