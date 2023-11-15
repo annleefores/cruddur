@@ -51,7 +51,7 @@ jobs:
         uses: aws-actions/configure-aws-credentials@v2
         with:
           role-to-assume: arn:aws:iam::453188237434:role/GitHub-OIDC-Role-idi8WHkkXyJ2
-          role-duration-seconds: 600 #adjust as needed for your build time
+          role-duration-seconds: 1500 #adjust as needed for your build time
           aws-region: ${{ secrets.REGION }}
       - name: Build
         
