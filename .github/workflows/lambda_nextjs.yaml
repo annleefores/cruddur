@@ -41,10 +41,6 @@ jobs:
         with:
           terraform_version: 1.6.1
       
-      - name: Terraform init
-        id: init
-        run: terraform -chdir='${{ github.workspace }}/terraform/frontend-nextjs/tf/'  init
-
       - name: Install deps
         run: npm ci
       - name: Configure AWS credentials
@@ -53,6 +49,11 @@ jobs:
           role-to-assume: arn:aws:iam::453188237434:role/GitHub-OIDC-Role-idi8WHkkXyJ2
           role-duration-seconds: 1500 #adjust as needed for your build time
           aws-region: ${{ secrets.REGION }}
+
+      - name: Terraform init
+        id: init
+        run: terraform -chdir='${{ github.workspace }}/terraform/frontend-nextjs/tf/'  init
+
       - name: Build & deploy frontend-nextjs
         run: node ${{ github.workspace }}/terraform/frontend-nextjs/packages/deploy/build/deploy.js deploy
         env:
