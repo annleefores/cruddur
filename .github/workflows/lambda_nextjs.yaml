@@ -1,4 +1,4 @@
-name: Deploy NextJS -- aws-lambda-web-adapter
+name: Next.js frontend 
 
 on:
   workflow_dispatch:
