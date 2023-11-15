@@ -62,12 +62,12 @@ jobs:
           NEXT_PUBLIC_AWS_USER_POOLS_ID: ${{ secrets.NEXT_PUBLIC_AWS_USER_POOLS_ID }}
           NEXT_PUBLIC_CLIENT_ID: ${{ secrets.NEXT_PUBLIC_CLIENT_ID }}
           NEXT_PUBLIC_API_GATEWAY_ENDPOINT_URL: ${{ secrets.NEXT_PUBLIC_API_GATEWAY_ENDPOINT_URL }}
-          REGION: ${{ secrets.REGION }}
-          DOMAIN_NAME: ${{ secrets.DOMAIN_NAME }}
-          API_GW_CERTIFICATE_ARN: ${{ secrets.API_GW_CERTIFICATE_ARN }}
-          CLOUDFRONT_CERTIFICATE_ARN: ${{ secrets.CLOUDFRONT_CERTIFICATE_ARN }}
-          HOSTED_ZONE_DOMAIN: ${{ secrets.HOSTED_ZONE_DOMAIN }}
-          CDN_DOMAIN: ${{ secrets.CDN_DOMAIN }}
-          PORT: ${{ secrets.PORT }}
-          LAMBDA_FUNCTION_NAME: ${{ secrets.LAMBDA_FUNCTION_NAME }}
+          TF_VAR_REGION: ${{ secrets.REGION }}
+          TF_VAR_DOMAIN_NAME: ${{ secrets.DOMAIN_NAME }}
+          TF_VAR_API_GW_CERTIFICATE_ARN: ${{ secrets.API_GW_CERTIFICATE_ARN }}
+          TF_VAR_CLOUDFRONT_CERTIFICATE_ARN: ${{ secrets.CLOUDFRONT_CERTIFICATE_ARN }}
+          TF_VAR_HOSTED_ZONE_DOMAIN: ${{ secrets.HOSTED_ZONE_DOMAIN }}
+          TF_VAR_CDN_DOMAIN: ${{ secrets.CDN_DOMAIN }}
+          TF_VAR_PORT: ${{ secrets.PORT }}
+          TF_VAR_LAMBDA_FUNCTION_NAME: ${{ secrets.LAMBDA_FUNCTION_NAME }}
 
