@@ -53,9 +53,8 @@ jobs:
           role-to-assume: arn:aws:iam::453188237434:role/GitHub-OIDC-Role-idi8WHkkXyJ2
           role-duration-seconds: 1500 #adjust as needed for your build time
           aws-region: ${{ secrets.REGION }}
-      - name: Build
-        
-        run: echo ${{ github.workspace }} 
+      - name: Build & deploy frontend-nextjs
+        run: node ${{ github.workspace }}/terraform/frontend-nextjs/packages/deploy/build/deploy.js deploy
         env:
           CI: false
           NEXT_PUBLIC_FRONTEND_URL: ${{ secrets.NEXT_PUBLIC_FRONTEND_URL }}
