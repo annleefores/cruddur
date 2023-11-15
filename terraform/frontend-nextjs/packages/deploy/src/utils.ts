@@ -6,14 +6,14 @@ export const filePath = () => {
   const appPath = path.join(process.cwd(), ".");
   const srcOrApp = fs.existsSync(path.join(appPath, "src")) ? "src/app" : "app";
   const srcPath = path.join(appPath, srcOrApp);
-  const basePath = path.join(process.cwd(), "../");
+  const scriptBasePath = path.join(__dirname, "../../../");
   return {
     srcPath: srcPath,
     publicPath: path.join(appPath, "public"),
     appPath: appPath,
     standaloneOutputPath: path.join(appPath, ".next", "standalone"),
     staticOutputPath: path.join(appPath, ".next", "static"),
-    tfPath: path.join(basePath, "tf"),
+    tfPath: path.join(scriptBasePath, "tf"),
   };
 };
 

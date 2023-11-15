@@ -1,9 +1,0 @@
-{
-  "git": {
-    "deploymentEnabled": {
-      "prod-frontend": false,
-      "prod": false,
-      "dev": false
-    }
-  }
-}
