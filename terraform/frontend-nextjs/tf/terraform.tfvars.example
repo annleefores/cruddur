@@ -1,0 +1,24 @@
+# app deploy region. eg: us-east-1
+REGION = "us-east-1" # update this value
+
+# domain name for application. eg: example.cm
+DOMAIN_NAME = 
+
+# SSL certificate for this domain in deployment region. eg: arn:aws:acm:<region>:<account_id>:certificate/<unique_identifier>
+API_GW_CERTIFICATE_ARN = 
+
+# SSL certificate for this domain in us-east-1 region (must be created in us-east-1, refer the docs for more info)
+# https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/cnames-and-https-requirements.html
+CLOUDFRONT_CERTIFICATE_ARN = 
+
+# Hosted zone domain. eg: example.com
+HOSTED_ZONE_DOMAIN = 
+
+# Domain for CloudFront CDN. eg: cdn.example.com
+CDN_DOMAIN = 
+
+# Application port. eg: 3000
+PORT = 3000
+
+# Custom name for server lambda (optional)
+LAMBDA_FUNCTION_NAME = 

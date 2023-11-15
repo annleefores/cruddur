@@ -73,6 +73,10 @@ Parameters:
   EnvBackendUrl:
     Type: String
 
+  FlaskEnv:
+    Type: String
+    Default: "production"
+
   SecretsAWSAccessKeyId:
     Type: AWS::SSM::Parameter::Value<String>
     Default: /cfn/cruddur/backend-flask/SecretsAWSAccessKeyId
@@ -196,6 +200,8 @@ Resources:
                 awslogs-region: !Ref AWS::Region
                 awslogs-stream-prefix: !Ref ServiceName
             Environment:
+              - Name: FLASK_ENV
+                Value: !Ref FlaskEnv
               - Name: 'OTEL_SERVICE_NAME'
                 Value: !Ref EnvOtelServiceName
               - Name: 'OTEL_EXPORTER_OTLP_ENDPOINT'

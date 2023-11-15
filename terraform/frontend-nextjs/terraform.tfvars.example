@@ -1,7 +1,0 @@
-REGION               = ""
-DOMAIN_NAME          = ""
-CERTIFICATE_ARN      = ""
-HOSTED_ZONE_DOMAIN   = ""
-S3_BUCKET            = ""
-PORT                 = ""
-LAMBDA_FUNCTION_NAME = ""

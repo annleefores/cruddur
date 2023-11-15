@@ -1,0 +1,32 @@
+{
+  "name": "nextjs13-lambda",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.ts",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "clean": "rm -rf node_modules",
+    "start": "node build/deploy.js",
+    "build": "webpack --mode production",
+    "dev": "concurrently \"webpack --mode development --watch\" \"nodemon -q build/deploy.js\""
+  },
+  "keywords": [
+    "nextjs",
+    "nextjs13",
+    "nextjs-app-router",
+    "nextjs-deploy"
+  ],
+  "author": "Annlee Fores",
+  "license": "ISC",
+  "devDependencies": {
+    "concurrently": "^8.2.2",
+    "nodemon": "^3.0.1",
+    "ts-loader": "^9.5.0",
+    "typescript": "^5.2.2",
+    "webpack": "^5.89.0",
+    "webpack-cli": "^5.1.4"
+  },
+  "dependencies": {
+    "@types/node": "^20.9.0"
+  }
+}
