@@ -13,6 +13,10 @@ on:
     paths:
       - "frontend-nextjs/**"
 
+permissions:
+  id-token: write # This is required for requesting the JWT
+  contents: read # This is required for actions/checkout
+
 jobs:
   build_and_deploy:
     name: Build and Deploy Nextjs app
@@ -21,6 +25,7 @@ jobs:
       run:
         working-directory: ./frontend-nextjs/
     steps:
+      
       - name: checkout branch
         uses: actions/checkout@v3
 
@@ -30,10 +35,27 @@ jobs:
           node-version: 18.x
           cache: "npm"
           cache-dependency-path: ./frontend-nextjs/package-lock.json
+
+      - name: Setup Terraform with specified version on the runner
+        uses: hashicorp/setup-terraform@v2
+        with:
+          terraform_version: 1.6.1
+      
+      - name: Terraform init
+        id: init
+        run: terraform -chdir='${{ github.workspace }}/terraform/frontend-nextjs/tf/'  init
+
       - name: Install deps
         run: npm ci
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v2
+        with:
+          role-to-assume: arn:aws:iam::453188237434:role/GitHub-OIDC-Role-idi8WHkkXyJ2
+          role-duration-seconds: 600 #adjust as needed for your build time
+          aws-region: ${{ secrets.REGION }}
       - name: Build
-        run: npm run build
+        
+        run: echo ${{ github.workspace }} 
         env:
           CI: false
           NEXT_PUBLIC_FRONTEND_URL: ${{ secrets.NEXT_PUBLIC_FRONTEND_URL }}
@@ -41,23 +63,12 @@ jobs:
           NEXT_PUBLIC_AWS_USER_POOLS_ID: ${{ secrets.NEXT_PUBLIC_AWS_USER_POOLS_ID }}
           NEXT_PUBLIC_CLIENT_ID: ${{ secrets.NEXT_PUBLIC_CLIENT_ID }}
           NEXT_PUBLIC_API_GATEWAY_ENDPOINT_URL: ${{ secrets.NEXT_PUBLIC_API_GATEWAY_ENDPOINT_URL }}
-      - name: sync static files to S3
-        run: aws s3 sync .next/static/ s3://${{ vars.CDN_NAME }}/_next/static/
-        env:
-          AWS_REGION: ${{ secrets.REGION }}
-          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-      - name: package function files
-        run: |
-          cp -r public/. .next/standalone/public
-          cp run.sh .next/standalone/
-      - name: zip package files
-        working-directory: ./frontend-nextjs/.next/standalone/
-        run: zip -r -q lambda_function_payload.zip .
-      - name: deploy files to lambda
-        working-directory: ./frontend-nextjs/.next/standalone/
-        run: aws lambda update-function-code --function-name ${{ vars.FUNC_NAME }} --zip-file fileb://lambda_function_payload.zip
-        env:
-          AWS_REGION: ${{ secrets.REGION }}
-          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          REGION: ${{ secrets.REGION }}
+          DOMAIN_NAME: ${{ secrets.DOMAIN_NAME }}
+          API_GW_CERTIFICATE_ARN: ${{ secrets.API_GW_CERTIFICATE_ARN }}
+          CLOUDFRONT_CERTIFICATE_ARN: ${{ secrets.CLOUDFRONT_CERTIFICATE_ARN }}
+          HOSTED_ZONE_DOMAIN: ${{ secrets.HOSTED_ZONE_DOMAIN }}
+          CDN_DOMAIN: ${{ secrets.CDN_DOMAIN }}
+          PORT: ${{ secrets.PORT }}
+          LAMBDA_FUNCTION_NAME: ${{ secrets.LAMBDA_FUNCTION_NAME }}
+

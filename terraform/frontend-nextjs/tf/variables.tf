@@ -18,16 +18,13 @@ variable "timeout" {
 }
 
 variable "LAMBDA_FUNCTION_NAME" {
-
   type    = string
   default = "Nextjs-app"
-
 }
 
 variable "AWS_LAMBDA_EXEC_WRAPPER" {
   type    = string
   default = "/opt/bootstrap"
-
 }
 
 variable "PORT" {
@@ -37,29 +34,37 @@ variable "PORT" {
 }
 
 variable "REGION" {
-  type      = string
-  sensitive = true
-
+  type = string
 }
 
 variable "DOMAIN_NAME" {
   type = string
-
 }
 
 
-variable "CERTIFICATE_ARN" {
+variable "API_GW_CERTIFICATE_ARN" {
   type = string
+}
 
+variable "CLOUDFRONT_CERTIFICATE_ARN" {
+  type = string
 }
 
 variable "HOSTED_ZONE_DOMAIN" {
   type = string
+}
+
+variable "CDN_DOMAIN" {
+  type = string
+}
+
+variable "SOURCE_DIR" {
+  type = string
 
 }
 
-variable "S3_BUCKET" {
-  type = string
-
+variable "FIRST_RUN" {
+  type    = bool
+  default = false
 }
 

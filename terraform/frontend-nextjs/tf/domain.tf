@@ -3,7 +3,7 @@ resource "aws_apigatewayv2_domain_name" "api_gw_domain" {
   domain_name = var.DOMAIN_NAME
 
   domain_name_configuration {
-    certificate_arn = var.CERTIFICATE_ARN
+    certificate_arn = var.API_GW_CERTIFICATE_ARN
     endpoint_type   = "REGIONAL"
     security_policy = "TLS_1_2"
   }
@@ -26,7 +26,7 @@ resource "aws_route53_record" "application_domain" {
   }
 }
 resource "aws_route53_record" "cloudfront_domain" {
-  name    = var.S3_BUCKET
+  name    = var.CDN_DOMAIN
   type    = "A"
   zone_id = data.aws_route53_zone.HostedZoneID.zone_id
 
