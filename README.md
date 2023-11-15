@@ -1,7 +1,7 @@
 
 # Cruddur: A Twitter-Inspired Ephemeral Social Media
 
-![GitHub Action](https://github.com/annleefores/aws-bootcamp-cruddur-2023/actions/workflows/lambda_nextjs.yaml/badge.svg)
+[![Next.js frontend](https://github.com/annleefores/cruddur/actions/workflows/lambda_nextjs.yaml/badge.svg?branch=prod-frontend)](https://github.com/annleefores/cruddur/actions/workflows/lambda_nextjs.yaml)
 
 
 ## Introduction
