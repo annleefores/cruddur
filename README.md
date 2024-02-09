@@ -1,5 +1,5 @@
 
-# Cruddur: A Twitter-Inspired Ephemeral Social Media
+# Cruddur: Ephemeral Social Media
 
 [![Next.js frontend](https://github.com/annleefores/cruddur/actions/workflows/lambda_nextjs.yaml/badge.svg?branch=prod-frontend)](https://github.com/annleefores/cruddur/actions/workflows/lambda_nextjs.yaml)
 
